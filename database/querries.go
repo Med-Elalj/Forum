@@ -77,3 +77,19 @@ func QuerryPostsbyUser(db *sql.DB, username string, ammount int) ([]structs.Post
 	}
 	return res, nil
 }
+
+func GetUserByUname(db *sql.DB, username string) (string, error) {
+	var hpassword string
+	fmt.Println(username, hpassword)
+	err := db.QueryRow("SELECT password FROM users WHERE username=?", username).Scan(&hpassword)
+	fmt.Println(username, hpassword)
+
+	if err == sql.ErrNoRows {
+		fmt.Println("User not found")
+		return "", fmt.Errorf("user not found")
+	} else if err != nil {
+		fmt.Println(err)
+		return "", err
+	}
+	return hpassword, nil
+}
