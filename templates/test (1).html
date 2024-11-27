@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <body class="dark">
+        <header class="p-4 flex justify-between items-center border-b border-gray-700">
+            <div class="text-2xl font-bold">LOGO</div>
+            <nav>
+                <button class="px-4 py-2 text-gray-300 hover:text-white">Register</button>
+                <button class="px-4 py-2 bg-blue-600 rounded hover:bg-blue-700">Login</button>
+            </nav>
+        </header>
+    
+        <main class="flex-grow flex items-center justify-center p-4">
+            <div class="bg-darkField p-8 rounded-lg shadow-lg w-full max-w-md">
+                <form class="space-y-6">
+                    <div>
+                        <label for="username" class="block text-sm font-medium text-gray-300">Username</label>
+                        <input type="text" id="username" name="username" required
+                               class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400
+                                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-300">Email</label>
+                        <input type="email" id="email" name="email" required
+                               class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400
+                                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-300">Password</label>
+                        <input type="password" id="password" name="password" required
+                               class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400
+                                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <button type="submit"
+                                class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Register
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    
+        <footer class="text-center p-4 text-gray-400">
+            <p>&copy; 2023 Your Company. All rights reserved.</p>
+        </footer>
+    </body>
+    <script>
+        const toggleDarkMode = () => {
+            document.body.classList.toggle('dark');
+        };
+    </script>
