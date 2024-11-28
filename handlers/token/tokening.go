@@ -27,7 +27,5 @@ func GenerateSessionToken(val string) (string, error) {
 	header := base64.StdEncoding.EncodeToString([]byte(exp))
 	signature := base64.StdEncoding.EncodeToString([]byte(hashedKey))
 	token = "Y3VzdG9t" + "." + body + "." + header + "." + signature
-	fmt.Println(signature)
-	fmt.Println(token)
 	return token, nil
 }

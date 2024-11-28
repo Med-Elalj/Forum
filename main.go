@@ -22,6 +22,7 @@ func main() {
 		panic(err.Error())
 	}
 	database.CreateTables(db)
+	database.CreateTriggers(db)
 	fmt.Println("Database setup complete!")
 	ticker := time.NewTicker(time.Hour)
 	go database.DES_Ticker(ticker, db)
@@ -34,9 +35,9 @@ func main() {
 	handlers.DB = db
 	fmt.Println("User created successfully!")
 	fmt.Println(database.QuerryPostsbyUser(db, "username", 5))
-	http.HandleFunc("/login", handlers.Login)
+	http.HandleFunc("POST /login", handlers.Login)
+	http.HandleFunc("POST /register", handlers.Register)
 	http.Handle("/", http.FileServer(http.Dir("templates/")))
-	// http.HandleFunc("/register", handlers.Register)
 	fmt.Println("Server listening on :8080...")
 	err = http.ListenAndServe(":8080", nil)
 	if err != nil {
