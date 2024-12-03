@@ -27,3 +27,10 @@ type View struct {
 	IsLike bool
 	Time   time.Time
 }
+
+type UserProfile struct {
+	UID       int
+	Username  string
+	Posts     []Post
+	CreatedAt time.Time
+}

@@ -60,16 +60,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(struct{ Token string }{token})
 }
 
-func ErrorPage(w http.ResponseWriter, status int, err error) {
-	w.WriteHeader(status)
-	json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
-}
-
-func ErrorJs(w http.ResponseWriter, status int, err error) {
-	w.WriteHeader(status)
-	json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
-}
-
 func Register(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	r.ParseForm()
