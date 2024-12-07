@@ -33,7 +33,7 @@ func main() {
 	fmt.Println(database.QuerryPostsbyUser(db, "username", 5))
 	http.HandleFunc("POST /login", handlers.Login)
 	http.HandleFunc("POST /register", handlers.Register)
-	http.Handle("/", http.FileServer(http.Dir("templates/")))
+	http.Handle("/", http.FileServer(http.Dir("frontend/")))
 	fmt.Println("Server listening on :8080...")
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
