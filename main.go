@@ -11,16 +11,12 @@ import (
 )
 
 func main() {
-	fmt.Println(time.Now().Add(time.Hour * 24).Unix())
 	if len(os.Args) != 2 {
 		fmt.Println("Usage: go run setup.go <database_file>")
 		os.Exit(1)
 	}
 	fmt.Printf("Creating database at %v...\n", os.Args[1:])
-	db, err := database.OpenDatabase(os.Args[1])
-	if err != nil {
-		panic(err.Error())
-	}
+	db := database.OpenDatabase(os.Args[1])
 	database.CreateTables(db)
 	database.CreateTriggers(db)
 	fmt.Println("Database setup complete!")
@@ -39,7 +35,7 @@ func main() {
 	http.HandleFunc("POST /register", handlers.Register)
 	http.Handle("/", http.FileServer(http.Dir("templates/")))
 	fmt.Println("Server listening on :8080...")
-	err = http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		panic(err.Error())
 	}

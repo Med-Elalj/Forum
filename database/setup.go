@@ -9,8 +9,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-func OpenDatabase(file string) (*sql.DB, error) {
-	fmt.Println(file)
+func OpenDatabase(file string) *sql.DB {
 	db, err := sql.Open("sqlite3", file)
 	if err != nil {
 		log.Fatal(err)
@@ -22,7 +21,7 @@ func OpenDatabase(file string) (*sql.DB, error) {
 		log.Fatal(err)
 	}
 	fmt.Println("Database opened successfully!")
-	return db, nil
+	return db
 }
 
 func CreateTables(db *sql.DB) {

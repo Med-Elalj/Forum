@@ -23,7 +23,7 @@ var (
 
 func init() {
 	email_RGX = regexp.MustCompile(`^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`)
-	username_RGX = regexp.MustCompile(`^[a-zA-Z0-9_-]{3,20}$`)
+	username_RGX = regexp.MustCompile(`^\w{3,19}$`)
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
