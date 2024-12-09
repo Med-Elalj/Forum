@@ -31,8 +31,6 @@
     height: 100vh;
 }  
 .postContent{
-    /* display: flex;
-    flex-wrap: wrap ; */
     background-color: var(--WhiteBlue);
     height: 90vh;
     width: 45%;
@@ -42,6 +40,10 @@
     border-right: 5px solid var(--GreeyDarked);
     box-shadow: var(--shadow);
     overflow: scroll;
+    color: var(--BlueDarker);
+    line-height: 2em;
+    font-size: 17px;
+
 }
 .postContent img{
     height: 100%;
@@ -61,32 +63,26 @@
     overflow: scroll;
 }
 .commentCard{
-    display: block;
-    background-color: var(--WhiteB);
+    display: flex;
+    background-color: var(--Greey);
     padding: 5px;
     border-radius: 10px;
     margin: 10px;
+
 }
 .commentAuthor{
     display: flex;
     flex-direction: column;
 }
-.ReactionAndName{
-    display: flex;
-}
-.commentTime{
-    display: block;
-}
-.ReactionAndName
-{
-    margin-left: auto;
-}
+
 .commentReaction{
     display: flex;
     justify-content:right;
     height: 40px;
-    gap: 20px;
+    gap: 10px;
     margin-right: 10px;
+    margin-left: auto;
+
 }
 .like, .dislike{
     display: flex;
@@ -113,13 +109,21 @@
 
 
 }
-.authorImage img, .commentAuthor img{
+.authorImage img, .commentAuthorImage img{
     width: 50px;
     height: 50px;
     border-radius: 50%;
 }
 .authorImage img{
     border: 4px solid #088395;
+}
+.commentAuthorImage{
+    display: flex;
+    flex-direction: column;
+}
+.commentAuthorImage img{
+    border: 4px solid #088395;
+    margin: 10px;
 }
 .authorInfo{
     display: block;
@@ -128,10 +132,16 @@
 }
 .commentAuthorInfo{
     display: flex;
-    margin: 10px;
-    gap: 5px;
-    padding-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+    /* margin: 10px; */
+    /* gap: 5px; */
+    /* padding-bottom: 10px; */
     border-bottom: var(--border);
+
+}
+.Testing {
+    display: flex;
 }
 .authorInfo .Title{
     display: inline;
@@ -139,6 +149,9 @@
     font-weight: bold;
     color: var(--BlueDarker);
     text-shadow: var(--textshadow);
+    
+    
+
 }
 .authorInfo .authorName{
     font-weight: bold;
@@ -151,6 +164,12 @@
 .commentAuthorName{
     color: var(--DarkBlue);
     font-weight: 700;
+
+}
+.commentAuthorName .commentTime {
+    color: var(--GreeyD);
+    font-size: 14px;
+    font-weight: 300;  /* Ensures the date doesn't get bold */
 }
 .addToFavourite span{
     color:  var(--GreeyD);
@@ -171,7 +190,9 @@
 }
 
 .commentInfo{
-    margin: 10px;
+    display: block;
+    /* margin: 0px 10px; */
+
 }
 .collapse{
     height: 50px;
@@ -182,9 +203,11 @@
     text-overflow: ellipsis;
 }
 .commentData{
+    margin-top: 5px;
     height: auto;
     overflow: hidden;
     cursor: pointer;
+
 }
 .hidden{
     display: none;
@@ -196,4 +219,32 @@
     font-size: 14px;
     padding: 4px;
     border-radius: 4px;
+}
+
+.commentContainer {
+    position: sticky;
+    bottom: 0;
+    background-color: var(--White);
+    padding: 10px;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    z-index: 10; 
+}
+
+.commentInput input {
+    width: 100%; 
+    padding: 10px;
+    border: 1px solid var(--GreeyD);
+    border-radius: 10px;
+    resize: none;
+    max-height: 100px;
+    min-height: 50px;
+    overflow-y: auto;
+    font-size: 16px;
+    color: var(--BlueDarker);
+}
+
+.commentInput input:focus {
+    outline: none;
+    border-color: var(--BlueGreen);
+    box-shadow: 0 0 5px rgba(8, 131, 149, 0.3);
 }
