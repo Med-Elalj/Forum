@@ -36,10 +36,11 @@ a {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 10px 0 10px 10%;
-    width: 29%;
+    /* padding: 10px; */
+    width: 20%;
     height: 100%;
     position: fixed;
+    left: 2.5%;
 }
 
 /* .sidebar-right {
@@ -59,7 +60,7 @@ hr{
 .sidebar-right {
     display: flex;
     flex-direction: column;
-    right: 10%;
+    right: 2.5%;
     height: 570px;
     width: 20%;
     border-radius: 16px;
@@ -92,16 +93,12 @@ hr{
     margin-top: 30px;
     justify-content: space-between;
 }
-.nav-links a{
-    color: var(--Black);
-
-}
 .nav-links a {
     display: flex;
     align-items: center;
     font-size: 2rem;
     padding: 8px 25px 8px 8px;
-    width: fit-content;
+    color: var(--Black);
 }
 
 .nav-links a i {
@@ -112,11 +109,9 @@ hr{
 
 .nav-links a:hover,
 .main-account a:hover {
-    width: 100%;
-    border-left: 7px solid var(--BlueGreen);
     background-color: #41c6d3;
     color: var(--White);
-    padding: 8px 25px 8px 0px;
+    border-radius: 9999px;
 }
 /* 
 .nav-links a:first-child {
@@ -208,7 +203,7 @@ nav {
     font-size: 1.7rem;
     color: white;
     font-weight: 700;
-    border: 1px solid var(--BlueGreen);
+    border: none;
     padding: 5px 5px;
     height: 55px;
     transition-duration: 0.2s;
@@ -259,9 +254,9 @@ nav {
 }
 
 main {
-    width: 71%;
+    width: 50%;
     height: 100%;
-    margin-left: 29%;
+    margin-left: 25%;
 }
 
 .main-flex {
@@ -270,7 +265,7 @@ main {
 }
 
 .main-feed {
-    width: 50%;
+    width: 100%;
     /* border: 1px solid var(--Black); */
     display: flex;
     flex-direction: column;
@@ -606,8 +601,9 @@ main {
 }
 
 .feet-tweet-detail {
+    display: flex;
+    flex-direction: column;
     margin-left: 5px;
-    width: 80%;
 }
 .dropdown{
     cursor: pointer;

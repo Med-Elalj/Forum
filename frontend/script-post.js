@@ -19,11 +19,14 @@ favourite_area.addEventListener('click', function(){
     if (favourite_icon.textContent == "bookmark_add"){
         favourite_icon.textContent = "bookmark_added"
         favourite_icon.style.color = "#088395"
+        favourite_icon.classList.add("FILL")
          // the  rest of the code will write here to send request
         // to backend to update database 
     }else{
         favourite_icon.textContent = "bookmark_add"
         favourite_icon.style.color = "#919191"
+        favourite_icon.classList.remove("FILL")
+
          // the  rest of the code will write here to send request
         // to backend to update database 
 
@@ -38,20 +41,19 @@ let comment_dislike = document.querySelectorAll(".commentReaction .dislike")
 comment_like.forEach(like => {
     like.addEventListener('click', function(){
         let dislike = like.nextElementSibling;
-        if (dislike.classList.contains("clicked"))
-            dislike.classList.remove("clicked");
         like.classList.toggle("clicked");
-         // the  rest of the code will write here to send request
-        // to backend to update database 
+        like.classList.toggle("FILL");
+        dislike.classList.remove("FILL");
     })
 })
 
 comment_dislike.forEach(dislike => {
     dislike.addEventListener('click', function(){
         let like = dislike.previousElementSibling;
-        if (like.classList.contains("clicked"))
-            like.classList.remove("clicked");
         dislike.classList.toggle("clicked");
+        dislike.classList.toggle("FILL");
+        like.classList.remove("FILL");
+
         // the  rest of the code will write here to send request
         // to backend to update database 
         
