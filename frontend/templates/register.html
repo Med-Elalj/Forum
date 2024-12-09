@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="navbar">
+        <a class="link" href="login.html">Login</a>
+        <a class="link" href="register.html">Register</a>
+        <button class="icon-button"><i class="fas fa-user"></i></button>
+    </div>
+    <div>
+        <form class="regester" method="POST" action="/templates/index.html">
+            <h1>Register</h1>
+            <label for="user">Username :</label>
+            <input type="text" id="user" placeholder="Username..."><br><br>
+            <div id="usernameMessage" class="message"></div>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Email"><br>
+            <div id="emailMessage" class="message"></div>
+
+            <label for="pass">Password:</label>
+            <input type="password" id="pass" placeholder="Password">
+            <div class="passChecker">
+                <div class="lower">A lowercase letter</div>
+                <div class="upper">A capital (uppercase) letter</div>
+                <div class="number">A number</div>
+                <div class="symbol">A symbol ex(@\']...)</div>
+                <div class="length">Minimum 8 characters</div>
+            </div>
+
+            <label for="password">Confirmation password</label>
+            <input type="password" id="confirmPass" placeholder="Confirmation password"><br>
+            <div id="confirmPassMessage" class="message"></div>
+
+            <button id="registerBtn" disabled>Register</button><br>
+            <p>Already have an account? <a href="login.html">Login</a> </p>
+        </form>
+    </div>
+
+    <script src="register.js"></script>
+</body>
+
+</html>
