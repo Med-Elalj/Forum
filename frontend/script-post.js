@@ -41,7 +41,6 @@ let comment_dislike = document.querySelectorAll(".commentReaction .dislike")
 comment_like.forEach(like => {
     like.addEventListener('click', function(){
         let dislike = like.nextElementSibling;
-        like.classList.toggle("clicked");
         like.classList.toggle("FILL");
         dislike.classList.remove("FILL");
     })
@@ -50,7 +49,6 @@ comment_like.forEach(like => {
 comment_dislike.forEach(dislike => {
     dislike.addEventListener('click', function(){
         let like = dislike.previousElementSibling;
-        dislike.classList.toggle("clicked");
         dislike.classList.toggle("FILL");
         like.classList.remove("FILL");
 

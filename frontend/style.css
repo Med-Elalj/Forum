@@ -8,13 +8,22 @@
 :root{
     --WhiteBlue: #def0f4;
     --White: #ffffff;
+    --WhiteB: #e0eced;
     --Greey: #efefef;
+    --GreeyD: #919191;
+    --GreeyDarked: hsla(0, 0%, 81%, 0.294);
+    --shadow : 0px 10px 10px hsla(0, 0%, 40%, 0.30);
+    --shadowLittle : 0px 10px 10px hsla(0, 0%, 40%, 0.20);
+    --textshadow : 0px 5px 5px hsla(0, 0%, 40%, 0.30);
+    --border : 2px solid  hsla(0, 0%, 54%, 0.318);
     --BlueGreenWhite: #37B7C3;
     --BlueGreen: #088395;
     --BlueDarker: #0a5c68;
-    --DarkBlue: #071952;
+    --DarkBlue: #22252f;
     --Black: #242424;
 }
+
+
 html {
     font-size: 10px;
     font-family: 'Poppins', sans-serif;
@@ -154,12 +163,17 @@ nav {
 }
 
 .SignOptions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-right: 25px;
 }
 
-.Buttons {
+.SignOptions .Buttons {
     display: flex;
     justify-content: center;
+    align-items: center;
+    height: fit-content;
     background-color: var(--White);
     color: var(--BlueGreen);
     font-weight: 600;
@@ -215,18 +229,17 @@ nav {
 }
 
 
-.main-account {
-    width: 100%;
-    height: 30%;
-    padding-top: 185px;
-}
 
 .main-account a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 10px 8px 15px;
+    padding: 2px 15px;
     margin-right: 10px;
+    text-decoration: none;
+    color: #0a5c68;
+    background-color: var(--White);
+    border-radius: 90px;
 }
 
 .tweet-img {
@@ -320,35 +333,43 @@ main {
 .Hashtag {
     display: flex;
     margin-top: 5px;
-    color: white;
     gap: 15px;
-    /* font-size: 14px; */
-    opacity: 0.9;
+    font-size: 14px;
 }
 
-.Hashtag span {
+.Hashtag a {
     background-color: #37b7c3;
     padding: 3px 5px 5px 5px;
     font-size: 12px;
     border-radius: 9px;
     opacity: 0.7;
+    text-decoration: none;
 }
 
-.Hashtag span:nth-child(2) {
+.Hashtag span{
+    color: white;
+}
+
+.Hashtag a:nth-child(1) {
+    background-color: green;
+}
+.Hashtag a:nth-child(2) {
     background-color: red;
 }
 
-.Hashtag span:nth-child(1) {
-    background-color: green;
-}
-.Hashtag span:nth-child(3) {
+.Hashtag a:nth-child(3) {
     background-color: purple;
 }
 
-.Hashtag span:nth-child(4) {
+.Hashtag a:nth-child(4) {
     background-color: orange;
 }
-
+.Hashtag a:nth-child(5) {
+    background-color: blue;
+}
+.Hashtag a:nth-child(6) {
+    background-color: teal;
+}
 
 .new-tweet .tweet-img {
     width: 63px;
@@ -410,6 +431,7 @@ main {
 .feed-tweet {
     display: flex;
     flex-wrap: wrap;
+    align-items: flex-start;
     width: 100%;
     min-height: 100px;
     padding: 12px 16px 0 16px;
@@ -417,6 +439,7 @@ main {
     background-color: var(--WhiteBlue);
     border-radius: 10px;
     box-shadow: 0px 3px 10px hwb(0 0% 80% / 0.32);
+    gap: 12px;
 }
 
 .feed-tweet-details {
@@ -426,16 +449,19 @@ main {
     margin-left: 12px;
 }
 
-.feed-tweet i {
+.dropdown i,  .comment{
     color: var(--BlueGreen);
-    font-size: 2rem;
+    text-shadow: var(--textshadow);
+}
+.counters{
+    color: var(--DarkBlue);
 }
 
-.tweet-details {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    font-size: 1.5rem;
+.feed-tweet .tweet-img {
+    width: 49px;
+    height: 50px;
+    border-radius: 50%;
+    flex-shrink: 0; /* Prevent image from shrinking */
 }
 
 .tweet-details a {
@@ -454,6 +480,12 @@ main {
     color: var(--Black);
     font-size: 1.5rem;
     width: 100%;
+    text-overflow:ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    cursor: pointer;
+    overflow: hidden;
 }
 
 .tweet-icons {
@@ -461,9 +493,16 @@ main {
     justify-content: space-between;
     width: 100%;
     margin: 15px 0;
-    padding-right: 50px;
+    padding-right: 25px;
 }
 
+.react , .comment{
+    display: flex;
+    gap: 20px;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
 .h1-title {
     color: var(--BlueGreen);
@@ -576,16 +615,16 @@ main {
     justify-content: space-between;
 }
 
-.react {
-    display: flex;
-    gap: 20px;
+.FILL {
+    font-variation-settings: 'FILL' 1;
+    color: var(--BlueDarker) !important;
 }
 
-.react span,
+.counters span,
 .comment span {
     font-weight: 600;
     font-size: 15px;
-    color: var(--DarkBlue);
+    color: var(--BlueDarker);
 }
 
 .counters,
@@ -594,37 +633,68 @@ main {
     align-items: center;
     justify-content: center;
     gap: 6px;
+    cursor: pointer;
 }
-.row-tweet{
-    display: flex;
-    justify-content: space-between;
+
+.react .counters:hover{
+    color: var(--BlueGreenWhite) !important;
 }
 
 .feet-tweet-detail {
     display: flex;
     flex-direction: column;
-    margin-left: 5px;
+    width: calc(100% - 65px);
+    flex-grow: 1;
 }
-.dropdown{
-    cursor: pointer;
-}
+
 .show {
     display: block !important;
 }
-.dropdown  .content{
+
+.row-tweet {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Vertically center the items */
+    width: 100%;
+}
+
+.tweet-details {
+    display: flex;
+    align-items: flex-start;
+    flex-grow: 1; /* Allow this to take available space */
+}
+
+.dropdown {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.dropdown .content {
     position: absolute;
+    top: 100%; /* Position below the more_horiz icon */
+    right: 0;
+    background-color: var(--Greey);
     display: none;
-    background-image: linear-gradient(to right, var(--BlueGreen), var(--BlueGreenWhite));
-    opacity: .8;
-    color: white;
+    color: var(--Black);
     border-radius: 4px;
     z-index: 10;
     font-size: 14px;
     font-weight: 300;
+    width: max-content;
+    min-width: 120px;
+    box-shadow: var(--shadowLittle); /* Optional: adds a subtle shadow */
 }
-.content li{
+
+.content ul {
+    display: block;  /* Ensure the list is displayed properly */
+    white-space: nowrap;  /* Prevent text from wrapping */
+}
+
+.content li {
     list-style: none;
-    padding: 4px;
+    padding: 5px 10px;
     border-bottom: 1px solid var(--BlueDarker);
     border-radius: 4px;
 }
@@ -644,4 +714,8 @@ main {
     .Buttons {
         font-size: 1.3rem;
     }
+}
+
+.fetchMore{
+    margin: 50px;
 }

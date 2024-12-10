@@ -107,8 +107,6 @@ html {
 .like:hover, .dislike:hover{
     color: var(--BlueDarker);
 }
-.clicked{
-}
 .postInfo{
     display: flex;
     position: sticky;

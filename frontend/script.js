@@ -12,3 +12,29 @@ document.addEventListener('click', function(event) {
         contentList.classList.remove('show');
     }
 });
+
+
+// for Comments Like and Dislike on Post Page
+let like = document.querySelectorAll(".react .like")
+let dislike = document.querySelectorAll(".react .dislike")
+
+// Handling Like Button Clicked in Post Comments
+like.forEach(like_elem => {
+    like_elem.addEventListener('click', function(){
+        let dislike_sibling = like_elem.nextElementSibling;
+        like_elem.classList.toggle("FILL");
+        dislike_sibling.classList.remove("FILL");
+    })
+})
+
+dislike.forEach(dislike_elem => {
+    dislike_elem.addEventListener('click', function(){
+        let like_sibling = dislike_elem.previousElementSibling;
+        dislike_elem.classList.toggle("FILL");
+        like_sibling.classList.remove("FILL");
+
+        // the  rest of the code will write here to send request
+        // to backend to update database 
+        
+    })
+})

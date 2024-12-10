@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
     <title>Switter</title>
     <link rel="icon" href="/frontend/images/logo.svg" type="image/svg">
@@ -14,19 +16,31 @@
 <body>
     <div class="ParentContainer">
         <nav>
+            <!-- Logo -->
             <div class="Logo">
                 <span>Forum</span>Project
             </div>
+            <!-- Search Bar -->
             <div class="search">
                 <input type="text" placeholder="Search Forum">
             </div>
             <div class="SignOptions">
                 <a href="" class="Buttons">
-                    <i class="material-icons-outlined">login</i>
+                    <i class="material-symbols-outlined">login</i>
                     <span>Login / Register</span>
                 </a>
+                <div class="main-account">
+                    <a href="">
+                        <img class="tweet-img" src="images/profile.png" alt="">
+                        <div class="account-details">
+                            <span class="account-name">Oelhaouc</span>
+                            <span class="account-handle">@oelhaouc</span>
+                        </div>
+                        <i class="material-symbols-outlined">more_horiz</i>
+                    </a>
+                </div>
                 <!--<a href="" class="Buttons">
-                    <i class="material-icons-outlined">logout</i>
+                    <i class="material-symbols-outlined">logout</i>
                     <span>Logout</span>
                 </a>-->
             </div>
@@ -35,335 +49,704 @@
             <div class="nav-links">
 
                 <a href="">
-                    <i class="material-icons-outlined">home</i>
+                    <i class="material-symbols-outlined">home</i>
                     <span>Home</span>
                 </a>
                 <a href="">
-                    <i class="material-icons-outlined">tag</i>
+                    <i class="material-symbols-outlined">tag</i>
                     <span style="font-weight: 600;">My Posts</span>
                 </a>
                 <a href="">
-                    <i class="material-icons-outlined">notifications</i>
+                    <i class="material-symbols-outlined">notifications</i>
                     <span>Liked Posts</span>
                 </a>
 
                 <a href="">
-                    <i class="material-icons-outlined">person</i>
+                    <i class="material-symbols-outlined">person</i>
                     <span>Profile</span>
                 </a>
                 <a href="">
-                    <i class="material-icons-outlined">person</i>
+                    <i class="material-symbols-outlined">person</i>
                     <span>New Buttons</span>
                 </a>
                 <a href="">
-                    <i class="material-icons-outlined">person</i>
+                    <i class="material-symbols-outlined">person</i>
                     <span>New Buttons</span>
                 </a>
                 <a href="">
-                    <i class="material-icons-outlined">person</i>
+                    <i class="material-symbols-outlined">person</i>
                     <span>New Buttons</span>
                 </a>
                 <button class="tweet-button">New Post</button>
             </div>
-            <div class="main-account">
-                <a href="">
-                    <img class="tweet-img" src="images/profile.png" alt="">
-                    <div class="account-details">
-                        <span class="account-name">Oelhaouc</span>
-                        <span class="account-handle">@oelhaouc</span>
-                    </div>
-                    <i class="material-icons-outlined">more_horiz</i>
-                </a>
-            </div>
+           
         </section>
         <main>
             <div class="main-flex">
                 <div class="main-feed">
-                    <!-- <div class="home-bar">
-                        <span>Homex</span>
-                        <i class="material-icons-outlined">auto_awesome</i>
-                    </div> -->
+                    <!-- New post -->
                     <div class="new-tweet">
                         <img src="images/profile.png" alt="" class="tweet-img">
                         <div class="new-tweet-details">
                             <textarea class="textarea" type="text" placeholder="What's happening?" disabled></textarea>
-                            <!-- <div class="new-tweet-actions">
-                           
-                            <button class="tweet-button">Sweet</button>
-                        </div> -->
                         </div>
                     </div>
-                    <div class="feed-tweet">
 
+                    <!-- Post Cards -->
+                    <div class="feed-tweet">
+                        <!-- User image -->
                         <img src="images/profile.png" alt="" class="tweet-img">
-                        
                         <div class="feet-tweet-detail">
                             <div class="row-tweet">
                                 <div class="tweet-details">
+                                    <!-- Post Title -->
                                     <a href="" class="tweeter-name">How to improve you english?
+                                        <!-- Post Auther Name And Date-->
                                         <br><span class="tweeter-handle">@Oelhaouc .1h</span>
                                     </a>
                                 </div>
                                 <div class="dropdown">
-                                    <i class="material-icons-outlined">more_horiz</i>
+                                    <i class="material-symbols-outlined">more_horiz</i>
                                     <div class="content">
+                                        <!-- Control Posts -->
                                         <ul>
                                             <li>Add to Favourite</li>
                                             <li>Delete</li>
                                         </ul>
                                     </div>
                                 </div>
-                          </div>
-
+                            </div>
+                            <!-- Post Content -->
                             <div class="tweet-text">
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit voluptas eos et
                                     eligendi
                                     perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
                                     saepe
-                                    consequuntur dolores molestias quae, alias magni.
+                                    eligendi
+                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
+                                    saepe
                                 </p>
-                                
-                            </div>
-                            <div class="Hashtag">
-                                <span>#General</span><span>#General</span><span>#General</span><span>#General</span>
-                            </div>
-                            <div class="tweet-icons">
-                                <div class="react">
-                                    <div class="counters">
-                                        <i class="material-icons-outlined">thumb_up</i>
-                                        <span>10</span>
-                                    </div>
-                                    <div class="counters">
-                                        <i class="material-icons-outlined">thumb_down</i>
-                                        <span>10</span>
-                                    </div>
-                                </div>
-                                <div class="comment">
-                                    <i class="material-icons-outlined">comment</i>
-                                    <span>10</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="feed-tweet">
-                        <img src="images/profile.png" alt="" class="tweet-img">
-                        <div class="feet-tweet-detail">
-                            <div class="tweet-details">
-                                <a href="" class="tweeter-name">Omar El-haouch
-                                    <span class="tweeter-handle">@Oelhaouc .1h</span>
-                                </a>
-                                <i class="material-icons-outlined">more_horiz</i>
-                            </div>
-                            <div class="tweet-text">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit voluptas eos et
-                                    eligendi
-                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
-                                    saepe
-                                    consequuntur dolores molestias quae, alias magni.</p>
-                            </div>
-                            <div class="tweet-icons">
-                                <div class="react">
-                                    <div class="counters">
-                                        <i class="material-icons-outlined">thumb_up</i>
-                                        <span>10</span>
-                                    </div>
-                                    <div class="counters">
-                                        <i class="material-icons-outlined">thumb_down</i>
-                                        <span>10</span>
-                                    </div>
-                                </div>
-                                <div class="comment">
-                                    <i class="material-icons-outlined">comment</i>
-                                    <span>10</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="feed-tweet">
-                        <img src="images/profile.png" alt="" class="tweet-img">
-                        <div class="feet-tweet-detail">
-                            <div class="tweet-details">
-                                <a href="" class="tweeter-name">Omar El-haouch
-                                    <span class="tweeter-handle">@Oelhaouc .1h</span>
-                                </a>
-                                <i class="material-icons-outlined">more_horiz</i>
-                            </div>
-                            <div class="tweet-text">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit voluptas eos et
-                                    eligendi
-                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
-                                    saepe
-                                    consequuntur dolores molestias quae, alias magni.</p>
-                            </div>
-                            <div class="tweet-icons">
-                                <div class="react">
-                                    <div class="counters">
-                                        <i class="material-icons-outlined">thumb_up</i>
-                                        <span>10</span>
-                                    </div>
-                                    <div class="counters">
-                                        <i class="material-icons-outlined">thumb_down</i>
-                                        <span>10</span>
-                                    </div>
-                                </div>
-                                <div class="comment">
-                                    <i class="material-icons-outlined">comment</i>
-                                    <span>10</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="feed-tweet">
-                        <img src="images/profile.png" alt="" class="tweet-img">
-                        <div class="feet-tweet-detail">
-                            <div class="tweet-details">
-                                <a href="" class="tweeter-name">Omar El-haouch
-                                    <span class="tweeter-handle">@Oelhaouc .1h</span>
-                                </a>
-                                <i class="material-icons-outlined">more_horiz</i>
-                            </div>
-                            <div class="tweet-text">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit voluptas eos et
-                                    eligendi
-                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
-                                    saepe
-                                    consequuntur dolores molestias quae, alias magni.</p>
-                            </div>
-                            <div class="tweet-icons">
-                                <div class="react">
-                                    <div class="counters">
-                                        <i class="material-icons-outlined">thumb_up</i>
-                                        <span>10</span>
-                                    </div>
-                                    <div class="counters">
-                                        <i class="material-icons-outlined">thumb_down</i>
-                                        <span>10</span>
-                                    </div>
-                                </div>
-                                <div class="comment">
-                                    <i class="material-icons-outlined">comment</i>
-                                    <span>10</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="feed-tweet">
-                        <img src="images/profile.png" alt="" class="tweet-img">
-                        <div class="feet-tweet-detail">
-                            <div class="tweet-details">
-                                <a href="" class="tweeter-name">Omar El-haouch
-                                    <span class="tweeter-handle">@Oelhaouc .1h</span>
-                                </a>
-                                <i class="material-icons-outlined">more_horiz</i>
-                            </div>
-                            <div class="tweet-text">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit voluptas eos et
-                                    eligendi
-                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
-                                    saepe
-                                    consequuntur dolores molestias quae, alias magni.</p>
-                            </div>
-                            <div class="tweet-icons">
-                                <div class="react">
-                                    <div class="counters">
-                                        <i class="material-icons-outlined">thumb_up</i>
-                                        <span>10</span>
-                                    </div>
-                                    <div class="counters">
-                                        <i class="material-icons-outlined">thumb_down</i>
-                                        <span>10</span>
-                                    </div>
-                                </div>
-                                <div class="comment">
-                                    <i class="material-icons-outlined">comment</i>
-                                    <span>10</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="feed-tweet">
-                        <img src="images/profile.png" alt="" class="tweet-img">
-                        <div class="feet-tweet-detail">
-                            <div class="tweet-details">
-                                <a href="" class="tweeter-name">Omar El-haouch
-                                    <span class="tweeter-handle">@Oelhaouc .1h</span>
-                                </a>
-                                <i class="material-icons-outlined">more_horiz</i>
-                            </div>
-                            <div class="tweet-text">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit voluptas eos et
-                                    eligendi
-                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
-                                    saepe
-                                    consequuntur dolores molestias quae, alias magni.</p>
-                            </div>
-                            <div class="tweet-icons">
-                                <div class="react">
-                                    <div class="counters">
-                                        <i class="material-icons-outlined">thumb_up</i>
-                                        <span>10</span>
-                                    </div>
-                                    <div class="counters">
-                                        <i class="material-icons-outlined">thumb_down</i>
-                                        <span>10</span>
-                                    </div>
-                                </div>
-                                <div class="comment">
-                                    <i class="material-icons-outlined">comment</i>
-                                    <span>10</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                    <div class="sidebar-right">
-                        <h1 class="h1-title">Categories</h1>
-                        <hr class="categories-line">
-                        <div class="trending-item">
-                            <div class="item-category">
-                                <p>Technology</p>
                             </div>
-                            <span>10 Posts</span>
-                        </div>
-                        <hr>
-                        <div class="trending-item">
-                            <div class="item-category">
-                                <p>Business</p>
+                            <!-- Post Categories -->
+                            <div class="Hashtag">
+                                <a href=""><span>#Technology</span></a>
+                                <a href=""><span>#Bussniess</span></a>
+                                <a href=""><span>#Sport</span></a>
+                                <a href=""><span>#Economy</span></a>
+                                <a href=""><span>#Videos</span></a>
+                                <a href=""><span>#General</span></a>
                             </div>
-                            <span>10 Posts</span>
-                        </div>
-                        <hr>
-                        <div class="trending-item">
-                            <div class="item-category">
-                                <p>Economy</p>
+                            <div class="tweet-icons">
+                                <div class="react">
+                                    <!-- Post Like Counter -->
+                                    <div class="counters like" id="{POST ID}">
+                                        <i class="material-symbols-outlined">thumb_up</i>
+                                        <span>10</span>
+                                    </div>
+                                    <!-- Post Dislike Counter -->
+                                    <div class="counters dislike" id="{POST ID}">
+                                        <i class="material-symbols-outlined">thumb_down</i>
+                                        <span>10</span>
+                                    </div>
+                                </div>
+                                <div class="comment">
+                                    <!-- Post Comments Counter -->
+                                    <i class="material-symbols-outlined">comment</i>
+                                    <span>10</span>
+                                </div>
                             </div>
-                            <span>10 Posts</span>
                         </div>
-                        <hr>
-                        <div class="trending-item">
-                            <div class="item-category">
-                                <p>Sport</p>
-                            </div>
-                            <span>10 Posts</span>
-                        </div>
-                        <hr>
-                        <div class="trending-item">
-                            <div class="item-category">
-                                <p>Videos</p>
-                            </div>
-                            <span>10 Videos</span>
-                        </div>
-                        <hr>
-                        <div class="trending-item">
-                            <div class="item-category">
-                                <p>General</p>
-                            </div>
-                            <span>10 Posts</span>
-                        </div>
-                        <!-- <a href="" class="show-more">Show more</a> !-->
                     </div>
-                    <!-- <div class="follow">
+                    <!-- New Post Card  --> <!-- Post Cards -->
+                    <div class="feed-tweet">
+                        <!-- User image -->
+                        <img src="images/profile.png" alt="" class="tweet-img">
+                        <div class="feet-tweet-detail">
+                            <div class="row-tweet">
+                                <div class="tweet-details">
+                                    <!-- Post Title -->
+                                    <a href="" class="tweeter-name">How to improve you english?
+                                        <!-- Post Auther Name And Date-->
+                                        <br><span class="tweeter-handle">@Oelhaouc .1h</span>
+                                    </a>
+                                </div>
+                                <div class="dropdown">
+                                    <i class="material-symbols-outlined">more_horiz</i>
+                                    <div class="content">
+                                        <!-- Control Posts -->
+                                        <ul>
+                                            <li>Add to Favourite</li>
+                                            <li>Delete</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Post Content -->
+                            <div class="tweet-text">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit voluptas eos et
+                                    eligendi
+                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
+                                    saepe
+                                    eligendi
+                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
+                                    saepe
+                                </p>
+
+                            </div>
+                            <!-- Post Categories -->
+                            <div class="Hashtag">
+                                <a href=""><span>#Technology</span></a>
+                                <a href=""><span>#Bussniess</span></a>
+                                <a href=""><span>#Sport</span></a>
+                                <a href=""><span>#Economy</span></a>
+                                <a href=""><span>#Videos</span></a>
+                                <a href=""><span>#General</span></a>
+                            </div>
+                            <div class="tweet-icons">
+                                <div class="react">
+                                    <!-- Post Like Counter -->
+                                    <div class="counters like" id="{POST ID}">
+                                        <i class="material-symbols-outlined">thumb_up</i>
+                                        <span>10</span>
+                                    </div>
+                                    <!-- Post Dislike Counter -->
+                                    <div class="counters dislike" id="{POST ID}">
+                                        <i class="material-symbols-outlined">thumb_down</i>
+                                        <span>10</span>
+                                    </div>
+                                </div>
+                                <div class="comment">
+                                    <!-- Post Comments Counter -->
+                                    <i class="material-symbols-outlined">comment</i>
+                                    <span>10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- New Post Card  -->
+                    <!-- Post Cards -->
+                    <div class="feed-tweet">
+                        <!-- User image -->
+                        <img src="images/profile.png" alt="" class="tweet-img">
+                        <div class="feet-tweet-detail">
+                            <div class="row-tweet">
+                                <div class="tweet-details">
+                                    <!-- Post Title -->
+                                    <a href="" class="tweeter-name">How to improve you english?
+                                        <!-- Post Auther Name And Date-->
+                                        <br><span class="tweeter-handle">@Oelhaouc .1h</span>
+                                    </a>
+                                </div>
+                                <div class="dropdown">
+                                    <i class="material-symbols-outlined">more_horiz</i>
+                                    <div class="content">
+                                        <!-- Control Posts -->
+                                        <ul>
+                                            <li>Add to Favourite</li>
+                                            <li>Delete</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Post Content -->
+                            <div class="tweet-text">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit voluptas eos et
+                                    eligendi
+                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
+                                    saepe
+                                    eligendi
+                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
+                                    saepe
+                                </p>
+
+                            </div>
+                            <!-- Post Categories -->
+                            <div class="Hashtag">
+                                <a href=""><span>#Technology</span></a>
+                                <a href=""><span>#Bussniess</span></a>
+                                <a href=""><span>#Sport</span></a>
+                                <a href=""><span>#Economy</span></a>
+                                <a href=""><span>#Videos</span></a>
+                                <a href=""><span>#General</span></a>
+                            </div>
+                            <div class="tweet-icons">
+                                <div class="react">
+                                    <!-- Post Like Counter -->
+                                    <div class="counters like" id="{POST ID}">
+                                        <i class="material-symbols-outlined">thumb_up</i>
+                                        <span>10</span>
+                                    </div>
+                                    <!-- Post Dislike Counter -->
+                                    <div class="counters dislike" id="{POST ID}">
+                                        <i class="material-symbols-outlined">thumb_down</i>
+                                        <span>10</span>
+                                    </div>
+                                </div>
+                                <div class="comment">
+                                    <!-- Post Comments Counter -->
+                                    <i class="material-symbols-outlined">comment</i>
+                                    <span>10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- New Post Card  -->
+                    <!-- Post Cards -->
+                    <div class="feed-tweet">
+                        <!-- User image -->
+                        <img src="images/profile.png" alt="" class="tweet-img">
+                        <div class="feet-tweet-detail">
+                            <div class="row-tweet">
+                                <div class="tweet-details">
+                                    <!-- Post Title -->
+                                    <a href="" class="tweeter-name">How to improve you english?
+                                        <!-- Post Auther Name And Date-->
+                                        <br><span class="tweeter-handle">@Oelhaouc .1h</span>
+                                    </a>
+                                </div>
+                                <div class="dropdown">
+                                    <i class="material-symbols-outlined">more_horiz</i>
+                                    <div class="content">
+                                        <!-- Control Posts -->
+                                        <ul>
+                                            <li>Add to Favourite</li>
+                                            <li>Delete</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Post Content -->
+                            <div class="tweet-text">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit voluptas eos et
+                                    eligendi
+                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
+                                    saepe
+                                    eligendi
+                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
+                                    saepe
+                                </p>
+
+                            </div>
+                            <!-- Post Categories -->
+                            <div class="Hashtag">
+                                <a href=""><span>#Technology</span></a>
+                                <a href=""><span>#Bussniess</span></a>
+                                <a href=""><span>#Sport</span></a>
+                                <a href=""><span>#Economy</span></a>
+                                <a href=""><span>#Videos</span></a>
+                                <a href=""><span>#General</span></a>
+                            </div>
+                            <div class="tweet-icons">
+                                <div class="react">
+                                    <!-- Post Like Counter -->
+                                    <div class="counters like" id="{POST ID}">
+                                        <i class="material-symbols-outlined">thumb_up</i>
+                                        <span>10</span>
+                                    </div>
+                                    <!-- Post Dislike Counter -->
+                                    <div class="counters dislike" id="{POST ID}">
+                                        <i class="material-symbols-outlined">thumb_down</i>
+                                        <span>10</span>
+                                    </div>
+                                </div>
+                                <div class="comment">
+                                    <!-- Post Comments Counter -->
+                                    <i class="material-symbols-outlined">comment</i>
+                                    <span>10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- New Post Card  -->
+                    <!-- Post Cards -->
+                    <div class="feed-tweet">
+                        <!-- User image -->
+                        <img src="images/profile.png" alt="" class="tweet-img">
+                        <div class="feet-tweet-detail">
+                            <div class="row-tweet">
+                                <div class="tweet-details">
+                                    <!-- Post Title -->
+                                    <a href="" class="tweeter-name">How to improve you english?
+                                        <!-- Post Auther Name And Date-->
+                                        <br><span class="tweeter-handle">@Oelhaouc .1h</span>
+                                    </a>
+                                </div>
+                                <div class="dropdown">
+                                    <i class="material-symbols-outlined">more_horiz</i>
+                                    <div class="content">
+                                        <!-- Control Posts -->
+                                        <ul>
+                                            <li>Add to Favourite</li>
+                                            <li>Delete</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Post Content -->
+                            <div class="tweet-text">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit voluptas eos et
+                                    eligendi
+                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
+                                    saepe
+                                    eligendi
+                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
+                                    saepe
+                                </p>
+
+                            </div>
+                            <!-- Post Categories -->
+                            <div class="Hashtag">
+                                <a href=""><span>#Technology</span></a>
+                                <a href=""><span>#Bussniess</span></a>
+                                <a href=""><span>#Sport</span></a>
+                                <a href=""><span>#Economy</span></a>
+                                <a href=""><span>#Videos</span></a>
+                                <a href=""><span>#General</span></a>
+                            </div>
+                            <div class="tweet-icons">
+                                <div class="react">
+                                    <!-- Post Like Counter -->
+                                    <div class="counters like" id="{POST ID}">
+                                        <i class="material-symbols-outlined">thumb_up</i>
+                                        <span>10</span>
+                                    </div>
+                                    <!-- Post Dislike Counter -->
+                                    <div class="counters dislike" id="{POST ID}">
+                                        <i class="material-symbols-outlined">thumb_down</i>
+                                        <span>10</span>
+                                    </div>
+                                </div>
+                                <div class="comment">
+                                    <!-- Post Comments Counter -->
+                                    <i class="material-symbols-outlined">comment</i>
+                                    <span>10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- New Post Card  -->
+                    <!-- Post Cards -->
+                    <div class="feed-tweet">
+                        <!-- User image -->
+                        <img src="images/profile.png" alt="" class="tweet-img">
+                        <div class="feet-tweet-detail">
+                            <div class="row-tweet">
+                                <div class="tweet-details">
+                                    <!-- Post Title -->
+                                    <a href="" class="tweeter-name">How to improve you english?
+                                        <!-- Post Auther Name And Date-->
+                                        <br><span class="tweeter-handle">@Oelhaouc .1h</span>
+                                    </a>
+                                </div>
+                                <div class="dropdown">
+                                    <i class="material-symbols-outlined">more_horiz</i>
+                                    <div class="content">
+                                        <!-- Control Posts -->
+                                        <ul>
+                                            <li>Add to Favourite</li>
+                                            <li>Delete</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Post Content -->
+                            <div class="tweet-text">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit voluptas eos et
+                                    eligendi
+                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
+                                    saepe
+                                    eligendi
+                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
+                                    saepe
+                                </p>
+
+                            </div>
+                            <!-- Post Categories -->
+                            <div class="Hashtag">
+                                <a href=""><span>#Technology</span></a>
+                                <a href=""><span>#Bussniess</span></a>
+                                <a href=""><span>#Sport</span></a>
+                                <a href=""><span>#Economy</span></a>
+                                <a href=""><span>#Videos</span></a>
+                                <a href=""><span>#General</span></a>
+                            </div>
+                            <div class="tweet-icons">
+                                <div class="react">
+                                    <!-- Post Like Counter -->
+                                    <div class="counters like" id="{POST ID}">
+                                        <i class="material-symbols-outlined">thumb_up</i>
+                                        <span>10</span>
+                                    </div>
+                                    <!-- Post Dislike Counter -->
+                                    <div class="counters dislike" id="{POST ID}">
+                                        <i class="material-symbols-outlined">thumb_down</i>
+                                        <span>10</span>
+                                    </div>
+                                </div>
+                                <div class="comment">
+                                    <!-- Post Comments Counter -->
+                                    <i class="material-symbols-outlined">comment</i>
+                                    <span>10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- New Post Card  -->
+                    <!-- Post Cards -->
+                    <div class="feed-tweet">
+                        <!-- User image -->
+                        <img src="images/profile.png" alt="" class="tweet-img">
+                        <div class="feet-tweet-detail">
+                            <div class="row-tweet">
+                                <div class="tweet-details">
+                                    <!-- Post Title -->
+                                    <a href="" class="tweeter-name">How to improve you english?
+                                        <!-- Post Auther Name And Date-->
+                                        <br><span class="tweeter-handle">@Oelhaouc .1h</span>
+                                    </a>
+                                </div>
+                                <div class="dropdown">
+                                    <i class="material-symbols-outlined">more_horiz</i>
+                                    <div class="content">
+                                        <!-- Control Posts -->
+                                        <ul>
+                                            <li>Add to Favourite</li>
+                                            <li>Delete</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Post Content -->
+                            <div class="tweet-text">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit voluptas eos et
+                                    eligendi
+                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
+                                    saepe
+                                    eligendi
+                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
+                                    saepe
+                                </p>
+
+                            </div>
+                            <!-- Post Categories -->
+                            <div class="Hashtag">
+                                <a href=""><span>#Technology</span></a>
+                                <a href=""><span>#Bussniess</span></a>
+                                <a href=""><span>#Sport</span></a>
+                                <a href=""><span>#Economy</span></a>
+                                <a href=""><span>#Videos</span></a>
+                                <a href=""><span>#General</span></a>
+                            </div>
+                            <div class="tweet-icons">
+                                <div class="react">
+                                    <!-- Post Like Counter -->
+                                    <div class="counters like" id="{POST ID}">
+                                        <i class="material-symbols-outlined">thumb_up</i>
+                                        <span>10</span>
+                                    </div>
+                                    <!-- Post Dislike Counter -->
+                                    <div class="counters dislike" id="{POST ID}">
+                                        <i class="material-symbols-outlined">thumb_down</i>
+                                        <span>10</span>
+                                    </div>
+                                </div>
+                                <div class="comment">
+                                    <!-- Post Comments Counter -->
+                                    <i class="material-symbols-outlined">comment</i>
+                                    <span>10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- New Post Card  -->
+                    <!-- Post Cards -->
+                    <div class="feed-tweet">
+                        <!-- User image -->
+                        <img src="images/profile.png" alt="" class="tweet-img">
+                        <div class="feet-tweet-detail">
+                            <div class="row-tweet">
+                                <div class="tweet-details">
+                                    <!-- Post Title -->
+                                    <a href="" class="tweeter-name">How to improve you english?
+                                        <!-- Post Auther Name And Date-->
+                                        <br><span class="tweeter-handle">@Oelhaouc .1h</span>
+                                    </a>
+                                </div>
+                                <div class="dropdown">
+                                    <i class="material-symbols-outlined">more_horiz</i>
+                                    <div class="content">
+                                        <!-- Control Posts -->
+                                        <ul>
+                                            <li>Add to Favourite</li>
+                                            <li>Delete</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Post Content -->
+                            <div class="tweet-text">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit voluptas eos et
+                                    eligendi
+                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
+                                    saepe
+                                    eligendi
+                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
+                                    saepe
+                                </p>
+
+                            </div>
+                            <!-- Post Categories -->
+                            <div class="Hashtag">
+                                <a href=""><span>#Technology</span></a>
+                                <a href=""><span>#Bussniess</span></a>
+                                <a href=""><span>#Sport</span></a>
+                                <a href=""><span>#Economy</span></a>
+                                <a href=""><span>#Videos</span></a>
+                                <a href=""><span>#General</span></a>
+                            </div>
+                            <div class="tweet-icons">
+                                <div class="react">
+                                    <!-- Post Like Counter -->
+                                    <div class="counters like" id="{POST ID}">
+                                        <i class="material-symbols-outlined">thumb_up</i>
+                                        <span>10</span>
+                                    </div>
+                                    <!-- Post Dislike Counter -->
+                                    <div class="counters dislike" id="{POST ID}">
+                                        <i class="material-symbols-outlined">thumb_down</i>
+                                        <span>10</span>
+                                    </div>
+                                </div>
+                                <div class="comment">
+                                    <!-- Post Comments Counter -->
+                                    <i class="material-symbols-outlined">comment</i>
+                                    <span>10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- New Post Card  -->
+                    <!-- Post Cards -->
+                    <div class="feed-tweet">
+                        <!-- User image -->
+                        <img src="images/profile.png" alt="" class="tweet-img">
+                        <div class="feet-tweet-detail">
+                            <div class="row-tweet">
+                                <div class="tweet-details">
+                                    <!-- Post Title -->
+                                    <a href="" class="tweeter-name">How to improve you english?
+                                        <!-- Post Auther Name And Date-->
+                                        <br><span class="tweeter-handle">@Oelhaouc .1h</span>
+                                    </a>
+                                </div>
+                                <div class="dropdown">
+                                    <i class="material-symbols-outlined">more_horiz</i>
+                                    <div class="content">
+                                        <!-- Control Posts -->
+                                        <ul>
+                                            <li>Add to Favourite</li>
+                                            <li>Delete</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Post Content -->
+                            <div class="tweet-text">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit voluptas eos et
+                                    eligendi
+                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
+                                    saepe
+                                    eligendi
+                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
+                                    saepe
+                                </p>
+
+                            </div>
+                            <!-- Post Categories -->
+                            <div class="Hashtag">
+                                <a href=""><span>#Technology</span></a>
+                                <a href=""><span>#Bussniess</span></a>
+                                <a href=""><span>#Sport</span></a>
+                                <a href=""><span>#Economy</span></a>
+                                <a href=""><span>#Videos</span></a>
+                                <a href=""><span>#General</span></a>
+                            </div>
+                            <div class="tweet-icons">
+                                <div class="react">
+                                    <!-- Post Like Counter -->
+                                    <div class="counters like" id="{POST ID}">
+                                        <i class="material-symbols-outlined">thumb_up</i>
+                                        <span>10</span>
+                                    </div>
+                                    <!-- Post Dislike Counter -->
+                                    <div class="counters dislike" id="{POST ID}">
+                                        <i class="material-symbols-outlined">thumb_down</i>
+                                        <span>10</span>
+                                    </div>
+                                </div>
+                                <div class="comment">
+                                    <!-- Post Comments Counter -->
+                                    <i class="material-symbols-outlined">comment</i>
+                                    <span>10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- New Post Card  -->
+                     <div class="fetchMore">
+                        Fetching More data <br>
+                        You have reached the end
+                     </div>
+                </div>
+                
+                <div class="sidebar-right">
+                    <h1 class="h1-title">Categories</h1>
+                    <hr class="categories-line">
+                    <div class="trending-item">
+                        <div class="item-category">
+                            <p>Technology</p>
+                        </div>
+                        <span>10 Posts</span>
+                    </div>
+                    <hr>
+                    <div class="trending-item">
+                        <div class="item-category">
+                            <p>Business</p>
+                        </div>
+                        <span>10 Posts</span>
+                    </div>
+                    <hr>
+                    <div class="trending-item">
+                        <div class="item-category">
+                            <p>Economy</p>
+                        </div>
+                        <span>10 Posts</span>
+                    </div>
+                    <hr>
+                    <div class="trending-item">
+                        <div class="item-category">
+                            <p>Sport</p>
+                        </div>
+                        <span>10 Posts</span>
+                    </div>
+                    <hr>
+                    <div class="trending-item">
+                        <div class="item-category">
+                            <p>Videos</p>
+                        </div>
+                        <span>10 Videos</span>
+                    </div>
+                    <hr>
+                    <div class="trending-item">
+                        <div class="item-category">
+                            <p>General</p>
+                        </div>
+                        <span>10 Posts</span>
+                    </div>
+                    <!-- <a href="" class="show-more">Show more</a> !-->
+                </div>
+                <!-- <div class="follow">
                     <h class="h1-title">Who to follow</h>
                     <div class="follow-profile">
                         <div class="follow-cont">
