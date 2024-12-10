@@ -1,17 +1,22 @@
 console.log("TEST");
 let clicked = 0;
-const dropdown = document.querySelector('.dropdown i')
-const contentList = document.querySelector('.content')
-dropdown.addEventListener('click', ()=>{
-    contentList.classList.toggle("show")
+const dropdown = document.querySelectorAll('.dropdown i')
+let contentList = document.querySelectorAll('.content')
+
+dropdown.forEach(drop => {
+    let contentSibling = drop.nextElementSibling
+    drop.addEventListener('click', ()=>{
+        contentSibling.classList.toggle("show")
+    })
+    document.addEventListener('click', function(event) {
+        if (!contentSibling.contains(event.target) && !drop.contains(event.target) && contentSibling.classList.contains("show")) {
+            console.log(contentSibling.classList);
+            contentSibling.classList.remove('show');
+        }
+    });
 })
 
-document.addEventListener('click', function(event) {
-    if (!contentList.contains(event.target) && !dropdown.contains(event.target) && contentList.classList.contains("show")) {
-        console.log(contentList.classList);
-        contentList.classList.remove('show');
-    }
-});
+
 
 
 // for Comments Like and Dislike on Post Page

@@ -332,6 +332,7 @@ main {
 }
 .Hashtag {
     display: flex;
+    flex-wrap: wrap;
     margin-top: 5px;
     gap: 15px;
     font-size: 14px;
@@ -381,8 +382,9 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    width: 85%;
-    margin-left: 12px;
+    width: calc(100% - 73px);
+    margin-left: 10px;
+
 }
 
 
