@@ -18,7 +18,6 @@ dropdown.forEach(drop => {
 
 
 
-
 // for Comments Like and Dislike on Post Page
 let like = document.querySelectorAll(".react .like")
 let dislike = document.querySelectorAll(".react .dislike")
