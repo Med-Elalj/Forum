@@ -3,6 +3,7 @@ package database
 import (
 	"database/sql"
 
+	"forum/database/querries"
 	"forum/structs"
 )
 
@@ -11,12 +12,7 @@ func GetUserProfile(db *sql.DB, username string) (structs.UserProfile, error) {
 	var post structs.Post
 
 	// Query the user and their posts
-	rows, err := db.Query(`
-	SELECT u.id, u.username, u.created_at, p.id AS post_id, p.title, p.content, p.created_at AS post_created_at
-	FROM users u
-	LEFT JOIN posts p ON u.id = p.user_id
-	WHERE u.username = ?
-	ORDER BY p.created_at`, username)
+	rows, err := db.Query(querries.GetUserProfile, username)
 	if err != nil {
 		return userProfile, err
 	}

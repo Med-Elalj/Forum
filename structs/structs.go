@@ -12,12 +12,13 @@ type Comment struct {
 }
 
 type Post struct {
-	ID        int
-	UserID    int
-	UserName  string
-	Title     string
-	Content   string
-	CreatedAt time.Time
+	ID         int
+	UserID     int
+	UserName   string
+	Title      string
+	Content    string
+	CreatedAt  time.Time
+	Categories []string
 }
 
 type View struct {
