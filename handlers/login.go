@@ -102,13 +102,13 @@ func validpassword(password string) bool {
 		return false
 	}
 	for _, char := range password {
-		if unicode.IsLower(char) {
+		if !a && unicode.IsLower(char) {
 			a = true
 			continue
-		} else if unicode.IsUpper(char) {
+		} else if !A && unicode.IsUpper(char) {
 			A = true
 			continue
-		} else if unicode.IsDigit(char) {
+		} else if !d && unicode.IsDigit(char) {
 			d = true
 			continue
 		}
