@@ -13,16 +13,37 @@
 </head>
 
 <body>
-    <div class="createPostContainer">
-        <form action="" method="GET">
-            <div class="titleInput">
-                <label for="">Title</label>
-            </div>
-            <div class="postInput">Post Input</div>
-            <div class="categories">Choose Categories</div>
-           <span> button to submit</span>
-        </form>
+    <div class="postModal">
+
+        <div class="createPostContainer">
+            <form action="" method="GET">
+                <div class="titleInput">
+                    <input type="text" name="title" id="" placeholder="Title...">
+                </div>
+                <div class="postInput">
+                    <textarea name="content" id="" placeholder="Write Something..."></textarea>
+                </div>
+                <div class="categories">
+                    <span class="categoryOptions">Choose Categories:</span>
+
+                    <input type="checkbox" name="category" id="general" value="General">
+                    <label for="general">General</label>
+                    <input type="checkbox" name="category" id="videos" value="Videos">
+                    <label for="videos">Videos</label>
+                    <input type="checkbox" name="category" id="sport" value="Sport">
+                    <label for="sport">Sport</label>
+                    <input type="checkbox" name="category" id="economy" value="Economy">
+                    <label for="economy">Economy</label>
+                    <input type="checkbox" name="category" id="busnisess" value="Busnisess">
+                    <label for="busnisess">Busnisess</label>
+                    <input type="checkbox" name="category" id="technology" value="Technology">
+                    <label for="technology">Technology</label>
+                </div>
+                <input type="submit" class="submitButton">
+            </form>
+        </div>
     </div>
+
     <script src="script-post.js"></script>
 </body>
 
