@@ -1,16 +1,96 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Popup Example with Icon</title>
+    <!-- Link to Material Icons (optional, use if needed) -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <style>
+        /* Style for the popup */
+        .popup {
+            display: none; /* Hide by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            z-index: 9999; /* Make sure the popup appears on top */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+        }
+
+        a {
+            padding: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Style for the clickable icon */
+        .popup-icon {
+            font-size: 36px;
+            cursor: pointer;
+        }
+
+        #closePopupLink {
+            margin-top: 10px;
+            display: inline-block;
+            padding: 10px;
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
-    <div class="notice">
-        <h1>Welcome back</h1>
-        <p>Log in or sign up to add commants and likes deslikes, and more.</p>
-        <button><a href="login.html">Log in</a></button><br>
-        <button><a href="register.html">Create new account</a></button>
+    <!-- Icon to trigger popup -->
+    <i class="material-symbols-outlined popup-icon">thumb_down</i>
+    
+    <!-- Popup container -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <h1>Welcome back</h1>
+            <p>Log in or sign up to add comments, likes, dislikes, and more.</p>
+            <a href="login.html">Log in</a><br>
+            <a href="register.html">Create new account</a><br>
+            <a href="#">Stay logged out</a>
+            <a href="#" id="closePopupLink">Close</a> <!-- Close link -->
+        </div>
     </div>
+
+    <script>
+        // Get elements
+        const popupIcon = document.querySelector('.popup-icon');
+        const closePopupLink = document.getElementById('closePopupLink');
+        const popup = document.getElementById('popup');
+
+        // Open the popup when icon is clicked
+        popupIcon.onclick = function() {
+            popup.style.display = 'flex'; // Show the popup
+        }
+
+        // Close the popup
+        closePopupLink.onclick = function(event) {
+            event.preventDefault();  // Prevent the default anchor link behavior
+            popup.style.display = 'none'; // Hide the popup
+        }
+
+        // Close the popup if clicked outside the popup content
+        window.onclick = function(event) {
+            if (event.target === popup) {
+                popup.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>
