@@ -51,8 +51,8 @@ body {
     background-color: var(--WhiteBlue);
     margin: auto;
     padding: 20px;
-    width: 750; 
-    max-width: 750px;
+    width: 850px; 
+    max-width: 850px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -91,21 +91,34 @@ body {
     resize: none;
     width: 100%;
 }
+.categories{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0px;
+}
 .categories label{
     font-size: 16px;
-    padding: 2px 8px;
-    background-color: purple;
+    padding: 6px 10px;
+    background-color: var(--BlueGreen);
+    border-radius: 3px;
+    color: var(--White);
+    opacity: 0.5;
     cursor: pointer;
 }
 .categories input{
     display: none;
 }
 .categories input:checked + label {
-    color: green;
-    background-color: blue !important;
+    color: white;
+    background-color: var(--BlueGreen);
+    opacity: 1;
+
 }
 .categoryOptions{
-    background-color: var(--BlueGreen);
+    font-weight:  500;
+    font-size: 16px;
 }
 
 .submitButton{
@@ -123,4 +136,9 @@ body {
     background-color: var(--BlueDarker);
     color: var(--WhiteB);
     transition: all 0.5s;
+}
+.DisableUserSelect{
+    -webkit-user-select: none;
+    -ms-user-select:none;
+    user-select:none;
 }
