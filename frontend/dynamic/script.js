@@ -1,9 +1,9 @@
-console.log("TEST");
 let clicked = 0;
 const dropdown = document.querySelectorAll('.dropdown i')
 let contentList = document.querySelectorAll('.content')
 
 dropdown.forEach(drop => {
+    
     let contentSibling = drop.nextElementSibling
     drop.addEventListener('click', ()=>{
         contentSibling.classList.toggle("show")
@@ -40,5 +40,17 @@ dislike.forEach(dislike_elem => {
         // the  rest of the code will write here to send request
         // to backend to update database 
         
+    })
+})
+
+let allContents = document.querySelectorAll(".tweet-text")
+
+allContents.forEach(content => {
+    content.addEventListener('click', function(event){
+        if (content.classList.contains("collapse"))
+            content.classList.remove("collapse")
+        else
+            content.classList.add("collapse")
+
     })
 })

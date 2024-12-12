@@ -253,13 +253,6 @@ nav {
     border-radius: 90px;
 }
 
-.tweet-img {
-    width: 49px;
-    height: 50px;
-    border-radius: 50%;
-    /* background-color: white; */
-}
-
 .account-details {
     display: flex;
     flex-direction: column;
@@ -392,7 +385,9 @@ main {
 .new-tweet .tweet-img {
     width: 63px;
     height: 63px;
+    background-size: 63px;
     cursor: pointer;
+
 }
 
 .new-tweet-details {
@@ -460,7 +455,6 @@ main {
     box-shadow: 0px 3px 10px hwb(0 0% 80% / 0.32);
     gap: 12px;
 }
-
 .feed-tweet-details {
     display: flex;
     flex-direction: column;
@@ -478,12 +472,30 @@ main {
     color: var(--DarkBlue);
 }
 
-.feed-tweet .tweet-img {
+.tweet-img {
     width: 49px;
     height: 50px;
     border-radius: 50%;
     flex-shrink: 0;
+    border: 2px solid var(--BlueDarker);
+    transition: all .5s;
+    padding: 5px 1px 5px;
+
     /* Prevent image from shrinking */
+}
+.tweet-img:hover {
+    background-color: #088395;
+    transition: all .5s;
+    transform: scale(1.2);
+
+}
+.no-border {
+    border: none;
+    background-color: transparent !important;
+}
+
+.no-border:hover {
+    transform: scale(1);
 }
 
 .tweet-details a {
@@ -497,17 +509,20 @@ main {
     font-weight: 400;
     margin-left: 3px;
 }
-
-.tweet-text {
-    color: var(--Black);
-    font-size: 1.5rem;
-    width: 100%;
-    text-overflow: ellipsis;
+.collapse{
+    height: 60px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
-    cursor: pointer;
     overflow: hidden;
+    text-overflow: ellipsis;
+}
+.tweet-text {
+    height: auto;
+    color: var(--Black);
+    font-size: 1.5rem;
+    width: 100%;
+    cursor: pointer;
 }
 
 .tweet-icons {
@@ -793,6 +808,12 @@ main {
 .search-box button i {
     font-size: 20px;
     color: black;
+}
+.ProfileImage{
+    width: 50px;
+    height: 50px;
+    background-size: 50px;
+    background-repeat: no-repeat;
 }
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
