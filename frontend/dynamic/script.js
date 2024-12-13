@@ -16,7 +16,10 @@ dropdown.forEach(drop => {
     });
 })
 
-
+function checkUserIsLogged(){
+    localStorage.setItem("Token", "This is a test token")
+    const token = localStorage.getItem("token")
+}
 
 // for Comments Like and Dislike on Post Page
 let like = document.querySelectorAll(".react .like")
@@ -25,6 +28,8 @@ let dislike = document.querySelectorAll(".react .dislike")
 // Handling Like Button Clicked in Post Comments
 like.forEach(like_elem => {
     like_elem.addEventListener('click', function(){
+        // Check if the user is loggedin or not :
+        // And check if Dislike is already clicked
         let dislike_sibling = like_elem.nextElementSibling;
         like_elem.classList.toggle("FILL");
         dislike_sibling.classList.remove("FILL");

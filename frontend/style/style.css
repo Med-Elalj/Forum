@@ -812,8 +812,9 @@ main {
 .ProfileImage{
     width: 50px;
     height: 50px;
-    background-size: 50px;
+    background-size: 46px;
     background-repeat: no-repeat;
+
 }
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {

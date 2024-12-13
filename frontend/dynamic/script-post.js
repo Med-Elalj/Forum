@@ -1,6 +1,6 @@
 // for Favourite Button on post Page
-let favourite_area = document.querySelector(".addToFavourite")
-let favourite_icon = document.querySelector(".addToFavourite span")
+// let favourite_area = document.querySelector(".addToFavourite")
+// let favourite_icon = document.querySelector(".addToFavourite span")
 
 // For read More in Post Page
 let comments = document.querySelectorAll(".commentData")
@@ -15,23 +15,23 @@ comments.forEach(elem => {
     })
 })
 
-favourite_area.addEventListener('click', function(){
-    if (favourite_icon.textContent == "bookmark_add"){
-        favourite_icon.textContent = "bookmark_added"
-        favourite_icon.style.color = "#088395"
-        favourite_icon.classList.add("FILL")
-         // the  rest of the code will write here to send request
-        // to backend to update database 
-    }else{
-        favourite_icon.textContent = "bookmark_add"
-        favourite_icon.style.color = "#919191"
-        favourite_icon.classList.remove("FILL")
+// favourite_area.addEventListener('click', function(){
+//     if (favourite_icon.textContent == "bookmark_add"){
+//         favourite_icon.textContent = "bookmark_added"
+//         favourite_icon.style.color = "#088395"
+//         favourite_icon.classList.add("FILL")
+//          // the  rest of the code will write here to send request
+//         // to backend to update database 
+//     }else{
+//         favourite_icon.textContent = "bookmark_add"
+//         favourite_icon.style.color = "#919191"
+//         favourite_icon.classList.remove("FILL")
 
-         // the  rest of the code will write here to send request
-        // to backend to update database 
+//          // the  rest of the code will write here to send request
+//         // to backend to update database 
 
-    }
-})
+//     }
+// })
 
 // for Comments Like and Dislike on Post Page
 let comment_like = document.querySelectorAll(".commentReaction .like")
