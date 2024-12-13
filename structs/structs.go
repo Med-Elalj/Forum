@@ -3,12 +3,14 @@ package structs
 import "time"
 
 type Comment struct {
-	ID        int
-	UserID    int
-	PostID    int
-	UserName  string
-	Content   string
-	CreatedAt time.Time
+	ID           int
+	UserID       int
+	PostID       int
+	UserName     string
+	LikeCount    int
+	DislikeCount int
+	Content      string
+	CreatedAt    time.Time
 }
 
 type Post struct {
@@ -25,10 +27,8 @@ type Post struct {
 
 type View struct {
 	UserID int
-	PostID int
-	IsPost bool
+	ID     int
 	IsLike bool
-	Time   time.Time
 }
 
 type UserProfile struct {

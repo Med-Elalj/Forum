@@ -90,7 +90,7 @@ func CreatePost(db *sql.DB, UserID int, title, content string, categories []stri
 		return err
 	}
 
-	stmt_1, err := tx.Prepare(`INSERT INTO posts(category_in, post_id) VALUES((SELECT id FROM categories WHERE name = ?), ?)`)
+	stmt_1, err := tx.Prepare(`INSERT INTO post_categories(category_in, post_id) VALUES((SELECT id FROM categories WHERE name = ?), ?)`)
 	if err != nil {
 		return err
 	}
