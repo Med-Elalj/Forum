@@ -7,7 +7,7 @@ const popupHTML = `
             <p>Log in or sign up to add comments, likes, dislikes, and more.</p>
             <a href="login.html"><button>Log in</button></a>
             <a href="register.html"><button>Sign up</button></a>
-            <a href=".">Stay logged out</a>
+            <a href="." class="logged-out">Stay logged out</a>
         </div>
     </div>
 `;

@@ -19,7 +19,10 @@
     --Black: #242424;
 }
 
-
+html {
+    font-size: 10px;
+    font-family: 'Poppins', sans-serif;
+}
 
 *{
     margin:0px;
@@ -33,21 +36,109 @@ body {
     width: 100vh;
     height: 100vh;
 }
-
+.postModal{
+    position: fixed;
+    display: flex;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: var(--Greey); /* Black w/ opacity */
+}
 .createPostContainer{
-    position: absolute;
-    left: 20%;
-    top: 20%;
-    background-color: red;
-    width: 60%;
-    height: 60%;
+    background-color: var(--WhiteBlue);
+    margin: auto;
+    padding: 20px;
+    width: 850px; 
+    max-width: 850px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    box-shadow: var(--shadow);
 }
-.titleInput{
-    background-color: blue;
+.titleInput, .postInput{
+    padding: 5px;
+    width: 100%;
 }
-.postInput{
-    background-color: green;
+.titleInput input, .postInput textarea{
+    border-radius: 10px;
+    padding: 10px;
+    color: var(--BlueGreen);
+    font-size: 1.8rem;
+    outline: none;
+    border: none;
+    width: 100%;
+    resize: none;
+}
+.titleInput input::placeholder, .postInput textarea::placeholder{
+    color: var(--BlueGreen);
+}
+
+.postInput {
+    width: 100%;
+    height: 100%;
+}
+.postInput textarea{
+    color: var(--BlueGreenWhite);
+    height: 400px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    resize: none;
+    width: 100%;
 }
 .categories{
-    background-color: purple;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0px;
+}
+.categories label{
+    font-size: 16px;
+    padding: 6px 10px;
+    background-color: var(--BlueGreen);
+    border-radius: 3px;
+    color: var(--White);
+    opacity: 0.5;
+    cursor: pointer;
+}
+.categories input{
+    display: none;
+}
+.categories input:checked + label {
+    color: white;
+    background-color: var(--BlueGreen);
+    opacity: 1;
+
+}
+.categoryOptions{
+    font-weight:  500;
+    font-size: 16px;
+}
+
+.submitButton{
+    padding: 10px;
+    font-size: 20px;
+    font-weight:lighter;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: var(--BlueGreenWhite);
+    color: var(--White);
+    width: 100%;
+}
+.submitButton:hover{
+    background-color: var(--BlueDarker);
+    color: var(--WhiteB);
+    transition: all 0.5s;
+}
+.DisableUserSelect{
+    -webkit-user-select: none;
+    -ms-user-select:none;
+    user-select:none;
 }
