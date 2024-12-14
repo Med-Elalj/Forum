@@ -5,16 +5,26 @@
     padding: 0;
     box-sizing: border-box;
 }
-:root{
+
+:root {
     --WhiteBlue: #def0f4;
     --White: #ffffff;
+    --WhiteB: #e0eced;
     --Greey: #efefef;
+    --GreeyD: #919191;
+    --GreeyDarked: hsla(0, 0%, 81%, 0.294);
+    --shadow: 0px 10px 10px hsla(0, 0%, 40%, 0.30);
+    --shadowLittle: 0px 10px 10px hsla(0, 0%, 40%, 0.20);
+    --textshadow: 0px 5px 5px hsla(0, 0%, 40%, 0.30);
+    --border: 2px solid hsla(0, 0%, 54%, 0.318);
     --BlueGreenWhite: #37B7C3;
     --BlueGreen: #088395;
     --BlueDarker: #0a5c68;
-    --DarkBlue: #071952;
+    --DarkBlue: #22252f;
     --Black: #242424;
 }
+
+
 html {
     font-size: 10px;
     font-family: 'Poppins', sans-serif;
@@ -36,10 +46,11 @@ a {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 10px 0 10px 10%;
-    width: 29%;
+    /* padding: 10px; */
+    width: 20%;
     height: 100%;
     position: fixed;
+    left: 2.5%;
 }
 
 /* .sidebar-right {
@@ -48,18 +59,20 @@ a {
     box-shadow: 0px 3px 10px hwb(0 0% 80% / 0.32);
     background-color: red;
 } */
-.categories-line{
+.categories-line {
     border-top: 1px solid var(--BlueDarker);
     opacity: 0.2;
 }
-hr{
+
+hr {
     border-top: 1px solid var(--BlueDarker);
     opacity: 0.2;
 }
+
 .sidebar-right {
     display: flex;
     flex-direction: column;
-    right: 10%;
+    right: 2.5%;
     height: 570px;
     width: 20%;
     border-radius: 16px;
@@ -84,6 +97,7 @@ hr{
     font-size: 1.5rem;
     font-weight: 600;
 }
+
 .nav-links {
     display: flex;
     flex-direction: column;
@@ -92,16 +106,13 @@ hr{
     margin-top: 30px;
     justify-content: space-between;
 }
-.nav-links a{
-    color: var(--Black);
 
-}
 .nav-links a {
     display: flex;
     align-items: center;
     font-size: 2rem;
     padding: 8px 25px 8px 8px;
-    width: fit-content;
+    color: var(--Black);
 }
 
 .nav-links a i {
@@ -110,14 +121,14 @@ hr{
     margin-left: 15px;
 }
 
-.nav-links a:hover,
-.main-account a:hover {
-    width: 100%;
-    border-left: 7px solid var(--BlueGreen);
+/* .main-account a:hover,  */
+.nav-links a:hover
+    {
     background-color: #41c6d3;
     color: var(--White);
-    padding: 8px 25px 8px 0px;
+    border-radius: 9999px;
 }
+
 /* 
 .nav-links a:first-child {
     padding: 8px 8px;
@@ -130,7 +141,7 @@ hr{
 /* .ParentContainer{
     
 } */
-::placeholder{
+::placeholder {
     color: var(--BlueGreen);
     opacity: 0.4;
 }
@@ -140,13 +151,17 @@ nav {
     justify-content: space-between;
     align-items: center;
     background-color: var(--WhiteBlue);
-    padding: 10px 20px;  /* Added padding to prevent edge sticking */
+    padding: 10px 20px;
+    /* Added padding to prevent edge sticking */
     position: sticky;
     top: 0;
-    z-index: 1000;  /* Ensure it stays on top */
+    z-index: 1000;
+    /* Ensure it stays on top */
     width: 100%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* Optional: Add a subtle shadow for visual effect */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Optional: Add a subtle shadow for visual effect */
 }
+
 .Logo {
     margin-left: 20px;
     font-size: 18px;
@@ -159,12 +174,17 @@ nav {
 }
 
 .SignOptions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-right: 25px;
 }
 
-.Buttons {
+.SignOptions .Buttons {
     display: flex;
     justify-content: center;
+    align-items: center;
+    height: fit-content;
     background-color: var(--White);
     color: var(--BlueGreen);
     font-weight: 600;
@@ -208,7 +228,7 @@ nav {
     font-size: 1.7rem;
     color: white;
     font-weight: 700;
-    border: 1px solid var(--BlueGreen);
+    border: none;
     padding: 5px 5px;
     height: 55px;
     transition-duration: 0.2s;
@@ -220,18 +240,17 @@ nav {
 }
 
 
-.main-account {
-    width: 100%;
-    height: 30%;
-    padding-top: 185px;
-}
 
 .main-account a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 10px 8px 15px;
+    padding: 2px 15px;
     margin-right: 10px;
+    text-decoration: none;
+    color: #0a5c68;
+    /* background-color: var(--White); */
+    border-radius: 90px;
 }
 
 .tweet-img {
@@ -259,9 +278,9 @@ nav {
 }
 
 main {
-    width: 71%;
+    width: 50%;
     height: 100%;
-    margin-left: 29%;
+    margin-left: 25%;
 }
 
 .main-flex {
@@ -270,7 +289,7 @@ main {
 }
 
 .main-feed {
-    width: 50%;
+    width: 100%;
     /* border: 1px solid var(--Black); */
     display: flex;
     flex-direction: column;
@@ -306,6 +325,7 @@ main {
     resize: none;
     cursor: pointer;
 }
+
 .new-tweet {
     display: flex;
     flex-wrap: wrap;
@@ -318,42 +338,56 @@ main {
     box-shadow: 0px 3px 10px hwb(0 0% 80% / 0.32);
 
 }
-.textarea::placeholder{
+
+.textarea::placeholder {
     position: relative;
     top: 10px;
 }
+
 .Hashtag {
     display: flex;
+    flex-wrap: wrap;
     margin-top: 5px;
-    color: white;
     gap: 15px;
-    /* font-size: 14px; */
-    opacity: 0.9;
+    font-size: 14px;
 }
 
-.Hashtag span {
+.Hashtag a {
     background-color: #37b7c3;
     padding: 3px 5px 5px 5px;
     font-size: 12px;
     border-radius: 9px;
     opacity: 0.7;
+    text-decoration: none;
 }
 
-.Hashtag span:nth-child(2) {
+.Hashtag span {
+    color: white;
+}
+
+.Hashtag a:nth-child(1) {
+    background-color: green;
+}
+
+.Hashtag a:nth-child(2) {
     background-color: red;
 }
 
-.Hashtag span:nth-child(1) {
-    background-color: green;
-}
-.Hashtag span:nth-child(3) {
+.Hashtag a:nth-child(3) {
     background-color: purple;
 }
 
-.Hashtag span:nth-child(4) {
+.Hashtag a:nth-child(4) {
     background-color: orange;
 }
 
+.Hashtag a:nth-child(5) {
+    background-color: blue;
+}
+
+.Hashtag a:nth-child(6) {
+    background-color: teal;
+}
 
 .new-tweet .tweet-img {
     width: 63px;
@@ -365,15 +399,16 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    width: 85%;
-    margin-left: 12px;
+    width: calc(100% - 73px);
+    margin-left: 10px;
+
 }
 
 
 .new-tweet-actions {
     display: flex;
-    justify-content:right;
-    align-items:self-end;
+    justify-content: right;
+    align-items: self-end;
     width: 100%;
     /* height: 60px; */
     margin-top: 10px;
@@ -415,6 +450,7 @@ main {
 .feed-tweet {
     display: flex;
     flex-wrap: wrap;
+    align-items: flex-start;
     width: 100%;
     min-height: 100px;
     padding: 12px 16px 0 16px;
@@ -422,6 +458,7 @@ main {
     background-color: var(--WhiteBlue);
     border-radius: 10px;
     box-shadow: 0px 3px 10px hwb(0 0% 80% / 0.32);
+    gap: 12px;
 }
 
 .feed-tweet-details {
@@ -431,16 +468,22 @@ main {
     margin-left: 12px;
 }
 
-.feed-tweet i {
+.dropdown i,
+.comment {
     color: var(--BlueGreen);
-    font-size: 2rem;
+    text-shadow: var(--textshadow);
 }
 
-.tweet-details {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    font-size: 1.5rem;
+.counters {
+    color: var(--DarkBlue);
+}
+
+.feed-tweet .tweet-img {
+    width: 49px;
+    height: 50px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    /* Prevent image from shrinking */
 }
 
 .tweet-details a {
@@ -459,6 +502,12 @@ main {
     color: var(--Black);
     font-size: 1.5rem;
     width: 100%;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    cursor: pointer;
+    overflow: hidden;
 }
 
 .tweet-icons {
@@ -466,9 +515,17 @@ main {
     justify-content: space-between;
     width: 100%;
     margin: 15px 0;
-    padding-right: 50px;
+    padding-right: 25px;
 }
 
+.react,
+.comment {
+    display: flex;
+    gap: 20px;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
 .h1-title {
     color: var(--BlueGreen);
@@ -581,16 +638,16 @@ main {
     justify-content: space-between;
 }
 
-.react {
-    display: flex;
-    gap: 20px;
+.FILL {
+    font-variation-settings: 'FILL' 1;
+    color: var(--BlueDarker) !important;
 }
 
-.react span,
+.counters span,
 .comment span {
     font-weight: 600;
     font-size: 15px;
-    color: var(--DarkBlue);
+    color: var(--BlueDarker);
 }
 
 .counters,
@@ -599,40 +656,79 @@ main {
     align-items: center;
     justify-content: center;
     gap: 6px;
+    cursor: pointer;
 }
-.row-tweet{
-    display: flex;
-    justify-content: space-between;
+
+.react .counters:hover {
+    color: var(--BlueGreenWhite) !important;
 }
 
 .feet-tweet-detail {
-    margin-left: 5px;
-    width: 80%;
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 65px);
+    flex-grow: 1;
 }
-.dropdown{
-    cursor: pointer;
-}
+
 .show {
     display: block !important;
 }
-.dropdown  .content{
+
+.row-tweet {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Vertically center the items */
+    width: 100%;
+}
+
+.tweet-details {
+    display: flex;
+    align-items: flex-start;
+    flex-grow: 1;
+    /* Allow this to take available space */
+}
+
+.dropdown {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.dropdown .content {
     position: absolute;
+    top: 100%;
+    /* Position below the more_horiz icon */
+    right: 0;
+    background-color: var(--Greey);
     display: none;
-    background-image: linear-gradient(to right, var(--BlueGreen), var(--BlueGreenWhite));
-    opacity: .8;
-    color: white;
+    color: var(--Black);
     border-radius: 4px;
     z-index: 10;
     font-size: 14px;
     font-weight: 300;
+    width: max-content;
+    min-width: 120px;
+    box-shadow: var(--shadowLittle);
+    /* Optional: adds a subtle shadow */
 }
-.content li{
+
+.content ul {
+    display: block;
+    /* Ensure the list is displayed properly */
+    white-space: nowrap;
+    /* Prevent text from wrapping */
+}
+
+.content li {
     list-style: none;
-    padding: 4px;
+    padding: 5px 10px;
     border-bottom: 1px solid var(--BlueDarker);
     border-radius: 4px;
 }
-.content li:hover{
+
+.content li:hover {
     background-color: var(--BlueGreenWhite);
 }
 
@@ -642,10 +738,59 @@ main {
     }
 
     .Logo {
-        font-size: 14px; 
+        font-size: 14px;
     }
 
     .Buttons {
         font-size: 1.3rem;
     }
+}
+
+.fetchMore {
+    margin: 50px;
+}
+
+.material-symbols-outlined {
+    font-size: 24px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.search-box {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+}
+
+.search-box input {
+    width: 100%;
+    height: 40px;
+    border: none;
+    outline: none;
+    background: white;
+    border-radius: 30px;
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    padding: 0 10px;
+}
+
+.search-box button {
+    cursor: pointer;
+    width: 50px;
+    height: 40px;
+    border: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 9999px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-box button i {
+    font-size: 20px;
+    color: black;
 }
