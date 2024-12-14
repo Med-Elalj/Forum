@@ -1,0 +1,158 @@
+[
+    {
+      "post_id": "1",
+      "user_profile_image": "images/profile1.png",
+      "post_details": {
+        "post_title": "How to improve your english?",
+        "author_username": "@Oelhaouc",
+        "post_creation_time": "1h"
+      },
+      "post_content": {
+        "body_text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+      },
+      "post_categories": [
+        "#Technology",
+        "#Business"
+      ],
+      "user_engagement": {
+        "reactions": {
+          "likes": {
+            "post_id": "1",
+            "like_count": 15
+          },
+          "dislikes": {
+            "post_id": "1",
+            "dislike_count": 5
+          }
+        },
+        "comments_section": {
+          "comment_count": 5
+        }
+      }
+    },
+    {
+      "post_id": "2",
+      "user_profile_image": "images/profile2.png",
+      "post_details": {
+        "post_title": "The importance of coding in 2024",
+        "author_username": "@TechGuru",
+        "post_creation_time": "3h"
+      },
+      "post_content": {
+        "body_text": "In 2024, coding is more important than ever. Here's why..."
+      },
+      "post_categories": [
+        "#Technology",
+        "#Programming"
+      ],
+      "user_engagement": {
+        "reactions": {
+          "likes": {
+            "post_id": "2",
+            "like_count": 25
+          },
+          "dislikes": {
+            "post_id": "2",
+            "dislike_count": 2
+          }
+        },
+        "comments_section": {
+          "comment_count": 8
+        }
+      }
+    },
+    {
+      "post_id": "3",
+      "user_profile_image": "images/profile3.png",
+      "post_details": {
+        "post_title": "Global Economy Trends 2024",
+        "author_username": "@EconoExpert",
+        "post_creation_time": "5h"
+      },
+      "post_content": {
+        "body_text": "Let's explore the latest trends in the global economy for 2024."
+      },
+      "post_categories": [
+        "#Economy",
+        "#Business"
+      ],
+      "user_engagement": {
+        "reactions": {
+          "likes": {
+            "post_id": "3",
+            "like_count": 30
+          },
+          "dislikes": {
+            "post_id": "3",
+            "dislike_count": 3
+          }
+        },
+        "comments_section": {
+          "comment_count": 12
+        }
+      }
+    },
+    {
+      "post_id": "4",
+      "user_profile_image": "images/profile4.png",
+      "post_details": {
+        "post_title": "Top Sports Events of 2024",
+        "author_username": "@SportsFan",
+        "post_creation_time": "10h"
+      },
+      "post_content": {
+        "body_text": "Discover the most exciting sports events to watch in 2024."
+      },
+      "post_categories": [
+        "#Sport",
+        "#Events"
+      ],
+      "user_engagement": {
+        "reactions": {
+          "likes": {
+            "post_id": "4",
+            "like_count": 20
+          },
+          "dislikes": {
+            "post_id": "4",
+            "dislike_count": 1
+          }
+        },
+        "comments_section": {
+          "comment_count": 4
+        }
+      }
+    },
+    {
+      "post_id": "5",
+      "user_profile_image": "images/profile5.png",
+      "post_details": {
+        "post_title": "New Video Content Trends",
+        "author_username": "@ContentCreator",
+        "post_creation_time": "2d"
+      },
+      "post_content": {
+        "body_text": "Video content is evolving rapidly. Here's what's trending."
+      },
+      "post_categories": [
+        "#Videos",
+        "#ContentCreation"
+      ],
+      "user_engagement": {
+        "reactions": {
+          "likes": {
+            "post_id": "5",
+            "like_count": 40
+          },
+          "dislikes": {
+            "post_id": "5",
+            "dislike_count": 4
+          }
+        },
+        "comments_section": {
+          "comment_count": 15
+        }
+      }
+    }
+  ]
+  
