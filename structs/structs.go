@@ -14,15 +14,16 @@ type Comment struct {
 }
 
 type Post struct {
-	ID           int
-	UserID       int
-	UserName     string
-	Title        string
-	Content      string
-	LikeCount    int
-	DislikeCount int
-	CreatedAt    time.Time
-	Categories   []string
+	ID           int       `json:"post_id"`
+	UserID       int       `json:"-"`
+	UserName     string    `json:"author_username"`
+	Title        string    `json:"post_title"`
+	Content      string    `json:"post_content"`
+	LikeCount    int       `json:"like_count"`
+	DislikeCount int       `json:"dislike_count"`
+	CommentCount int       `json:"comment_count"`
+	CreatedAt    time.Time `json:"post_creation_time"`
+	Categories   []string  `json:"post_categories"`
 }
 
 type View struct {

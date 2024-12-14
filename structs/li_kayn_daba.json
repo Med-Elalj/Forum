@@ -1,0 +1,74 @@
+{ "posts" : [
+  {
+      "post_id": "1",
+      "post_title": "How to improve your english?",
+      "post_content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+      "author_username": "Oelhaouch",
+      "like_count": 15,
+      "dislike_count": 5,
+      "comment_count": 5,
+      "post_creation_time": "2024-12-12T00:00:00",
+      "post_categories": [
+        "Technology",
+        "Business"
+      ]
+  },
+  {
+      "post_id": "2",
+      "post_title": "The importance of coding in 2024",
+      "post_content": "In 2024, coding is more important than ever. Here's why...",
+      "author_username": "@TechGuru",
+      "like_count": 25,
+      "dislike_count": 2,
+      "comment_count": 8,
+      "post_creation_time": "3h",
+      "post_categories": [
+        "#Technology",
+        "#Programming"
+      ]
+  },
+  {
+      "post_id": "3",
+      "post_title": "Global Economy Trends 2024",
+      "post_content": "Let's explore the latest trends in the global economy for 2024.",
+      "author_username": "@EconoExpert",
+      "like_count": 30,
+      "dislike_count": 3,
+      "comment_count": 12,
+      "post_creation_time": "5h",
+      "post_categories": [
+        "#Economy",
+        "#Business"
+      ]
+  },
+  {
+      "post_id": "4",
+      "post_title": "Top Sports Events of 2024",
+      "post_content": "Discover the most exciting sports events to watch in 2024.",
+      "author_username": "@SportsFan",
+      "like_count": 20,
+      "dislike_count": 1,
+      "comment_count": 4,
+      "post_creation_time": "10h",
+      "post_categories": [
+        "#Sport",
+        "#Events"
+      ]
+  },
+  {
+      "post_id": "5",
+      "post_title": "New Video Content Trends",
+      "post_content": "Video content is evolving rapidly. Here's what's trending.",
+      "author_username": "@ContentCreator",
+      "like_count": 40,
+      "dislike_count": 4,
+      "comment_count": 15,
+      "post_creation_time": "2d",
+      "post_categories": [
+        "#Videos",
+        "#ContentCreation"
+      ]
+    
+  }
+]
+}
