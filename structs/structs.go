@@ -1,6 +1,8 @@
 package structs
 
-import "time"
+import (
+	"time"
+)
 
 type Comment struct {
 	ID           int
@@ -24,6 +26,7 @@ type Post struct {
 	CommentCount int       `json:"comment_count"`
 	CreatedAt    time.Time `json:"post_creation_time"`
 	Categories   []string  `json:"post_categories"`
+	Liked        string    `json:"view"`
 }
 
 type View struct {

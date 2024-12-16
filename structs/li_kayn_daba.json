@@ -11,7 +11,8 @@
       "post_categories": [
         "Technology",
         "Business"
-      ]
+      ],
+      "view" : "0"
   },
   {
       "post_id": "2",
@@ -25,7 +26,8 @@
       "post_categories": [
         "#Technology",
         "#Programming"
-      ]
+      ],
+      "view" : "1"
   },
   {
       "post_id": "3",
@@ -39,7 +41,8 @@
       "post_categories": [
         "#Economy",
         "#Business"
-      ]
+      ],
+      "view" : "null"
   },
   {
       "post_id": "4",
@@ -53,7 +56,8 @@
       "post_categories": [
         "#Sport",
         "#Events"
-      ]
+      ],
+      "view" : "1"
   },
   {
       "post_id": "5",
@@ -67,8 +71,8 @@
       "post_categories": [
         "#Videos",
         "#ContentCreation"
-      ]
-    
+      ],
+      "view" : "1"
   }
 ]
 }

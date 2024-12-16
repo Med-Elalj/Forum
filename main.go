@@ -30,9 +30,11 @@ func main() {
 	// }
 	handlers.DB = db
 	fmt.Println("User created successfully!")
-	fmt.Println(database.QuerryPostsbyUser(db, "username", 5))
+	fmt.Println(database.QuerryPostsbyUser(db, "test", 0, 5))
 	http.HandleFunc("POST /login", handlers.Login)
 	http.HandleFunc("POST /register", handlers.Register)
+	http.HandleFunc("/post", handlers.Post)
+	http.HandleFunc("/home", handlers.HomePage)
 	http.Handle("/", http.FileServer(http.Dir("frontend/")))
 	fmt.Println("Server listening on :8080...")
 	err := http.ListenAndServe(":8080", nil)

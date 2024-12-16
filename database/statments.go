@@ -46,7 +46,7 @@ var tables = map[string]string{
 		FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
 		);`,
 
-	"post_likes": `CREATE TABLE IF NOT EXISTS likes (
+	"post_likes": `CREATE TABLE IF NOT EXISTS post_likes (
 		user_id INTEGER NOT NULL,
 		post_id INTEGER NOT NULL,
 		is_like BOOLEAN NOT NULL,
@@ -56,7 +56,7 @@ var tables = map[string]string{
 		PRIMARY KEY (user_id, post_id)
 		);`,
 
-	"comment_likes": `CREATE TABLE IF NOT EXISTS likes (
+	"comment_likes": `CREATE TABLE IF NOT EXISTS comment_likes (
 		user_id INTEGER NOT NULL,
 		comment_id INTEGER NOT NULL,
 		is_like BOOLEAN NOT NULL,
