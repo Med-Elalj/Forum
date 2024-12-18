@@ -1,74 +1,57 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-
-:root{
-    --WhiteBlue: #def0f4;
-    --White: #ffffff;
-    --WhiteB: #e0eced;
-    --Greey: #efefef;
-    --GreeyD: #919191;
-    --GreeyDarked: hsla(0, 0%, 81%, 0.294);
-    --shadow : 0px 10px 10px hsla(0, 0%, 40%, 0.30);
-    --shadowLittle : 0px 10px 10px hsla(0, 0%, 40%, 0.20);
-    --textshadow : 0px 5px 5px hsla(0, 0%, 40%, 0.30);
-    --border : 2px solid  hsla(0, 0%, 54%, 0.318);
-    --BlueGreenWhite: #37B7C3;
-    --BlueGreen: #088395;
-    --BlueDarker: #0a5c68;
-    --DarkBlue: #22252f;
-    --Black: #242424;
-}
-
-html {
-    font-size: 10px;
-    font-family: 'Poppins', sans-serif;
-}
-
-*{
-    margin:0px;
-    padding:0px;
-    box-sizing: border-box;
-}
-
-
-body {
-    background-color: var(--Greey);
-    width: 100vh;
-    height: 100vh;
-}
 .postModal{
     position: fixed;
-    display: flex;
+    display: none;
+    justify-content: center;
+    align-items: center;
     z-index: 1;
     left: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto; 
-    background-color: var(--Greey); /* Black w/ opacity */
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    background-color: var(--GreeyTransparant); /* Black w/ opacity */
+    z-index: 11;
 }
-.createPostContainer{
+.Hide{
+    display: none !important;
+}
+.CreatePostContainer{
+    display: flex;
+    position: absolute;
     background-color: var(--WhiteBlue);
     margin: auto;
     padding: 20px;
-    width: 850px; 
-    max-width: 850px;
+    width: 80vw;
+    height: 80vh;
     border-radius: 10px;
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
-    justify-content: center;
+    /* align-items: normal; */
+    /* justify-content: space-between; */
     padding: 10px;
     box-shadow: var(--shadow);
+    z-index: 11;
+}
+.CreatePostContainer form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* flex-wrap: wrap; */
+    height: 100%;
 }
 .titleInput, .postInput{
     padding: 5px;
-    width: 100%;
+    width: 93%;
+}
+.titleInput input:focus, .postInput textarea:focus{
+    border: 1px solid red;
 }
 .titleInput input, .postInput textarea{
     border-radius: 10px;
     padding: 10px;
     color: var(--BlueGreen);
-    font-size: 1.8rem;
+    font-size: 1rem;
     outline: none;
     border: none;
     width: 100%;
@@ -84,21 +67,21 @@ body {
 }
 .postInput textarea{
     color: var(--BlueGreenWhite);
-    height: 400px;
+    height: 100%;
     padding: 10px;
     border-radius: 5px;
     border: none;
     resize: none;
     width: 100%;
 }
-.categories{
+.CategoriesSelector{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
     margin: 10px 0px;
 }
-.categories label{
+.CategoriesSelector label{
     font-size: 16px;
     padding: 6px 10px;
     background-color: var(--BlueGreen);
@@ -107,18 +90,14 @@ body {
     opacity: 0.5;
     cursor: pointer;
 }
-.categories input{
+.CategoriesSelector input{
     display: none;
 }
-.categories input:checked + label {
+.CategoriesSelector input:checked + label {
     color: white;
     background-color: var(--BlueGreen);
     opacity: 1;
 
-}
-.categoryOptions{
-    font-weight:  500;
-    font-size: 16px;
 }
 
 .submitButton{
@@ -141,4 +120,8 @@ body {
     -webkit-user-select: none;
     -ms-user-select:none;
     user-select:none;
+}
+.test{
+    width: 100vh;
+    height: 100vh;
 }

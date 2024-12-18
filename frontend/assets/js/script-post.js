@@ -1,3 +1,5 @@
+
+
 // for Favourite Button on post Page
 // let favourite_area = document.querySelector(".addToFavourite")
 // let favourite_icon = document.querySelector(".addToFavourite span")
@@ -40,9 +42,16 @@ let comment_dislike = document.querySelectorAll(".commentReaction .dislike")
 // Handling Like Button Clicked in Post Comments
 comment_like.forEach(like => {
     like.addEventListener('click', function(){
-        let dislike = like.nextElementSibling;
-        like.classList.toggle("FILL");
-        dislike.classList.remove("FILL");
+        if (checkUserIsLogged()){
+            // Check from DB if like or dislike exits
+            /// /// / // / / / / / /
+            let dislike = like.nextElementSibling;
+            like.classList.toggle("FILL");
+            dislike.classList.remove("FILL");
+        }else{
+            popUp();
+        }
+       
     })
 })
 

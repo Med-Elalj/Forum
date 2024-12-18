@@ -1,150 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        href="/assets/style/google-icons.css"
         rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="../style/style.css">
-    <link rel="stylesheet" href="../style/popstyle.css">
+    <link rel="stylesheet" href="/assets/style/style.css">
+    <link rel="stylesheet" href="/assets/style/post.css">
+    <link rel="stylesheet" href="/assets/style/popstyle.css">
+    <link rel="stylesheet" href="/assets/style/create-post.css">
     <title>Switter</title>
-    <link rel="icon" href="../images/logo.svg" type="image/svg">
+    <link rel="icon" href="/assets/images/logo.svg" type="image/svg">
 </head>
 
 <body>
+    {{template "create-post" .}}
+    <div class="postContainer"></div>
     <div class="ParentContainer">
-        <nav>
-            <!-- Logo -->
-            <div class="Logo">
-                <span>Forum</span>Project
-            </div>
-            <!-- Search Bar -->
-            <!-- <div class="search">
-                <input type="text" placeholder="Search Forum"><span class="material-symbols-outlined">search</span>
-            </div> -->
-            <div class="search-box">
-                <input type="text" id="srch" placeholder="Search..." onkeyup="debounceSearch()">
-                <div id="search-results"></div>
-                <button type="submit"><i class="fa fa-search"></i></button>
-            </div>   
-            <div class="SignOptions">
-                <!-- <a href="" class="Buttons">
-                    <i class="material-symbols-outlined">login</i>
-                    <span>Login / Register</span>
-                </a> -->
-                <div class="main-account">
-                    <a href="">
-                        <div class="ProfileImage tweet-img" style="background-image: url('https://avatar.iran.liara.run/public/boy?username=MohamedTawil')">
-                            <!-- <div class="account-details">
-                            <span class="account-name">Oelhaouc</span>
-                            <span class="account-handle">@oelhaouc</span>
-                        </div>
-                        <i class="material-symbols-outlined">more_horiz</i> -->
-                    </a>
-                </div>
-            </div>
-        </nav>
-        <section class="sidebar-left">
-            <div class="nav-links">
-
-                <a href="">
-                    <i class="material-symbols-outlined">home</i>
-                    <span>Home</span>
-                </a>
-                <!-- <a href="">
-                    <i class="material-symbols-outlined">tag</i>
-                    <span style="font-weight: 600;">My Posts</span>
-                </a> 
-                <a href="">
-                    <i class="material-symbols-outlined">notifications</i>
-                    <span>Notifications</span>
-                </a> -->
-                <a href="">
-                    <i class="material-symbols-outlined">favorite</i>
-                    <span>Liked Posts</span>
-                </a>
-                <a href="">
-                    <i class="material-symbols-outlined">person</i>
-                    <span>Profile</span>
-                </a>
-                <a href="">
-                    <i class="material-symbols-outlined">person</i>
-                    <span>Trending</span>
-                </a>
-                <a href="">
-                    <i class="material-symbols-outlined">person</i>
-                    <span>Recent Posts</span>
-                </a>
-                <!-- <a href="">
-                    <i class="material-symbols-outlined">bookmark_check</i>
-                    <span>My Favorite</span>
-                </a> 
-                <a href="">
-                    <i class="material-symbols-outlined">person</i>
-                    <span>New Buttons</span>
-                </a>
-                <a href="">
-                    <i class="material-symbols-outlined">person</i>
-                    <span>New Buttons</span>
-                </a>-->
-                <button class="tweet-button">New Post</button>
-            </div>
-           
-        </section>
+        {{template "header" .}}
+        {{template "left-sidebar" .}}
         <main>
             <div class="main-flex">
                 <div class="main-feed">
-                    <!-- New post -->
+                    <!-- Create New Post -->
                     <div class="new-tweet">
-                        <div class="ProfileImage tweet-img no-border" style="background-image: url('https://avatar.iran.liara.run/public/boy?username=MohamedTawil')"></div>
+                        <div class="ProfileImage tweet-img no-border" style="background-image: url('https://ui-avatars.com/api/?name=samira')"></div>
                         <div class="new-tweet-details">
-                            <textarea class="textarea" type="text" placeholder="What's happening?" disabled></textarea>
+                            <textarea class="textarea" type="text" placeholder="What's happening?" ></textarea>
                         </div>
                     </div>
-                    <!-- End Of New Post -->
+                    <!-- End Of Create New Post -->
                      
-                    <!-- Post Cards -->
+                    <!-- Post Start Content Card -->
                     <div class="feed-tweet">
                         <!-- User image -->
-                         <div class="ProfileImage tweet-img" style="background-image: url('https://avatar.iran.liara.run/public/girl?username=Samira')">
+                         <div class="ProfileImage tweet-img" style="background-image: url('https://ui-avatars.com/api/?name=Samira')">
                          </div>
                         <div class="feet-tweet-detail">
                             <div class="row-tweet">
                                 <div class="tweet-details">
                                     <!-- Post Title -->
-                                    <a href="" class="tweeter-name">How to improve you english?
+                                    <span class="tweeter-name post" id="1996">How to improve you english?
                                         <!-- Post Auther Name And Date-->
                                         <br><span class="tweeter-handle">@Samira .1h</span>
-                                    </a>
+                                    </span>
                                 </div>
                                 <div class="dropdown">
                                     <i class="material-symbols-outlined">more_horiz</i>
                                     <div class="content">
                                         <!-- Control Posts -->
                                         <ul>
-                                            <li><span class="material-symbols-outlined">bookmark_add</span>Add to Favourite</li>
+                                            <li><span class="material-symbols-outlined">edit</span>Edit</li>
                                             <li><span class="material-symbols-outlined">delete</span>Delete</li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             <!-- Post Content -->
-                            <div class="tweet-text collapse">
+                            <div class="tweet-text">
                                 <p>
-                                    The toll, equivalent to around a third of the total worldwide of 54, was described by RSF as ‚Äúan unprecedented massacre‚Äù.
 
-‚ÄúPalestine is the most dangerous country for journalists, recording a higher death toll than any other country over the past five years,‚Äù the organisation said in its report, which covers data up to December 1.
-
-In total, ‚Äúmore than 145‚Äù journalists have been killed by the Israeli army in Gaza since the start of the war there in October 2023, with 35 of them working at the time of their deaths, the report found.
-
-RSF has filed four complaints with the International Criminal Court (ICC) for ‚Äúwar crimes committed against journalists by the Israeli army‚Äù End of The post.
+                                    RSF has filed four complaintsledsdsdsdsdsdfsfdled four complaintsled four complaintsled four complaintsled four complaintsddddd with the International Criminal Court (ICC) for ‚Äúwar crimes committed against journalists by the Israeli army‚Äù End of The post.
                                 </p>
 
                             </div>
+                            <span class="see-more">See More</span>
+
                             <!-- Post Categories -->
                             <div class="Hashtag">
                                 <a href=""><span>#Technology</span></a>
@@ -167,20 +90,20 @@ RSF has filed four complaints with the International Criminal Court (ICC) for ‚Ä
                                         <span>10</span>
                                     </div>
                                 </div>
-                                <div class="comment">
+                                <div class="comment post" id="1996">
                                     <!-- Post Comments Counter -->
-                                     
                                     <i class="material-symbols-outlined">comment</i>
                                     <span>10</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- New Post Card  -->
+                    <!-- End OF Post Content Card  -->
+
                     <!-- Post Cards -->
                     <div class="feed-tweet">
                         <!-- User image -->
-                        <div class="ProfileImage tweet-img" style="background-image: url('https://avatar.iran.liara.run/username?username=Jamal')"></div>
+                        <div class="ProfileImage tweet-img" style="background-image: url('https://ui-avatars.com/api/?name=Jamal')"></div>
                         <div class="feet-tweet-detail">
                             <div class="row-tweet">
                                 <div class="tweet-details">
@@ -195,7 +118,7 @@ RSF has filed four complaints with the International Criminal Court (ICC) for ‚Ä
                                     <div class="content">
                                         <!-- Control Posts -->
                                         <ul>
-                                            <li><span class="material-symbols-outlined">bookmark_add</span>Add to Favourite</li>
+                                            <li><span class="material-symbols-outlined">edit</span>Edit</li>
                                             <li><span class="material-symbols-outlined">delete</span>Delete</li>
                                         </ul>
                                     </div>
@@ -247,7 +170,7 @@ RSF has filed four complaints with the International Criminal Court (ICC) for ‚Ä
                     <!-- Post Cards -->
                     <div class="feed-tweet">
                         <!-- User image -->
-                        <div class="ProfileImage tweet-img" style="background-image: url('https://avatar.iran.liara.run/public/boy?username=mtawil')"></div>
+                        <div class="ProfileImage tweet-img" style="background-image: url('https://ui-avatars.com/api/?name=mtawil')"></div>
                         <div class="feet-tweet-detail">
                             <div class="row-tweet">
                                 <div class="tweet-details">
@@ -262,7 +185,7 @@ RSF has filed four complaints with the International Criminal Court (ICC) for ‚Ä
                                     <div class="content">
                                         <!-- Control Posts -->
                                         <ul>
-                                            <li><span class="material-symbols-outlined">bookmark_add</span>Add to Favourite</li>
+                                            <li><span class="material-symbols-outlined">edit</span>Edit</li>
                                             <li><span class="material-symbols-outlined">delete</span>Delete</li>
                                         </ul>
                                     </div>
@@ -314,7 +237,7 @@ RSF has filed four complaints with the International Criminal Court (ICC) for ‚Ä
                     <!-- Post Cards -->
                     <div class="feed-tweet">
                         <!-- User image -->
-                        <div class="ProfileImage tweet-img" style="background-image: url('https://avatar.iran.liara.run/public/girl?username=FatimaEzzahra')"></div>
+                        <div class="ProfileImage tweet-img" style="background-image: url('https://ui-avatars.com/api/?name=FatimaEzzahra')"></div>
                         <div class="feet-tweet-detail">
                             <div class="row-tweet">
                                 <div class="tweet-details">
@@ -329,7 +252,7 @@ RSF has filed four complaints with the International Criminal Court (ICC) for ‚Ä
                                     <div class="content">
                                         <!-- Control Posts -->
                                         <ul>
-                                            <li><span class="material-symbols-outlined">bookmark_add</span>Add to Favourite</li>
+                                            <li><span class="material-symbols-outlined">edit</span>Edit</li>
                                             <li><span class="material-symbols-outlined">delete</span>Delete</li>
                                         </ul>
                                     </div>
@@ -381,7 +304,7 @@ RSF has filed four complaints with the International Criminal Court (ICC) for ‚Ä
                     <!-- Post Cards -->
                     <div class="feed-tweet">
                         <!-- User image -->
-                        <div class="ProfileImage tweet-img" style="background-image: url('https://avatar.iran.liara.run/public/girl?username=FatimaEzzahra')"></div>
+                        <div class="ProfileImage tweet-img" style="background-image: url('https://ui-avatars.com/api/?name=FatimaEzzahra')"></div>
                         <div class="feet-tweet-detail">
                             <div class="row-tweet">
                                 <div class="tweet-details">
@@ -396,7 +319,7 @@ RSF has filed four complaints with the International Criminal Court (ICC) for ‚Ä
                                     <div class="content">
                                         <!-- Control Posts -->
                                         <ul>
-                                            <li><span class="material-symbols-outlined">bookmark_add</span>Add to Favourite</li>
+                                            <li><span class="material-symbols-outlined">edit</span>Edit</li>
                                             <li><span class="material-symbols-outlined">delete</span>Delete</li>
                                         </ul>
                                     </div>
@@ -448,7 +371,7 @@ RSF has filed four complaints with the International Criminal Court (ICC) for ‚Ä
                     <!-- Post Cards -->
                     <div class="feed-tweet">
                         <!-- User image -->
-                        <div class="ProfileImage tweet-img" style="background-image: url('https://avatar.iran.liara.run/public/boy?username=asamir')"></div>
+                        <div class="ProfileImage tweet-img" style="background-image: url('https://ui-avatars.com/api/?name=asamir')"></div>
                         <div class="feet-tweet-detail">
                             <div class="row-tweet">
                                 <div class="tweet-details">
@@ -463,7 +386,7 @@ RSF has filed four complaints with the International Criminal Court (ICC) for ‚Ä
                                     <div class="content">
                                         <!-- Control Posts -->
                                         <ul>
-                                            <li><span class="material-symbols-outlined">bookmark_add</span>Add to Favourite</li>
+                                            <li><span class="material-symbols-outlined">edit</span>Edit</li>
                                             <li><span class="material-symbols-outlined">delete</span>Delete</li>
                                         </ul>
                                     </div>
@@ -515,7 +438,7 @@ RSF has filed four complaints with the International Criminal Court (ICC) for ‚Ä
                     <!-- Post Cards -->
                     <div class="feed-tweet">
                         <!-- User image -->
-                        <div class="ProfileImage tweet-img" style="background-image: url('https://avatar.iran.liara.run/public/boy?username=hamid')"></div>
+                        <div class="ProfileImage tweet-img" style="background-image: url('https://ui-avatars.com/api/?name=hamid')"></div>
                         <div class="feet-tweet-detail">
                             <div class="row-tweet">
                                 <div class="tweet-details">
@@ -530,7 +453,7 @@ RSF has filed four complaints with the International Criminal Court (ICC) for ‚Ä
                                     <div class="content">
                                         <!-- Control Posts -->
                                         <ul>
-                                            <li><span class="material-symbols-outlined">bookmark_add</span>Add to Favourite</li>
+                                            <li><span class="material-symbols-outlined">edit</span>Edit</li>
                                             <li><span class="material-symbols-outlined">delete</span>Delete</li>
                                         </ul>
                                     </div>
@@ -582,7 +505,7 @@ RSF has filed four complaints with the International Criminal Court (ICC) for ‚Ä
                     <!-- Post Cards -->
                     <div class="feed-tweet">
                         <!-- User image -->
-                        <div class="ProfileImage tweet-img" style="background-image: url('https://avatar.iran.liara.run/public/boy?username=hamid')"></div>
+                        <div class="ProfileImage tweet-img" style="background-image: url('https://ui-avatars.com/api/?name=hamid')"></div>
                         <div class="feet-tweet-detail">
                             <div class="row-tweet">
                                 <div class="tweet-details">
@@ -597,7 +520,7 @@ RSF has filed four complaints with the International Criminal Court (ICC) for ‚Ä
                                     <div class="content">
                                         <!-- Control Posts -->
                                         <ul>
-                                            <li><span class="material-symbols-outlined">bookmark_add</span>Add to Favourite</li>
+                                            <li><span class="material-symbols-outlined">edit</span>Edit</li>
                                             <li><span class="material-symbols-outlined">delete</span>Delete</li>
                                         </ul>
                                     </div>
@@ -652,87 +575,14 @@ RSF has filed four complaints with the International Criminal Court (ICC) for ‚Ä
                         You have reached the end
                      </div>
                 </div>
-                
-                <div class="sidebar-right">
-                    <h1 class="h1-title">Categories</h1>
-                    <hr class="categories-line">
-                    <div class="trending-item">
-                        <div class="item-category">
-                            <p>Technology</p>
-                        </div>
-                        <span>10 Posts</span>
-                    </div>
-                    <hr>
-                    <div class="trending-item">
-                        <div class="item-category">
-                            <p>Business</p>
-                        </div>
-                        <span>10 Posts</span>
-                    </div>
-                    <hr>
-                    <div class="trending-item">
-                        <div class="item-category">
-                            <p>Economy</p>
-                        </div>
-                        <span>10 Posts</span>
-                    </div>
-                    <hr>
-                    <div class="trending-item">
-                        <div class="item-category">
-                            <p>Sport</p>
-                        </div>
-                        <span>10 Posts</span>
-                    </div>
-                    <hr>
-                    <div class="trending-item">
-                        <div class="item-category">
-                            <p>Videos</p>
-                        </div>
-                        <span>10 Videos</span>
-                    </div>
-                    <hr>
-                    <div class="trending-item">
-                        <div class="item-category">
-                            <p>General</p>
-                        </div>
-                        <span>10 Posts</span>
-                    </div>
-                    <!-- <a href="" class="show-more">Show more</a> !-->
-                </div>
-                <!-- <div class="follow">
-                    <h class="h1-title">Who to follow</h>
-                    <div class="follow-profile">
-                        <div class="follow-cont">
-                            <img src="https://api.dicebear.com/9.x/personas/svg?seed=Vivian" alt="" class="tweet-img">
-                            <div class="follow-details">
-                                <a href="">
-                                    Omar El-haouch
-                                </a>
-                                <span>@Oelhaouc <Span id="follows">follows you</Span></span>
-                            </div>
-                        </div>
-                        <button class="tweet-button">Follow</button>
-                    </div>
-                    <div class="follow-profile">
-                        <div class="follow-cont">
-                            <img src="https://api.dicebear.com/9.x/personas/svg?seed=Vivian" alt="" class="tweet-img">
-                            <div class="follow-details">
-                                <a href="">
-                                    Omar El-haouch
-                                </a>
-                                <span>@Oelhaouc <Span id="follows">follows you</Span></span>
-                            </div>
-                        </div>
-                        <button class="tweet-button">Follow</button>
-                    </div>
-                    <a href="" class="show-more">Show more</a>
-                </div> -->
+                {{template "profile-sidebar" . }}
             </div>
         </main>
     </div>
-    <div id="popupContainer"></div>  
-    <script src="../dynamic/pop.js"></script>
-    <script src="../dynamic/script.js"></script>
-</body>
-
+    <div id="popupContainer"></div>
+    {{template "footer" .}}
+    <script src="/assets/js/pop.js"></script>
+    <script src="/assets/js/profile.js"></script>
+    <script src="/assets/js/script.js"></script>
+    </body>
 </html>
