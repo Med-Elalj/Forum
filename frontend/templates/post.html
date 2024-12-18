@@ -4,48 +4,32 @@
             <img src="/assets/images/PostImageTest.jpg" alt="">
         </div>
         <div class="authorInfo">
-            <span class="Title">How to improve your english</span>
+            <span class="Title">{{.Post.Title}}</span>
             <div class="authorContain">
-                <span class="authorName">@mtawil</span>
-                <span class="postDate">12/21/2023</span>
+                <span class="authorName">@{{.Post.UserName}}</span>
+                <span class="postDate">{{.Post.CreatedAt}}</span>
             </div>
         </div>
     </div>
     <div class="postContent">
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat blanditiis culpa doloribus saepe modi
-            odio voluptate ratione impedit vitae pariatur iste exercitationem aliquid earum hic dignissimos nisi
-            placeat repellendus iusto, ipsum minima inventore quia ea, laborum recusandae. Consectetur nemo quia
-            eligendi! Velit ipsam quibusdam iste asperiores aspernatur commodi, temporibus dolor consequatur
-            voluptatum accusantium, cum maiores ab, aliquid necessitatibus placeat consequuntur suscipit recusandae
-            ipsum quas exercitationem hic molestiae odio ratione expedita? Recusandae magni praesentium ab nisi,
-            nobis exercitationem suscipit! Eum voluptatum accusamus quisquam, distinctio nesciunt a ipsa illum
-            beatae sed iusto velit? Porro cupiditate recusandae, dolore inventore tempore laudantium consectetur
-            fugit consequatur facere, obcaecati quo voluptatem nesciunt? Adipisci esse quo praesentium sunt quidem
-            at, repellat provident exercitationem totam quasi omnis asperiores nostrum itaque ratione alias harum
-            eveniet distinctio. Eum, nobis recusandae! Aliquid, corporis quo. Dolorum cumque ab nemo dolorem! Quam,
-            architecto deleniti? Debitis possimus doloribus quibusdam sunt ratione? Ratione dolores corrupti iste
-            sit adipisci illum, officiis accusantium, temporibus aliquam voluptate quis, aperiam accusamus iusto
-            rerum maiores. Harum provident nesciunt optio repellat in reiciendis non ipsam corrupti magni iusto
-            numquam repellendus, molestias hic, aspernatur voluptate dolor asperiores quod? Facilis dolore earum hic
-            cupiditate ad. Pariatur, natus fuga vel placeat dolor illum hic.
-        </p>
+        <p>{{.Post.Content}}</p>
         <img src="/assets/images/PostImageTest.jpg" alt="">
         <img src="/assets/images/PostImageTest.jpg" alt="">
     </div>
     <div class="PostReactionData">
         <div class="LikeButtons">
             <div class="like DisableUserSelect">
-                <span class="material-symbols-outlined" id="{Here ID of Post}">thumb_up</span>
+                <span class="material-symbols-outlined" id="{{.Post.ID}}">thumb_up</span>
                 10
             </div>
             <div class="dislike DisableUserSelect">
-                <span class="material-symbols-outlined" id="{Here ID of Post}">thumb_up</span>
+                <span class="material-symbols-outlined" id="{{.Post.ID}}">thumb_up</span>
                 10
             </div>
         </div>
         <div class="CommentButtons">
             <div class="like DisableUserSelect">
-                <span class="material-symbols-outlined" id="{Here ID of Post}">comment</span>
+                <span class="material-symbols-outlined" id="{{.Post.ID}}">comment</span>
                 10
             </div>
         </div>
@@ -61,16 +45,19 @@
         </div>
     </div>
     <div class="Comments">
+        {{ range .Comments }}
         <div class="commentCard"><!-- Working Part -->
             <div class="commentAuthorImage">
+                <!-- TODO ADD PROPER link: -->
                 <img src="/assets/images/PostImageTest.jpg" alt="">
             </div>
+
             <div class="commentAuthor">
                 <div class="commentAuthorInfo">
                     <span class="commentAuthorName">
-                        @mtawil
+                        @{{.UserName}}
                         <span class="commentTime">
-                            10/20/2023
+                            {{.CreatedAt.Format "2006-01-02"}}
                         </span>
                     </span>
                     <div class="commentReaction DisableUserSelect">
@@ -78,329 +65,20 @@
                             <span class="material-symbols-outlined">
                                 thumb_up
                             </span>
-                            <span>20</span>
+                            <span>{{.LikeCount}}</span>
                         </span>
                         <span class="dislike" id="{Here ID of Post}">
                             <span class="material-symbols-outlined">thumb_down</span>
-                            <span>20</span>
+                            <span>{{.DislikeCount}}</span>
                         </span>
                     </div>
                 </div>
                 <div class="commentInfo">
-                    <p class="commentData collapse">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totam emporibus sunt dignissimos, odit fugiat, sint eos eum, sed nihil
-                    </p>
+                    <p class="commentData collapse">{{.Content}}</p>
                 </div>
-                <!-- <div class="commentAuthorInfo">
-                            
-                            <div class="Testing">
-                               
-                              
-                                
-                            </div>
-                           
-                                
-                        </div> -->
             </div>
-        </div> <!-- END Working Part -->
-        <div class="commentCard"><!-- Working Part -->
-            <div class="commentAuthorImage">
-                <img src="/assets/images/PostImageTest.jpg" alt="">
-            </div>
-            <div class="commentAuthor">
-                <div class="commentAuthorInfo">
-                    <span class="commentAuthorName">
-                        @mtawil
-                        <span class="commentTime">
-                            10/20/2023
-                        </span>
-                    </span>
-                    <div class="commentReaction">
-                        <span class="like" id="{Here ID of Post}">
-                            <span class="material-symbols-outlined">
-                                thumb_up
-                            </span>
-                            <span>20</span>
-                        </span>
-                        <span class="dislike" id="{Here ID of Post}">
-                            <span class="material-symbols-outlined">
-                                thumb_down
-                            </span>
-                            <span>20</span>
-                        </span>
-                    </div>
-                </div>
-                <div class="commentInfo">
-                    <p class="commentData collapse">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totam emporibus sunt dignissimos, odit fugiat, sint eos eum, sed nihil
-                    </p>
-                </div>
-                <!-- <div class="commentAuthorInfo">
-                            
-                            <div class="Testing">
-                               
-                              
-                                
-                            </div>
-                           
-                                
-                        </div> -->
-            </div>
-        </div> <!-- END Working Part -->
-        <div class="commentCard"><!-- Working Part -->
-            <div class="commentAuthorImage">
-                <img src="/assets/images/PostImageTest.jpg" alt="">
-            </div>
-            <div class="commentAuthor">
-                <div class="commentAuthorInfo">
-                    <span class="commentAuthorName">
-                        @mtawil
-                        <span class="commentTime">
-                            10/20/2023
-                        </span>
-                    </span>
-                    <div class="commentReaction">
-                        <span class="like" id="{Here ID of Post}">
-                            <span class="material-symbols-outlined">
-                                thumb_up
-                            </span>
-                            <span>20</span>
-                        </span>
-                        <span class="dislike" id="{Here ID of Post}">
-                            <span class="material-symbols-outlined">
-                                thumb_down
-                            </span>
-                            <span>20</span>
-                        </span>
-                    </div>
-                </div>
-                <div class="commentInfo">
-                    <p class="commentData collapse">
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totam emporibus sunt dignissimos, odit fugiat, sint eos eum, sed nihil
-                    </p>
-                </div>
-                <!-- <div class="commentAuthorInfo">
-                            
-                            <div class="Testing">
-                               
-                              
-                                
-                            </div>
-                           
-                                
-                        </div> -->
-            </div>
-        </div> <!-- END Working Part -->
-        <div class="commentCard"><!-- Working Part -->
-            <div class="commentAuthorImage">
-                <img src="/assets/images/PostImageTest.jpg" alt="">
-            </div>
-            <div class="commentAuthor">
-                <div class="commentAuthorInfo">
-                    <span class="commentAuthorName">
-                        @mtawil
-                        <span class="commentTime">
-                            10/20/2023
-                        </span>
-                    </span>
-                    <div class="commentReaction">
-                        <span class="like" id="{Here ID of Post}">
-                            <span class="material-symbols-outlined">
-                                thumb_up
-                            </span>
-                            <span>20</span>
-                        </span>
-                        <span class="dislike" id="{Here ID of Post}">
-                            <span class="material-symbols-outlined">
-                                thumb_down
-                            </span>
-                            <span>20</span>
-                        </span>
-                    </div>
-                </div>
-                <div class="commentInfo">
-                    <p class="commentData collapse">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totam emporibus sunt dignissimos, odit fugiat, sint eos eum, sed nihil
-                    </p>
-                </div>
-                <!-- <div class="commentAuthorInfo">
-                            
-                            <div class="Testing">
-                               
-                              
-                                
-                            </div>
-                           
-                                
-                        </div> -->
-            </div>
-        </div> <!-- END Working Part -->
-        <div class="commentCard"><!-- Working Part -->
-            <div class="commentAuthorImage">
-                <img src="/assets/images/PostImageTest.jpg" alt="">
-            </div>
-            <div class="commentAuthor">
-                <div class="commentAuthorInfo">
-                    <span class="commentAuthorName">
-                        @mtawil
-                        <span class="commentTime">
-                            10/20/2023
-                        </span>
-                    </span>
-                    <div class="commentReaction">
-                        <span class="like" id="{Here ID of Post}">
-                            <span class="material-symbols-outlined">
-                                thumb_up
-                            </span>
-                            <span>20</span>
-                        </span>
-                        <span class="dislike" id="{Here ID of Post}">
-                            <span class="material-symbols-outlined">
-                                thumb_down
-                            </span>
-                            <span>20</span>
-                        </span>
-                    </div>
-                </div>
-                <div class="commentInfo">
-                    <p class="commentData collapse">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totam emporibus sunt dignissimos, odit fugiat, sint eos eum, sed nihil
-                    </p>
-                </div>
-                <!-- <div class="commentAuthorInfo">
-                            
-                            <div class="Testing">
-                               
-                              
-                                
-                            </div>
-                           
-                                
-                        </div> -->
-            </div>
-        </div> <!-- END Working Part -->
-        <div class="commentCard"><!-- Working Part -->
-            <div class="commentAuthorImage">
-                <img src="/assets/images/PostImageTest.jpg" alt="">
-            </div>
-            <div class="commentAuthor">
-                <div class="commentAuthorInfo">
-                    <span class="commentAuthorName">
-                        @mtawil
-                        <span class="commentTime">
-                            10/20/2023
-                        </span>
-                    </span>
-                    <div class="commentReaction">
-                        <span class="like" id="{Here ID of Post}">
-                            <span class="material-symbols-outlined">
-                                thumb_up
-                            </span>
-                            <span>20</span>
-                        </span>
-                        <span class="dislike" id="{Here ID of Post}">
-                            <span class="material-symbols-outlined">
-                                thumb_down
-                            </span>
-                            <span>20</span>
-                        </span>
-                    </div>
-                </div>
-                <div class="commentInfo">
-                    <p class="commentData collapse">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totam emporibus sunt dignissimos, odit fugiat, sint eos eum, sed nihil
-                    </p>
-                </div>
-                <!-- <div class="commentAuthorInfo">
-                            
-                            <div class="Testing">
-                               
-                              
-                                
-                            </div>
-                           
-                                
-                        </div> -->
-            </div>
-        </div> <!-- END Working Part -->
-        <div class="commentCard"><!-- Working Part -->
-            <div class="commentAuthorImage">
-                <img src="/assets/images/PostImageTest.jpg" alt="">
-            </div>
-            <div class="commentAuthor">
-                <div class="commentAuthorInfo">
-                    <span class="commentAuthorName">
-                        @mtawil
-                        <span class="commentTime">
-                            10/20/2023
-                        </span>
-                    </span>
-                    <div class="commentReaction">
-                        <span class="like" id="{Here ID of Post}">
-                            <span class="material-symbols-outlined">
-                                thumb_up
-                            </span>
-                            <span>20</span>
-                        </span>
-                        <span class="dislike" id="{Here ID of Post}">
-                            <span class="material-symbols-outlined">
-                                thumb_down
-                            </span>
-                            <span>20</span>
-                        </span>
-                    </div>
-                </div>
-                <div class="commentInfo">
-                    <p class="commentData collapse">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totamit amet consectetur adipisicing elit. Voluptatum rerum earum nisi
-                        provident totam emporibus sunt dignissimos, odit fugiat, sint eos eum, sed nihil
-                    </p>
-                </div>
-                <!-- <div class="commentAuthorInfo">
-                            
-                            <div class="Testing">
-                               
-                              
-                                
-                            </div>
-                           
-                                
-                        </div> -->
-            </div>
-        </div> <!-- END Working Part -->
+        </div>
+        {{ end }}
     </div>
     <div class="commentContainer">
         <div class="commentInput ">

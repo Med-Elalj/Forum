@@ -61,5 +61,16 @@ func TawilPostHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err, "Error Parsing Data from Template hTl")
 	}
-	template.ExecuteTemplate(w, "post.html", nil)
+	posts, err := database.QuerryLatestPosts(DB, 0, 1)
+	if err != nil {
+		log.Fatal(err)
+	}
+	comments, err := database.GetCommentsByPost(DB, posts[0].ID, 5)
+	if err != nil {
+		log.Fatal(err)
+	}
+	template.ExecuteTemplate(w, "post.html", struct {
+		Post     structs.Post
+		Comments []structs.Comment
+	}{Post: posts[0], Comments: comments})
 }
