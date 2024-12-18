@@ -1,52 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link
-        href="/assets/style/google-icons.css"
-        rel="stylesheet" />
+    <link href="/assets/style/google-icons.css" rel="stylesheet" />
     <link rel="stylesheet" href="/assets/style/style.css">
     <link rel="stylesheet" href="/assets/style/post.css">
     <link rel="stylesheet" href="/assets/style/popstyle.css">
     <link rel="stylesheet" href="/assets/style/create-post.css">
     <title>Switter</title>
-    <link rel="icon" href="/assets/images/logo.svg" type="image/svg">
+    <link rel="icon" href="/assets/images/logo.svg" type="image/svg+xml">
 </head>
 
 <body>
-    {{template "create-post" .}}
+    {{template "create-post"}}
     <div class="postContainer"></div>
     <div class="ParentContainer">
-        {{template "header" .}}
-        {{template "left-sidebar" .}}
+        {{template "header" .Profile}}
+        {{template "left-sidebar"}}
         <main>
             <div class="main-flex">
                 <div class="main-feed">
                     <!-- Create New Post -->
                     <div class="new-tweet">
-                        <div class="ProfileImage tweet-img no-border" style="background-image: url('https://ui-avatars.com/api/?name=samira')"></div>
+                        <div class="ProfileImage tweet-img no-border" {{if .Profile.PFP}}
+                            style="background-image: url('https://api.dicebear.com/9.x/personas/svg?seed={{.Profile.PFP}}')"
+                            {{else}}
+                            style="background-image: url('https://ui-avatars.com/api/?name={{.Profile.UserName}}')"
+                            {{end}}></div>
                         <div class="new-tweet-details">
-                            <textarea class="textarea" type="text" placeholder="What's happening?" ></textarea>
+                            <textarea class="textarea" type="text" placeholder="What's happening?"></textarea>
                         </div>
                     </div>
                     <!-- End Of Create New Post -->
-                     
                     <!-- Post Start Content Card -->
-                    <div class="feed-tweet">
+                    {{range $i,$post := .Posts}}
+                    <div class="feed-tweet">    
                         <!-- User image -->
-                         <div class="ProfileImage tweet-img" style="background-image: url('https://ui-avatars.com/api/?name=Samira')">
-                         </div>
-                        <div class="feet-tweet-detail">
-                            <div class="row-tweet">
-                                <div class="tweet-details">
-                                    <!-- Post Title -->
-                                    <span class="tweeter-name post" id="1996">How to improve you english?
-                                        <!-- Post Auther Name And Date-->
-                                        <br><span class="tweeter-handle">@Samira .1h</span>
-                                    </span>
+                        <div class="ProfileImage tweet-img"
+                        style="background-image: url('https://ui-avatars.com/api/?name={{$post.UserName}}')">
+                    </div>
+                    
+                    <div class="feet-tweet-detail">
+                        <div class="row-tweet">
+                            <div class="tweet-details">
+                                <!-- Post Title -->
+                                <span class="tweeter-name post" id="{{$post.ID}}">
+                                    {{$post.Title}}
+                                    <!-- Post Author Name And Date -->
+                                    <br><span class="tweeter-handle">@{{$post.UserName}} {{$post.CreatedAt}}.</span>
+                                </span>
                                 </div>
+                                {{if eq $.Profile.UserName $post.UserName}}
                                 <div class="dropdown">
                                     <i class="material-symbols-outlined">more_horiz</i>
                                     <div class="content">
@@ -57,532 +64,57 @@
                                         </ul>
                                     </div>
                                 </div>
+                                {{end}}
                             </div>
                             <!-- Post Content -->
                             <div class="tweet-text">
-                                <p>
-
-                                    RSF has filed four complaintsledsdsdsdsdsdfsfdled four complaintsled four complaintsled four complaintsled four complaintsddddd with the International Criminal Court (ICC) for “war crimes committed against journalists by the Israeli army” End of The post.
-                                </p>
-
+                                <p>{{$post.Content}}</p>
                             </div>
                             <span class="see-more">See More</span>
 
                             <!-- Post Categories -->
                             <div class="Hashtag">
-                                <a href=""><span>#Technology</span></a>
-                                <a href=""><span>#Bussniess</span></a>
-                                <a href=""><span>#Sport</span></a>
-                                <a href=""><span>#Economy</span></a>
-                                <a href=""><span>#Videos</span></a>
-                                <a href=""><span>#General</span></a>
+                                {{range $post.Categories}}
+                                <a href=""><span>#{{.}}</span></a>
+                                {{end}}
                             </div>
+
                             <div class="tweet-icons">
                                 <div class="react">
                                     <!-- Post Like Counter -->
-                                    <div class="counters like" id="{POST ID}">
+                                    <div class="counters like" id="{{$post.ID}}">
                                         <i class="material-symbols-outlined popup-icon">thumb_up</i>
-                                        <span>10</span>
+                                        <span>{{$post.LikeCount}}</span>
                                     </div>
                                     <!-- Post Dislike Counter -->
-                                    <div class="counters dislike" id="{POST ID}">
+                                    <div class="counters dislike" id="{{$post.ID}}">
                                         <i class="material-symbols-outlined popup-icon">thumb_down</i>
-                                        <span>10</span>
+                                        <span>{{$post.DislikeCount}}</span>
                                     </div>
                                 </div>
-                                <div class="comment post" id="1996">
+                                <div class="comment post" id="{{$post.ID}}">
                                     <!-- Post Comments Counter -->
                                     <i class="material-symbols-outlined">comment</i>
-                                    <span>10</span>
+                                    <span>{{$post.CommentCount}}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- End OF Post Content Card  -->
-
-                    <!-- Post Cards -->
-                    <div class="feed-tweet">
-                        <!-- User image -->
-                        <div class="ProfileImage tweet-img" style="background-image: url('https://ui-avatars.com/api/?name=Jamal')"></div>
-                        <div class="feet-tweet-detail">
-                            <div class="row-tweet">
-                                <div class="tweet-details">
-                                    <!-- Post Title -->
-                                    <a href="" class="tweeter-name">How to improve you english?
-                                        <!-- Post Auther Name And Date-->
-                                        <br><span class="tweeter-handle">@Jamal .1h</span>
-                                    </a>
-                                </div>
-                                <div class="dropdown">
-                                    <i class="material-symbols-outlined">more_horiz</i>
-                                    <div class="content">
-                                        <!-- Control Posts -->
-                                        <ul>
-                                            <li><span class="material-symbols-outlined">edit</span>Edit</li>
-                                            <li><span class="material-symbols-outlined">delete</span>Delete</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Post Content -->
-                            <div class="tweet-text collapse">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit voluptas eos et
-                                    eligendi
-                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
-                                    saepe
-                                    eligendi
-                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
-                                    saepe
-                                </p>
-
-                            </div>
-                            <!-- Post Categories -->
-                            <div class="Hashtag">
-                                <a href=""><span>#Technology</span></a>
-                                <a href=""><span>#Bussniess</span></a>
-                                <a href=""><span>#Sport</span></a>
-                                <a href=""><span>#Economy</span></a>
-                                <a href=""><span>#Videos</span></a>
-                                <a href=""><span>#General</span></a>
-                            </div>
-                            <div class="tweet-icons">
-                                <div class="react">
-                                    <!-- Post Like Counter -->
-                                    <div class="counters like" id="{POST ID}">
-                                        <i class="material-symbols-outlined popup-icon">thumb_up</i>
-                                        <span>10</span>
-                                    </div>
-                                    <!-- Post Dislike Counter -->
-                                    <div class="counters dislike" id="{POST ID}">
-                                        <i class="material-symbols-outlined popup-icon">thumb_down</i>
-                                        <span>10</span>
-                                    </div>
-                                </div>
-                                <div class="comment">
-                                    <!-- Post Comments Counter -->
-                                    <i class="material-symbols-outlined">comment</i>
-                                    <span>10</span>
-                                </div>
-                            </div>
-                        </div>
+                    {{ end }}
+                    <div class="fetchMore">
+                        Fetching more data <br>
+                        You have reached the end.
                     </div>
-                    <!-- New Post Card  -->
-                    <!-- Post Cards -->
-                    <div class="feed-tweet">
-                        <!-- User image -->
-                        <div class="ProfileImage tweet-img" style="background-image: url('https://ui-avatars.com/api/?name=mtawil')"></div>
-                        <div class="feet-tweet-detail">
-                            <div class="row-tweet">
-                                <div class="tweet-details">
-                                    <!-- Post Title -->
-                                    <a href="" class="tweeter-name">How to improve you english?
-                                        <!-- Post Auther Name And Date-->
-                                        <br><span class="tweeter-handle">@mtawil .1h</span>
-                                    </a>
-                                </div>
-                                <div class="dropdown">
-                                    <i class="material-symbols-outlined">more_horiz</i>
-                                    <div class="content">
-                                        <!-- Control Posts -->
-                                        <ul>
-                                            <li><span class="material-symbols-outlined">edit</span>Edit</li>
-                                            <li><span class="material-symbols-outlined">delete</span>Delete</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Post Content -->
-                            <div class="tweet-text collapse">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit voluptas eos et
-                                    eligendi
-                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
-                                    saepe
-                                    eligendi
-                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
-                                    saepe
-                                </p>
-
-                            </div>
-                            <!-- Post Categories -->
-                            <div class="Hashtag">
-                                <a href=""><span>#Technology</span></a>
-                                <a href=""><span>#Bussniess</span></a>
-                                <a href=""><span>#Sport</span></a>
-                                <a href=""><span>#Economy</span></a>
-                                <a href=""><span>#Videos</span></a>
-                                <a href=""><span>#General</span></a>
-                            </div>
-                            <div class="tweet-icons">
-                                <div class="react">
-                                    <!-- Post Like Counter -->
-                                    <div class="counters like" id="{POST ID}">
-                                        <i class="material-symbols-outlined popup-icon">thumb_up</i>
-                                        <span>10</span>
-                                    </div>
-                                    <!-- Post Dislike Counter -->
-                                    <div class="counters dislike" id="{POST ID}">
-                                        <i class="material-symbols-outlined popup-icon">thumb_down</i>
-                                        <span>10</span>
-                                    </div>
-                                </div>
-                                <div class="comment">
-                                    <!-- Post Comments Counter -->
-                                    <i class="material-symbols-outlined">comment</i>
-                                    <span>10</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- New Post Card  -->
-                    <!-- Post Cards -->
-                    <div class="feed-tweet">
-                        <!-- User image -->
-                        <div class="ProfileImage tweet-img" style="background-image: url('https://ui-avatars.com/api/?name=FatimaEzzahra')"></div>
-                        <div class="feet-tweet-detail">
-                            <div class="row-tweet">
-                                <div class="tweet-details">
-                                    <!-- Post Title -->
-                                    <a href="" class="tweeter-name">How to improve you english?
-                                        <!-- Post Auther Name And Date-->
-                                        <br><span class="tweeter-handle">@FatimaEzzahra .1h</span>
-                                    </a>
-                                </div>
-                                <div class="dropdown">
-                                    <i class="material-symbols-outlined">more_horiz</i>
-                                    <div class="content">
-                                        <!-- Control Posts -->
-                                        <ul>
-                                            <li><span class="material-symbols-outlined">edit</span>Edit</li>
-                                            <li><span class="material-symbols-outlined">delete</span>Delete</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Post Content -->
-                            <div class="tweet-text collapse">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit voluptas eos et
-                                    eligendi
-                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
-                                    saepe
-                                    eligendi
-                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
-                                    saepe
-                                </p>
-
-                            </div>
-                            <!-- Post Categories -->
-                            <div class="Hashtag">
-                                <a href=""><span>#Technology</span></a>
-                                <a href=""><span>#Bussniess</span></a>
-                                <a href=""><span>#Sport</span></a>
-                                <a href=""><span>#Economy</span></a>
-                                <a href=""><span>#Videos</span></a>
-                                <a href=""><span>#General</span></a>
-                            </div>
-                            <div class="tweet-icons">
-                                <div class="react">
-                                    <!-- Post Like Counter -->
-                                    <div class="counters like" id="{POST ID}">
-                                        <i class="material-symbols-outlined popup-icon">thumb_up</i>
-                                        <span>10</span>
-                                    </div>
-                                    <!-- Post Dislike Counter -->
-                                    <div class="counters dislike" id="{POST ID}">
-                                        <i class="material-symbols-outlined popup-icon">thumb_down</i>
-                                        <span>10</span>
-                                    </div>
-                                </div>
-                                <div class="comment">
-                                    <!-- Post Comments Counter -->
-                                    <i class="material-symbols-outlined">comment</i>
-                                    <span>10</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- New Post Card  -->
-                    <!-- Post Cards -->
-                    <div class="feed-tweet">
-                        <!-- User image -->
-                        <div class="ProfileImage tweet-img" style="background-image: url('https://ui-avatars.com/api/?name=FatimaEzzahra')"></div>
-                        <div class="feet-tweet-detail">
-                            <div class="row-tweet">
-                                <div class="tweet-details">
-                                    <!-- Post Title -->
-                                    <a href="" class="tweeter-name">How to improve you english?
-                                        <!-- Post Auther Name And Date-->
-                                        <br><span class="tweeter-handle">@FatimaEzzahra .1h</span>
-                                    </a>
-                                </div>
-                                <div class="dropdown">
-                                    <i class="material-symbols-outlined">more_horiz</i>
-                                    <div class="content">
-                                        <!-- Control Posts -->
-                                        <ul>
-                                            <li><span class="material-symbols-outlined">edit</span>Edit</li>
-                                            <li><span class="material-symbols-outlined">delete</span>Delete</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Post Content -->
-                            <div class="tweet-text collapse">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit voluptas eos et
-                                    eligendi
-                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
-                                    saepe
-                                    eligendi
-                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
-                                    saepe
-                                </p>
-
-                            </div>
-                            <!-- Post Categories -->
-                            <div class="Hashtag">
-                                <a href=""><span>#Technology</span></a>
-                                <a href=""><span>#Bussniess</span></a>
-                                <a href=""><span>#Sport</span></a>
-                                <a href=""><span>#Economy</span></a>
-                                <a href=""><span>#Videos</span></a>
-                                <a href=""><span>#General</span></a>
-                            </div>
-                            <div class="tweet-icons">
-                                <div class="react">
-                                    <!-- Post Like Counter -->
-                                    <div class="counters like" id="{POST ID}">
-                                        <i class="material-symbols-outlined popup-icon">thumb_up</i>
-                                        <span>10</span>
-                                    </div>
-                                    <!-- Post Dislike Counter -->
-                                    <div class="counters dislike" id="{POST ID}">
-                                        <i class="material-symbols-outlined popup-icon">thumb_down</i>
-                                        <span>10</span>
-                                    </div>
-                                </div>
-                                <div class="comment">
-                                    <!-- Post Comments Counter -->
-                                    <i class="material-symbols-outlined">comment</i>
-                                    <span>10</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- New Post Card  -->
-                    <!-- Post Cards -->
-                    <div class="feed-tweet">
-                        <!-- User image -->
-                        <div class="ProfileImage tweet-img" style="background-image: url('https://ui-avatars.com/api/?name=asamir')"></div>
-                        <div class="feet-tweet-detail">
-                            <div class="row-tweet">
-                                <div class="tweet-details">
-                                    <!-- Post Title -->
-                                    <a href="" class="tweeter-name">How to improve you english?
-                                        <!-- Post Auther Name And Date-->
-                                        <br><span class="tweeter-handle">@ASamir .1h</span>
-                                    </a>
-                                </div>
-                                <div class="dropdown">
-                                    <i class="material-symbols-outlined">more_horiz</i>
-                                    <div class="content">
-                                        <!-- Control Posts -->
-                                        <ul>
-                                            <li><span class="material-symbols-outlined">edit</span>Edit</li>
-                                            <li><span class="material-symbols-outlined">delete</span>Delete</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Post Content -->
-                            <div class="tweet-text collapse">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit voluptas eos et
-                                    eligendi
-                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
-                                    saepe
-                                    eligendi
-                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
-                                    saepe
-                                </p>
-
-                            </div>
-                            <!-- Post Categories -->
-                            <div class="Hashtag">
-                                <a href=""><span>#Technology</span></a>
-                                <a href=""><span>#Bussniess</span></a>
-                                <a href=""><span>#Sport</span></a>
-                                <a href=""><span>#Economy</span></a>
-                                <a href=""><span>#Videos</span></a>
-                                <a href=""><span>#General</span></a>
-                            </div>
-                            <div class="tweet-icons">
-                                <div class="react">
-                                    <!-- Post Like Counter -->
-                                    <div class="counters like" id="{POST ID}">
-                                        <i class="material-symbols-outlined popup-icon">thumb_up</i>
-                                        <span>10</span>
-                                    </div>
-                                    <!-- Post Dislike Counter -->
-                                    <div class="counters dislike" id="{POST ID}">
-                                        <i class="material-symbols-outlined popup-icon">thumb_down</i>
-                                        <span>10</span>
-                                    </div>
-                                </div>
-                                <div class="comment">
-                                    <!-- Post Comments Counter -->
-                                    <i class="material-symbols-outlined">comment</i>
-                                    <span>10</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- New Post Card  -->
-                    <!-- Post Cards -->
-                    <div class="feed-tweet">
-                        <!-- User image -->
-                        <div class="ProfileImage tweet-img" style="background-image: url('https://ui-avatars.com/api/?name=hamid')"></div>
-                        <div class="feet-tweet-detail">
-                            <div class="row-tweet">
-                                <div class="tweet-details">
-                                    <!-- Post Title -->
-                                    <a href="" class="tweeter-name">How to improve you english?
-                                        <!-- Post Auther Name And Date-->
-                                        <br><span class="tweeter-handle">@Hamid .1h</span>
-                                    </a>
-                                </div>
-                                <div class="dropdown">
-                                    <i class="material-symbols-outlined">more_horiz</i>
-                                    <div class="content">
-                                        <!-- Control Posts -->
-                                        <ul>
-                                            <li><span class="material-symbols-outlined">edit</span>Edit</li>
-                                            <li><span class="material-symbols-outlined">delete</span>Delete</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Post Content -->
-                            <div class="tweet-text collapse">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit voluptas eos et
-                                    eligendi
-                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
-                                    saepe
-                                    eligendi
-                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
-                                    saepe
-                                </p>
-
-                            </div>
-                            <!-- Post Categories -->
-                            <div class="Hashtag">
-                                <a href=""><span>#Technology</span></a>
-                                <a href=""><span>#Bussniess</span></a>
-                                <a href=""><span>#Sport</span></a>
-                                <a href=""><span>#Economy</span></a>
-                                <a href=""><span>#Videos</span></a>
-                                <a href=""><span>#General</span></a>
-                            </div>
-                            <div class="tweet-icons">
-                                <div class="react">
-                                    <!-- Post Like Counter -->
-                                    <div class="counters like" id="{POST ID}">
-                                        <i class="material-symbols-outlined popup-icon">thumb_up</i>
-                                        <span>10</span>
-                                    </div>
-                                    <!-- Post Dislike Counter -->
-                                    <div class="counters dislike" id="{POST ID}">
-                                        <i class="material-symbols-outlined popup-icon">thumb_down</i>
-                                        <span>10</span>
-                                    </div>
-                                </div>
-                                <div class="comment">
-                                    <!-- Post Comments Counter -->
-                                    <i class="material-symbols-outlined">comment</i>
-                                    <span>10</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- New Post Card  -->
-                    <!-- Post Cards -->
-                    <div class="feed-tweet">
-                        <!-- User image -->
-                        <div class="ProfileImage tweet-img" style="background-image: url('https://ui-avatars.com/api/?name=hamid')"></div>
-                        <div class="feet-tweet-detail">
-                            <div class="row-tweet">
-                                <div class="tweet-details">
-                                    <!-- Post Title -->
-                                    <a href="" class="tweeter-name">How to improve you english?
-                                        <!-- Post Auther Name And Date-->
-                                        <br><span class="tweeter-handle">@Hamid .1h</span>
-                                    </a>
-                                </div>
-                                <div class="dropdown">
-                                    <i class="material-symbols-outlined">more_horiz</i>
-                                    <div class="content">
-                                        <!-- Control Posts -->
-                                        <ul>
-                                            <li><span class="material-symbols-outlined">edit</span>Edit</li>
-                                            <li><span class="material-symbols-outlined">delete</span>Delete</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Post Content -->
-                            <div class="tweet-text collapse">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit voluptas eos et
-                                    eligendi
-                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
-                                    saepe
-                                    eligendi
-                                    perspiciatis nulla explicabo at possimus, dicta tempore similique quaerat laborum
-                                    saepe
-                                </p>
-
-                            </div>
-                            <!-- Post Categories -->
-                            <div class="Hashtag">
-                                <a href=""><span>#Technology</span></a>
-                                <a href=""><span>#Bussniess</span></a>
-                                <a href=""><span>#Sport</span></a>
-                                <a href=""><span>#Economy</span></a>
-                                <a href=""><span>#Videos</span></a>
-                                <a href=""><span>#General</span></a>
-                            </div>
-                            <div class="tweet-icons">
-                                <div class="react">
-                                    <!-- Post Like Counter -->
-                                    <div class="counters like" id="{POST ID}">
-                                        <i class="material-symbols-outlined popup-icon">thumb_up</i>
-                                        <span>10</span>
-                                    </div>
-                                    <!-- Post Dislike Counter -->
-                                    <div class="counters dislike" id="{POST ID}">
-                                        <i class="material-symbols-outlined popup-icon">thumb_down</i>
-                                        <span>10</span>
-                                    </div>
-                                </div>
-                                <div class="comment">
-                                    <!-- Post Comments Counter -->
-                                    <i class="material-symbols-outlined">comment</i>
-                                    <span>10</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- New Post Card  -->
-                    <!-- Post Cards -->
-                     <div class="fetchMore">
-                        Fetching More data <br>
-                        You have reached the end
-                     </div>
                 </div>
-                {{template "profile-sidebar" . }}
+                {{template "profile-sidebar" .Profile}}
             </div>
         </main>
     </div>
     <div id="popupContainer"></div>
-    {{template "footer" .}}
+    {{template "footer"}}
     <script src="/assets/js/pop.js"></script>
     <script src="/assets/js/profile.js"></script>
     <script src="/assets/js/script.js"></script>
-    </body>
+</body>
+
 </html>

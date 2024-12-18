@@ -1,6 +1,6 @@
 {{define "profile-sidebar"}}
 <div class="sidebar-right ">
-    <h1 for="checkedBox" class="h1-title sub-main reverse">
+    <h1 class="h1-title sub-main reverse">
         <div class="switch-icon rotate">
             <span class="material-symbols-outlined">
                 autorenew
@@ -12,11 +12,12 @@
         </div>
     </h1>
     <div class="ProfileCard display">
+        {{ if .UserName}}
         <div class="profileImage">
-            <img src="https://api.dicebear.com/9.x/personas/svg?seed=Vivian" alt="">
+            <img src="https://api.dicebear.com/9.x/personas/svg?seed={{ .PFP}}" alt="">
         </div>
         <div class="profileName">
-             MTAWIL 
+            {{.UserName}}
         </div>
         <div class="profileStatics">
             <span class="analytics">analytics</span>
@@ -24,62 +25,44 @@
                 <span class="material-symbols-outlined">
                     article
                 </span>
-                <span class="postCounts">10 Articles</span>
+                <span class="postCounts">{{.ArticleCount}} Articles</span>
             </div>
             <div class="comments">
                 <span class="material-symbols-outlined">
                     comment
                     </span>
-                <span class="postCounts">10 comments</span>
+                <span class="postCounts">{{.CommentCount}} Comments</span>
             </div>
         </div>
+        {{ else}}
+        <div class="profileImage">
+            <img src="https://ui-avatars.com/api/?name=An" alt="">
+        </div>
+        <div class="profileName">
+            Not Loged In
+        </div>
+        <div class="SignOptions">
+            <a href="/login" class="Buttons">
+                <i class="material-symbols-outlined">login</i>
+                <span>Login / Register</span>
+            </a>
+        </div>
+        {{ end}}
     </div>
     
     <!-- <h1 class="h1-title Categories">Categories</h1> -->
     <div class="Categories">
 
         <hr class="categories-line">
-        <div class="trending-item">
-            <div class="item-category">
-                <p>Technology</p>
-            </div>
-            <span>10 Posts</span>
-        </div>
+        {{range $key, $value := .Categories}}
         <hr>
         <div class="trending-item">
             <div class="item-category">
-                <p>Business</p>
+                <p>{{$key}}</p>
             </div>
-            <span>10 Posts</span>
+            <span>{{$value}} Posts</span>
         </div>
-        <hr>
-        <div class="trending-item">
-            <div class="item-category">
-                <p>Economy</p>
-            </div>
-            <span>10 Posts</span>
-        </div>
-        <hr>
-        <div class="trending-item">
-            <div class="item-category">
-                <p>Sport</p>
-            </div>
-            <span>10 Posts</span>
-        </div>
-        <hr>
-        <div class="trending-item">
-            <div class="item-category">
-                <p>Videos</p>
-            </div>
-            <span>10 Videos</span>
-        </div>
-        <hr>
-        <div class="trending-item">
-            <div class="item-category">
-                <p>General</p>
-            </div>
-            <span>10 Posts</span>
-        </div>
+        {{end}}
     </div>
     
     <!-- <a href="" class="show-more">Show more</a> !-->

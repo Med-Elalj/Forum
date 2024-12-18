@@ -9,7 +9,7 @@ const (
 		LEFT JOIN categories c ON pc.category_id = c.id
 		LEFT JOIN post_likes pl ON p.id = pl.post_id AND pl.user_id = ?
 		GROUP BY p.id
-		ORDER BY p.created_at ASC
+		ORDER BY p.created_at DESC
 		LIMIT ?;`
 	GetPostsbyUserL = `SELECT p.*, u.username, GROUP_CONCAT(c.name , "|") AS categories ,
 		COALESCE(pl.is_like, "null") AS is_like

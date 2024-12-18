@@ -1,25 +1,34 @@
 {{define "header"}}
-        <nav>
-            <!-- Logo -->
-            <div class="Logo">
-                <span>Forum</span>Project
-            </div>
-            <!-- Search Bar -->
-            <!-- <div class="search-box">
+<nav>
+    <!-- Logo -->
+    <div class="Logo">
+        <span>Forum</span>Project
+    </div>
+    <!-- Search Bar -->
+    <!-- <div class="search-box">
                 <input type="text" id="srch" placeholder="Search..." onkeyup="debounceSearch()">
                 <div id="search-results"></div>
                 <button type="submit"><i class="fa fa-search"></i></button>
             </div>    -->
-            <div class="SignOptions">
-                <a href="" class="Buttons">
-                    <i class="material-symbols-outlined">login</i>
-                    <span>Login / Register</span>
-                </a>
-                <div class="main-account">
-                    <a href="">
-                        <div class="ProfileImage tweet-img" style="background-image: url('https://ui-avatars.com/api/?name=samira')">
-                    </a>
-                </div>
+    {{if .UserName}}
+    <div class="main-account">
+        <a href="/profile/{{.UserName}}">
+            <div class="ProfileImage tweet-img"
+                {{if .PFP}}
+                style="background-image: url('https://api.dicebear.com/9.x/personas/svg?seed={{.PFP}}')">
+                {{else}}
+                style="background-image: url('https://ui-avatars.com/api/?name={{.UserName}}')">
+                {{end}}
             </div>
-        </nav>
+        </a>
+    </div>
+    {{else}}
+    <div class="SignOptions">
+        <a href="/login" class="Buttons">
+            <i class="material-symbols-outlined">login</i>
+            <span>Login / Register</span>
+        </a>
+    </div>
+    {{end}}
+</nav>
 {{end}}

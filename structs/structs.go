@@ -41,3 +41,11 @@ type UserProfile struct {
 	Posts     []Post
 	CreatedAt time.Time
 }
+
+type Profile struct {
+	UserName     string
+	PFP          string
+	ArticleCount int
+	CommentCount int
+	Categories   map[string]int
+}
