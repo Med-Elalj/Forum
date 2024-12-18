@@ -1,0 +1,46 @@
+{{define "create-post"}}
+    <div class="postModal">
+        <div class="CreatePostContainer">
+            <form action="/create-post" method="POST">
+                <div class="titleInput">
+                    <input 
+                        type="text" 
+                        name="title" 
+                        placeholder="Enter a Title for your post" 
+                        required 
+                        maxlength="100" 
+                        aria-label="Post Title"
+                    >
+                    <span class="material-symbols-outlined close-post DisableUserSelect">
+                        close
+                        </span>
+                </div>
+                <div class="postInput">
+                    <textarea 
+                        name="content" 
+                        placeholder="Share your thoughts, insights, or stories..." 
+                        required 
+                        maxlength="1000"
+                        aria-label="Post Content"
+                    ></textarea>
+                </div>
+                <div class="CategoriesSelector DisableUserSelect">
+                    <input type="checkbox" name="category" id="general" value="General">
+                    <label for="general">General</label>
+                    <input type="checkbox" name="category" id="videos" value="Videos">
+                    <label for="videos">Videos</label>
+                    <input type="checkbox" name="category" id="sport" value="Sport">
+                    <label for="sport">Sport</label>
+                    <input type="checkbox" name="category" id="economy" value="Economy">
+                    <label for="economy">Economy</label>
+                    <input type="checkbox" name="category" id="business" value="Business">
+                    <label for="business">Business</label>
+                    <input type="checkbox" name="category" id="technology" value="Technology">
+                    <label for="technology">Technology</label>
+                </div>
+                <input type="submit" value="Publish Post" class="submitButton">
+            </form>
+        </div>
+    </div>
+
+    {{end}}

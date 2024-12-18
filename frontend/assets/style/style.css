@@ -5,13 +5,13 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 :root {
     --WhiteBlue: #def0f4;
     --White: #ffffff;
     --WhiteB: #e0eced;
     --Greey: #efefef;
     --GreeyD: #919191;
+    --GreeyTransparant: hsla(0, 0%, 21%, 0.531);
     --GreeyDarked: hsla(0, 0%, 81%, 0.294);
     --shadow: 0px 10px 10px hsla(0, 0%, 40%, 0.30);
     --shadowLittle: 0px 10px 10px hsla(0, 0%, 40%, 0.20);
@@ -26,7 +26,6 @@
 
 
 html {
-    font-size: 10px;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -37,9 +36,9 @@ body {
 
 a {
     text-decoration: none;
-    font-size: 1.5rem;
-    font-weight: 400;
-    line-height: 24px;
+    /* font-size: 1.5rem; */
+    /* font-weight: 400; */
+    /* line-height: 24px; */
 }
 
 .sidebar-left {
@@ -73,15 +72,16 @@ hr {
     display: flex;
     flex-direction: column;
     right: 2.5%;
-    height: 570px;
+    height: auto;
     width: 20%;
     border-radius: 16px;
     background-color: var(--WhiteBlue);
     margin-top: 16px;
     position: fixed;
     box-shadow: 0px 10px 12px hwb(0 0% 80% / 0.22);
-}
+    overflow: hidden;
 
+}
 .trending p {
     color: var(--BlueGreen);
 }
@@ -94,7 +94,6 @@ hr {
     height: 90px;
     padding: 0 15px;
     color: rgb(110, 118, 125);
-    font-size: 1.5rem;
     font-weight: 600;
 }
 
@@ -110,7 +109,7 @@ hr {
 .nav-links a {
     display: flex;
     align-items: center;
-    font-size: 2rem;
+    /* font-size: 2rem; */
     padding: 8px 25px 8px 8px;
     color: var(--Black);
 }
@@ -155,7 +154,7 @@ nav {
     /* Added padding to prevent edge sticking */
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 5;
     /* Ensure it stays on top */
     width: 100%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -187,7 +186,7 @@ nav {
     height: fit-content;
     background-color: var(--White);
     color: var(--BlueGreen);
-    font-weight: 600;
+    /* font-weight: 600; */
     gap: 7px;
     padding: 10px;
     border-radius: 10px;
@@ -253,13 +252,6 @@ nav {
     border-radius: 90px;
 }
 
-.tweet-img {
-    width: 49px;
-    height: 50px;
-    border-radius: 50%;
-    /* background-color: white; */
-}
-
 .account-details {
     display: flex;
     flex-direction: column;
@@ -316,12 +308,12 @@ main {
     /* width: 100%; */
     /* max-height: 150px; */
     background-color: var(--WhiteBlue);
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     border: none;
     color: var(--Grey);
     outline: none;
     border-radius: 50px;
-    padding: 10px;
+    padding: 2px 31px;
     resize: none;
     cursor: pointer;
 }
@@ -392,7 +384,9 @@ main {
 .new-tweet .tweet-img {
     width: 63px;
     height: 63px;
+    background-size: 63px;
     cursor: pointer;
+
 }
 
 .new-tweet-details {
@@ -401,8 +395,9 @@ main {
     justify-content: space-evenly;
     width: calc(100% - 73px);
     margin-left: 10px;
-
 }
+
+.new-tweet-details {}
 
 
 .new-tweet-actions {
@@ -460,7 +455,6 @@ main {
     box-shadow: 0px 3px 10px hwb(0 0% 80% / 0.32);
     gap: 12px;
 }
-
 .feed-tweet-details {
     display: flex;
     flex-direction: column;
@@ -478,36 +472,87 @@ main {
     color: var(--DarkBlue);
 }
 
-.feed-tweet .tweet-img {
+.tweet-img {
     width: 49px;
     height: 50px;
     border-radius: 50%;
     flex-shrink: 0;
+    border: 2px solid var(--BlueDarker);
+    transition: all .5s;
+    padding: 5px 1px 5px;
+
     /* Prevent image from shrinking */
 }
+.tweet-img:hover {
+    background-color: #088395;
+    transition: all .5s;
+    transform: scale(1.2);
 
-.tweet-details a {
-    font-weight: 700;
-    color: var(--BlueGreen);
+}
+.no-border {
+    border: none;
+    background-color: transparent !important;
 }
 
-.tweet-details span {
+.no-border:hover {
+    transform: scale(1);
+}
+
+.tweeter-name{
+    font-weight: 700;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--BlueGreen);
+    line-height: 1.4rem;
+}
+
+.tweeter-handle {
     color: rgb(110, 118, 125);
-    font-size: 1.5rem;
-    font-weight: 400;
+    font-size: 1rem;
+    font-weight: 300;
     margin-left: 3px;
 }
-
 .tweet-text {
-    color: var(--Black);
-    font-size: 1.5rem;
-    width: 100%;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
+    color: var(--Black);
+    font-size: 1rem;
+    font-weight: 300;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.tweet-text p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tweet-text.expanded {
+    max-height: none;
+}
+
+.tweet-text.expanded p {
+    -webkit-line-clamp: unset;
+    overflow: visible;
+}
+
+.see-more {
+    color: blue;
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 5px;
+    font-weight: bold;
+    align-self: flex-start;
+    font-size: 14px;
+}
+
+.see-more:hover {
+    text-decoration: underline;
 }
 
 .tweet-icons {
@@ -528,7 +573,11 @@ main {
 }
 
 .h1-title {
-    color: var(--BlueGreen);
+    display: flex;
+    background: var(--BlueGreen);
+    color: white;
+    cursor: pointer;
+    align-items: center;
     font-size: 2rem;
     font-weight: 700;
     line-height: 24px;
@@ -641,7 +690,7 @@ main {
 .FILL {
     font-variation-settings: 'FILL' 1;
     color: var(--BlueDarker) !important;
-}
+}   
 
 .counters span,
 .comment span {
@@ -686,7 +735,6 @@ main {
     display: flex;
     align-items: flex-start;
     flex-grow: 1;
-    /* Allow this to take available space */
 }
 
 .dropdown {
@@ -699,33 +747,32 @@ main {
 .dropdown .content {
     position: absolute;
     top: 100%;
-    /* Position below the more_horiz icon */
     right: 0;
-    background-color: var(--Greey);
+    background-color: var(--WhiteB);
+    border-radius: 4px;
+
     display: none;
     color: var(--Black);
-    border-radius: 4px;
-    z-index: 10;
+    z-index: 6;
     font-size: 14px;
     font-weight: 300;
     width: max-content;
     min-width: 120px;
     box-shadow: var(--shadowLittle);
-    /* Optional: adds a subtle shadow */
 }
 
 .content ul {
     display: block;
-    /* Ensure the list is displayed properly */
     white-space: nowrap;
-    /* Prevent text from wrapping */
+
 }
 
 .content li {
     list-style: none;
     padding: 5px 10px;
+}
+.content li:nth-child(odd) {
     border-bottom: 1px solid var(--BlueDarker);
-    border-radius: 4px;
 }
 
 .content li:hover {
@@ -793,4 +840,213 @@ main {
 .search-box button i {
     font-size: 20px;
     color: black;
+}
+.ProfileImage{
+    width: 50px;
+    height: 50px;
+    background-size: 46px;
+    background-repeat: no-repeat;
+
+}
+
+.closed{
+    display: none !important;
+}
+.postContainer{
+    position: fixed;
+    top: 0;
+    left: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--GreeyTransparant);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    z-index: 10;
+    transition: all 1s;
+    overflow-y: auto; /* Allow scrolling within popup */
+
+}
+.close-post {
+    position: absolute;
+    top: 8px;
+    right: 6px;
+    color: var(--BlueDarker);
+    background-color: white;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    font-size: 40px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.close-post:hover{
+    color: var(--White);
+    background-color: var(--BlueDarker);
+}
+.stop-scrolling {
+    overflow: hidden;
+}
+.logged-out{
+    font-size: 16px;
+    cursor: pointer;
+}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) 
+{
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) 
+{
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) 
+{
+
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) 
+{
+
+}
+
+.new-tweet-details textarea::placeholder {
+    position: relative;
+    top: 25%;
+}
+
+
+.nav-links span {
+    font-size: 1.2rem;
+}
+
+.item-category p {
+    font-size: 1.3rem;
+    color: var(--BlueGreen);
+}
+
+.trending-item span {font-size: 0.9rem;}
+
+
+.sub-main:hover{
+    background: var(--BlueDarker);
+    color: var(--WhiteB);
+}
+.sub-main.reverse .switch-buttons span:first-child{
+    font-size: 10px;
+    opacity: 0.5 !important;
+
+}
+.sub-main.reverse .switch-buttons span:last-child{
+    font-size: 25px;
+    opacity: 1 !important;
+
+}
+.main{
+    font-size: 25px;
+    transition: all 0.5s;
+}
+.sub{
+    font-size: 10px;
+    opacity: 0.6 !important;
+    transition: all 0.5s;
+}
+
+.switch-buttons{
+    display: flex;
+    flex-direction: column;
+}
+.switch-icon span{
+    font-size: 30px;
+    transition: rotate .5s;
+    /* vertical-align: middle; */
+}
+.rotate{
+    rotate:180deg;
+    transition: rotate .5s;
+}
+.Profile{
+    font-size: 20px;
+}
+
+.ProfileCard{
+    position: relative;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    font-size:20px;
+    gap: 10px;
+    opacity: 1;
+    animation: opc 2s ;
+    transition: all 1s;
+
+}
+.display{
+    display: flex !important;
+}
+.Categories{
+    display: none;
+    flex-direction: column;
+    animation: leftx 2s ;
+    opacity: 1;
+    animation: opc 2s ;
+    transition: all 1s;
+}
+@keyframes opc {
+    0%{opacity: 0;}
+    100%{opacity: 1;}
+}
+
+.profileImage{
+    width: 100px;
+}
+.profileName{
+    color: var(--BlueDarker);
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.profileStatics{
+    display: flex;
+    position: relative;
+    /* margin: auto; */
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    background-color: var(--White);
+    border-radius: 10px;
+    padding: 20px 10px 10px 10px;
+    /* overflow: hidden; */
+    margin-bottom: 15px;
+}
+
+.profileStatics div .material-symbols-outlined{
+    color: var(--BlueDarker);
+}
+.analytics{
+    position: absolute;
+    top: -11px;
+    left: 27px;
+    background: var(--BlueGreenWhite);
+    color: var(--White);
+    padding: 5px;
+    border-radius: 99px;
+    font-size: 16px;
+    padding: 0px 30px;
+    width: fit-content;
+}
+
+.postCounts {
+    color: var(--BlueDarker);
 }
