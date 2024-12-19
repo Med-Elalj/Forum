@@ -33,11 +33,14 @@ func main() {
 	fmt.Println(database.QuerryPostsbyUser(db, "test", 0, 5))
 	http.HandleFunc("POST /login", handlers.Login)
 	http.HandleFunc("POST /register", handlers.Register)
+
 	http.HandleFunc("/post1", handlers.TawilPostHandler)
 	http.HandleFunc("/profile", handlers.TawilProfileHandler)
+	http.HandleFunc("/index", handlers.TawilHandelr)
+	http.HandleFunc("/register", handlers.TawilHandelrRegister)
+
 	http.HandleFunc("/post", handlers.Post)
 	http.HandleFunc("/home", handlers.HomePage)
-	http.HandleFunc("/err", handlers.TawilHandelr)
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("./frontend/assets"))))
 	fmt.Println("Server listening on :8080...")
 	err := http.ListenAndServe(":8080", nil)

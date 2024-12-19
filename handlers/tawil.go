@@ -9,7 +9,18 @@ import (
 	"forum/database"
 	"forum/structs"
 )
-
+func TawilHandelrRegister(w http.ResponseWriter, r *http.Request) {
+	template, err := template.ParseGlob("./frontend/templates/*.html")
+	if err != nil {
+		log.Fatal(err, "Error Parsing Data from Template hTl")
+	}
+	template, err = template.ParseGlob("./frontend/templates/components/*.html")
+	if err != nil {
+		log.Fatal(err, "Error Parsing Data from Template hTl")
+	}
+	template.ExecuteTemplate(w, "register.html", nil)
+}
+	
 func TawilHandelr(w http.ResponseWriter, r *http.Request) {
 	template, err := template.New("index").Funcs(template.FuncMap{
 		"timeAgo": structs.TimeAgo,

@@ -2,6 +2,8 @@
 const CreatePostModel = document.querySelector(".postModal")
 const CreatePostArea = document.querySelector(".new-tweet-details")
 let popup = NaN;
+const closeCreatePostModal =  document.querySelector(".titleInput .close-post")
+     
 const CreatePostInputTitle = document.querySelector(".titleInput input")
 const dropdown = document.querySelectorAll('.dropdown i')
 let contentList = document.querySelectorAll('.content')
@@ -168,8 +170,10 @@ postButton.forEach(elem => {
 
 //###////////////////////  Creat NEW POST Listenner  //////////
 
-
 CreatePostArea.addEventListener('click', ()=>{
     CreatePostModel.style.display  = "flex"
     CreatePostInputTitle.focus()
+    closeCreatePostModal.addEventListener('click', ()=>{
+        CreatePostModel.style.display  = "none"
+    })
 })
