@@ -9,6 +9,7 @@ import (
 	"forum/database"
 	"forum/structs"
 )
+
 func TawilHandelrRegister(w http.ResponseWriter, r *http.Request) {
 	template, err := template.ParseGlob("./frontend/templates/*.html")
 	if err != nil {
@@ -20,7 +21,7 @@ func TawilHandelrRegister(w http.ResponseWriter, r *http.Request) {
 	}
 	template.ExecuteTemplate(w, "register.html", nil)
 }
-	
+
 func TawilHandelr(w http.ResponseWriter, r *http.Request) {
 	template, err := template.New("index").Funcs(template.FuncMap{
 		"timeAgo": structs.TimeAgo,
@@ -72,5 +73,18 @@ func TawilPostHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err, "Error Parsing Data from Template hTl")
 	}
-	template.ExecuteTemplate(w, "post.html", nil)
+	// TODO make it post specific
+	posts, err := database.QuerryLatestPosts(DB, 0, 2)
+	if err != nil {
+		log.Fatal(err)
+	}
+	comments, err := database.GetCommentsByPost(DB, posts[1].ID, 5)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	template.ExecuteTemplate(w, "post.html", struct {
+		Post     structs.Post
+		Comments []structs.Comment
+	}{Post: posts[1], Comments: comments})
 }

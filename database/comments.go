@@ -31,7 +31,7 @@ func GetCommentsByPost(db *sql.DB, postId, ammount int) ([]structs.Comment, erro
 
 	for rows.Next() {
 		var comment structs.Comment
-		err := rows.Scan(&comment.ID, &comment.PostID, &comment.UserID, &comment.Content, &comment.CreatedAt, &comment.UserName)
+		err := rows.Scan(&comment.ID, &comment.PostID, &comment.UserID, &comment.Content, &comment.LikeCount, &comment.DislikeCount, &comment.CreatedAt, &comment.UserName)
 		if err != nil {
 			return res, err
 		}

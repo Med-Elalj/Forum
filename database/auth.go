@@ -29,6 +29,7 @@ func CreateUser(db *sql.DB, email, username, password string) error {
 func GetUserByUname(db *sql.DB, username string) (string, error) {
 	var hpassword string
 	fmt.Println(username, hpassword)
+	// TODO : Create one For email (login)
 	err := db.QueryRow("SELECT password FROM users WHERE username=?", username).Scan(&hpassword)
 	fmt.Println(username, hpassword)
 

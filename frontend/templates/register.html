@@ -8,18 +8,21 @@
     <link rel="stylesheet" href="./assets/style/register.css">
 </head>
 <body>
+    <!-- TODO Fix Responsive to fit Mobiles -->
     <div class="container" id="container">
         <!-- Add this immediately after <div class="container" id="container"> -->
 
-
+            <!-- uemail := r.Form.Get("email")
+            uname := r.Form.Get("username")
+            upass := r.Form.Get("password") -->
         <div class="form-container sign-up" id="sign-up-form">
-            <form>
+            <form method="POST" action="/register">
                 <h1>Create Account</h1>
-                <input type="text" id="user" placeholder="Username" required>
+                <input type="text" id="user" name="username" placeholder="Username" required>
                 <div id="usernameMessage" class="message"><i class='bx bx-x-circle'></i> </div>
-                <input type="email" id="email" placeholder="Email" required>
+                <input type="email" id="email"   name="email"  placeholder="Email" required>
                 <div id="emailMessage" class="message"><i class='bx bx-x-circle'></i> </div>
-                <input type="password" id="pass" placeholder="Password" required>
+                <input type="password" name="password" id="pass" placeholder="Password" required>
                 <div class="passChecker">
                     <div class="lower"><i class='bx bx-x-circle'></i> A lowercase letter</div>
                     <div class="upper"><i class='bx bx-x-circle'></i> A capital (uppercase) letter</div>
@@ -37,10 +40,11 @@
         </div>
 
         <div class="form-container sign-in" id="login-form">
-            <form>
+            <form method="POST" action="/login">
                 <h1>Sign In</h1>
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Password" required>
+                <input type="email"  name="email"  placeholder="Email" required> 
+                <!-- TODO : Check Invalid inputs And install TODO Tree extensions-->
+                <input type="password"  name="password" placeholder="Password" required>
                 <p>Don't have an account? <a href="#">Sign Up</a></p>
                 <button type="submit">Sign In</button>
                 <div class="mobile-switch">

@@ -29,7 +29,8 @@ func init() {
 func Login(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	r.ParseForm()
-	uname := r.Form.Get("username")
+	// TODO fix db and link
+	uname := r.Form.Get("email")
 	upass := r.Form.Get("password")
 	fmt.Println(uname, upass)
 	hpassword, err := database.GetUserByUname(DB, uname)
