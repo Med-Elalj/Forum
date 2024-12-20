@@ -127,7 +127,11 @@ hr {
     color: var(--White);
     border-radius: 9999px;
 }
-
+.nav-links a.selected{
+    background-color: #41c6d3;
+    color: var(--White);
+    border-radius: 9999px;
+}
 /* 
 .nav-links a:first-child {
     padding: 8px 8px;
