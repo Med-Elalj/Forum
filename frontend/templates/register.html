@@ -12,7 +12,7 @@
             --WhiteBlue: #def0f4;
             --White: #ffffff;
             --WhiteB: #e0eced;
-            --Greey: #efefef;
+            --Greey: #eee;
             --GreeyD: #919191;
             --GreeyTransparant: hsla(0, 0%, 21%, 0.531);
             --GreeyDarked: hsla(0, 0%, 81%, 0.294);
@@ -37,8 +37,7 @@
         }
 
         body {
-            background-color: #c9d6ff;
-            background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+            background-color: var(--Greey);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -47,7 +46,7 @@
         }
 
         .container {
-            background-color: #fff;
+            background-color: var(--White);
             border-radius: 30px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
             position: relative;
@@ -72,15 +71,15 @@
         }
 
         .container a {
-            color: #333;
+            color: var(--DarkBlue);
             font-size: 13px;
             text-decoration: none;
             margin: 15px 0 10px;
         }
 
         .container button {
-            background-color: #088395;
-            color: #fff;
+            background-color: var(--BlueGreen);
+            color: var(--White);
             font-size: 12px;
             padding: 10px 45px;
             border: 1px solid transparent;
@@ -94,11 +93,11 @@
 
         .container button.hidden {
             background-color: transparent;
-            border-color: #fff;
+            border-color: var(--White);
         }
 
         .container form {
-            background-color: #fff;
+            background-color: var(--White);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -108,7 +107,7 @@
         }
 
         .container input {
-            background-color: #eee;
+            background-color: var(--Greey);
             border: none;
             margin: 8px 0;
             padding: 8px 8px;
@@ -195,10 +194,9 @@
         }
 
         .toggle {
-            background-color: #088395;
+            background-color: var(--BlueDarker);
             height: 100%;
-            background: linear-gradient(to right, #67b3b9, #35abbd);
-            color: #fff;
+            color: var(--White);
             position: relative;
             left: -100%;
             height: 100%;
