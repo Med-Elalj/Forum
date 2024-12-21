@@ -97,9 +97,9 @@ func Register(w http.ResponseWriter, r *http.Request) {
 }
 
 func validpassword(password string) bool {
-	// Lowercase UPPERCASE digit
-	var a, A, d bool
-	if len(password) < 8 {
+	// Lowercase UPPERCASE digit {symbol}
+	var a, A, d, s bool
+	if len(password) < 8 || len(password) > 64 {
 		return false
 	}
 	for _, char := range password {
@@ -112,8 +112,11 @@ func validpassword(password string) bool {
 		} else if !d && unicode.IsDigit(char) {
 			d = true
 			continue
+		} else if !s && unicode.IsSymbol(char) {
+			s = true
+			continue
 		}
-		if a && A && d {
+		if a && A && d && s {
 			return true
 		}
 	}
