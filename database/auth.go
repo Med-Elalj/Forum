@@ -81,7 +81,7 @@ func GetUidFromToken(db *sql.DB, token string) (int, error) {
 		return 0, nil
 	}
 	var uid int
-	err := db.QueryRow("SELECT user_id FROM sessions WHERE token=?", token).Scan(&uid)
+	err := db.QueryRow("SELECT user_id FROM sessions WHERE session_token=?", token).Scan(&uid)
 	if err == sql.ErrNoRows {
 		return 0, fmt.Errorf("session not found")
 	} else if err != nil {

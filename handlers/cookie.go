@@ -5,10 +5,10 @@ import (
 	"time"
 )
 
-func SetCookie(w http.ResponseWriter, sessioID string, name string, only bool) {
+func SetCookie(w http.ResponseWriter, sessionID string, name string, only bool) {
 	cookie := http.Cookie{
 		Name:     name,
-		Value:    sessioID,
+		Value:    sessionID,
 		Expires:  time.Now().Add(time.Hour * 1),
 		HttpOnly: only,
 	}
