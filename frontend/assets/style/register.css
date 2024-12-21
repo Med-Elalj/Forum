@@ -240,8 +240,7 @@ body {
     display: none;
     color: red;
     font-size: 10px;
-    text-align: left;
-    padding-top: 0;
+    font-weight: 500;
 }
 
 .valid {
@@ -256,12 +255,13 @@ body {
 .message {
     display: none;
     font-size: 10px;
-    text-align: left;
     color: red;
-    padding-top: 0;
-
+    font-weight: 600;
 }
 
+.small-icon {
+    font-size: 10px;
+}
 .error-message {
     color: red;
     font-size: 10px;

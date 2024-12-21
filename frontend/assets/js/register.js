@@ -39,9 +39,6 @@ function checkPassword() {
 
     Divs.passChecker.style.display = pass.value ? "block" : "none";
 
-    // for (const [k, v] of Object.entries(patterns)) {
-    //     Divs[k].style.color = v.test(pass.value) ? "green" : "red";
-    // }
     for (const [k, v] of Object.entries(patterns)) {
         const icon = Divs[k].querySelector('.material-icons');
         icon.innerHTML = v.test(pass.value) ? '&#xe86c;' : '&#xe5c9;';
@@ -65,7 +62,6 @@ function validateForm() {
     if (!emailValid && email.value !== "") {
         emailMessage.style.display = "block";
     } else {
-        
         emailMessage.style.display = "none";
     }
 
