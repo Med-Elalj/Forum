@@ -7,66 +7,72 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func CreateUser(db *sql.DB, email, username, password string) error {
+func CreateUser(db *sql.DB, email, username, password string) (int, error) {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
-		return err
+		return 0, err
 	}
 	stmt, err := db.Prepare("INSERT INTO users(email ,username, password) VALUES(?,?,?)")
 	if err != nil {
-		return err
+		return 0, err
 	}
 	defer stmt.Close()
 
-	_, err = stmt.Exec(email, username, hashedPassword)
+	res, err := stmt.Exec(email, username, hashedPassword)
 	if err != nil {
-		return err
+		return 0, err
+	}
+	uid, err := res.LastInsertId()
+	if err != nil {
+		return int(uid), err
 	}
 	fmt.Println("User created successfully!")
-	return nil
+	return int(uid), nil
 }
 
-func GetUserByUname(db *sql.DB, username string) (string, error) {
+func GetUserByUname(db *sql.DB, username string) (string, int, error) {
 	var hpassword string
+	var uid int
 	fmt.Println(username, hpassword)
-	err := db.QueryRow("SELECT password FROM users WHERE username=?", username).Scan(&hpassword)
+	err := db.QueryRow("SELECT id,password FROM users WHERE username=?", username).Scan(&uid, &hpassword)
 	fmt.Println(username, hpassword)
 
 	if err == sql.ErrNoRows {
 		fmt.Println("User not found")
-		return "", fmt.Errorf("user not found")
+		return "", 0, fmt.Errorf("user not found")
 	} else if err != nil {
 		fmt.Println(err)
-		return "", err
+		return "", 0, err
 	}
-	return hpassword, nil
+	return hpassword, uid, nil
 }
 
-func GetUserByUemail(db *sql.DB, email string) (string, error) {
+func GetUserByUemail(db *sql.DB, email string) (string, int, error) {
 	var hpassword string
+	var uid int
 	fmt.Println(email, hpassword)
-	err := db.QueryRow("SELECT password FROM users WHERE email=?", email).Scan(&hpassword)
+	err := db.QueryRow("SELECT id,password FROM users WHERE email=?", email).Scan(&uid, &hpassword)
 	fmt.Println(email, hpassword)
 
 	if err == sql.ErrNoRows {
 		fmt.Println("User not found")
-		return "", fmt.Errorf("user not found")
+		return "", 0, fmt.Errorf("user not found invalid password or username")
 	} else if err != nil {
 		fmt.Println(err)
-		return "", err
+		return "", 0, err
 	}
-	return hpassword, nil
+	return hpassword, 0, nil
 }
 
-func AddSessionToken(db *sql.DB, username, token string) error {
-	fmt.Println("session", username)
-	stmt, err := db.Prepare("INSERT INTO sessions(user_id, session_token, expiration) VALUES((SELECT id FROM users WHERE username=? ),?,DATETIME(CURRENT_TIMESTAMP, '+1 hour'))")
+func AddSessionToken(db *sql.DB, user_id int, token string) error {
+	fmt.Println("session", user_id)
+	stmt, err := db.Prepare("INSERT INTO sessions(user_id, session_token, expiration) VALUES(?,?,DATETIME(CURRENT_TIMESTAMP, '+1 hour'))")
 	if err != nil {
 		return err
 	}
 	defer stmt.Close()
 
-	_, err = stmt.Exec(username, token)
+	_, err = stmt.Exec(user_id, token)
 	if err != nil {
 		return err
 	}

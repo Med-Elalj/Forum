@@ -30,10 +30,27 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	r.ParseForm()
 	// TODO fix db and link
-	uname := r.Form.Get("email")
+	uname := r.Form.Get("username")
+	email := r.Form.Get("email")
 	upass := r.Form.Get("password")
-	fmt.Println(uname, upass)
-	hpassword, err := database.GetUserByUname(DB, uname)
+	fmt.Println(uname, email, upass)
+	if email == "" && uname == "" {
+		ErrorPage(w, http.StatusBadRequest, errors.New("username or email is required"))
+		return
+	}
+
+	var hpassword string
+	var uid int
+
+	var err error
+	if email != "" && email_RGX.MatchString(email) {
+		hpassword, uid, err = database.GetUserByUemail(DB, email)
+	} else if uname != "" && username_RGX.MatchString(uname) {
+		hpassword, uid, err = database.GetUserByUname(DB, uname)
+	} else {
+		ErrorPage(w, http.StatusBadRequest, errors.New("invalid email or username"))
+		return
+	}
 	if err != nil {
 		log.Println(err)
 		ErrorPage(w, http.StatusInternalServerError, err)
@@ -53,14 +70,14 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		ErrorPage(w, http.StatusInternalServerError, err)
 		return
 	}
-	err = database.AddSessionToken(DB, uname, token)
+	err = database.AddSessionToken(DB, uid, token)
 	if err != nil {
 		log.Println(err)
 		ErrorPage(w, http.StatusInternalServerError, err)
 		return
 	}
-	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(struct{ Token string }{token})
+	SetCookie(w, token, "session", true)
+	http.Redirect(w, r, "/index", http.StatusFound)
 }
 
 func Register(w http.ResponseWriter, r *http.Request) {
@@ -74,7 +91,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err := database.CreateUser(DB, uemail, uname, upass)
+	uid, err := database.CreateUser(DB, uemail, uname, upass)
 	if err != nil {
 		log.Println(err)
 		ErrorJs(w, http.StatusInternalServerError, err)
@@ -86,7 +103,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		ErrorPage(w, http.StatusInternalServerError, err)
 		return
 	}
-	err = database.AddSessionToken(DB, uname, token)
+	err = database.AddSessionToken(DB, uid, token)
 	if err != nil {
 		log.Println(err)
 		ErrorPage(w, http.StatusInternalServerError, err)
