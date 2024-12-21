@@ -34,10 +34,11 @@ func main() {
 	http.HandleFunc("POST /login", handlers.Login)
 	http.HandleFunc("POST /register", handlers.Register)
 
-	http.HandleFunc("/post1", handlers.TawilPostHandler)
+	http.HandleFunc("/post1/", handlers.TawilPostHandler)
 	http.HandleFunc("/profile", handlers.TawilProfileHandler)
 	http.HandleFunc("/index", handlers.TawilHandelr)
 	http.HandleFunc("/register", handlers.TawilHandelrRegister)
+	http.HandleFunc("/login", handlers.TawilHandelrRegister)
 
 	http.HandleFunc("/post", handlers.Post)
 	http.HandleFunc("/home", handlers.HomePage)

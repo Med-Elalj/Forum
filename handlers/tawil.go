@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"errors"
 	"fmt"
 	"html/template"
 	"log"
@@ -19,7 +20,7 @@ func TawilHandelrRegister(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err, "Error Parsing Data from Template hTl")
 	}
-	template.ExecuteTemplate(w, "register.html", nil)
+	template.ExecuteTemplate(w, "register.html", struct{ Register bool }{Register: r.URL.Path == "/register"})
 }
 
 func TawilHandelr(w http.ResponseWriter, r *http.Request) {
@@ -33,10 +34,20 @@ func TawilHandelr(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err, "Error Parsing Data from Template hTl")
 	}
-	data, err := database.QuerryLatestPosts(DB, 0, 5)
+
+	c, err := r.Cookie("session")
+	fmt.Println(c.Name, c.Value, err)
+	uid, err := database.GetUidFromToken(DB, c.Value)
+	if err != nil {
+		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
+		return
+	}
+	// TODO LIMIT
+	data, err := database.QuerryLatestPosts(DB, uid, structs.Limit)
 	if err != nil {
 		log.Fatal(err)
 	}
+	// TODO get user profile
 	cat := map[string]int{"test": 1, "azer": 32}
 	profile := structs.Profile{
 		UserName:     "test",
@@ -74,17 +85,28 @@ func TawilPostHandler(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err, "Error Parsing Data from Template hTl")
 	}
 	// TODO make it post specific
-	posts, err := database.QuerryLatestPosts(DB, 0, 2)
-	if err != nil {
-		log.Fatal(err)
+	var Postid int
+	// get the post id from /post/{id}
+	// TODO check for edge cases
+	i, err := fmt.Sscanf(r.URL.Path, "/post1/%d", &Postid)
+	if i != 1 || err != nil || Postid <= 0 {
+		// TODO iso standard
+		ErrorPage(w, 400, errors.New("invalid TawilPostHandler 0"))
 	}
-	comments, err := database.GetCommentsByPost(DB, posts[1].ID, 5)
+	post, err := database.GetPostByID(DB, Postid, 0)
 	if err != nil {
-		log.Fatal(err)
+		// TODO iso standard
+		ErrorPage(w, 400, errors.New("invalid TawilPostHandler 1"))
+	}
+
+	comments, err := database.GetCommentsByPost(DB, post.ID, 5)
+	if err != nil {
+		// TODO iso standard
+		ErrorPage(w, 400, errors.New("invalid TawilPostHandler 2"))
 	}
 
 	template.ExecuteTemplate(w, "post.html", struct {
 		Post     structs.Post
 		Comments []structs.Comment
-	}{Post: posts[1], Comments: comments})
+	}{Post: post, Comments: comments})
 }

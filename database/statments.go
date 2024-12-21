@@ -67,8 +67,8 @@ var tables = map[string]string{
 		);`,
 
 	"sessions": `CREATE TABLE IF NOT EXISTS sessions (
-		id INTEGER PRIMARY KEY,
-		user_id INTEGER,
+		id INTEGER PRIMARY KEY UNIQUE,
+		user_id INTEGER NOT NULL,
 		session_token TEXT NOT NULL,
 		expiration TIMESTAMP NOT NULL,
 		FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE

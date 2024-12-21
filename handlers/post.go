@@ -10,7 +10,8 @@ import (
 )
 
 func Post(w http.ResponseWriter, r *http.Request) {
-	posts, err := database.QuerryLatestPosts(DB, notaUser, 10)
+	// TODO Single add user from token
+	posts, err := database.QuerryLatestPosts(DB, structs.NotaUser, 10)
 	if err != nil {
 		ErrorJs(w, http.StatusInternalServerError, err)
 		return
