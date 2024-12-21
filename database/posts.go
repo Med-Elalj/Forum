@@ -16,6 +16,7 @@ func QuerryLatestPosts(db *sql.DB, user_id, ammount int) ([]structs.Post, error)
 		return nil, err
 	}
 	defer rows.Close()
+	// TODO commnent count
 
 	for rows.Next() {
 		var post structs.Post
@@ -45,6 +46,7 @@ func QuerryPostsbyUser(db *sql.DB, username string, user_id, ammount int) ([]str
 		return nil, err
 	}
 	defer rows.Close()
+	// TODO commnent count
 
 	for rows.Next() {
 		var post structs.Post
@@ -110,4 +112,21 @@ func CreatePost(db *sql.DB, UserID int, title, content string, categories []stri
 		return err
 	}
 	return nil
+}
+
+func GetPostByID(db *sql.DB, Postid, UserID int) (structs.Post, error) {
+	var post structs.Post
+	var categories sql.NullString
+	// TODO commnent count
+	err := db.QueryRow(querries.GetPostByID, UserID, Postid).Scan(&post.ID, &post.UserID, &post.Title, &post.Content, &post.LikeCount, &post.DislikeCount, &post.CreatedAt, &post.UserName, &categories, &post.Liked, &post.CommentCount)
+	if err == sql.ErrNoRows {
+		return post, fmt.Errorf("databse GetPostById 1:%v", "post not found")
+	} else if err != nil {
+		return post, fmt.Errorf("databse GetPostById 2:%v", err)
+	}
+
+	if categories.Valid {
+		post.Categories = strings.Split(categories.String, "|")
+	}
+	return post, nil
 }
