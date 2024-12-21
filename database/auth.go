@@ -29,9 +29,24 @@ func CreateUser(db *sql.DB, email, username, password string) error {
 func GetUserByUname(db *sql.DB, username string) (string, error) {
 	var hpassword string
 	fmt.Println(username, hpassword)
-	// TODO : Create one For email (login)
 	err := db.QueryRow("SELECT password FROM users WHERE username=?", username).Scan(&hpassword)
 	fmt.Println(username, hpassword)
+
+	if err == sql.ErrNoRows {
+		fmt.Println("User not found")
+		return "", fmt.Errorf("user not found")
+	} else if err != nil {
+		fmt.Println(err)
+		return "", err
+	}
+	return hpassword, nil
+}
+
+func GetUserByUemail(db *sql.DB, email string) (string, error) {
+	var hpassword string
+	fmt.Println(email, hpassword)
+	err := db.QueryRow("SELECT password FROM users WHERE email=?", email).Scan(&hpassword)
+	fmt.Println(email, hpassword)
 
 	if err == sql.ErrNoRows {
 		fmt.Println("User not found")
@@ -59,15 +74,19 @@ func AddSessionToken(db *sql.DB, username, token string) error {
 	return nil
 }
 
-func GetUidFromToken(db *sql.DB, token string) (string, error) {
-	var uid string
+// Returns 0 if uid not found
+func GetUidFromToken(db *sql.DB, token string) (int, error) {
+	if token == "" {
+		// case of new user
+		return 0, nil
+	}
+	var uid int
 	err := db.QueryRow("SELECT user_id FROM sessions WHERE token=?", token).Scan(&uid)
 	if err == sql.ErrNoRows {
-		fmt.Println("Session not found")
-		return "", fmt.Errorf("session not found")
+		return 0, fmt.Errorf("session not found")
 	} else if err != nil {
 		fmt.Println(err)
-		return "", err
+		return 0, err
 	}
 	return uid, nil
 }

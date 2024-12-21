@@ -7,10 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/style/register.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="shortcut icon" href="/assets/images/logo.svg" type="image/svg+xml">
 </head>
 <body>
     <!-- TODO Fix Responsive to fit Mobiles -->
-    <div class="container" id="container">
+    <div class="container {{if .Register}} active {{end}}" id="container">
         <!-- Add this immediately after <div class="container" id="container"> -->
 
         <!-- uemail := r.Form.Get("email")
@@ -102,6 +103,6 @@
             }
         });
     </script>
-    <script src="../assets/js/register.js"></script>
+    <script src="/assets/js/register.js"></script>
 </body>
 </html>
