@@ -39,7 +39,13 @@ function checkPassword() {
 
     Divs.passChecker.style.display = pass.value ? "block" : "none";
 
+    // for (const [k, v] of Object.entries(patterns)) {
+    //     Divs[k].style.color = v.test(pass.value) ? "green" : "red";
+    // }
     for (const [k, v] of Object.entries(patterns)) {
+        const icon = Divs[k].querySelector('.material-icons');
+        icon.innerHTML = v.test(pass.value) ? '&#xe86c;' : '&#xe5c9;';
+        icon.style.color = v.test(pass.value) ? "green" : "red";
         Divs[k].style.color = v.test(pass.value) ? "green" : "red";
     }
 }
@@ -51,21 +57,19 @@ function validateForm() {
     let passwordValid = pass.value.match(/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}/);
 
     if (!usernameValid && user.value !== "") {
-        usernameMessage.textContent = "Username must contain only letters and numbers.";
         usernameMessage.style.display = "block";
     } else {
         usernameMessage.style.display = "none";
     }
 
     if (!emailValid && email.value !== "") {
-        emailMessage.textContent = "Invalid email format.";
         emailMessage.style.display = "block";
     } else {
+        
         emailMessage.style.display = "none";
     }
 
     if (!confirmPasswordValid && confirmPass.value !== "") {
-        confirmPassMessage.textContent = "Confirmation password does not match.";
         confirmPassMessage.style.display = "block";
     } else {
         confirmPassMessage.style.display = "none";
