@@ -8,7 +8,7 @@ const closeCreatePostModal =  document.querySelector(".titleInput .close-post")
 const sidebardLeft = document.querySelector('.sidebar-left')
 
 const CreatePostInputTitle = document.querySelector(".titleInput input")
-const dropdown = document.querySelectorAll('.dropdown i')
+const dropdown = document.querySelectorAll('.dropdown i, .dropdown .ProfileImage')
 let contentList = document.querySelectorAll('.content')
 
 dropdown.forEach(drop => {

@@ -244,7 +244,7 @@ nav {
 
 
 
-.main-account a {
+.main-account .dropdown {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -255,7 +255,9 @@ nav {
     /* background-color: var(--White); */
     border-radius: 90px;
 }
-
+.content ul a {
+    color: #0a5c68;
+}
 .account-details {
     display: flex;
     flex-direction: column;
@@ -753,11 +755,10 @@ main {
     right: 0;
     background-color: var(--WhiteB);
     border-radius: 4px;
-
     display: none;
     color: var(--Black);
     z-index: 6;
-    font-size: 14px;
+    /* font-size: 14px; */
     font-weight: 300;
     width: max-content;
     min-width: 120px;
@@ -767,12 +768,11 @@ main {
 .content ul {
     display: block;
     white-space: nowrap;
-
 }
 
 .content li {
     list-style: none;
-    padding: 5px 10px;
+    padding: 13px 37px;
 }
 .content li:nth-child(odd) {
     border-bottom: 1px solid var(--BlueDarker);

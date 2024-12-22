@@ -15,15 +15,18 @@
             </div>    -->
     {{if .UserName}}
     <div class="main-account">
-        <a href="/profile/{{.UserName}}">
+        <div class="dropdown">
             <div class="ProfileImage tweet-img"
-                {{if .PFP}}
-                style="background-image: url('https://api.dicebear.com/9.x/personas/svg?seed={{.PFP}}')">
-                {{else}}
-                style="background-image: url('https://ui-avatars.com/api/?name={{.UserName}}')">
-                {{end}}
+                style="background-image: url('https://ui-avatars.com/api/?name={{.PFP}}')">
             </div>
-        </a>
+            <div class="content">
+                <!-- Control Posts -->
+                <ul>
+                    <a href="/profile"><li><span class="material-symbols-outlined">account_circle</span>Profile</li></a>
+                    <a href="/logout"><li><span class="material-symbols-outlined">logout</span>Logout</li></a>
+                </ul>
+            </div>
+        </div>
     </div>
     {{else}}
     <div class="SignOptions">
