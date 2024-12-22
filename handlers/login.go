@@ -137,5 +137,5 @@ func validpassword(password string) bool {
 			return true
 		}
 	}
-	return a && A && d
+	return a && A && d && s
 }
