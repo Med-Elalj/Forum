@@ -118,6 +118,7 @@ func GetPostByID(db *sql.DB, Postid, UserID int) (structs.Post, error) {
 	var post structs.Post
 	var categories sql.NullString
 	// TODO commnent count
+	// working here
 	err := db.QueryRow(querries.GetPostByID, UserID, Postid).Scan(&post.ID, &post.UserID, &post.Title, &post.Content, &post.LikeCount, &post.DislikeCount, &post.CreatedAt, &post.UserName, &categories, &post.Liked, &post.CommentCount)
 	if err == sql.ErrNoRows {
 		return post, fmt.Errorf("databse GetPostById 1:%v", "post not found")
