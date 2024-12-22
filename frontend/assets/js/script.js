@@ -1,9 +1,12 @@
 //###//////////////////// Start Listning dropDown Buttons ////////////
 const CreatePostModel = document.querySelector(".postModal")
-const CreatePostArea = document.querySelector(".new-tweet-details")
+const CreatePostArea = document.querySelector(".new-post-header")
 let popup = NaN;
 const closeCreatePostModal =  document.querySelector(".titleInput .close-post")
-     
+
+// Get Left Sidebar to show it on mobile
+const sidebardLeft = document.querySelector('.sidebar-left')
+
 const CreatePostInputTitle = document.querySelector(".titleInput input")
 const dropdown = document.querySelectorAll('.dropdown i')
 let contentList = document.querySelectorAll('.content')
@@ -176,4 +179,22 @@ CreatePostArea.addEventListener('click', ()=>{
     closeCreatePostModal.addEventListener('click', ()=>{
         CreatePostModel.style.display  = "none"
     })
+})
+
+
+//###//////////////////// Menu Icon On header PAGE Burger Icon for Mobile //////////
+
+const menuIcon = document.querySelector('.menu')
+menuIcon.addEventListener('click', ()=>{
+    sidebardLeft.style.left = sidebardLeft.style.left === '0px' ? '-100%' : '0px'
+})
+
+// Hiding Humberger Menu on Mobile if the user change the view port
+const x = window.matchMedia("(min-width: 768px)")
+x.addEventListener('change', (e)=>{
+    if (e.matches){
+        sidebardLeft.style.left = '0px'
+    }else{
+        sidebardLeft.style.left = '-100%'
+    }
 })

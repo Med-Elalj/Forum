@@ -45,7 +45,6 @@ a {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* padding: 10px; */
     width: 20%;
     height: 100%;
     position: fixed;
@@ -102,10 +101,11 @@ hr {
     flex-direction: column;
     width: 100%;
     height: 70%;
-    margin-top: 30px;
     justify-content: space-between;
 }
-
+.nav-links.margin-top {
+    margin-top: 20px;
+}
 .nav-links a {
     display: flex;
     align-items: center;
@@ -128,7 +128,7 @@ hr {
     border-radius: 9999px;
 }
 .nav-links a.selected{
-    background-color: #41c6d3;
+    background-color: var(--BlueDarker);
     color: var(--White);
     border-radius: 9999px;
 }
@@ -281,7 +281,8 @@ main {
 
 .main-flex {
     display: flex;
-    width: 100%;
+    width: 50%;
+    margin-left: 25%;
 }
 
 .main-feed {
@@ -393,15 +394,13 @@ main {
 
 }
 
-.new-tweet-details {
+.new-post-header {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     width: calc(100% - 73px);
     margin-left: 10px;
 }
-
-.new-tweet-details {}
 
 
 .new-tweet-actions {
@@ -419,7 +418,7 @@ main {
 }
 
 
-.new-tweet-details input {
+.new-post-header input {
     /* width: 100%; */
     height: 150px;
     max-height: 150px;
@@ -446,7 +445,7 @@ main {
     font-size: 1.5rem;
 }
 
-.feed-tweet {
+.post-card {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
@@ -459,7 +458,7 @@ main {
     box-shadow: 0px 3px 10px hwb(0 0% 80% / 0.32);
     gap: 12px;
 }
-.feed-tweet-details {
+.post-card-details {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -516,7 +515,7 @@ main {
     font-weight: 300;
     margin-left: 3px;
 }
-.tweet-text {
+.post-content {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -528,7 +527,7 @@ main {
     margin-top: 10px;
 }
 
-.tweet-text p {
+.post-content p {
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -536,11 +535,11 @@ main {
     text-overflow: ellipsis;
 }
 
-.tweet-text.expanded {
+.post-content.expanded {
     max-height: none;
 }
 
-.tweet-text.expanded p {
+.post-content.expanded p {
     -webkit-line-clamp: unset;
     overflow: visible;
 }
@@ -559,7 +558,7 @@ main {
     text-decoration: underline;
 }
 
-.tweet-icons {
+.post-footer {
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -716,7 +715,7 @@ main {
     color: var(--BlueGreenWhite) !important;
 }
 
-.feet-tweet-detail {
+.post-details {
     display: flex;
     flex-direction: column;
     width: calc(100% - 65px);
@@ -735,7 +734,7 @@ main {
     width: 100%;
 }
 
-.tweet-details {
+.post-header {
     display: flex;
     align-items: flex-start;
     flex-grow: 1;
@@ -896,9 +895,77 @@ main {
     font-size: 16px;
     cursor: pointer;
 }
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
 
+span.CategoryName {
+    font-size: 28px;
+    color: #0a5c68;
+    border-left: 7px solid #41c6d3;
+    padding-left: 10px;
+    background-color: #def0f4;
+    width: calc(auto + 20px);
+    display: block;
+    padding: 10px;
+    border-radius: 0px 10px 10px 0px;
+    box-shadow: 0px 3px 10px hwb(0 0% 80% / 0.32);
+}
+.menu{
+    display: none;
+}
+
+@keyframes fromLeft {
+    0%{left: -100%;}
+    100%{left: 0%;}
+}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (min-width: 768px) {
+    .sidebar-left{
+        display: flex;}
+}
+@media only screen and (max-width: 768px) {
+    body{
+        background-color: red;
+        
+    }
+    .sidebar-right{
+        display: none;
+    }
+    .sidebar-left{
+        display: flex;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        background-color: var(--GreeyTransparant);
+        left:-100%;
+        transition: left 0.75s;
+        z-index: 12;
+    }
+    .nav-links{
+        display: flex;
+        justify-content: start;
+        gap: 25px;
+        padding: 30px 20px;
+        width: 70%;
+        height: 100%;
+        background-color: var(--White);
+        margin-top: 0px;
+        left:-100%;
+        transition: left 0.75s;
+    }
+    .tweet-button{
+        width: 100%;
+    }
+    .main-flex{
+        width: 100%;
+        margin-left: 0;
+        padding: 20px;
+    }
+    .menu{
+        display: block;
+        font-size: 30px;
+        color: var(--BlueGreen);
+        cursor: pointer;
+    }
+    
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -925,7 +992,7 @@ main {
 
 }
 
-.new-tweet-details textarea::placeholder {
+.new-post-header textarea::placeholder {
     position: relative;
     top: 25%;
 }
@@ -1002,7 +1069,6 @@ main {
 .Categories{
     display: none;
     flex-direction: column;
-    animation: leftx 2s ;
     opacity: 1;
     animation: opc 2s ;
     transition: all 1s;

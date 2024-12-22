@@ -1,5 +1,6 @@
 {{define "right-sidebar"}}
 <div class="sidebar-right">
+
     <h1 class="h1-title">Categories</h1>
     <hr class="categories-line">
     <div class="trending-item">
