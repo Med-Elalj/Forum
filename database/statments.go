@@ -75,144 +75,102 @@ var tables = map[string]string{
 		);`,
 }
 
-var trigers = map[string]string{
-	"check_post_time_difference": `CREATE TRIGGER check_post_time_difference
-		BEFORE INSERT ON posts
-		FOR EACH ROW
-		BEGIN
-		    IF EXISTS (
-		            SELECT 1 FROM posts 
-				  WHERE user_id = NEW.user_id 
-				  AND title = NEW.title 
-				  AND content = NEW.content 
-				  AND created_at >= datetime('now', '-1 year')
-		        ) THEN
-		            RAISE (ABORT, 'A post with the same title and content already exists within the last year.')
-		    END IF;
-		END;
-`,
+type triger struct {
+	name, statment string
+	tables         []string
+}
 
-	"post_react_count_insert": `CREATE TRIGGER post_react_count_insert
-		BEFORE INSERT ON post_likes
+var trigers = []triger{
+	{
+		"check_post_time_difference",
+		`CREATE TRIGGER check_post_time_difference
+    BEFORE INSERT ON posts
+    FOR EACH ROW
+BEGIN
+    -- Check if a similar post already exists in the last year
+    SELECT
+        CASE
+            WHEN EXISTS (
+                SELECT 1 FROM posts
+                WHERE user_id = NEW.user_id
+                AND title = NEW.title
+                AND content = NEW.content
+                AND created_at >= datetime('now', '-1 year')
+            ) THEN
+                RAISE (ABORT, 'A post with the same title and content already exists within the last year.')
+        END;
+END;`,
+		[]string{},
+	},
+	{
+		"comment_count_insert",
+		`CREATE TRIGGER comment_count_insert
+		BEFORE INSERT ON comments
 		FOR EACH ROW
 		BEGIN
-		    -- If it's a like, increment like_count
-		    IF NEW.is_like THEN
-		        UPDATE posts
-		        SET like_count = like_count + 1
-		        WHERE id = NEW.post_id;
-		    -- If it's a dislike, increment dislike_count
-		    ELSEIF NOT NEW.is_like THEN
-		        UPDATE posts
-		        SET dislike_count = dislike_count + 1
-		        WHERE id = NEW.post_id;
-			ELSE 
-			    RAISE (ABORT, "unable to insert.")
-		    END IF;
+		UPDATE posts
+		SET comment_count = comment_count + 1
+		WHERE id = NEW.post_id;
 		END;`,
-
-	"post_react_count_update": `CREATE TRIGGER post_react_count_update
-		BEFORE UPDATE ON post_likes
-		FOR EACH ROW
-		BEGIN
-		    -- Update the created_at timestamp to now
-	        SET NEW.created_at = CURRENT_TIMESTAMP;
-
-		    -- If the like/dislike was changed from like to dislike
-		    IF OLD.is_like AND NOT NEW.is_like THEN
-		        UPDATE posts
-		        SET like_count = like_count - 1,
-		            dislike_count = dislike_count + 1
-		        WHERE id = OLD.post_id;
-		    -- If the like/dislike was changed from dislike to like
-		    ELSEIF NOT OLD.is_like AND NEW.is_like THEN
-		        UPDATE posts
-		        SET like_count = like_count + 1,
-		            dislike_count = dislike_count - 1
-		        WHERE id = OLD.post_id;
-			ELSE 
-			    RAISE (ABORT, "unable to update.")
-		    END IF;
-		END;`,
-
-	"post_react_count_delete": `CREATE TRIGGER post_react_count_delete
-		BEFORE DELETE ON post_likes
-		FOR EACH ROW
-		BEGIN
-		    -- If it was a like, decrement like_count
-		    IF OLD.is_like THEN
-		        UPDATE posts
-		        SET like_count = like_count - 1
-		        WHERE id = OLD.post_id;
-		    -- If it was a dislike, decrement dislike_count
-		    ELSEIF NOT OLD.is_like
-		        UPDATE posts
-		        SET dislike_count = dislike_count - 1
-		        WHERE id = OLD.post_id;
-			ELSE 
-			    RAISE (ABORT, "unable to delete.")
-		    END IF;
-		END;`,
-
-	"comment_react_count_insert": `CREATE TRIGGER comment_react_count_insert
-		BEFORE INSERT ON comment_likes
-		FOR EACH ROW
-		BEGIN
-		    -- If it's a like, increment like_count
-		    IF NEW.is_like THEN
-		        UPDATE comments
-		        SET like_count = like_count + 1
-		        WHERE id = NEW.comment_id;
-		    -- If it's a dislike, increment dislike_count
-		    ELSEIF NOT NEW.is_like THEN
-		        UPDATE comments
-		        SET dislike_count = dislike_count + 1
-		        WHERE id = NEW.comment_id;
-			ELSE 
-			    RAISE (ABORT, "unable to insert.")
-		    END IF;
-		END;`,
-
-	"comment_react_count_update": `CREATE TRIGGER comment_react_count_update
-		BEFORE UPDATE ON comment_likes
-		FOR EACH ROW
-		BEGIN
-		    -- Update the created_at timestamp to now
-	        SET NEW.created_at = CURRENT_TIMESTAMP;
-
-		    -- If the like/dislike was changed from like to dislike
-		    IF OLD.is_like AND NOT NEW.is_like THEN
-		        UPDATE comments
-		        SET like_count = like_count - 1,
-		            dislike_count = dislike_count + 1
-		        WHERE id = OLD.comment_id;
-		    -- If the like/dislike was changed from dislike to like
-		    ELSEIF NOT OLD.is_like AND NEW.is_like THEN
-		        UPDATE comments
-		        SET like_count = like_count + 1,
-		            dislike_count = dislike_count - 1
-		        WHERE id = OLD.comment_id;
-			ELSE 
-			    RAISE (ABORT, "unable to update.")
-		    END IF;
-		END;`,
-
-	"comment_react_count_delete": `CREATE TRIGGER comment_react_count_delete
-		BEFORE DELETE ON comment_likes
-		FOR EACH ROW
-		BEGIN
-		    -- If it was a like, decrement like_count
-		    IF OLD.is_like THEN
-		        UPDATE comments
-		        SET like_count = like_count - 1
-		        WHERE id = OLD.comment_id;
-		    -- If it was a dislike, decrement dislike_count
-		    ELSEIF NOT OLD.is_like
-		        UPDATE comments
-		        SET dislike_count = dislike_count - 1
-		        WHERE id = OLD.comment_id;
-			ELSE 
-			    RAISE (ABORT, "unable to delete.")
-		    END IF;
-		END;`,
+		[]string{},
+	},
+	{
+		"comment_count_delete",
+		`CREATE TRIGGER comment_count_delete
+        BEFORE DELETE ON comments
+        FOR EACH ROW
+        BEGIN
+        UPDATE posts
+        SET comment_count = comment_count - 1
+        WHERE id = OLD.post_id;
+        END;`,
+		[]string{},
+	},
+	{
+		"_react_count_insert",
+		`CREATE TRIGGER 1here2_react_count_insert
+BEFORE INSERT ON 1here2_likes
+FOR EACH ROW
+BEGIN
+	UPDATE 1here2s
+	SET 
+	like_count = like_count + (NEW.is_like = 1) ,
+	dislike_count = dislike_count + (NEW.is_like = 0)
+	  WHERE id = NEW.1here2_id;
+END;`,
+		[]string{"post", "comment"},
+	},
+	{
+		"_react_count_insert",
+		`CREATE TRIGGER 1here2_react_count_insert
+BEFORE UPDATE ON 1here2_likes
+FOR EACH ROW
+BEGIN
+UPDATE 1here2s
+SET 
+SET 
+	like_count = like_count + 
+	  (CASE WHEN NEW.is_like = 1 AND OLD.is_like = 0 THEN 1 ELSE 0 END) -
+	  (CASE WHEN NEW.is_like = 0 AND OLD.is_like = 1 THEN 1 ELSE 0 END),
+	dislike_count = dislike_count + 
+	  (CASE WHEN NEW.is_like = 0 AND OLD.is_like = 1 THEN 1 ELSE 0 END) -
+	  (CASE WHEN NEW.is_like = 1 AND OLD.is_like = 0 THEN 1 ELSE 0 END)
+  WHERE id = NEW.1here2_id;
+END;`,
+		[]string{"post", "comment"},
+	},
+	{
+		"_react_count_insert",
+		`CREATE TRIGGER 1here2_react_count_insert
+BEFORE DELETE ON 1here2_likes
+FOR EACH ROW
+BEGIN
+UPDATE 1here2s
+SET 
+like_count = like_count - (OLD.is_like = 1) ,
+dislike_count = dislike_count - (OLD.is_like = 0)
+WHERE id = OLD.1here2_id;
+END;`,
+		[]string{"post", "comment"},
+	},
 }

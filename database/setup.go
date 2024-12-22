@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"strings"
 	"time"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -36,12 +37,26 @@ func CreateTables(db *sql.DB) {
 }
 
 func CreateTriggers(db *sql.DB) {
-	for t, c := range trigers {
-		rc, err := db.Exec(c)
-		if err != nil && err.Error() == "Error creating table post_year_enforce: trigger "+t+" already exists" {
-			log.Fatalf("Error creating table %s: %v, '%v'", t, err, rc)
+	for _, c := range trigers {
+		if len(c.tables) == 0 {
+			rc, err := db.Exec(c.statment)
+			if err != nil && err.Error() != "trigger "+c.name+" already exists" {
+				log.Fatalf("Error creating TRIGGER %v: %v, '%v'\n", c.name, err, rc)
+				continue
+			}
+			fmt.Printf("Created trigger1: %s\n", c.name)
+		} else {
+			for _, todo := range c.tables {
+				azer := strings.ReplaceAll(c.statment, "1here2", todo)
+				// fmt.Println(azer)
+				res, err := db.Exec(azer)
+				if err != nil && err.Error() != "trigger "+todo+c.name+" already exists" {
+					log.Fatalf("Error creating TRIGGER %v: %v, '%v'\n%v\n", todo+c.name, err, todo, res)
+					continue
+				}
+				fmt.Printf("Created trigger2: %s\n", todo+c.name)
+			}
 		}
-		fmt.Printf("Created trigger: %s\n", t)
 	}
 }
 
