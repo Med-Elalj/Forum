@@ -922,12 +922,22 @@ span.CategoryName {
         display: flex;}
 }
 @media only screen and (max-width: 768px) {
-    body{
-        background-color: red;
-        
-    }
+    
     .sidebar-right{
-        display: none;
+        display: flex;
+        position: relative;
+        width: calc(100% - 40px);
+        right: 0;
+        margin: 20px;
+    }
+    .sidebar-right .nav-links{
+        width: 100%;
+        background-color: transparent;
+        padding: 0px;
+        gap: 0px;
+    }
+    .new-tweet{
+        margin: 0px;
     }
     .sidebar-left{
         display: flex;
@@ -939,6 +949,7 @@ span.CategoryName {
         transition: left 0.75s;
         z-index: 12;
     }
+
     .nav-links{
         display: flex;
         justify-content: start;
@@ -947,9 +958,11 @@ span.CategoryName {
         width: 70%;
         height: 100%;
         background-color: var(--White);
-        margin-top: 0px;
         left:-100%;
         transition: left 0.75s;
+    }
+    .nav-links.margin-top{
+        margin-top: 0px;
     }
     .tweet-button{
         width: 100%;

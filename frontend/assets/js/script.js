@@ -193,7 +193,7 @@ menuIcon.addEventListener('click', ()=>{
 const x = window.matchMedia("(min-width: 768px)")
 x.addEventListener('change', (e)=>{
     if (e.matches){
-        sidebardLeft.style.left = '0px'
+        sidebardLeft.style.left = '2.5%'
     }else{
         sidebardLeft.style.left = '-100%'
     }
