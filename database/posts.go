@@ -2,6 +2,7 @@ package database
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -13,7 +14,7 @@ func QuerryLatestPosts(db *sql.DB, user_id, ammount int) ([]structs.Post, error)
 	res := make([]structs.Post, 0, ammount)
 	rows, err := db.Query(querries.GetLatestPostsL, user_id, ammount)
 	if err != nil {
-		return nil, err
+		return nil, errors.New("QuerryLatestPosts " + err.Error())
 	}
 	defer rows.Close()
 	// TODO commnent count
@@ -21,12 +22,14 @@ func QuerryLatestPosts(db *sql.DB, user_id, ammount int) ([]structs.Post, error)
 	for rows.Next() {
 		var post structs.Post
 		var categories sql.NullString
-		err := rows.Scan(&post.ID, &post.UserID, &post.Title, &post.Content, &post.LikeCount, &post.DislikeCount, &post.CreatedAt, &post.UserName, &categories, &post.Liked)
+		err := rows.Scan(&post.ID, &post.UserID, &post.Title, &post.Content,
+			&post.LikeCount, &post.DislikeCount, &post.CommentCount, &post.CreatedAt,
+			&post.UserName, &categories, &post.Liked)
 		if categories.Valid {
 			post.Categories = strings.Split(categories.String, "|")
 		}
 		if err != nil {
-			return res, fmt.Errorf("failed to scan row: %w", err)
+			return res, errors.New("QuerryLatestPosts failed to scan row: " + err.Error())
 		}
 		res = append(res, post)
 		fmt.Printf("PID: %d, UID: %d, CONTENT: %12s, like:%d:%d , TIME:%15s, UName: %5s, categories %v %v\n", post.ID, post.UserID, post.Content, post.LikeCount, post.LikeCount, post.CreatedAt, post.UserName, post.Categories, post.Liked)
@@ -34,7 +37,7 @@ func QuerryLatestPosts(db *sql.DB, user_id, ammount int) ([]structs.Post, error)
 
 	err = rows.Err()
 	if err != nil {
-		return res, err
+		return res, errors.New("QuerryLatestPosts " + err.Error())
 	}
 	return res, nil
 }
@@ -43,7 +46,7 @@ func QuerryPostsbyUser(db *sql.DB, username string, user_id, ammount int) ([]str
 	res := make([]structs.Post, 0, ammount)
 	rows, err := db.Query(querries.GetPostsbyUserL, user_id, username, ammount)
 	if err != nil {
-		return nil, err
+		return nil, errors.New("QuerryPostsbyUser " + err.Error())
 	}
 	defer rows.Close()
 	// TODO commnent count
@@ -51,13 +54,15 @@ func QuerryPostsbyUser(db *sql.DB, username string, user_id, ammount int) ([]str
 	for rows.Next() {
 		var post structs.Post
 		var categories sql.NullString
-		err := rows.Scan(&post.ID, &post.UserID, &post.Title, &post.Content, &post.LikeCount, &post.DislikeCount, &post.CreatedAt, &post.UserName, &categories, &post.Liked)
+		err := rows.Scan(&post.ID, &post.UserID, &post.Title, &post.Content,
+			&post.LikeCount, &post.DislikeCount, &post.CommentCount, &post.CreatedAt,
+			&post.UserName, &categories, &post.Liked)
 		if categories.Valid {
 			post.Categories = strings.Split(categories.String, "|")
 		}
 		if err != nil {
 			fmt.Println("azer", rows)
-			return res, err
+			return res, errors.New("QuerryPostsbyUser " + err.Error())
 		}
 		res = append(res, post)
 		fmt.Printf("Post ID: %d, User ID: %d, Title: %15s, Content: %15s, Created At: %s\n", post.ID, post.UserID, post.Title, post.Content, post.CreatedAt)
@@ -65,7 +70,7 @@ func QuerryPostsbyUser(db *sql.DB, username string, user_id, ammount int) ([]str
 
 	err = rows.Err()
 	if err != nil {
-		return nil, err
+		return nil, errors.New("QuerryPostsbyUser " + err.Error())
 	}
 	return res, nil
 }
@@ -118,7 +123,11 @@ func GetPostByID(db *sql.DB, Postid, UserID int) (structs.Post, error) {
 	var post structs.Post
 	var categories sql.NullString
 	// TODO commnent count
-	err := db.QueryRow(querries.GetPostByID, UserID, Postid).Scan(&post.ID, &post.UserID, &post.Title, &post.Content, &post.LikeCount, &post.DislikeCount, &post.CreatedAt, &post.UserName, &categories, &post.Liked, &post.CommentCount)
+	err := db.QueryRow(querries.GetPostByID, UserID, Postid).Scan(
+		&post.ID, &post.UserID, &post.Title, &post.Content,
+		&post.LikeCount, &post.DislikeCount, &post.CommentCount,
+		&post.CreatedAt, &post.UserName, &categories,
+		&post.Liked)
 	if err == sql.ErrNoRows {
 		return post, fmt.Errorf("databse GetPostById 1:%v", "post not found")
 	} else if err != nil {

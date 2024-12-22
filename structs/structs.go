@@ -35,20 +35,17 @@ type View struct {
 	IsLike bool
 }
 
-type UserProfile struct {
-	UID       int
-	Username  string
-	Posts     []Post
-	CreatedAt time.Time
-}
-
 type Profile struct {
-	UserName     string
+	UserID   int
+	UserName string
+	// TODO pfp
 	PFP          string
 	ArticleCount int
 	CommentCount int
-	Categories   map[string]int
+	CreatedAt    time.Time
 }
+
+type Categories map[string]int
 
 const (
 	NotaUser = 0

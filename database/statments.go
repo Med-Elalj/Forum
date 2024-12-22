@@ -2,7 +2,7 @@ package database
 
 var tables = map[string]string{
 	"users": `CREATE TABLE IF NOT EXISTS users (
-		id INTEGER PRIMARY KEY,
+		id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 		email TEXT UNIQUE NOT NULL,
 		username TEXT UNIQUE NOT NULL,
 		password TEXT NOT NULL,
@@ -10,20 +10,21 @@ var tables = map[string]string{
 		);`,
 
 	"posts": `CREATE TABLE IF NOT EXISTS posts (
-		id INTEGER PRIMARY KEY,
-		user_id INTEGER,
+		id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+		user_id INTEGER NOT NULL,
 		title TEXT NOT NULL, 
 		content TEXT NOT NULL,
 		like_count INTEGER DEFAULT 0,
 		dislike_count INTEGER DEFAULT 0,
+		comment_count INTEGER DEFAULT 0,
 		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 		FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 		);`,
 
 	"comments": `CREATE TABLE IF NOT EXISTS comments (
-		id INTEGER PRIMARY KEY,
-		post_id INTEGER,
-		user_id INTEGER,
+		id INTEGER PRIMARY KEY NOT NULL,
+		post_id INTEGER NOT NULL,
+		user_id INTEGER NOT NULL,
 		content TEXT NOT NULL,
 		like_count INTEGER DEFAULT 0,
 		dislike_count INTEGER DEFAULT 0,
@@ -34,7 +35,7 @@ var tables = map[string]string{
 		);`,
 
 	"categories": `CREATE TABLE IF NOT EXISTS categories (
-		id INTEGER PRIMARY KEY,
+		id INTEGER PRIMARY KEY  NOT NULL,
 		name TEXT UNIQUE NOT NULL
 		);`,
 
@@ -67,7 +68,7 @@ var tables = map[string]string{
 		);`,
 
 	"sessions": `CREATE TABLE IF NOT EXISTS sessions (
-		id INTEGER PRIMARY KEY UNIQUE,
+		id INTEGER PRIMARY KEY UNIQUE NOT NULL,
 		user_id INTEGER NOT NULL,
 		session_token TEXT NOT NULL,
 		expiration TIMESTAMP NOT NULL,
