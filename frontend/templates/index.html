@@ -25,9 +25,13 @@
     <div class="postContainer"></div>
     <div class="ParentContainer">
         {{template "header" .Profile}}
+        <div class="nav-mobile">
+            <a href="#categories"><div>Categories</div></a>
+            <a href="#posts"><div>Posts</div></a>
+        </div>
         {{template "left-sidebar"}}
         {{template "profile-sidebar" .Profile}}
-        <div class="main-flex">
+        <div class="main-flex" id="posts">
             <div class="main-feed">
                 <!-- Create New Post -->
                 <div class="new-tweet">

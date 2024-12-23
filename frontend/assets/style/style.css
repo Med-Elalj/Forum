@@ -60,7 +60,8 @@
 .dark-mode .post-card,
 .dark-mode .footerContainer,
 .dark-mode nav,
-.dark-mode .container {
+.dark-mode .container,
+.dark-mode .main-account .content{
     background: var(--gradient-dark);
     border: 1px solid var(--surface-hover-dark);
     color: var(--text-dark);
@@ -69,7 +70,6 @@
 .dark-mode .footerContainer,
 .dark-mode nav {
     background-color: #1e293c;
-    ;
 }
 
 .dark-mode .nav-links,
@@ -82,8 +82,7 @@
 .dark-mode textarea,
 .dark-mode .dropdown ul li,
 .dark-mode .popup-content,
-.dark-mode .CreatePostContainer,
-.dark-mode .main-account .content {
+.dark-mode .CreatePostContainer {
     background: var(--surface-dark);
     border: 1px solid var(--surface-hover-dark);
 }
@@ -1076,7 +1075,48 @@ main {
 @media only screen and (min-width: 600px) {}
 
 /* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {}
+@media only screen and (max-width: 768px) {
+    .nav-mobile {
+        display: flex !important;
+    }
+    .main-feed,
+    .sidebar-right {
+        padding-top: 55px;
+    }
+    #posts, #categories {
+        display: none;
+    }
+    
+    #posts:target,
+    #categories:target{
+        display: block;
+    }
+
+    .nav-mobile a div {
+        position: relative;
+        padding-bottom: 10px;
+    }
+    
+    .nav-mobile a div::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background: var(--BlueGreen);
+        transition: width 0.3s ease;
+    }
+    
+    .nav-mobile a div:hover::after {
+        width: 100%;
+    }
+    
+    .nav-mobile a.active div::after {
+        width: 100%;
+    }
+    
+}
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {}
@@ -1286,4 +1326,20 @@ main {
 #switch:checked+label .toggle:before {
     transform: translateY(20px);
     background: var(--White);
+}
+
+
+
+.nav-mobile {
+    display: none;
+    justify-content: space-between;
+    padding: 8px 15px;
+    width: 100%;
+    height: 50px;
+    background-color: var(--bg-dark);
+    position: fixed;
+    font-size: 20px;
+    font-weight: 600;
+    border-bottom: solid 1px var(--bg-dark);
+    z-index: 9999;
 }

@@ -213,3 +213,19 @@ const darkModeStored = localStorage.getItem('darkMode') === 'true';
 toggleDarkMode(darkModeStored);
 themeToggle.checked = darkModeStored;
 themeToggle.addEventListener('change', (e) => toggleDarkMode(e.target.checked));
+
+
+
+// navbar for phone and ipad
+window.addEventListener('load', () => {
+    if (!window.location.hash) {
+        window.location.hash = '#posts';
+    }
+});
+
+window.addEventListener('hashchange', () => {
+    const hash = window.location.hash;
+    document.querySelectorAll('#posts, #categories').forEach(section => {
+        section.style.display  === '#posts' ? 'block' : 'none';
+    });
+});
