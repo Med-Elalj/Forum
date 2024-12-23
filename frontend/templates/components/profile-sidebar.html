@@ -12,12 +12,12 @@
         </div>
     </h1>
     <div class="ProfileCard display">
-        {{ if .UserName}}
+        {{ if .Profile.UserName}}
         <div class="profileImage">
-            <img src="https://api.dicebear.com/9.x/personas/svg?seed={{ .PFP}}" alt="">
+            <img src="https://api.dicebear.com/9.x/personas/svg?seed={{ .Profile.PFP}}" alt="">
         </div>
         <div class="profileName">
-            {{.UserName}}
+            {{.Profile.UserName}}
         </div>
         <div class="profileStatics">
             <span class="analytics">analytics</span>
@@ -25,13 +25,13 @@
                 <span class="material-symbols-outlined">
                     article
                 </span>
-                <span class="postCounts">{{.ArticleCount}} Articles</span>
+                <span class="postCounts">{{.Profile.ArticleCount}} Articles</span>
             </div>
             <div class="comments">
                 <span class="material-symbols-outlined">
                     comment
                     </span>
-                <span class="postCounts">{{.CommentCount}} Comments</span>
+                <span class="postCounts">{{.Profile.CommentCount}} Comments</span>
             </div>
         </div>
         {{ else}}

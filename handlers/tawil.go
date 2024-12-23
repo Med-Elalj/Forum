@@ -36,7 +36,15 @@ func TawilHandelr(w http.ResponseWriter, r *http.Request) {
 	}
 
 	c, err := r.Cookie("session")
-	fmt.Println(c.Name, c.Value, err)
+	if err != nil && err.Error() != "http: named cookie not present" {
+		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized"+err.Error()))
+		fmt.Println(err)
+		return
+	}
+	if err != nil {
+		c = &http.Cookie{}
+	}
+
 	uid, err := database.GetUidFromToken(DB, c.Value)
 	if err != nil {
 		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
@@ -47,20 +55,27 @@ func TawilHandelr(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	// TODO get user profile
-	cat := map[string]int{"test": 1, "azer": 32}
-	profile := structs.Profile{
-		UserName:     "test",
-		PFP:          "Vivian",
-		ArticleCount: 2,
-		CommentCount: 20,
-		Categories:   cat,
+	profile, err := database.GetUserProfile(DB, uid)
+	if err != nil {
+		log.Fatal(err)
 	}
+	// TODO PROFILE PICTURES
+	profile.PFP = "Vivian"
+	// TODO dynamic categories
+	cat := map[string]int{"test": 1, "azer": 32}
+
+	categor := structs.Categories(cat)
 	fmt.Println(profile)
-	template.ExecuteTemplate(w, "index.html", struct {
-		Posts   []structs.Post
-		Profile structs.Profile
-	}{data, profile})
+
+	err = template.ExecuteTemplate(w, "index.html", struct {
+		Posts      []structs.Post
+		Profile    structs.Profile
+		Categories structs.Categories
+	}{data, profile, categor})
+	if err != nil {
+		// TODO remove fatal so the server doesn't stop
+		log.Fatal(err)
+	}
 }
 
 func TawilProfileHandler(w http.ResponseWriter, r *http.Request) {
