@@ -25,9 +25,6 @@ dropdown.forEach(drop => {
     });
 })
 
-//###//////////////////// END Listning dropDown Buttons ////////////
-
-
 //###//////////////////// Start Listning on Like Dislike Buttons ////////////
 let like = document.querySelectorAll(".react .like")
 let dislike = document.querySelectorAll(".react .dislike")
@@ -102,10 +99,6 @@ function checkUserIsLogged(){
     /////////// to check its valid or not 
     return token !== null && token !== undefined;
 }
-//###//////////////////// END OF Listning on Like Dislike Buttons ////////////
-
-
-
 
 //###//////////////////// See more Option  ////////////
 document.querySelectorAll('.see-more').forEach(tweetText => {
