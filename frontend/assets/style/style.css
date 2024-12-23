@@ -233,11 +233,10 @@ nav {
 
 .Logo {
     margin-left: 20px;
-    font-size: 18px;
+    font-size: 20px;
     color: var(--Black);
     font-weight: 900;
     line-height: 20px;
-    border: solid 2px var(--BlueGreen);
     border-radius: 20px;
     padding: 8px;
 }

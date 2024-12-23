@@ -10,6 +10,29 @@ import (
 	"forum/structs"
 )
 
+// func TawilHandelrCreate(w http.ResponseWriter, r *http.Request) {
+// 	// Middler Ware to check if user is logged in
+// 	if r.Method == "POST" {
+
+// 	// if not redirect to login
+// 	// if logged in continue
+// 	// if post request
+// 	// get data from post
+// 	// create post
+// 	// redirect to post
+// 	// if get request
+// 	// render create post page
+// 	template, err := template.ParseGlob("./frontend/templates/*.html")
+// 	if err != nil {
+// 		log.Fatal(err, "Error Parsing Data from Template hTl")
+// 	}
+// 	template, err = template.ParseGlob("./frontend/templates/components/*.html")
+// 	if err != nil {
+// 		log.Fatal(err, "Error Parsing Data from Template hTl")
+// 	}
+// 	template.ExecuteTemplate(w, "create.html", nil)
+
+// }
 func TawilHandelrRegister(w http.ResponseWriter, r *http.Request) {
 	template, err := template.ParseGlob("./frontend/templates/*.html")
 	if err != nil {
@@ -74,11 +97,11 @@ func TawilPostHandler(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err, "Error Parsing Data from Template hTl")
 	}
 	// TODO make it post specific
-	posts, err := database.QuerryLatestPosts(DB, 0, 2)
+	posts, err := database.QuerryLatestPosts(DB, 0, 1)
 	if err != nil {
 		log.Fatal(err)
 	}
-	comments, err := database.GetCommentsByPost(DB, posts[1].ID, 5)
+	comments, err := database.GetCommentsByPost(DB, posts[1].ID, 0)
 	if err != nil {
 		log.Fatal(err)
 	}

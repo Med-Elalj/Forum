@@ -38,6 +38,7 @@ func main() {
 	http.HandleFunc("/profile", handlers.TawilProfileHandler)
 	http.HandleFunc("/index", handlers.TawilHandelr)
 	http.HandleFunc("/register", handlers.TawilHandelrRegister)
+	// http.HandleFunc("/create", handlers.TawilHanderCreate)
 
 	http.HandleFunc("/post", handlers.Post)
 	http.HandleFunc("/home", handlers.HomePage)
