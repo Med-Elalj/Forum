@@ -60,9 +60,7 @@
 .dark-mode .post-card,
 .dark-mode .footerContainer,
 .dark-mode nav,
-.dark-mode .container,
-.dark-mode .popup-content,
-.dark-mode .CreatePostContainer {
+.dark-mode .container {
     background: var(--gradient-dark);
     border: 1px solid var(--surface-hover-dark);
     color: var(--text-dark);
@@ -83,6 +81,8 @@
 .dark-mode input,
 .dark-mode textarea,
 .dark-mode .dropdown ul li,
+.dark-mode .popup-content,
+.dark-mode .CreatePostContainer,
 .dark-mode .main-account .content {
     background: var(--surface-dark);
     border: 1px solid var(--surface-hover-dark);
