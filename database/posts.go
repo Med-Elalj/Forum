@@ -18,6 +18,7 @@ func QuerryLatestPosts(db *sql.DB, user_id, ammount int) ([]structs.Post, error)
 	}
 	defer rows.Close()
 	// TODO commnent count
+	
 
 	for rows.Next() {
 		var post structs.Post
