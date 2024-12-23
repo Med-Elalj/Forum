@@ -1,9 +1,9 @@
 .footerContainer {
-   position: fixed;
+   position: relative;
    bottom: 0;
    left: 0;
    width: 100%;
-   z-index: 9999;
+   z-index: 14;
    background-color: var(--WhiteBlue);
    color: white;
    padding: 10px 0;
