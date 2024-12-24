@@ -1,7 +1,7 @@
 <div class="ProfileAndPost">
     <div class="postInfo">
         <div class="authorImage">
-            <img src="/assets/images/PostImageTest.jpg" alt="">
+            <img src="https://ui-avatars.com/api/?name={{.Post.UserName}}" alt="">
         </div>
         <div class="authorInfo">
             <span class="Title">{{.Post.Title}}</span>
@@ -19,17 +19,18 @@
         <div class="LikeButtons">
             <div class="like DisableUserSelect">
                 <span class="material-symbols-outlined" id="{{.Post.ID}}">thumb_up</span>
-                10
+                {{.Post.LikeCount}}
             </div>
             <div class="dislike DisableUserSelect">
                 <span class="material-symbols-outlined" id="{{.Post.ID}}">thumb_up</span>
-                10
+                {{.Post.DislikeCount}}
+
             </div>
         </div>
         <div class="CommentButtons">
             <div class="like DisableUserSelect">
                 <span class="material-symbols-outlined" id="{{.Post.ID}}">comment</span>
-                10
+                {{.Post.CommentCount}}
             </div>
         </div>
     </div>
@@ -47,7 +48,7 @@
         {{ range .Comments }}
         <div class="commentCard"><!-- Working Part -->
             <div class="commentAuthorImage">
-                <img src="/assets/images/PostImageTest.jpg" alt="">
+                <img src="https://ui-avatars.com/api/?name={{.UserName}}" alt="">
                 <!-- TODO ADD PROPER link: -->
             </div>
 
@@ -60,13 +61,13 @@
                         </span>
                     </span>
                     <div class="commentReaction DisableUserSelect">
-                        <span class="like" id="{Here ID of Post}">
+                        <span class="like" id="{{.ID}}">
                             <span class="material-symbols-outlined">
                                 thumb_up
                             </span>
                             <span>{{.LikeCount}}</span>
                         </span>
-                        <span class="dislike" id="{Here ID of Post}">
+                        <span class="dislike" id="{{.ID}}">
                             <span class="material-symbols-outlined">thumb_down</span>
                             <span>{{.DislikeCount}}</span>
                         </span>
@@ -81,8 +82,8 @@
     </div>
     <div class="commentContainer">
         <div class="commentInput ">
-            <form action="/test" method="POST">
-                <input type="text" name="commment" id="{POST ID}" placeholder="Comment....">
+            <form action="/CommentPost" method="POST">
+                <input type="text" name="commment" id="{{.Post.ID}}" placeholder="Comment....">
             </form>
         </div>
     </div>
