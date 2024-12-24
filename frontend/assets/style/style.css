@@ -62,9 +62,10 @@
 .dark-mode nav,
 .dark-mode .container,
 .dark-mode .main-account .content{
-    background: var(--gradient-dark);
+    /* background: var(--gradient-dark); */
     border: 1px solid var(--surface-hover-dark);
     color: var(--text-dark);
+
 }
 
 .dark-mode .footerContainer,
@@ -102,6 +103,7 @@ body {
     position: relative;
     background-color: var(--Greey);
     width: 100%;
+    height: 100;
 }
 
 a {
@@ -207,9 +209,10 @@ hr {
     margin: 0px;
 } */
 
-/* .ParentContainer{
-    
-} */
+.ParentContainer{
+    position: relative;
+    height: 100vh;
+}
 ::placeholder {
     color: var(--BlueGreen);
     opacity: 0.4;
