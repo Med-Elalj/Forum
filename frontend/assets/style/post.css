@@ -10,24 +10,6 @@ html {
     scroll-behavior: smooth;
 }
 
-:root{
-    --WhiteBlue: #def0f4;
-    --White: #ffffff;
-    --WhiteB: #e0eced;
-    --Greey: #efefef;
-    --GreeyTransparant: hsla(0, 0%, 21%, 0.531);
-    --GreeyD: #919191;
-    --GreeyDarked: hsla(0, 0%, 81%, 0.294);
-    --shadow : 0px 10px 10px hsla(0, 0%, 40%, 0.30);
-    --shadowLittle : 0px 10px 10px hsla(0, 0%, 40%, 0.20);
-    --textshadow : 0px 5px 5px hsla(0, 0%, 40%, 0.30);
-    --border : 2px solid  hsla(0, 0%, 54%, 0.318);
-    --BlueGreenWhite: #37B7C3;
-    --BlueGreen: #088395;
-    --BlueDarker: #0a5c68;
-    --DarkBlue: #22252f;
-    --Black: #242424;
-}
 .FILL {
     font-variation-settings: 'FILL' 1;
     color: var(--BlueDarker) !important;

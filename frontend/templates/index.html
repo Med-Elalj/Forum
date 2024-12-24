@@ -11,110 +11,121 @@
     <link rel="stylesheet" href="/assets/style/popstyle.css">
     <link rel="stylesheet" href="/assets/style/create-post.css">
     <link rel="stylesheet" href="/assets/style/footer.css">
-    <title>Switter</title>
+    <!-- TODO WebsiteTitle EX : Sweeter - Register | Sweeter - Login ...etc-->
+    <title>{{/*.Settings.Title*/}}</title>
     <link rel="icon" href="/assets/images/logo.svg" type="image/svg+xml">
 </head>
 
 <body>
+    <!-- TODO Never injected to HTML if User not Logedin -->
+    {{if .Profile.UserName}}
     {{template "google-icons/google-icons/create-post"}}
+    {{end}}
+
     <div class="postContainer"></div>
     <div class="ParentContainer">
         {{template "header" .Profile}}
+        <div class="nav-mobile">
+            <a href="#categories"><div>Categories</div></a>
+            <a href="#posts"><div>Posts</div></a>
+        </div>
         {{template "left-sidebar"}}
-        <main>
-            <div class="main-flex">
-                <div class="main-feed">
-                    <!-- Create New Post -->
-                    <div class="new-tweet">
-                        <div class="ProfileImage tweet-img no-border" {{if .Profile.PFP}}
-                            style="background-image: url('https://api.dicebear.com/9.x/personas/svg?seed={{.Profile.PFP}}')"
-                            {{else}}
-                            style="background-image: url('https://ui-avatars.com/api/?name={{.Profile.UserName}}')"
-                            {{end}}></div>
-                        <div class="new-tweet-details">
-                            <textarea class="textarea" type="text" placeholder="What's happening?"></textarea>
-                        </div>
+        {{template "profile-sidebar" .Profile}}
+        <div class="main-flex" id="posts">
+            <div class="main-feed">
+                <!-- Create New Post -->
+                <div class="new-tweet">
+                    <!-- TODO User image -->
+                    <div class="ProfileImage tweet-img no-border"
+                        style="background-image: url('https://ui-avatars.com/api/?name={{.Profile.UserName}}')">
                     </div>
-                    <!-- End Of Create New Post -->
-                    <!-- Post Start Content Card -->
-                    {{range $i,$post := .Posts}}
-                    <div class="feed-tweet">    
-                        <!-- User image -->
-                        <div class="ProfileImage tweet-img"
+                    <div class="new-post-header">
+                        <textarea class="textarea" type="text" placeholder="What's happening?"></textarea>
+                    </div>
+                </div>
+                <!-- End Of Create New Post -->
+                {{range $i,$post := .Posts}}
+                <!-- Post Start Content Card -->
+                <div class="post-card">
+                    <!-- User image -->
+                    <div class="ProfileImage tweet-img"
                         style="background-image: url('https://ui-avatars.com/api/?name={{$post.UserName}}')">
                     </div>
-                    
-                    <div class="feet-tweet-detail">
+
+                    <div class="post-details">
                         <div class="row-tweet">
-                            <div class="tweet-details">
+                            <div class="post-header">
                                 <!-- Post Title -->
                                 <span class="tweeter-name post" id="{{$post.ID}}">
                                     {{$post.Title}}
                                     <!-- Post Author Name And Date -->
-                                    <br><span class="tweeter-handle">@{{$post.UserName}} {{$post.CreatedAt}}.</span>
+                                    <br><span class="tweeter-handle">@{{$post.UserName}}
+                                        {{$post.CreatedAt}}.</span>
                                 </span>
-                                </div>
-                                {{if eq $.Profile.UserName $post.UserName}}
-                                <div class="dropdown">
-                                    <i class="material-symbols-outlined">more_horiz</i>
-                                    <div class="content">
-                                        <!-- Control Posts -->
-                                        <ul>
-                                            <li><span class="material-symbols-outlined">edit</span>Edit</li>
-                                            <li><span class="material-symbols-outlined">delete</span>Delete</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                {{end}}
                             </div>
-                            <!-- Post Content -->
-                            <div class="tweet-text">
-                                <p>{{$post.Content}}</p>
+                            {{if eq $.Profile.UserName $post.UserName}}
+                            <!-- Control Posts -->
+                            <div class="dropdown">
+                                <i class="material-symbols-outlined">more_horiz</i>
+                                <div class="content">
+                                    <ul>
+                                        <li><span class="material-symbols-outlined">edit</span>Edit</li>
+                                        <li><span class="material-symbols-outlined">delete</span>Delete</li>
+                                    </ul>
+                                </div>
                             </div>
-                            <span class="see-more">See More</span>
+                            {{end}}
+                        </div>
+                        <!-- Post Content -->
+                        <div class="post-content">
+                            <p>{{$post.Content}}</p>
+                        </div>
+                        <span class="see-more">See More</span>
 
-                            <!-- Post Categories -->
-                            <div class="Hashtag">
-                                {{range $post.Categories}}
-                                <a href=""><span>#{{.}}</span></a>
-                                {{end}}
-                            </div>
+                        <!-- Post Categories -->
+                        <div class="Hashtag">
+                            {{range $post.Categories}}
+                            <a href=""><span>#{{.}}</span></a>
+                            {{end}}
+                        </div>
 
-                            <div class="tweet-icons">
-                                <div class="react">
-                                    <!-- Post Like Counter -->
-                                    <div class="counters like" id="{{$post.ID}}">
-                                        <i class="material-symbols-outlined popup-icon">thumb_up</i>
-                                        <span>{{$post.LikeCount}}</span>
-                                    </div>
-                                    <!-- Post Dislike Counter -->
-                                    <div class="counters dislike" id="{{$post.ID}}">
-                                        <i class="material-symbols-outlined popup-icon">thumb_down</i>
-                                        <span>{{$post.DislikeCount}}</span>
-                                    </div>
+                        <div class="post-footer">
+                            <div class="react">
+                                <!-- Post Like Counter -->
+                                <div class="counters like" id="{{$post.ID}}">
+                                    <i class="material-symbols-outlined popup-icon">thumb_up</i>
+                                    <span>{{$post.LikeCount}}</span>
                                 </div>
-                                <div class="comment post" id="{{$post.ID}}">
-                                    <!-- Post Comments Counter -->
-                                     
-                                    <i class="material-symbols-outlined showCmnts">comment</i>
-                                    <span>10</span>
+                                <!-- Post Dislike Counter -->
+                                <div class="counters dislike" id="{{$post.ID}}">
+                                    <i class="material-symbols-outlined popup-icon">thumb_down</i>
+                                    <span>{{$post.DislikeCount}}</span>
                                 </div>
+                            </div>
+                            <div class="comment post" id="{{$post.ID}}">
+                                <!-- Post Comments Counter -->
+                                <i class="material-symbols-outlined showCmnts">comment</i>
+                                <span>10</span>
                             </div>
                         </div>
                     </div>
-                    {{ end }}
-                    <div class="fetchMore">
-                        Fetching more data <br>
-                        You have reached the end.
-                    </div>
+                </div>
+                <!-- End Of Post Content Card -->
+
+                {{ end }}
+                <div class="fetchMore">
+                    <!-- TODO Handling SCrolling Pagination using JS -->
+                    Fetching more data <br>
+                    You have reached the end.
                 </div>
                 {{template "profile-sidebar" .}}
             </div>
-        </main>
+
+        </div>
+        
     </div>
     <div id="popupContainer"></div>
     {{template "footer"}}
-    <script src="/assets/js/pop.js"></script>
     <script src="/assets/js/profile.js"></script>
     <script src="/assets/js/script.js"></script>
 </body>

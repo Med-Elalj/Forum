@@ -1,9 +1,12 @@
 {{define "header"}}
 <nav>
     <!-- Logo -->
-    <div class="Logo">
-        <span>Forum</span>Project
-    </div>
+    <span class="menu material-symbols-outlined">
+        menu
+    </span>
+    <a href="#" class="Logo">
+        Edu<span>Talks</span>
+    </a>
     <!-- Search Bar -->
     <!-- <div class="search-box">
                 <input type="text" id="srch" placeholder="Search..." onkeyup="debounceSearch()">
@@ -12,15 +15,37 @@
             </div>    -->
     {{if .UserName}}
     <div class="main-account">
-        <a href="/profile/{{.UserName}}">
+        <div class="dropdown">
             <div class="ProfileImage tweet-img"
-                {{if .PFP}}
-                style="background-image: url('https://api.dicebear.com/9.x/personas/svg?seed={{.PFP}}')">
-                {{else}}
-                style="background-image: url('https://ui-avatars.com/api/?name={{.UserName}}')">
-                {{end}}
+                style="background-image: url('https://ui-avatars.com/api/?name={{.PFP}}')">
             </div>
-        </a>
+            <div class="content">
+                <!-- Control Posts -->
+                <ul>
+                    <a href="/profile">
+                        <li><span class="material-symbols-outlined">account_circle</span>Profile</li>
+                    </a>
+                    <!-- Darck && light mode -->
+                    <li class="theme-toggle">
+                        <input id="switch" type="checkbox">
+                        <label for="switch">
+                            <div class="toggle">
+                                <span class="material-symbols-outlined dark_mode">
+                                    dark_mode
+                                </span>
+                                <span class="material-symbols-outlined light_mode">
+                                    light_mode
+                                </span>
+                            </div>
+                            <span class="theme">Theme</span>
+                        </label>
+                    </li><hr>
+                    <a href="/logout">
+                        <li><span class="material-symbols-outlined">logout</span>Logout</li>
+                    </a>
+                </ul>
+            </div>
+        </div>
     </div>
     {{else}}
     <div class="SignOptions">

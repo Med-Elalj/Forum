@@ -17,7 +17,7 @@
         <!-- uemail := r.Form.Get("email")
         uname := r.Form.Get("username")
         upass := r.Form.Get("password") -->
-        <div class="form-container sign-up" id="sign-up-form">
+        <div class="form-container active-form  sign-up" id="sign-up-form">
             <form method="POST" action="/register">
                 <h1>Create Account</h1>
                 <input type="text" id="user" name="username" placeholder="Username" required>
@@ -41,7 +41,7 @@
             </form>
         </div>
 
-        <div class="form-container active-form sign-in" id="login-form">
+        <div class="form-container sign-in" id="login-form">
             <form method="POST" action="/login">
                 <h1>Sign In</h1>
                 <input type="email" name="email" placeholder="Email" required>
