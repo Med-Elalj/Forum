@@ -61,10 +61,13 @@ func GetUserByUemail(db *sql.DB, email string) (string, int, error) {
 		fmt.Println(err)
 		return "", 0, err
 	}
-	return hpassword, 0, nil
+	return hpassword, uid, nil
 }
 
 func AddSessionToken(db *sql.DB, user_id int, token string) error {
+	if token == "" || user_id == 0 {
+		return fmt.Errorf("invalid token or user_id")
+	}
 	fmt.Println("session", user_id)
 	stmt, err := db.Prepare("INSERT INTO sessions(user_id, session_token, expiration) VALUES(?,?,DATETIME(CURRENT_TIMESTAMP, '+1 hour'))")
 	if err != nil {

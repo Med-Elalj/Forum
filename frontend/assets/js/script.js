@@ -139,7 +139,7 @@ let postButton = document.querySelectorAll(".post")
 postButton.forEach(elem => {
     elem.addEventListener('click', async () => {
         // Get id to send request to get Post : elem.id
-        const html = await fetchPost(`/post1/${elem.id}`)
+        const html = await fetchPost(`/post/${elem.id}`)
         const postContent = document.querySelector('.postContainer')
         postContent.classList.remove("closed")
         if (!document.getElementById("ScriptInjected")) {

@@ -51,7 +51,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		ErrorPage(w, http.StatusBadRequest, errors.New("invalid email or username"))
 		return
 	}
-	if err != nil {
+	if err != nil || uid == 0 {
 		log.Println(err)
 		ErrorPage(w, http.StatusInternalServerError, err)
 		return
@@ -137,5 +137,5 @@ func validpassword(password string) bool {
 			return true
 		}
 	}
-	return a && A && d
+	return a && A && d && s
 }

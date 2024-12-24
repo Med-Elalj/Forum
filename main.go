@@ -31,18 +31,24 @@ func main() {
 	handlers.DB = db
 	fmt.Println("User created successfully!")
 	fmt.Println(database.QuerryPostsbyUser(db, "test", 0, 5))
+
+	http.HandleFunc("/index", handlers.TawilHandelr)
+
 	http.HandleFunc("POST /login", handlers.Login)
 	http.HandleFunc("POST /register", handlers.Register)
-
-	http.HandleFunc("/post1/", handlers.TawilPostHandler)
-	http.HandleFunc("/profile", handlers.TawilProfileHandler)
-	http.HandleFunc("/index", handlers.TawilHandelr)
-	http.HandleFunc("/register", handlers.TawilHandelrRegister)
 	http.HandleFunc("/login", handlers.TawilHandelrRegister)
+	http.HandleFunc("/register", handlers.TawilHandelrRegister)
+	http.HandleFunc("/logout", handlers.Logout)
 
-	http.HandleFunc("/post", handlers.Post)
-	http.HandleFunc("/home", handlers.HomePage)
+	http.HandleFunc("/post/{id}", handlers.TawilPostHandler)
+
+	http.HandleFunc("/profile/{username}", handlers.TawilProfileHandler)
+	http.HandleFunc("/profile/{username}/likes", handlers.Likes) // TODO Implement profile like handler
+
+	http.HandleFunc("/create", handlers.Create) // TODO Implement create
+
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("./frontend/assets"))))
+
 	fmt.Println("Server listening on :8080...")
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
