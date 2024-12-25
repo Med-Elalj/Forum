@@ -19,10 +19,10 @@
 <body>
     <!-- TODO Never injected to HTML if User not Logedin -->
     {{if .Profile.UserName}}
-    {{template "google-icons/google-icons/create-post"}}
+        {{template "google-icons/google-icons/create-post"}}
     {{end}}
 
-    <div class="postContainer"></div>
+    <div class="postContainer closed"></div>
     <div class="ParentContainer">
         {{template "header" .Profile}}
         <div class="nav-mobile">
@@ -40,7 +40,7 @@
                         style="background-image: url('https://ui-avatars.com/api/?name={{.Profile.UserName}}')">
                     </div>
                     <div class="new-post-header">
-                        <textarea class="textarea" type="text" placeholder="What's happening?"></textarea>
+                        <textarea class="textarea" readonly type="text" placeholder="What's happening?"></textarea>
                     </div>
                 </div>
                 <!-- End Of Create New Post -->

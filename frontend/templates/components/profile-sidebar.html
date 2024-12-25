@@ -1,74 +1,71 @@
 {{define "profile-sidebar"}}
 <div class="sidebar-right " id="categories">
-    <div class="nav-links">
-
-    <h1 class="h1-title sub-main reverse">
-        <div class="switch-icon rotate">
-            <span class="material-symbols-outlined">
-                autorenew
-                </span>
-        </div>
-        <div class="switch-buttons">
-            <span class="main">Profile</span>
-            <span class="sub">Categories</span>
-        </div>
-    </h1>
-    <div class="ProfileCard display">
-        {{ if .Profile.UserName}}
-        <div class="profileImage">
-            <img src="https://api.dicebear.com/9.x/personas/svg?seed={{ .Profile.PFP}}" alt="">
-        </div>
-        <div class="profileName">
-            {{.Profile.UserName}}
-        </div>
-        <div class="profileStatics">
-            <span class="analytics">analytics</span>
-            <div class="posts">
+        <h1 class="h1-title sub-main reverse">
+            <div class="switch-icon rotate">
                 <span class="material-symbols-outlined">
-                    article
+                    autorenew
                 </span>
-                <span class="postCounts">{{.Profile.ArticleCount}} Articles</span>
             </div>
-            <div class="comments">
-                <span class="material-symbols-outlined">
-                    comment
+            <div class="switch-buttons">
+                <span class="main">Profile</span>
+                <span class="sub">Categories</span>
+            </div>
+        </h1>
+        <div class="ProfileCard display">
+            {{ if .Profile.UserName}}
+            <div class="profileImage">
+                <img src="https://api.dicebear.com/9.x/personas/svg?seed={{ .Profile.PFP}}" alt="">
+            </div>
+            <div class="profileName">
+                {{.Profile.UserName}}
+            </div>
+            <div class="profileStatics">
+                <span class="analytics">analytics</span>
+                <div class="posts">
+                    <span class="material-symbols-outlined">
+                        article
                     </span>
-                <span class="postCounts">{{.Profile.CommentCount}} Comments</span>
+                    <span class="postCounts">{{.Profile.ArticleCount}} Articles</span>
+                </div>
+                <div class="comments">
+                    <span class="material-symbols-outlined">
+                        comment
+                    </span>
+                    <span class="postCounts">{{.Profile.CommentCount}} Comments</span>
+                </div>
             </div>
+            {{ else}}
+            <div class="profileImage">
+                <img src="https://ui-avatars.com/api/?name=An" alt="">
+            </div>
+            <div class="profileName">
+                Not Loged In
+            </div>
+            <div class="SignOptions">
+                <a href="/login" class="Buttons">
+                    <i class="material-symbols-outlined">login</i>
+                    <span>Login / Register</span>
+                </a>
+            </div>
+            {{ end}}
         </div>
-        {{ else}}
-        <div class="profileImage">
-            <img src="https://ui-avatars.com/api/?name=An" alt="">
-        </div>
-        <div class="profileName">
-            Not Loged In
-        </div>
-        <div class="SignOptions">
-            <a href="/login" class="Buttons">
-                <i class="material-symbols-outlined">login</i>
-                <span>Login / Register</span>
-            </a>
-        </div>
-        {{ end}}
-    </div>
-    
-    <!-- <h1 class="h1-title Categories">Categories</h1> -->
-    <div class="Categories" >
 
-        <!-- <hr class="categories-line"> -->
-        {{range $key, $value := .Categories}}
-        <hr>
-        <div class="trending-item">
-            <div class="item-category">
-                <p>{{$key}}</p>
+        <!-- <h1 class="h1-title Categories">Categories</h1> -->
+        <div class="Categories">
+
+            <!-- <hr class="categories-line"> -->
+            {{range $key, $value := .Categories}}
+            <hr>
+            <div class="trending-item">
+                <a href="/category/{{$key}}">
+                    <div class="item-category">
+                        <p>{{$key}}</p>
+                    </div>
+                </a>
+                <span>{{$value}} Posts</span>
             </div>
-            <span>{{$value}} Posts</span>
+            {{end}}
         </div>
-        {{end}}
-    </div>
-    
-    <!-- <a href="" class="show-more">Show more</a> !-->
-</div>
 </div>
 
 {{end}}

@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="postContent">
-        <p>{{.Post.Content}}</p>
+        <pre>{{.Post.Content}}</pre>
         <!-- TODO IMAGES -->
     </div>
     <div class="PostReactionData">
@@ -46,7 +46,7 @@
     </div>
     <div class="Comments">
         {{ range .Comments }}
-        <div class="commentCard"><!-- Working Part -->
+        <div class="commentCard DisableUserSelect"><!-- Working Part -->
             <div class="commentAuthorImage">
                 <img src="https://ui-avatars.com/api/?name={{.UserName}}" alt="">
                 <!-- TODO ADD PROPER link: -->
@@ -82,9 +82,7 @@
     </div>
     <div class="commentContainer">
         <div class="commentInput ">
-            <form action="/CommentPost" method="POST">
-                <input type="text" name="commment" id="{{.Post.ID}}" placeholder="Comment....">
-            </form>
+            <input type="text" name="commment" id="{{.Post.ID}}" placeholder="Comment....">
         </div>
     </div>
 </div>

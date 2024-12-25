@@ -67,6 +67,7 @@
 }
 .postInput textarea{
     color: var(--BlueGreenWhite);
+    background-color: var(--WhiteB);
     height: 100%;
     padding: 10px;
     border-radius: 5px;
@@ -116,11 +117,7 @@
     color: var(--WhiteB);
     transition: all 0.5s;
 }
-.DisableUserSelect{
-    -webkit-user-select: none;
-    -ms-user-select:none;
-    user-select:none;
-}
+
 .test{
     width: 100vh;
     height: 100vh;

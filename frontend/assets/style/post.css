@@ -32,6 +32,7 @@ html {
     /* background-color: var(--Greey); */
     padding: 10px;
     gap: 4px;
+    height: 100%;
     /* border-radius: 0px 0px 0px 10px; */
     border-right: 5px solid var(--GreeyDarked);
     /* box-shadow: var(--shadow); */
@@ -39,9 +40,9 @@ html {
     color: var(--DarkBlue);
     line-height: 2em;
     font-size: 17px;
+    line-height: 1.5rem;
 }
 .postContent img{
-    /* height: 100%; */
     width: 100%;
     border-radius: 5px;
 }
@@ -62,6 +63,7 @@ html {
 }
 .Comments{
     overflow: scroll;
+    height: 100%;
 }
 .commentCard{
     display: flex;
@@ -74,6 +76,8 @@ html {
 .commentAuthor{
     display: flex;
     flex-direction: column;
+    width: 100%;
+    overflow: hidden;
 }
 
 .commentReaction{
@@ -139,11 +143,12 @@ html {
     justify-content: center;
     align-items: center;
     /* margin: 10px; */
+    justify-content: true;
     /* gap: 5px; */
     padding-bottom: 4px;
-
     border-bottom: var(--border);
-
+    width: 100%;
+    /* background-color: red; */
 }
 .Testing {
     display: flex;
@@ -191,8 +196,9 @@ html {
 
 .commentInfo{
     display: block;
+    word-wrap: break-word;
+    /* margin-right: 40px; */
     /* margin: 0px 10px; */
-
 }
 .collapse{
     height: 50px;
