@@ -121,8 +121,9 @@ hr {
     flex-direction: column;
     justify-content: center;
     width: 100%;
-    height: 90px;
-    padding: 0 15px;
+    /* margin: 9px 0px; */
+    /* height: 90px; */
+    padding: 11px;
     color: rgb(110, 118, 125);
     font-weight: 600;
     cursor: pointer;

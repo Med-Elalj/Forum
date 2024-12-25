@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"html/template"
@@ -12,29 +13,6 @@ import (
 	"forum/structs"
 )
 
-// func TawilHandelrCreate(w http.ResponseWriter, r *http.Request) {
-// 	// Middler Ware to check if user is logged in
-// 	if r.Method == "POST" {
-
-// 	// if not redirect to login
-// 	// if logged in continue
-// 	// if post request
-// 	// get data from post
-// 	// create post
-// 	// redirect to post
-// 	// if get request
-// 	// render create post page
-// 	template, err := template.ParseGlob("./frontend/templates/*.html")
-// 	if err != nil {
-// 		log.Fatal(err, "Error Parsing Data from Template hTl")
-// 	}
-// 	template, err = template.ParseGlob("./frontend/templates/components/*.html")
-// 	if err != nil {
-// 		log.Fatal(err, "Error Parsing Data from Template hTl")
-// 	}
-// 	template.ExecuteTemplate(w, "create.html", nil)
-
-// }
 func TawilHandelrRegister(w http.ResponseWriter, r *http.Request) {
 	template, err := template.ParseGlob("./frontend/templates/*.html")
 	if err != nil {
@@ -88,13 +66,15 @@ func TawilHandelr(w http.ResponseWriter, r *http.Request) {
 			log.Fatal(err)
 		}
 	}
+
+	categories, err := database.GetCategoriesWithPostCount(DB)
+	if err != nil {
+		ErrorPage(w, http.StatusInternalServerError, errors.New("error getting categories from database"))
+	}
 	// TODO PROFILE PICTURES
 	profile.PFP = "Vivian"
-	// TODO dynamic categories
-	cat := map[string]int{"test": 1, "azer": 32}
 
-	categor := structs.Categories(cat)
-	fmt.Println(profile)
+	categor := structs.Categories(categories)
 
 	err = template.ExecuteTemplate(w, "index.html", struct {
 		Posts      []structs.Post
@@ -157,9 +137,11 @@ func TawilProfileHandler(w http.ResponseWriter, r *http.Request) {
 	// TODO PROFILE PICTURES
 	profile.PFP = "Vivian"
 	// TODO dynamic categories
-	cat := map[string]int{"test": 1, "azer": 32}
-
-	categor := structs.Categories(cat)
+	categories, err := database.GetCategoriesWithPostCount(DB)
+	if err != nil {
+		ErrorPage(w, http.StatusInternalServerError, errors.New("error getting categories from database"))
+	}
+	categor := structs.Categories(categories)
 	fmt.Println(profile)
 
 	err = template.ExecuteTemplate(w, "index.html", struct {
@@ -173,6 +155,129 @@ func TawilProfileHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	// TODO
 	template.ExecuteTemplate(w, "profile.html", nil)
+}
+
+func CreatePost(w http.ResponseWriter, r *http.Request) {
+	// Handling adding posts based on createPostInputEventListeners function
+	if r.Method != "POST" {
+		ErrorPage(w, http.StatusMethodNotAllowed, errors.New("invalid method"))
+		return
+	}
+	if r.Header.Get("Content-Type") != "application/json" {
+		ErrorPage(w, http.StatusBadRequest, errors.New(r.Header.Get("Content-Type")))
+		return
+	}
+	token, err := r.Cookie("session")
+	if err != nil {
+		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
+		return
+	}
+	fmt.Println("\n========================")
+	fmt.Println(token)
+	fmt.Println("\n========================")
+	UserId, err := database.GetUidFromToken(DB, token.Value)
+	if err != nil {
+		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized ID"+err.Error()))
+		return
+	}
+	UserProfile, err := database.GetUserProfile(DB, UserId)
+
+	if err != nil {
+		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized UserProfile"+err.Error()))
+		return
+	}
+	data := struct {
+		Title      string
+		Content    string
+		Categories []string
+	}{}
+	err = json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		ErrorPage(w, http.StatusBadRequest, errors.New("invalid json"))
+		return
+	}
+
+	err, id := database.CreatePost(DB, UserId, data.Title, data.Content, data.Categories)
+	if err != nil {
+		ErrorPage(w, http.StatusInternalServerError, errors.New("error creating post"))
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"status":        "ok",
+		"ID":            id,
+		"Title":         data.Title,           // TODO get username
+		"UserName":      UserProfile.UserName, // TODO get username
+		"CreatedAt":     "now",
+		"Content":       data.Content,
+		"Categories":    data.Categories,
+		"LikeCount":     0,
+		"DislikeCount":  0,
+		"CommentsCount": 0,
+	})
+}
+
+func AddCommentHandler(w http.ResponseWriter, r *http.Request) {
+	// Handling adding comments based on addCommentInputEventListeners function
+	if r.Method != "POST" {
+		ErrorPage(w, http.StatusMethodNotAllowed, errors.New("invalid method"))
+		return
+	}
+	if r.Header.Get("Content-Type") != "application/json" {
+		ErrorPage(w, http.StatusBadRequest, errors.New(r.Header.Get("Content-Type")))
+		return
+	}
+	session, err := r.Cookie("session")
+	if err != nil {
+		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
+		return
+	}
+	UserId, err := database.GetUidFromToken(DB, session.Value)
+	if err != nil {
+		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
+		return
+	}
+	UserProfile, err := database.GetUserProfile(DB, UserId)
+	fmt.Println("\n=====================\n")
+	fmt.Println("UserProfile", UserProfile)
+	fmt.Println("\n=====================\n")
+
+	if err != nil {
+		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
+		return
+	}
+	data := struct {
+		PostID  string
+		Comment string
+	}{}
+	err = json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		fmt.Println("errorX", err)
+		ErrorPage(w, http.StatusBadRequest, errors.New("invalid json"))
+		return
+	}
+	IdInt, err := strconv.Atoi(data.PostID)
+	if err != nil {
+		ErrorPage(w, http.StatusBadRequest, errors.New("invalid post id"))
+		return
+	}
+	fmt.Println("User id ", UserId)
+	err, id := database.CreateComment(DB, UserId, IdInt, data.Comment)
+	if err != nil {
+		ErrorPage(w, http.StatusInternalServerError, errors.New("error creating comment"))
+		return
+	}
+
+	LastInsertIDString := strconv.FormatInt(id, 10)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"status":    "ok",
+		"UserName":  UserProfile.UserName, // TODO get username
+		"CreatedAt": "now",
+		"CommentID": LastInsertIDString,
+		"Content":   data.Comment,
+	})
+
 }
 
 func TawilPostHandler(w http.ResponseWriter, r *http.Request) {
@@ -191,7 +296,7 @@ func TawilPostHandler(w http.ResponseWriter, r *http.Request) {
 	// TODO check for edge cases
 
 	Postid, err = strconv.Atoi(r.PathValue("id"))
-	if err != nil || Postid <= 0 {
+	if err != nil || Postid < 0 {
 		// TODO iso standard
 		ErrorPage(w, 400, errors.New("invalid TawilPostHandler 0"))
 	}
@@ -201,7 +306,8 @@ func TawilPostHandler(w http.ResponseWriter, r *http.Request) {
 		ErrorPage(w, 400, errors.New("invalid TawilPostHandler 1"))
 	}
 
-	comments, err := database.GetCommentsByPost(DB, post.ID, 5)
+	comments, err := database.GetCommentsByPost(DB, post.ID)
+	fmt.Println(comments)
 	if err != nil {
 		// TODO iso standard
 		ErrorPage(w, 400, errors.New("invalid TawilPostHandler 2"))

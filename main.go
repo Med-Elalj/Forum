@@ -36,11 +36,15 @@ func main() {
 
 	http.HandleFunc("POST /login", handlers.Login)
 	http.HandleFunc("POST /register", handlers.Register)
+	http.HandleFunc("/TokenChecker", handlers.TawilHandelrRegister)
 	http.HandleFunc("/login", handlers.TawilHandelrRegister)
 	http.HandleFunc("/register", handlers.TawilHandelrRegister)
 	http.HandleFunc("/logout", handlers.Logout)
 
 	http.HandleFunc("/post/{id}", handlers.TawilPostHandler)
+
+	http.HandleFunc("/CreateComment", handlers.AddCommentHandler)
+	http.HandleFunc("/createPost", handlers.CreatePost)
 
 	http.HandleFunc("/profile/{username}", handlers.TawilProfileHandler)
 	http.HandleFunc("/profile/{username}/likes", handlers.Likes) // TODO Implement profile like handler

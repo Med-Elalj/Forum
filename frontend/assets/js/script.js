@@ -1,3 +1,10 @@
+// class testing 
+const testing = document.querySelectorAll(".testing")
+testing.forEach(elem => {
+    elem.addEventListener('click', () => {
+        console.log(elem.textContent);
+    })
+})
 let popup = NaN;
 
 //////////////////// Check User is Logged yet or not //////////////////

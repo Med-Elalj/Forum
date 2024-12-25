@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"strconv"
 	"strings"
 
 	"forum/database/querries"
@@ -104,48 +105,60 @@ func QuerryPostsbyUser(db *sql.DB, username string, user_id, ammount int) ([]str
 	return res, nil
 }
 
-func CreatePost(db *sql.DB, UserID int, title, content string, categories []string) error {
+func CreatePost(db *sql.DB, UserID int, title, content string, categories []string) (error, int) {
 	tx, err := db.Begin()
 	if err != nil {
-		return err
+		fmt.Println("CreatePost 1", err)
+		return err, -1
 	}
 	defer tx.Rollback()
 
 	stmt, err := tx.Prepare("INSERT INTO posts(user_id, title, content) VALUES(?,?,?)")
 	if err != nil {
-		return err
+		fmt.Println("CreatePost 2", err)
+		return err, -1
 	}
 	defer stmt.Close()
 
 	res, err := stmt.Exec(UserID, title, content)
 	if err != nil {
-		return err
+		fmt.Println("CreatePost 3", err)
+		return err, -1
 	}
 
 	postID, err := res.LastInsertId()
 	if err != nil {
-		return err
+		fmt.Println("CreatePost 4", err)
+		return err, -1
 	}
 
-	stmt_1, err := tx.Prepare(`INSERT INTO post_categories(category_id, post_id) VALUES((SELECT id FROM categories WHERE name = ?), ?)`)
+	stmt_1, err := tx.Prepare(`INSERT INTO post_categories(category_id, post_id) VALUES(?, ?)`)
 	if err != nil {
-		return err
+		fmt.Println("CreatePost 5", err)
+		return err, -1
 	}
 	defer stmt_1.Close()
 
 	for _, category := range categories {
-		_, err = stmt_1.Exec(category, postID)
+		CategoryId, err := strconv.Atoi(category)
 		if err != nil {
-			return err
+			fmt.Println("CreatePost 6", err)
+			return err, -1
+		}
+		_, err = stmt_1.Exec(CategoryId, postID)
+		if err != nil {
+			return err, -1
 		}
 	}
 
 	// Commit the transaction
 	err = tx.Commit()
 	if err != nil {
-		return err
+		fmt.Println("CreatePost 7", err)
+		return err, -1
 	}
-	return nil
+	PostId := int(postID)
+	return nil, PostId
 }
 
 func GetPostByID(db *sql.DB, Postid, UserID int) (structs.Post, error) {

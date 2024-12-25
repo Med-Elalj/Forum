@@ -16,8 +16,10 @@ if (switchIcons.classList.contains("reverse") && location.pathname == "/index"){
 }
 
 switchIcons.addEventListener('click', () => {
+    
     switchIcons.classList.toggle("reverse")
     rotateIcon.classList.toggle("rotate")
     ProfileCard.classList.toggle("display")
     Categories.classList.toggle("display")
 })
+
