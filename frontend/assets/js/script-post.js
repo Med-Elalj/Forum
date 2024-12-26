@@ -107,16 +107,13 @@ function CommentReactionEventListenner(){
 }
 
 function CommentInputEventListenner(){
-    console.log("Listx");
 
     const commentInput = document.querySelector('.commentInput input');
-    console.log("List");
+    console.log("Get Comment Input", commentInput);
     commentInput.addEventListener('keypress', async (e) => {
         
-        console.log("Rak Hena ");
-        
         if (e.key === 'Enter') {
-            console.log('Enter Pressed');
+            console.log('Enter Key Pressed');
             e.preventDefault();
             const comment = commentInput.value;
             commentInput.value = '';
@@ -131,12 +128,17 @@ function CommentInputEventListenner(){
                     comment
                 })
             });
-            console.log("response", response);
+            console.log("Response Complete", response);
+            console.log("response Status Aciba", response.status);
+            
+            if (response.status != 200){
+                console.log("Error : Inside Response Status");
+                popUp()
+                return
+            }
             
             const data = await response.json();
-            console.log("Response  = data", data);
-            console.log("data stst", data["status"] == "ok");
-            console.log('Comment Added', (response.success));
+            console.log('Comment Added =>', (response.success));
             if (data["status"] == "ok") {
                 const commentContainer = document.querySelector('.Comments');
                 const commentCard = document.createElement('div');
@@ -145,6 +147,10 @@ function CommentInputEventListenner(){
                 commentCard.id = "Comment" + data["CommentID"];
                 console.log(commentCard);
                 let url = "/index#Comment" + data["CommentID"];
+                // Add Comment Card using createFragment
+                const commentCardFragment = document.createDocumentFragment();
+                commentCardFragment.appendChild(commentCard);
+               
                 commentCard.innerHTML = `
                     <div class="commentAuthorImage">
                         <img src="https://ui-avatars.com/api/?name=${data["UserName"]}" alt="">

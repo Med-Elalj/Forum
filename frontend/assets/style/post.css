@@ -41,12 +41,25 @@ html {
     line-height: 2em;
     font-size: 17px;
     line-height: 1.5rem;
+    width: 100%;
+    /* background-color: red; */
+    overflow: hidden;
+    overflow-y: hidden;
+    /* text-overflow: ellipsis; */
+    /* overflow: hidden; */
+    /* white-space: nowrap; */
+    /* max-width: 100%; */
+    /* display: inline-block; */
 }
 .postContent img{
     width: 100%;
     border-radius: 5px;
 }
-
+.postContent pre{
+    /* white-space: pre-wrap; */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
 .postComments{
     display: flex;
     flex-direction: column;
@@ -112,7 +125,7 @@ html {
     padding: 10px;
     background-color: var(--WhiteBlue);
     box-shadow: var(--shadowLittle);
-
+    width: 100%;
 }
 .authorImage img, .commentAuthorImage img{
     width: 40px;
@@ -134,6 +147,7 @@ html {
     display: block;
     margin-left: 10px;
     gap: 5px;
+    width: calc(100% - 40px);
 }
 .center{
     justify-content: center;
@@ -154,10 +168,19 @@ html {
     display: flex;
 }
 .authorInfo .Title{
-    display: inline;
+    display: inline-block;
     font-size: 26px;
     font-weight: bold;
     color: var(--BlueDarker);
+    /* word-break: break-all; */
+    /* text-overflow: ellipsis; */
+    /* overflow: hidden; */
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 100%;
+    /* display: inline-block; */
 }
 .authorInfo .authorName{
     font-weight: bold;

@@ -46,6 +46,7 @@ func main() {
 	http.HandleFunc("/CreateComment", handlers.AddCommentHandler)
 	http.HandleFunc("/createPost", handlers.CreatePost)
 	http.HandleFunc("/PostReaction", handlers.PostReaction)
+	// http.HandleFunc("/category", handlers.CetegoryHandler)
 
 	http.HandleFunc("/profile/{username}", handlers.TawilProfileHandler)
 	http.HandleFunc("/profile/{username}/likes", handlers.Likes) // TODO Implement profile like handler

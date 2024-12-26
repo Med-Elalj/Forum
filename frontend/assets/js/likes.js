@@ -88,9 +88,13 @@ function handleLikes() {
                         "type": "like"
                      })
                 });
-                console.log(res.body);
-                console.log(res);
-
+                console.log("RES Body ", res.body);
+                console.log("res", res);
+                if (res.status == 403){
+                    popUp()// TODO Just if the user is not logged in Authontication Errors
+                    console.log("Error");
+                    return;
+                }
                 const data = await res.json();
                 console.log(data);
                 console.log("=====> Added = ", data.added);
@@ -127,6 +131,11 @@ function handleLikes() {
                      })
                 });
     
+                if (res.status == 403){
+                    popUp()
+                    console.log("Error");
+                    return;
+                }
                 const data = await res.json();
                 console.log(data);
                 const like = btn.previousElementSibling

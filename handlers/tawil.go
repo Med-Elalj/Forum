@@ -197,6 +197,10 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 		ErrorPage(w, http.StatusBadRequest, errors.New("invalid json"))
 		return
 	}
+	if len(data.Title) > 60 {
+		ErrorPage(w, http.StatusBadRequest, errors.New("title is too long"))
+		return
+	}
 
 	err, id := database.CreatePost(DB, UserId, data.Title, data.Content, data.Categories)
 	if err != nil {
@@ -453,6 +457,38 @@ function handleLikes() {
 
 handleLikes();
 */
+// // Create CetegoryHandler to handle the categories
+// // if the user click on the category it will show all the posts that have this category
+// // the EX of link : is : http://localhost:8080/category?name=Business
+// func CetegoryHandler(w http.ResponseWriter, r *http.Request) {
+// 	// get the category name from the query
+// 	categoryName := r.URL.Query().Get("name")
+// 	// get the posts from the database
+// 	categoryNames := []string{"business", "economy", "general", "technology", "videos", "sport"}
+// 	for _, name := range categoryNames {
+// 		if name == categoryName {
+// 			fmt.Println("Category Name is : ", categoryName)
+// 		}
+// 	}
+
+// 	posts := "nil"
+// 	if err != nil {
+// 		ErrorPage(w, http.StatusInternalServerError, errors.New("error getting posts by category"))
+// 		return
+// 	}
+// 	// render the posts in the category template
+// 	template, err := template.ParseGlob("./frontend/templates/*.html")
+// 	if err != nil {
+// 		log.Fatal(err, "Error Parsing Data from Template hTl")
+// 	}
+// 	template, err = template.ParseGlob("./frontend/templates/components/*.html")
+// 	if err != nil {
+// 		log.Fatal(err, "Error Parsing Data from Template hTl")
+// 	}
+// 	template.ExecuteTemplate(w, "category.html", struct {
+// 		Posts []structs.Post
+// 	}{Posts: posts})
+// }
 
 // handling likes and dislikes in the backend Golang
 func PostReaction(w http.ResponseWriter, r *http.Request) {

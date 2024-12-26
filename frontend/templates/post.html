@@ -17,12 +17,13 @@
     </div>
     <div class="PostReactionData">
         <div class="LikeButtons">
-            <div class="like DisableUserSelect">
+            <!-- TODO .POST.Liked Doesnt Work -->
+            <div class='like DisableUserSelect {{if eq .Post.Liked "1"}}FILL{{end}}'>
                 <span class="material-symbols-outlined" id="{{.Post.ID}}">thumb_up</span>
                 {{.Post.LikeCount}}
             </div>
-            <div class="dislike DisableUserSelect">
-                <span class="material-symbols-outlined" id="{{.Post.ID}}">thumb_up</span>
+            <div class='dislike DisableUserSelect {{if eq .Post.Liked "1"}}FILL{{end}}'>
+                <span class="material-symbols-outlined" id="{{.Post.ID}}">thumb_down</span>
                 {{.Post.DislikeCount}}
 
             </div>

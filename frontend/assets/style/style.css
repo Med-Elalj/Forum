@@ -24,7 +24,7 @@
     --DarkBlue: #22252f;
     --Black: #242424;
 
-    --Created: #15ff7e;
+    --Created: #ff1515;
     --bg-dark: #0f172a;
     --text-dark: #f1f5f9;
     --surface-dark: #1e293b;
@@ -559,6 +559,7 @@ main {
     cursor: pointer;
     color: var(--BlueGreen);
     line-height: 1.4rem;
+    word-break: break-all;
 }
 
 .tweeter-handle {
@@ -586,6 +587,7 @@ main {
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    word-break: break-all;
 }
 
 .post-content.expanded {
@@ -693,7 +695,7 @@ main {
 }
 @keyframes PostAdded{
     0%{
-        background-color: var(--BlueDarker);
+        background-color: var(--Created);
     }
     100%{
         background-color: var(--WhiteBlue);
