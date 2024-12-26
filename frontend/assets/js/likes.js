@@ -90,8 +90,8 @@ function handleLikes() {
                 });
                 console.log("RES Body ", res.body);
                 console.log("res", res);
-                if (res.status == 403){
-                    popUp()// TODO Just if the user is not logged in Authontication Errors
+                if (res.status == 401){
+                    popUp()
                     console.log("Error");
                     return;
                 }
@@ -131,7 +131,7 @@ function handleLikes() {
                      })
                 });
     
-                if (res.status == 403){
+                if (res.status == 401){
                     popUp()
                     console.log("Error");
                     return;

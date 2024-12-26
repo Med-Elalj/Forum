@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"forum/structs"
 	"html/template"
 	"net/http"
 
@@ -8,7 +9,7 @@ import (
 )
 
 func HomePage(w http.ResponseWriter, r *http.Request) {
-	posts, err := database.QuerryLatestPosts(DB, 0, 11)
+	posts, err := database.QuerryLatestPosts(DB, structs.NotaUser, structs.NotaUser, structs.NoOffSet)
 	if err != nil {
 		ErrorPage(w, http.StatusInternalServerError, err)
 		return

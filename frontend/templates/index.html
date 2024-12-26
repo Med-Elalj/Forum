@@ -90,16 +90,16 @@
                         </div>
 
                         <div class="post-footer">
-                            <div class="react">
+                            <div class="react" id="{{$post.ID}}">
                                 <!-- Post Like Counter -->
-                                <div class='counters like {{if eq $post.Liked "1"}}FILL{{end}}' id="{{$post.ID}}">
-                                    <i class="material-symbols-outlined popup-icon">thumb_up</i>
-                                    <span>{{$post.LikeCount}}</span>
+                                <div class='counters like getLike {{if eq $post.Liked "1"}}FILL{{end}}' id="{{$post.ID}}">
+                                    <i class="material-symbols-outlined popup-icon getLike" id="{{$post.ID}}">thumb_up</i>
+                                    <span class="getLike" id="{{$post.ID}}">{{$post.LikeCount}}</span>
                                 </div>
                                 <!-- Post Dislike Counter -->
-                                <div class='counters dislike {{if eq $post.Liked "0"}}FILL{{end}}' id="{{$post.ID}}">
-                                    <i class="material-symbols-outlined popup-icon">thumb_down</i>
-                                    <span>{{$post.DislikeCount}}</span>
+                                <div class='counters dislike getDisLike {{if eq $post.Liked "0"}}FILL{{end}}' id="{{$post.ID}}">
+                                    <i class="material-symbols-outlined popup-icon getDisLike" id="{{$post.ID}}">thumb_down</i>
+                                    <span class="getDisLike" id="{{$post.ID}}">{{$post.DislikeCount}}</span>
                                 </div>
                             </div>
                             <div class="comment post" id="{{$post.ID}}">
@@ -124,6 +124,22 @@
     </div>
     <div id="popupContainer"></div>
     {{template "footer"}}
+    {{if .Profile.UserName}}
+        <script>
+            function createPostListner() {
+                const CreatePostArea = document.querySelector(".new-post-header")
+                CreatePostArea.addEventListener('click', () => {
+                    if (!document.getElementById("CreatePostScriptInjected")) {
+                        const script = document.createElement("script")
+                        script.id = "CreatePostScriptInjected"
+                        script.src = "/assets/js/createPost.js"
+                        document.body.appendChild(script)
+                    }
+                })
+            }
+            createPostListner()
+        </script>>
+    {{end}}
     <script src="/assets/js/profile.js"></script>
     <script src="/assets/js/likes.js"></script>
     <script src="/assets/js/script.js"></script>

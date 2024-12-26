@@ -46,13 +46,14 @@ func main() {
 	http.HandleFunc("/CreateComment", handlers.AddCommentHandler)
 	http.HandleFunc("/createPost", handlers.CreatePost)
 	http.HandleFunc("/PostReaction", handlers.PostReaction)
-	// TODO Handler OF Scrolling Posts (Infinite Scroll) With offset and limit
-	// http.HandleFunc("/category", handlers.CetegoryHandler)
+
 
 	http.HandleFunc("/profile/{username}", handlers.TawilProfileHandler)
 	http.HandleFunc("/profile/{username}/likes", handlers.Likes) // TODO Implement profile like handler
 
 	http.HandleFunc("/create", handlers.Create) // TODO Implement create
+
+	http.HandleFunc("POST /index", handlers.InfiniteScroll)
 
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("./frontend/assets"))))
 

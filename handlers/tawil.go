@@ -53,7 +53,7 @@ func TawilHandelr(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	// TODO LIMIT
-	data, err := database.QuerryLatestPosts(DB, uid, structs.Limit)
+	data, err := database.QuerryLatestPosts(DB, uid, structs.Limit, structs.NoOffSet)
 	if err != nil {
 		ErrorPage(w, http.StatusInternalServerError, errors.New("error fetching posts "+err.Error()))
 		return
@@ -158,8 +158,6 @@ func TawilProfileHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreatePost(w http.ResponseWriter, r *http.Request) {
-	// Handling adding posts based on createPostInputEventListeners function
-	fmt.Println("Hello :D ////////")
 	if r.Method != "POST" {
 		ErrorPage(w, http.StatusMethodNotAllowed, errors.New("invalid method"))
 		return
@@ -173,9 +171,7 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
 		return
 	}
-	fmt.Println("\n========================")
-	fmt.Println(token)
-	fmt.Println("\n========================")
+
 	UserId, err := database.GetUidFromToken(DB, token.Value)
 	if err != nil {
 		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized ID"+err.Error()))
@@ -202,7 +198,7 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err, id := database.CreatePost(DB, UserId, data.Title, data.Content, data.Categories)
+	id, err := database.CreatePost(DB, UserId, data.Title, data.Content, data.Categories)
 	if err != nil {
 		ErrorPage(w, http.StatusInternalServerError, errors.New("error creating post"))
 		return
@@ -223,7 +219,6 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 }
 
 func AddCommentHandler(w http.ResponseWriter, r *http.Request) {
-	// Handling adding comments based on addCommentInputEventListeners function
 	if r.Method != "POST" {
 		ErrorPage(w, http.StatusMethodNotAllowed, errors.New("invalid method"))
 		return
@@ -243,9 +238,6 @@ func AddCommentHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	UserProfile, err := database.GetUserProfile(DB, UserId)
-	fmt.Println("\n=====================\n")
-	fmt.Println("UserProfile", UserProfile)
-	fmt.Println("\n=====================\n")
 
 	if err != nil {
 		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
@@ -257,7 +249,6 @@ func AddCommentHandler(w http.ResponseWriter, r *http.Request) {
 	}{}
 	err = json.NewDecoder(r.Body).Decode(&data)
 	if err != nil {
-		fmt.Println("errorX", err)
 		ErrorPage(w, http.StatusBadRequest, errors.New("invalid json"))
 		return
 	}
@@ -266,20 +257,18 @@ func AddCommentHandler(w http.ResponseWriter, r *http.Request) {
 		ErrorPage(w, http.StatusBadRequest, errors.New("invalid post id"))
 		return
 	}
-	fmt.Println("User id ", UserId)
 	err, id := database.CreateComment(DB, UserId, IdInt, data.Comment)
 	if err != nil {
 		ErrorPage(w, http.StatusInternalServerError, errors.New("error creating comment"))
 		return
 	}
 
-	LastInsertIDString := strconv.FormatInt(id, 10)
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]interface{}{
 		"status":    "ok",
 		"UserName":  UserProfile.UserName, // TODO get username
 		"CreatedAt": "now",
-		"CommentID": LastInsertIDString,
+		"CommentID": id,
 		"Content":   data.Comment,
 	})
 
@@ -329,188 +318,35 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/index", http.StatusFound)
 }
 
-// TODO
-func Likes(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Welcome", r.URL.Path, r.PathValue("username"))
-}
-
-// TODO
-func Create(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Welcome", r.URL.Path)
-	// TODO validate and sanitize inputs
-	r.ParseForm()
-	content := r.FormValue("content")
-	title := r.FormValue("title")
-	cat := r.Form["category"]
-	uid, _ := strconv.Atoi(r.FormValue("uid"))
-
-	fmt.Println("test", content, title, uid, cat)
-
-	http.Redirect(w, r, "/index", http.StatusFound)
-}
-
-/*
- <!-- Post Start Content Card -->
-                <div class="post-card">
-                    <!-- User image -->
-                    <div class="ProfileImage tweet-img"
-                        style="background-image: url('https://ui-avatars.com/api/?name={{$post.UserName}}')">
-                    </div>
-
-                    <div class="post-details">
-                        <div class="row-tweet">
-                            <div class="post-header">
-                                <!-- Post Title -->
-                                <span class="tweeter-name post" id="{{$post.ID}}">
-                                    {{$post.Title}}
-                                    <!-- Post Author Name And Date -->
-                                    <br><span class="tweeter-handle">@{{$post.UserName}}
-                                        {{$post.CreatedAt}}.</span>
-                                </span>
-                            </div>
-                            {{if eq $.Profile.UserName $post.UserName}}
-                            <!-- Control Posts -->
-                            <div class="dropdown">
-                                <i class="material-symbols-outlined">more_horiz</i>
-                                <div class="content">
-                                    <ul>
-                                        <li><span class="material-symbols-outlined">edit</span>Edit</li>
-                                        <li><span class="material-symbols-outlined">delete</span>Delete</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            {{end}}
-                        </div>
-                        <!-- Post Content -->
-                        <div class="post-content">
-                            <p>{{$post.Content}}</p>
-                        </div>
-                        <span class="see-more">See More</span>
-
-                        <!-- Post Categories -->
-                        <div class="Hashtag">
-                            {{range $post.Categories}}
-                            <a href=""><span>#{{.}}</span></a>
-                            {{end}}
-                        </div>
-
-                        <div class="post-footer">
-                            <div class="react">
-                                <!-- Post Like Counter -->
-                                <div class="counters like" id="{{$post.ID}}">
-                                    <i class="material-symbols-outlined popup-icon">thumb_up</i>
-                                    <span>{{$post.LikeCount}}</span>
-                                </div>
-                                <!-- Post Dislike Counter -->
-                                <div class="counters dislike" id="{{$post.ID}}">
-                                    <i class="material-symbols-outlined popup-icon">thumb_down</i>
-                                    <span>{{$post.DislikeCount}}</span>
-                                </div>
-                            </div>
-                            <div class="comment post" id="{{$post.ID}}">
-                                <!-- Post Comments Counter -->
-                                <i class="material-symbols-outlined showCmnts">comment</i>
-                                <span>10</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Of Post Content Card -->
-
-
-// Handling Likes and Dislikes in both the frontend and backend in js
-
-function handleLikes() {
-    const likeBtns = document.querySelectorAll('.like');
-    const dislikeBtns = document.querySelectorAll('.dislike');
-
-    likeBtns.forEach(btn => {
-        btn.addEventListener('click', async () => {
-            const postId = btn.id;
-            const res = await fetch(`/post/${postId}/like`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            const data = await res.json();
-            btn.querySelector('span').innerText = data.likes;
-        });
-    });
-
-    dislikeBtns.forEach(btn => {
-        btn.addEventListener('click', async () => {
-            const postId = btn.id;
-            const res = await fetch(`/post/${postId}/dislike`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            const data = await res.json();
-            btn.querySelector('span').innerText = data.dislikes;
-        });
-    });
-}
-
-handleLikes();
-*/
-// // Create CetegoryHandler to handle the categories
-// // if the user click on the category it will show all the posts that have this category
-// // the EX of link : is : http://localhost:8080/category?name=Business
-// func CetegoryHandler(w http.ResponseWriter, r *http.Request) {
-// 	// get the category name from the query
-// 	categoryName := r.URL.Query().Get("name")
-// 	// get the posts from the database
-// 	categoryNames := []string{"business", "economy", "general", "technology", "videos", "sport"}
-// 	for _, name := range categoryNames {
-// 		if name == categoryName {
-// 			fmt.Println("Category Name is : ", categoryName)
-// 		}
-// 	}
-
-// 	posts := "nil"
-// 	if err != nil {
-// 		ErrorPage(w, http.StatusInternalServerError, errors.New("error getting posts by category"))
-// 		return
-// 	}
-// 	// render the posts in the category template
-// 	template, err := template.ParseGlob("./frontend/templates/*.html")
-// 	if err != nil {
-// 		log.Fatal(err, "Error Parsing Data from Template hTl")
-// 	}
-// 	template, err = template.ParseGlob("./frontend/templates/components/*.html")
-// 	if err != nil {
-// 		log.Fatal(err, "Error Parsing Data from Template hTl")
-// 	}
-// 	template.ExecuteTemplate(w, "category.html", struct {
-// 		Posts []structs.Post
-// 	}{Posts: posts})
-// }
-
 // handling likes and dislikes in the backend Golang
 func PostReaction(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
-		fmt.Println("invalid method")
 		ErrorPage(w, http.StatusMethodNotAllowed, errors.New("invalid method"))
 		return
 	}
 	if r.Header.Get("Content-Type") != "application/json" {
-		fmt.Println("invalid content type")
 		ErrorPage(w, http.StatusBadRequest, errors.New(r.Header.Get("Content-Type")))
 		return
 	}
-	// Data Comes from Fron like That :
-	// {"postId":"62","type":"like"}
-	// get data from r.body like above L:
+	session, err := r.Cookie("session")
+	if err != nil {
+		fmt.Println("unauthorized")
+		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
+		return
+	}
+	UserId, err := database.GetUidFromToken(DB, session.Value)
+	if err != nil {
+		fmt.Println("unauthorized")
+		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
+		return
+	}
+
 	var requestData struct {
 		PostID string `json:"postId"`
 		Type   string `json:"type"`
 	}
 
-	err := json.NewDecoder(r.Body).Decode(&requestData)
+	err = json.NewDecoder(r.Body).Decode(&requestData)
 	if err != nil {
 		fmt.Println("invalid jsonXV")
 		ErrorPage(w, http.StatusBadRequest, errors.New("invalid jsonX"))
@@ -532,18 +368,7 @@ func PostReaction(w http.ResponseWriter, r *http.Request) {
 		ErrorPage(w, 400, errors.New("invalid like post id"))
 	}
 	// get the user id from the token
-	session, err := r.Cookie("session")
-	if err != nil {
-		fmt.Println("unauthorized")
-		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
-		return
-	}
-	UserId, err := database.GetUidFromToken(DB, session.Value)
-	if err != nil {
-		fmt.Println("unauthorized")
-		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
-		return
-	}
+
 	// /// // / / / / / / /
 	liked, err := database.HasUserLikedPost(DB, UserId, PostIdInt)
 	if err != nil {

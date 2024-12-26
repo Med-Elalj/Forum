@@ -77,46 +77,6 @@ function showLeftSidebarMobile() {
         }
     })
 }
-
-// TODO DELETE In case of not using it 
-//////////////////// Start Listning on Like Dislike Buttons ////////////
-function LikeAndDeslikePostButtons() {
-    let like = document.querySelectorAll(".react .like")
-    let dislike = document.querySelectorAll(".react .dislike")
-    // Handling Like Button Clicked in Post Comments
-    like.forEach(like_elem => {
-        like_elem.addEventListener('click', function () {
-            // Check if the user is loggedin or not :
-            if (checkUserIsLogged()) {
-                // Check from DB if like or dislike exits
-                /// /// / // / / / / / /
-                let dislike_sibling = like_elem.nextElementSibling;
-                like_elem.classList.toggle("FILL");
-                dislike_sibling.classList.remove("FILL");
-            } else {
-                popUp();
-            }
-        })
-    })
-
-    dislike.forEach(dislike_elem => {
-        dislike_elem.addEventListener('click', function () {
-            if (checkUserIsLogged()) {
-                let like_sibling = dislike_elem.previousElementSibling;
-                dislike_elem.classList.toggle("FILL");
-                like_sibling.classList.remove("FILL");
-            } else {
-                popUp();
-            }
-            // the  rest of the code will write here to send request
-            // to backend to update database 
-
-        })
-    })
-
-}
-
-
 //////////////////// See more Option  ////////////
 function seeMore() {
     document.querySelectorAll('.see-more').forEach(tweetText => {
@@ -140,17 +100,7 @@ function seeMore() {
 }
 ////////////////////   Listening on user request of post  /////
 // ///To Read Post We need to make request to backend, to get Full Page to Display it to the user
-function createPostListner() {
-    const CreatePostArea = document.querySelector(".new-post-header")
-    CreatePostArea.addEventListener('click', () => {
-        if (!document.getElementById("CreatePostScriptInjected")) {
-            const script = document.createElement("script")
-            script.id = "CreatePostScriptInjected"
-            script.src = "/assets/js/createPost.js"
-            document.body.appendChild(script)
-        }
-    })
-}
+
 function readPost() {
     async function fetchPost(url) {
         try {
@@ -231,6 +181,4 @@ window.addEventListener('hashchange', () => {
 postControlList()
 readPost()
 showLeftSidebarMobile()
-// LikeAndDeslikePostButtons()
 seeMore()
-createPostListner()

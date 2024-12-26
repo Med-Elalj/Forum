@@ -50,4 +50,5 @@ type Categories map[string]int
 const (
 	NotaUser = 0
 	Limit    = 10
+	NoOffSet = 0
 )

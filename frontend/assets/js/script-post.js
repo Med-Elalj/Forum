@@ -148,10 +148,8 @@ function CommentInputEventListenner(){
                 console.log(commentCard);
                 let url = "/index#Comment" + data["CommentID"];
                 // Add Comment Card using createFragment
-                const commentCardFragment = document.createDocumentFragment();
-                commentCardFragment.appendChild(commentCard);
                
-                commentCard.innerHTML = `
+                const HTMLDatat = `
                     <div class="commentAuthorImage">
                         <img src="https://ui-avatars.com/api/?name=${data["UserName"]}" alt="">
                     </div>
@@ -180,10 +178,16 @@ function CommentInputEventListenner(){
                             <p class="commentData collapse">${data["Content"]}</p>
                         </div>
                     </div>
-                `;
-                commentContainer.prepend(commentCard);
+                `
+               // User the HTML data above to create a comment card
+               // and use fragment to add it to the comment container
+               // so js can detect new elemnts added to the dom
+                const fragmnetelemt = document.createRange().createContextualFragment(HTMLDatat);
+                document.querySelector("body").appendChild(document.createElement('script').src = "/assets/js/test.js") 
+
+                commentContainer.prepend(fragmnetelemt);
                 window.location.replace(url)
-                CommentReactionEventListenner(); //Re-adding event listeners
+                // CommentReactionEventListenner(); //Re-adding event listeners
             }
         }
     });

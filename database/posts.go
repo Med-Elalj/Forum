@@ -11,9 +11,9 @@ import (
 	"forum/structs"
 )
 
-func QuerryLatestPostsByUserLikes(db *sql.DB, user_id, ammount int) ([]structs.Post, error) {
+func QuerryLatestPostsByUserLikes(db *sql.DB, username string, user_id, ammount int) ([]structs.Post, error) {
 	res := make([]structs.Post, 0, ammount)
-	rows, err := db.Query(querries.GetLatestPostsL, user_id, ammount)
+	rows, err := db.Query(querries.GetPostsbyUserLikeL, user_id, username, ammount)
 	if err != nil {
 		return nil, errors.New("QuerryLatestPosts " + err.Error())
 	}
@@ -42,9 +42,9 @@ func QuerryLatestPostsByUserLikes(db *sql.DB, user_id, ammount int) ([]structs.P
 	return res, nil
 }
 
-func QuerryLatestPosts(db *sql.DB, user_id, ammount int) ([]structs.Post, error) {
+func QuerryLatestPosts(db *sql.DB, user_id, ammount, offset int) ([]structs.Post, error) {
 	res := make([]structs.Post, 0, ammount)
-	rows, err := db.Query(querries.GetLatestPostsL, user_id, ammount)
+	rows, err := db.Query(querries.GetLatestPostsL, user_id, ammount, offset)
 	if err != nil {
 		return nil, errors.New("QuerryLatestPosts " + err.Error())
 	}
@@ -105,60 +105,54 @@ func QuerryPostsbyUser(db *sql.DB, username string, user_id, ammount int) ([]str
 	return res, nil
 }
 
-func CreatePost(db *sql.DB, UserID int, title, content string, categories []string) (error, int) {
+// / TODO No need i have already implemented it in Tawil.go file
+// / under The same NAME Remove X anothe duplicate in create.go files under XX
+func CreatePost(db *sql.DB, UserID int, title, content string, categories []string) (int, error) {
 	tx, err := db.Begin()
 	if err != nil {
-		fmt.Println("CreatePost 1", err)
-		return err, -1
+		return 0, errors.New("CreatePost " + err.Error())
 	}
 	defer tx.Rollback()
 
 	stmt, err := tx.Prepare("INSERT INTO posts(user_id, title, content) VALUES(?,?,?)")
 	if err != nil {
-		fmt.Println("CreatePost 2", err)
-		return err, -1
+		return 0, errors.New("CreatePost " + err.Error())
 	}
 	defer stmt.Close()
 
 	res, err := stmt.Exec(UserID, title, content)
 	if err != nil {
-		fmt.Println("CreatePost 3", err)
-		return err, -1
+		return 0, errors.New("CreatePost " + err.Error())
 	}
 
 	postID, err := res.LastInsertId()
 	if err != nil {
-		fmt.Println("CreatePost 4", err)
-		return err, -1
+		return 0, errors.New("CreatePost " + err.Error())
 	}
 
 	stmt_1, err := tx.Prepare(`INSERT INTO post_categories(category_id, post_id) VALUES(?, ?)`)
 	if err != nil {
-		fmt.Println("CreatePost 5", err)
-		return err, -1
+		return 0, errors.New("CreatePost " + err.Error())
 	}
 	defer stmt_1.Close()
 
 	for _, category := range categories {
 		CategoryId, err := strconv.Atoi(category)
 		if err != nil {
-			fmt.Println("CreatePost 6", err)
-			return err, -1
+			return 0, errors.New("CreatePost " + err.Error())
 		}
 		_, err = stmt_1.Exec(CategoryId, postID)
 		if err != nil {
-			return err, -1
+			return 0, errors.New("CreatePost " + err.Error())
 		}
 	}
 
 	// Commit the transaction
 	err = tx.Commit()
 	if err != nil {
-		fmt.Println("CreatePost 7", err)
-		return err, -1
+		return 0, errors.New("CreatePost " + err.Error())
 	}
-	PostId := int(postID)
-	return nil, PostId
+	return int(postID), nil
 }
 
 func GetPostByID(db *sql.DB, Postid, UserID int) (structs.Post, error) {
