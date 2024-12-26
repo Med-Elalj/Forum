@@ -1,75 +1,51 @@
-function x1(){  
+function x1() {
+    // For To Expand Comment and read More...
+    let comments = document.querySelectorAll(".commentData")
 
-
-// for Favourite Button on post Page
-// let favourite_area = document.querySelector(".addToFavourite")
-// let favourite_icon = document.querySelector(".addToFavourite span")
-
-// For read More in Post Page
-let comments = document.querySelectorAll(".commentData")
-
-comments.forEach(elem => {
-    elem.addEventListener('click', ()=>{
-        elem.classList.toggle("collapse")
-        comments.forEach(second_elem => {
-            if (second_elem != elem)
-                second_elem.classList.add("collapse")
+    comments.forEach(elem => {
+        elem.addEventListener('click', () => {
+            elem.classList.toggle("collapse")
+            comments.forEach(second_elem => {
+                if (second_elem != elem)
+                    second_elem.classList.add("collapse")
+            })
         })
     })
-})
 
-// favourite_area.addEventListener('click', function(){
-//     if (favourite_icon.textContent == "bookmark_add"){
-//         favourite_icon.textContent = "bookmark_added"
-//         favourite_icon.style.color = "#088395"
-//         favourite_icon.classList.add("FILL")
-//          // the  rest of the code will write here to send request
-//         // to backend to update database 
-//     }else{
-//         favourite_icon.textContent = "bookmark_add"
-//         favourite_icon.style.color = "#919191"
-//         favourite_icon.classList.remove("FILL")
+    // for Comments Like and Dislike on Post Page
+    let comment_like = document.querySelectorAll(".commentReaction .like")
+    let comment_dislike = document.querySelectorAll(".commentReaction .dislike")
 
-//          // the  rest of the code will write here to send request
-//         // to backend to update database 
+    // Handling Like Button Clicked in Post Comments
+    comment_like.forEach(like => {
+        like.addEventListener('click', function () {
+            if (checkUserIsLogged()) {
+                // Check from DB if like or dislike exits
+                /// /// / // / / / / / /
+                let dislike = like.nextElementSibling;
+                like.classList.toggle("FILL");
+                dislike.classList.remove("FILL");
+            } else {
+                popUp();
+            }
 
-//     }
-// })
-
-// for Comments Like and Dislike on Post Page
-let comment_like = document.querySelectorAll(".commentReaction .like")
-let comment_dislike = document.querySelectorAll(".commentReaction .dislike")
-
-// Handling Like Button Clicked in Post Comments
-comment_like.forEach(like => {
-    like.addEventListener('click', function(){
-        if (checkUserIsLogged()){
-            // Check from DB if like or dislike exits
-            /// /// / // / / / / / /
-            let dislike = like.nextElementSibling;
-            like.classList.toggle("FILL");
-            dislike.classList.remove("FILL");
-        }else{
-            popUp();
-        }
-       
+        })
     })
-})
 
-comment_dislike.forEach(dislike => {
-    dislike.addEventListener('click', function(){
-        let like = dislike.previousElementSibling;
-        dislike.classList.toggle("FILL");
-        like.classList.remove("FILL");
+    comment_dislike.forEach(dislike => {
+        dislike.addEventListener('click', function () {
+            let like = dislike.previousElementSibling;
+            dislike.classList.toggle("FILL");
+            like.classList.remove("FILL");
 
-        // the  rest of the code will write here to send request
-        // to backend to update database 
-        
+            // the  rest of the code will write here to send request
+            // to backend to update database 
+
+        })
     })
-})
 }
 
-function CommentReactionEventListenner(){
+function CommentReactionEventListenner() {
     const commentButtons = document.querySelectorAll('.commentReaction .like');
     commentButtons.forEach(button => {
         button.addEventListener('click', async (e) => {
@@ -106,12 +82,12 @@ function CommentReactionEventListenner(){
     });
 }
 
-function CommentInputEventListenner(){
+function CommentInputEventListenner() {
 
     const commentInput = document.querySelector('.commentInput input');
     console.log("Get Comment Input", commentInput);
     commentInput.addEventListener('keypress', async (e) => {
-        
+
         if (e.key === 'Enter') {
             console.log('Enter Key Pressed');
             e.preventDefault();
@@ -130,13 +106,13 @@ function CommentInputEventListenner(){
             });
             console.log("Response Complete", response);
             console.log("response Status Aciba", response.status);
-            
-            if (response.status != 200){
+
+            if (response.status != 200) {
                 console.log("Error : Inside Response Status");
                 popUp()
                 return
             }
-            
+
             const data = await response.json();
             console.log('Comment Added =>', (response.success));
             if (data["status"] == "ok") {
@@ -147,9 +123,8 @@ function CommentInputEventListenner(){
                 commentCard.id = "Comment" + data["CommentID"];
                 console.log(commentCard);
                 let url = "/index#Comment" + data["CommentID"];
-                // Add Comment Card using createFragment
-               
-                const HTMLDatat = `
+
+                commentCard.innerHTML = `
                     <div class="commentAuthorImage">
                         <img src="https://ui-avatars.com/api/?name=${data["UserName"]}" alt="">
                     </div>
@@ -178,16 +153,10 @@ function CommentInputEventListenner(){
                             <p class="commentData collapse">${data["Content"]}</p>
                         </div>
                     </div>
-                `
-               // User the HTML data above to create a comment card
-               // and use fragment to add it to the comment container
-               // so js can detect new elemnts added to the dom
-                const fragmnetelemt = document.createRange().createContextualFragment(HTMLDatat);
-                document.querySelector("body").appendChild(document.createElement('script').src = "/assets/js/test.js") 
-
-                commentContainer.prepend(fragmnetelemt);
+                `;
+                commentContainer.prepend(commentCard);
                 window.location.replace(url)
-                // CommentReactionEventListenner(); //Re-adding event listeners
+                CommentReactionEventListenner(); //Re-adding event listeners
             }
         }
     });

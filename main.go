@@ -47,11 +47,10 @@ func main() {
 	http.HandleFunc("/createPost", handlers.CreatePost)
 	http.HandleFunc("/PostReaction", handlers.PostReaction)
 
-
 	http.HandleFunc("/profile/{username}", handlers.TawilProfileHandler)
-	http.HandleFunc("/profile/{username}/likes", handlers.Likes) // TODO Implement profile like handler
+	// http.HandleFunc("/profile/{username}/likes", handlers.Likes) // TODO Implement profile like handler
 
-	http.HandleFunc("/create", handlers.Create) // TODO Implement create
+	// http.HandleFunc("/create", handlers.Create) // TODO Implement create
 
 	http.HandleFunc("POST /index", handlers.InfiniteScroll)
 

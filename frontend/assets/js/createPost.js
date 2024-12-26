@@ -90,12 +90,11 @@ function createPost() {
             CreatePostModel.style.display = "none";
             form.reset();
             // Recall Function To append new post to their Lestining Buttons
-            // LikeAndDeslikePostButtons()
             seeMore()
             postControlList()
             readPost() 
+            handleLikes()
 
-            // window.location.href = `/post/${post.ID}`;
         } else {
             alert("Error Creating Post");
         }
