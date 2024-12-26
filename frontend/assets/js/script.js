@@ -73,7 +73,7 @@ function showLeftSidebarMobile(){
     })
 }
 
-
+// TODO DELETE In case of not using it 
 //////////////////// Start Listning on Like Dislike Buttons ////////////
 function LikeAndDeslikePostButtons() {
     let like = document.querySelectorAll(".react .like")
@@ -305,7 +305,7 @@ function createPost() {
             CreatePostModel.style.display = "none";
             form.reset();
             // Recall Function To append new post to their Lestining Buttons
-            LikeAndDeslikePostButtons()
+            // LikeAndDeslikePostButtons()
             seeMore()
             postControlList()
             readPost() 
@@ -320,5 +320,5 @@ createPost();/// Check user is logged before running this Function TODO
 postControlList()
 readPost() 
 showLeftSidebarMobile()
-LikeAndDeslikePostButtons()
+// LikeAndDeslikePostButtons()
 seeMore()

@@ -87,6 +87,9 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	uname := r.Form.Get("username")
 	upass := r.Form.Get("password")
 	if !email_RGX.MatchString(uemail) || !username_RGX.MatchString(uname) || !validpassword(upass) {
+		fmt.Println(!email_RGX.MatchString(uemail), uemail)
+		fmt.Println(!email_RGX.MatchString(uname))
+		fmt.Println(!validpassword(upass))
 		ErrorJs(w, http.StatusBadRequest, errors.New("invalid email or username or password"))
 		return
 	}

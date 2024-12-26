@@ -1,51 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/assets/style/google-icons/google-icons.css" rel="stylesheet" />
-    <link rel="stylesheet" href="/assets/style/style.css">
-    <link rel="stylesheet" href="/assets/style/post.css">
-    <link rel="stylesheet" href="/assets/style/popstyle.css">
-    <link rel="stylesheet" href="/assets/style/create-post.css">
-    <link rel="stylesheet" href="/assets/style/footer.css">
-    <!-- TODO WebsiteTitle EX : Sweeter - Register | Sweeter - Login ...etc-->
-    <title>{{/*.Settings.Title*/}}</title>
-    <link rel="icon" href="/assets/images/logo.svg" type="image/svg+xml">
-</head>
-
-<body>
-    <!-- TODO Never injected to HTML if User not Logedin -->
-    {{if .Profile.UserName}}
-        {{template "google-icons/google-icons/create-post"}}
-    {{end}}
-
-    <div class="postContainer closed"></div>
-    <div class="ParentContainer">
-        {{template "header" .Profile}}
-        <div class="nav-mobile">
-            <a href="#categories"><div>Categories</div></a>
-            <a href="#posts"><div>Posts</div></a>
-        </div>
-        {{template "left-sidebar" .Profile}}
-        {{template "profile-sidebar" .}}
-        <div class="main-flex" id="posts">
-            <div class="main-feed">
-                <!-- Create New Post -->
-                <div class="new-tweet">
-                    <!-- TODO User image -->
-                    <div class="ProfileImage tweet-img no-border"
-                        style="background-image: url('https://ui-avatars.com/api/?name={{.Profile.UserName}}')">
-                    </div>
-                    <div class="new-post-header">
-                        <textarea class="textarea" readonly type="text" placeholder="What's happening?"></textarea>
-                    </div>
-                </div>
-                <!-- End Of Create New Post -->
-                {{range $i,$post := .Posts}}
-                <!-- Post Start Content Card -->
+/*
+ <!-- Post Start Content Card -->
                 <div class="post-card">
                     <!-- User image -->
                     <div class="ProfileImage tweet-img"
@@ -92,12 +46,12 @@
                         <div class="post-footer">
                             <div class="react">
                                 <!-- Post Like Counter -->
-                                <div class='counters like {{if eq $post.Liked "1"}}FILL{{end}}' id="{{$post.ID}}">
+                                <div class="counters like" id="{{$post.ID}}">
                                     <i class="material-symbols-outlined popup-icon">thumb_up</i>
                                     <span>{{$post.LikeCount}}</span>
                                 </div>
                                 <!-- Post Dislike Counter -->
-                                <div class='counters dislike {{if eq $post.Liked "0"}}FILL{{end}}' id="{{$post.ID}}">
+                                <div class="counters dislike" id="{{$post.ID}}">
                                     <i class="material-symbols-outlined popup-icon">thumb_down</i>
                                     <span>{{$post.DislikeCount}}</span>
                                 </div>
@@ -105,28 +59,93 @@
                             <div class="comment post" id="{{$post.ID}}">
                                 <!-- Post Comments Counter -->
                                 <i class="material-symbols-outlined showCmnts">comment</i>
-                                <span>{{$post.CommentCount}}</span>
+                                <span>10</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- End Of Post Content Card -->
 
-                {{ end }}
-                <div class="fetchMore">
-                    <!-- TODO Handling SCrolling Pagination using JS -->
-                    Fetching more data <br>
-                    You have reached the end.
-                </div>
-            </div>
-        </div>
-        
-    </div>
-    <div id="popupContainer"></div>
-    {{template "footer"}}
-    <script src="/assets/js/profile.js"></script>
-    <script src="/assets/js/likes.js"></script>
-    <script src="/assets/js/script.js"></script>
-</body>
+*/
 
-</html>
+// Handling Likes and Dislikes in both the frontend and backend
+
+function handleLikes() {
+    const likeBtns = document.querySelectorAll('.like');
+    const dislikeBtns = document.querySelectorAll('.dislike');
+
+    likeBtns.forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const postId = btn.id;
+            try {
+                const res = await fetch(`/PostReaction`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        postId: postId,
+                        "type": "like"
+                     })
+                });
+                console.log(res.body);
+                console.log(res);
+
+                const data = await res.json();
+                console.log(data);
+                console.log("=====> Added = ", data.added);
+                
+               
+                const dislike = btn.nextElementSibling
+                if (data.added){
+                    btn.classList.add("FILL")
+                    dislike.classList.remove("FILL")
+                }else{
+                    btn.classList.remove("FILL")
+                }
+                dislike.querySelector('span').innerText = data.dislikes;
+                btn.querySelector('span').innerText = data.likes;
+            } catch (error) {
+                console.log(error)
+            }
+          
+        });
+    });
+
+    dislikeBtns.forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const postId = btn.id;
+            try{
+                const res = await fetch(`/PostReaction`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        postId: postId,
+                        "type": "dislike"
+                     })
+                });
+    
+                const data = await res.json();
+                console.log(data);
+                const like = btn.previousElementSibling
+                console.log("=====> Added = ", data.added);
+                
+                if (data.added){
+                    btn.classList.add("FILL")
+                    like.classList.remove("FILL")
+                }else{
+                    btn.classList.remove("FILL")
+                }
+                like.querySelector('span').innerText = data.likes;
+                btn.querySelector('span').innerText = data.dislikes;
+            
+            }catch(error){
+                console.log(error)
+            }   
+         });
+    });
+}
+
+handleLikes();
