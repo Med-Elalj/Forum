@@ -27,7 +27,7 @@
         {{template "header" .Profile}}
         <div class="nav-mobile">
             <a href="#categories"><div>Categories</div></a>
-            <a href="#posts"><div>Posts</div></a>
+            <a href="#posts"><div>For you</div></a>
         </div>
         {{template "left-sidebar" .Profile}}
         {{template "profile-sidebar" .}}
@@ -123,7 +123,7 @@
         
     </div>
     <div id="popupContainer"></div>
-    {{template "footer"}}
+    <!-- {{template "footer"}} -->
     {{if .Profile.UserName}}
         <script>
             function createPostListner() {

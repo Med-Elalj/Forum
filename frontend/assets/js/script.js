@@ -160,6 +160,17 @@ console.log("test", darkModeStored);
 themeToggle.checked = darkModeStored;
 themeToggle.addEventListener('change', (e) => toggleDarkMode(e.target.checked));
 
+document.querySelectorAll('.nav-mobile a div').forEach(function(div) {
+    div.addEventListener('click', function() {
+        // Remove 'clicked' class from all divs
+        document.querySelectorAll('.nav-mobile a div').forEach(function(item) {
+            item.classList.remove('clicked');
+        });
+
+        // Add the 'clicked' class to the clicked div to show the underline
+        this.classList.add('clicked');
+    });
+});
 
 
 // navbar for phone and ipad

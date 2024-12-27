@@ -89,6 +89,7 @@ a {
     height: 100%;
     position: fixed;
     left: 2.5%;
+    border-right: solid 1px grey;
 }
 
 
@@ -101,7 +102,6 @@ hr {
     display: flex;
     flex-direction: column;
     right: 2.5%;
-    height: auto;
     width: 20%;
     border-radius: 16px;
     background-color: var(--WhiteBlue);
@@ -182,7 +182,7 @@ hr {
 } */
 
 /* .ParentContainer{
-    
+
 } */
 ::placeholder {
     color: var(--BlueGreen);
@@ -219,9 +219,11 @@ nav {
 .Logo span {
     color: var(--BlueGreen);
 }
-.Logo .Name{
+
+.Logo .Name {
     color: var(--Black);
 }
+
 .SignOptions {
     display: flex;
     justify-content: center;
@@ -270,7 +272,7 @@ nav {
 
 .tweet-button {
     background-color: var(--BlueGreenWhite);
-    width: 100%;
+    width: 80%;
     border-radius: 99px;
     margin-top: 15px;
     cursor: pointer;
@@ -282,6 +284,7 @@ nav {
     height: 55px;
     transition-duration: 0.2s;
 }
+
 .tweet-button:hover {
     background-color: var(--BlueGreen);
 
@@ -333,6 +336,7 @@ main {
     display: flex;
     width: 50%;
     margin-left: 25%;
+    border-right: solid 1px grey;
 }
 
 .main-feed {
@@ -660,9 +664,11 @@ main {
 .trending-item:hover {
     background-color: #41c6d3;
 }
+
 .trending-item:hover span {
     color: var(--BlueDarker);
 }
+
 .trending-item:hover p {
     color: var(--White);
 }
@@ -688,29 +694,36 @@ main {
     gap: 6px;
     cursor: pointer;
 }
-.CommentAdded{
+
+.CommentAdded {
     animation: CommentAdded 2s;
 }
-.PostAdded{
+
+.PostAdded {
     animation: PostAdded 2s;
 
 }
-@keyframes PostAdded{
-    0%{
+
+@keyframes PostAdded {
+    0% {
         background-color: var(--Created);
     }
-    100%{
+
+    100% {
         background-color: var(--WhiteBlue);
     }
 }
-@keyframes CommentAdded{
-    0%{
+
+@keyframes CommentAdded {
+    0% {
         background-color: var(--Created);
     }
-    100%{
+
+    100% {
         background-color: var(--White);
     }
 }
+
 .react .counters:hover {
     color: var(--BlueGreenWhite) !important;
 }
@@ -926,6 +939,11 @@ main {
 }
 
 @media only screen and (max-width: 768px) {
+    .textarea {
+        font-size: 1rem;
+        height: 90%;
+    }
+    
 
     .sidebar-right {
         display: flex;
@@ -948,10 +966,9 @@ main {
 
     .sidebar-left {
         display: flex;
-        width: 100%;
+        width: 90%;
         height: 100%;
         position: fixed;
-        background-color: var(--GreeyTransparant);
         left: -100%;
         transition: left 0.75s;
         z-index: 12;
@@ -971,6 +988,7 @@ main {
 
     .nav-links.margin-top {
         margin-top: 0px;
+        background-color: var(--WhiteBlue);
     }
 
     .tweet-button {
@@ -985,10 +1003,17 @@ main {
 
     .menu {
         display: block;
-        font-size: 30px;
+        font-size: 40px;
         color: var(--BlueGreen);
         cursor: pointer;
     }
+    .nav-links a i {
+
+    font-size: 2rem;
+    margin-right: 5px;
+    width: fit-content;
+
+}
 
 }
 
@@ -1000,41 +1025,56 @@ main {
     .nav-mobile {
         display: flex !important;
     }
+
     .main-feed,
     .sidebar-right {
-        padding-top: 55px;
+        margin-top: 60px;
     }
-    #posts, #categories {
+
+    #posts,
+    #categories {
         display: none;
     }
-    
+
     #posts:target,
-    #categories:target{
+    #categories:target {
         display: block;
     }
 
     .nav-mobile a div {
         position: relative;
-        padding-bottom: 10px;
+        font-size: 20px;
+        padding: 0px 10px 10px 10px;
+        color: white;
+    }
+
+    .nav-mobile a div {
+        display: inline-block;
+        transition: border-bottom 0.3s ease;
+    }
+    .nav-mobile a div.clicked {
+        border-bottom: 4px solid var(--BlueGreen);
     }
     
-    .nav-mobile a div::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0;
-        height: 3px;
-        background: var(--BlueGreen);
-        transition: width 0.3s ease;
+    .nav-mobile a div:focus {
+        outline: none;
+        border-bottom: 4px solid var(--BlueGreen);
     }
-    
-    .nav-mobile a div:hover::after {
-        width: 100%;
-    }
-    
-    .nav-mobile a.active div::after {
-        width: 100%;
+
+    .SignOptions .Buttons {
+        display: flex;
+        /* justify-content: center; */
+        align-items: center;
+        height: fit-content;
+        background-color: var(--White);
+        color: var(--BlueGreen);
+        /* font-weight: 600; */
+        /* gap: 7px; */
+        /* padding: 10px; */
+        border-radius: 10px;
+        transition: all 0.5s;
+        font-size: 11px;
+        width: fit-content;
     }
     
 }
@@ -1052,7 +1092,7 @@ main {
 
 
 .nav-links span {
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 .item-category p {
@@ -1248,10 +1288,12 @@ main {
     transform: translateY(20px);
     background: #fff;
 }
-.RightHeaderSection{
+
+.RightHeaderSection {
     display: flex;
 }
-.RightHeaderSection li{
+
+.RightHeaderSection li {
     list-style: none;
 
 }
@@ -1259,7 +1301,7 @@ main {
 
 .nav-mobile {
     display: none;
-    justify-content: space-between;
+    justify-content: space-evenly;
     padding: 8px 15px;
     width: 100%;
     height: 50px;
@@ -1267,6 +1309,6 @@ main {
     position: fixed;
     font-size: 20px;
     font-weight: 600;
-    border-bottom: solid 1px var(--bg-dark);
+    border-bottom: solid 1px grey;
     z-index: 10;
 }
