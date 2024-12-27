@@ -1,72 +1,3 @@
-/*
- <!-- Post Start Content Card -->
-                <div class="post-card">
-                    <!-- User image -->
-                    <div class="ProfileImage tweet-img"
-                        style="background-image: url('https://ui-avatars.com/api/?name={{$post.UserName}}')">
-                    </div>
-
-                    <div class="post-details">
-                        <div class="row-tweet">
-                            <div class="post-header">
-                                <!-- Post Title -->
-                                <span class="tweeter-name post" id="{{$post.ID}}">
-                                    {{$post.Title}}
-                                    <!-- Post Author Name And Date -->
-                                    <br><span class="tweeter-handle">@{{$post.UserName}}
-                                        {{$post.CreatedAt}}.</span>
-                                </span>
-                            </div>
-                            {{if eq $.Profile.UserName $post.UserName}}
-                            <!-- Control Posts -->
-                            <div class="dropdown">
-                                <i class="material-symbols-outlined">more_horiz</i>
-                                <div class="content">
-                                    <ul>
-                                        <li><span class="material-symbols-outlined">edit</span>Edit</li>
-                                        <li><span class="material-symbols-outlined">delete</span>Delete</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            {{end}}
-                        </div>
-                        <!-- Post Content -->
-                        <div class="post-content">
-                            <p>{{$post.Content}}</p>
-                        </div>
-                        <span class="see-more">See More</span>
-
-                        <!-- Post Categories -->
-                        <div class="Hashtag">
-                            {{range $post.Categories}}
-                            <a href=""><span>#{{.}}</span></a>
-                            {{end}}
-                        </div>
-
-                        <div class="post-footer">
-                            <div class="react">
-                                <!-- Post Like Counter -->
-                                <div class="counters like" id="{{$post.ID}}">
-                                    <i class="material-symbols-outlined popup-icon">thumb_up</i>
-                                    <span>{{$post.LikeCount}}</span>
-                                </div>
-                                <!-- Post Dislike Counter -->
-                                <div class="counters dislike" id="{{$post.ID}}">
-                                    <i class="material-symbols-outlined popup-icon">thumb_down</i>
-                                    <span>{{$post.DislikeCount}}</span>
-                                </div>
-                            </div>
-                            <div class="comment post" id="{{$post.ID}}">
-                                <!-- Post Comments Counter -->
-                                <i class="material-symbols-outlined showCmnts">comment</i>
-                                <span>10</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Of Post Content Card -->
-
-*/
 
 // Handling Likes and Dislikes in both the frontend and backend
 
@@ -77,6 +8,9 @@ function handleLikes() {
     likeBtns.forEach(btn => {
         btn.addEventListener('click', async () => {
             const postId = btn.id;
+            const postOrComment = (btn.getAttribute('isPost') == "true")? true : false;
+            console.log("Post or Comment = ", postOrComment);
+            
             try {
                 const res = await fetch(`/PostReaction`, {
                     method: 'POST',
@@ -85,11 +19,13 @@ function handleLikes() {
                     },
                     body: JSON.stringify({ 
                         postId: postId,
-                        "type": "like"
+                        "type": "like",
+                        post: postOrComment
                      })
                 });
-                console.log("RES Body ", res.body);
-                console.log("res", res);
+                console.log("postOrComment", postOrComment);
+                console.log("Response = ", res);
+                
                 if (res.status == 401){
                     popUp()
                     console.log("Error");
@@ -97,9 +33,7 @@ function handleLikes() {
                 }
                 const data = await res.json();
                 console.log(data);
-                console.log("=====> Added = ", data.added);
                 
-               
                 const dislike = btn.nextElementSibling
                 if (data.added){
                     btn.classList.add("FILL")
@@ -119,6 +53,9 @@ function handleLikes() {
     dislikeBtns.forEach(btn => {
         btn.addEventListener('click', async () => {
             const postId = btn.id;
+            const postOrComment = (btn.getAttribute('isPost') == "true")? true : false;
+            console.log("Post or Comment = ", postOrComment);
+
             try{
                 const res = await fetch(`/PostReaction`, {
                     method: 'POST',
@@ -127,7 +64,9 @@ function handleLikes() {
                     },
                     body: JSON.stringify({ 
                         postId: postId,
-                        "type": "dislike"
+                        "type": "dislike",
+                        post: postOrComment
+
                      })
                 });
     

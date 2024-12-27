@@ -37,7 +37,7 @@
                 <div class="new-tweet">
                     <!-- TODO User image -->
                     <div class="ProfileImage tweet-img no-border"
-                        style="background-image: url('https://api.multiavatar.com/{{if .Profile.UserName}}{{.Profile.UserName}}{{else}}AN{{end}}.svg')">
+                        style="background-image: url('https://api.multiavatar.com/{{if .Profile.UserName}}{{.Profile.UserName}}.svg{{else}}AN.svg; filter-blur:{{end}}')">
                     </div>
                     <div class="new-post-header">
                         <textarea class="textarea" readonly type="text" placeholder="What's happening?"></textarea>
@@ -64,7 +64,7 @@
                                 </span>
                             </div>
                             {{if eq $.Profile.UserName $post.UserName}}
-                            <!-- Control Posts -->
+                            <!-- TODO Control Posts For Future :D 
                             <div class="dropdown">
                                 <i class="material-symbols-outlined">more_horiz</i>
                                 <div class="content">
@@ -73,7 +73,7 @@
                                         <li><span class="material-symbols-outlined">delete</span>Delete</li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> -->
                             {{end}}
                         </div>
                         <!-- Post Content -->
@@ -92,14 +92,14 @@
                         <div class="post-footer">
                             <div class="react" id="{{$post.ID}}">
                                 <!-- Post Like Counter -->
-                                <div class='counters like getLike {{if eq $post.Liked "1"}}FILL{{end}}' id="{{$post.ID}}">
-                                    <i class="material-symbols-outlined popup-icon getLike" id="{{$post.ID}}">thumb_up</i>
-                                    <span class="getLike" id="{{$post.ID}}">{{$post.LikeCount}}</span>
+                                <div isPost="true" class='counters like  {{if eq $post.Liked "1"}}FILL{{end}}' id="{{$post.ID}}">
+                                    <i class="material-symbols-outlined popup-icon " id="{{$post.ID}}">thumb_up</i>
+                                    <span id="{{$post.ID}}">{{$post.LikeCount}}</span>
                                 </div>
                                 <!-- Post Dislike Counter -->
-                                <div class='counters dislike getDisLike {{if eq $post.Liked "0"}}FILL{{end}}' id="{{$post.ID}}">
-                                    <i class="material-symbols-outlined popup-icon getDisLike" id="{{$post.ID}}">thumb_down</i>
-                                    <span class="getDisLike" id="{{$post.ID}}">{{$post.DislikeCount}}</span>
+                                <div isPost="true" class='counters dislike {{if eq $post.Liked "0"}}FILL{{end}}' id="{{$post.ID}}">
+                                    <i class="material-symbols-outlined popup-icon" id="{{$post.ID}}">thumb_down</i>
+                                    <span id="{{$post.ID}}">{{$post.DislikeCount}}</span>
                                 </div>
                             </div>
                             <div class="comment post" id="{{$post.ID}}">

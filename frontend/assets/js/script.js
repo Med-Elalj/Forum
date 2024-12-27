@@ -1,20 +1,4 @@
-// class testing 
-const testing = document.querySelectorAll(".testing")
-testing.forEach(elem => {
-    elem.addEventListener('click', () => {
-        console.log(elem.textContent);
-    })
-})
 let popup = NaN;
-
-//////////////////// Check User is Logged yet or not //////////////////
-function checkUserIsLogged() {
-    //const test = localStorage.setItem("token", "This is a test token")
-    const token = localStorage.getItem("token")
-    //////////// Here we have to send Token to Server
-    /////////// to check its valid or not 
-    return token !== null && token !== undefined;
-}
 
 //////////////////// Popup function //////////////////
 const popUp = () => {
@@ -24,8 +8,8 @@ const popUp = () => {
             <div class="popup-content">
                 <h1>Thanks for trying</h1>
                 <p>Log in or sign up to add comments, likes, dislikes, and more.</p>
-                <a href="login.html"><button>Log in</button></a>
-                <a href="register.html"><button>Sign up</button></a>
+                <a href="/login"><button>Log in</button></a>
+                <a href="/register"><button>Sign up</button></a>
                 <span class="logged-out">Stay logged out</span>
             </div>
         </div>
@@ -139,6 +123,8 @@ function readPost() {
                     document.getElementById("ScriptInjected").remove()
                 }
             })
+            // recall Like.js to listen on Elemnts in post page
+            handleLikes()
         })
     })
 

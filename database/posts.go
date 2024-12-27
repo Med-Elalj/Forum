@@ -158,9 +158,9 @@ func CreatePost(db *sql.DB, UserID int, title, content string, categories []stri
 func GetPostByID(db *sql.DB, Postid, UserID int) (structs.Post, error) {
 	var post structs.Post
 	var categories sql.NullString
-	err := db.QueryRow(querries.GetPostByID, UserID, Postid).Scan(
-		&post.ID, &post.UserID, &post.Title, &post.Content,
-		&post.LikeCount, &post.DislikeCount, &post.CommentCount,
+	err := db.QueryRow(querries.GetPostByID, UserID, Postid).Scan( // TODO Is Liked Return NULL
+		&post.ID, &post.UserID, &post.Title, &post.Content, // instead of real value
+		&post.LikeCount, &post.DislikeCount, &post.CommentCount, // related to POST.html page
 		&post.CreatedAt, &post.UserName, &categories,
 		&post.Liked)
 	if err == sql.ErrNoRows {

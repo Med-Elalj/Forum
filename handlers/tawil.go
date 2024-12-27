@@ -197,7 +197,14 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 		ErrorPage(w, http.StatusBadRequest, errors.New("title is too long"))
 		return
 	}
-
+	if len(data.Content) > 1000 {
+		ErrorPage(w, http.StatusBadRequest, errors.New("content is too long"))
+		return
+	}
+	if len(data.Categories) == 0 {
+		ErrorPage(w, http.StatusBadRequest, errors.New("no categories"))
+		return
+	}
 	id, err := database.CreatePost(DB, UserId, data.Title, data.Content, data.Categories)
 	if err != nil {
 		ErrorPage(w, http.StatusInternalServerError, errors.New("error creating post"))
@@ -288,13 +295,27 @@ func TawilPostHandler(w http.ResponseWriter, r *http.Request) {
 	var Postid int
 	// get the post id from /post/{id}
 	// TODO check for edge cases
+	c, err := r.Cookie("session")
+	if err != nil && err.Error() != "http: named cookie not present" {
+		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized"+err.Error()))
+		fmt.Println(err)
+		return
+	}
+	if err != nil {
+		c = &http.Cookie{}
+	}
 
+	uid, err := database.GetUidFromToken(DB, c.Value)
+	if err != nil {
+		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
+		return
+	}
 	Postid, err = strconv.Atoi(r.PathValue("id"))
 	if err != nil || Postid < 0 {
 		// TODO iso standard
 		ErrorPage(w, 400, errors.New("invalid TawilPostHandler 0"))
 	}
-	post, err := database.GetPostByID(DB, Postid, 0)
+	post, err := database.GetPostByID(DB, Postid, uid)
 	if err != nil {
 		// TODO iso standard
 		ErrorPage(w, 400, errors.New("invalid TawilPostHandler 1"))
@@ -344,6 +365,7 @@ func PostReaction(w http.ResponseWriter, r *http.Request) {
 	var requestData struct {
 		PostID string `json:"postId"`
 		Type   string `json:"type"`
+		Post   bool   `json:"post"`
 	}
 
 	err = json.NewDecoder(r.Body).Decode(&requestData)
@@ -367,17 +389,14 @@ func PostReaction(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("invalid like post id")
 		ErrorPage(w, 400, errors.New("invalid like post id"))
 	}
-	// get the user id from the token
-
-	// /// // / / / / / / /
-	liked, err := database.HasUserLikedPost(DB, UserId, PostIdInt)
+	liked, err := database.HasUserLikedPost(DB, UserId, PostIdInt, requestData.Post)
 	if err != nil {
 		fmt.Println("error checking if user has liked post")
 		ErrorPage(w, http.StatusInternalServerError, errors.New("error checking if user has liked post"))
 		return
 	}
 
-	dislike, err := database.HasUserDislikedPost(DB, UserId, PostIdInt)
+	dislike, err := database.HasUserDislikedPost(DB, UserId, PostIdInt, requestData.Post)
 	if err != nil {
 		fmt.Println("error checking if user has liked post")
 		ErrorPage(w, http.StatusInternalServerError, errors.New("error checking if user has liked post"))
@@ -387,7 +406,7 @@ func PostReaction(w http.ResponseWriter, r *http.Request) {
 	addeddStatus := false
 	if requestData.Type == "like" {
 		if dislike {
-			err = database.UndislikePost(DB, UserId, PostIdInt)
+			err = database.UndislikePost(DB, UserId, PostIdInt, requestData.Post)
 			if err != nil {
 				fmt.Println("error unliking post")
 				ErrorPage(w, http.StatusInternalServerError, errors.New("error unliking post"))
@@ -396,14 +415,14 @@ func PostReaction(w http.ResponseWriter, r *http.Request) {
 		}
 		if liked {
 			// remove the like from the post in database
-			err = database.UnlikePost(DB, UserId, PostIdInt)
+			err = database.UnlikePost(DB, UserId, PostIdInt, requestData.Post)
 			if err != nil {
 				fmt.Println("error unliking post2")
 				ErrorPage(w, http.StatusInternalServerError, errors.New("error unliking post"))
 				return
 			}
 		} else {
-			err = database.LikePost(DB, UserId, PostIdInt)
+			err = database.LikePost(DB, UserId, PostIdInt, requestData.Post)
 			if err != nil {
 				fmt.Println("error liking post")
 				ErrorPage(w, http.StatusInternalServerError, errors.New("error liking post"))
@@ -413,7 +432,7 @@ func PostReaction(w http.ResponseWriter, r *http.Request) {
 		}
 	} else {
 		if liked {
-			err = database.UnlikePost(DB, UserId, PostIdInt)
+			err = database.UnlikePost(DB, UserId, PostIdInt, requestData.Post)
 			if err != nil {
 				fmt.Println("error unliking post3")
 				ErrorPage(w, http.StatusInternalServerError, errors.New("error unliking post"))
@@ -422,14 +441,14 @@ func PostReaction(w http.ResponseWriter, r *http.Request) {
 		}
 		if dislike {
 			// remove the like from the post in database
-			err = database.UndislikePost(DB, UserId, PostIdInt)
+			err = database.UndislikePost(DB, UserId, PostIdInt, requestData.Post)
 			if err != nil {
 				fmt.Println("error unliking post4")
 				ErrorPage(w, http.StatusInternalServerError, errors.New("error unliking post"))
 				return
 			}
 		} else {
-			err = database.DislikePost(DB, UserId, PostIdInt)
+			err = database.DislikePost(DB, UserId, PostIdInt, requestData.Post)
 			if err != nil {
 				fmt.Println("error liking post2")
 				ErrorPage(w, http.StatusInternalServerError, errors.New("error liking post"))
@@ -440,21 +459,21 @@ func PostReaction(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// get the new like count
-	likeCount, err := database.GetPostLikeCount(DB, PostIdInt)
+	likeCount, err := database.GetPostLikeCount(DB, PostIdInt, requestData.Post)
 	if err != nil {
 		fmt.Println("error getting like count")
 		ErrorPage(w, http.StatusInternalServerError, errors.New("error getting like count"))
 		return
 	}
-	dislikeCount, err := database.GetPostDislikeCount(DB, PostIdInt)
+	dislikeCount, err := database.GetPostDislikeCount(DB, PostIdInt, requestData.Post)
 	if err != nil {
 		fmt.Println("error getting dislike count")
 
 		ErrorPage(w, http.StatusInternalServerError, errors.New("error getting like count"))
 		return
 	}
-	database.UpdatePostLikeCount(DB, PostIdInt)
-	database.UpdatePostDislikeCount(DB, PostIdInt)
+	database.UpdatePostLikeCount(DB, PostIdInt, requestData.Post)
+	database.UpdatePostDislikeCount(DB, PostIdInt, requestData.Post)
 	// return the new like count
 	w.Header().Set("Content-Type", "application/json")
 	fmt.Println(map[string]interface{}{
@@ -470,3 +489,5 @@ func PostReaction(w http.ResponseWriter, r *http.Request) {
 	})
 
 }
+
+// Create Handler of Categories

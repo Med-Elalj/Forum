@@ -13,6 +13,7 @@ type Comment struct {
 	DislikeCount int
 	Content      string
 	CreatedAt    time.Time
+	Liked		string
 }
 
 type Post struct {

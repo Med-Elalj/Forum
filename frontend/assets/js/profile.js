@@ -6,7 +6,7 @@ const ProfileCard = document.querySelector(".ProfileCard")
 const Categories = document.querySelector(".Categories")
 const rotateIcon = document.querySelector(".switch-icon span")
 
-if (switchIcons.classList.contains("reverse") && location.pathname == "/index"){ // change index to HomePage Path 
+if (switchIcons.classList.contains("reverse") && location.pathname == "/"){ // change index to HomePage Path 
     ProfileCard.classList.remove("display")
     Categories.classList.add("display")
 }else{
@@ -16,7 +16,6 @@ if (switchIcons.classList.contains("reverse") && location.pathname == "/index"){
 }
 
 switchIcons.addEventListener('click', () => {
-    
     switchIcons.classList.toggle("reverse")
     rotateIcon.classList.toggle("rotate")
     ProfileCard.classList.toggle("display")

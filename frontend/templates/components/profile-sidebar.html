@@ -16,8 +16,8 @@
                 <span class="sub">Categories</span>
             </div>
         </h1>
-        <div class="ProfileCard display">
-            {{ if .Profile.UserName}}
+        {{ if .Profile.UserName}}
+        <div class="ProfileCard">
             <div class="profileImage">
                 <img src="https://api.multiavatar.com/{{.Profile.UserName}}.svg" alt="">
             </div>
@@ -39,25 +39,10 @@
                     <span class="postCounts">{{.Profile.CommentCount}} Comments</span>
                 </div>
             </div>
-            {{ else}}
-            <div class="profileImage">
-                <img src="https://api.multiavatar.com/NoBody.svg" alt="">
-            </div>
-            <div class="profileName">
-                Not Loged In
-            </div>
-            <div class="SignOptions">
-                <a href="/login" class="Buttons">
-                    <i class="material-symbols-outlined">login</i>
-                    <span>Login / Register</span>
-                </a>
-            </div>
-            {{ end}}
         </div>
-
+        {{end}}
         <!-- <h1 class="h1-title Categories">Categories</h1> -->
-        <div class="Categories">
-
+        <div class="Categories display">
             <!-- <hr class="categories-line"> -->
             {{range $key, $value := .Categories}}
             <hr>
@@ -72,5 +57,4 @@
             {{end}}
         </div>
 </div>
-
 {{end}}

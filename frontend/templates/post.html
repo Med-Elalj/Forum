@@ -18,14 +18,13 @@
     <div class="PostReactionData">
         <div class="LikeButtons">
             <!-- TODO .POST.Liked Doesnt Work -->
-            <div class='like DisableUserSelect {{if eq .Post.Liked "1"}}FILL{{end}}'>
-                <span class="material-symbols-outlined" id="{{.Post.ID}}">thumb_up</span>
-                {{.Post.LikeCount}}
+            <div isPost="true" id="{{.Post.ID}}" class='like DisableUserSelect {{if eq .Post.Liked "1"}}FILL{{end}}'>
+                <i class="material-symbols-outlined">thumb_up</i>
+                <span>{{.Post.LikeCount}}</span>
             </div>
-            <div class='dislike DisableUserSelect {{if eq .Post.Liked "1"}}FILL{{end}}'>
-                <span class="material-symbols-outlined" id="{{.Post.ID}}">thumb_down</span>
-                {{.Post.DislikeCount}}
-
+            <div isPost="true" id="{{.Post.ID}}" class='dislike DisableUserSelect {{if eq .Post.Liked "0"}}FILL{{end}}'>
+                <i class="material-symbols-outlined">thumb_down</i>
+                <span> {{.Post.DislikeCount}}</span>
             </div>
         </div>
         <div class="CommentButtons">
@@ -62,14 +61,14 @@
                         </span>
                     </span>
                     <div class="commentReaction DisableUserSelect">
-                        <span class="like" id="{{.ID}}">
-                            <span class="material-symbols-outlined">
+                        <span isPost="false" class='like post  {{/*if eq .Liked "0"}}FILL{{end*/}}' id="{{.ID}}"><!-- TODO Handle Like Struct -->
+                            <i class="material-symbols-outlined">
                                 thumb_up
-                            </span>
+                            </i>
                             <span>{{.LikeCount}}</span>
                         </span>
-                        <span class="dislike" id="{{.ID}}">
-                            <span class="material-symbols-outlined">thumb_down</span>
+                        <span isPost="false" class="dislike" id="{{.ID}}"> <!-- TODO Handle Like Struct And Added The-->
+                            <i class="material-symbols-outlined">thumb_down</i>
                             <span>{{.DislikeCount}}</span>
                         </span>
                     </div>

@@ -21,7 +21,7 @@ const (
 		LEFT JOIN post_likes pl ON p.id = pl.post_id AND pl.user_id = ?
 		WHERE u.username = ?
 		GROUP BY p.id
-		ORDER BY created_at DESC 
+		ORDER BY p.created_at DESC 
 		LIMIT ?;`
 	GetPostsbyUserLikeL = `SELECT p.*, u.username, GROUP_CONCAT(c.name , "|") AS categories ,
 		COALESCE(pl.is_like, "null") AS is_like
@@ -32,7 +32,7 @@ const (
 		JOIN post_likes pl ON p.id = pl.post_id AND pl.user_id = ? AND is_like = 1
 		WHERE u.username = ?
 		GROUP BY p.id
-		ORDER BY created_at DESC 
+		ORDER BY p.created_at DESC 
 		LIMIT ?;`
 	GetPostByID = `SELECT p.*, u.username, GROUP_CONCAT(c.name , "|") AS categories ,
 		COALESCE(pl.is_like, "null") AS is_like

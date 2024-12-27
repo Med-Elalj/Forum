@@ -2,7 +2,7 @@ function createPost() {
     // const CreatePostArea = document.querySelector(".new-post-header")
     const CreatePostModel = document.querySelector(".postModal")
     const closeCreatePostModal = document.querySelector(".titleInput .close-post")
-    
+    const ErrorBox = document.querySelector(".ErrorMessage")
     window.onclick = function (event) {
         if (event.target == CreatePostModel) {
             CreatePostModel.style.display = "none"
@@ -25,6 +25,16 @@ function createPost() {
         const title = form.title.value;
         const content = form.content.value;
         const categories = Array.from(form.category).filter((input) => input.checked).map((input) => input.id);
+        console.log(categories.length);
+        
+        if (categories.length === 0) {
+            ErrorBox.style.display = "flex"
+            document.querySelector(".message").innerText = "Please Select At Least One Category"
+            setTimeout(function(){
+                ErrorBox.style.display = "none"
+            }, 5000)
+            return;
+        }
         const data = {
             title,
             content,
@@ -52,13 +62,13 @@ function createPost() {
                     <div class="row-tweet">
                         <div class="post-header">
                             <span class="tweeter-name post" id="${post.ID}">
-                                ${post.Title}
+                                <span class="text-title"></span>
                                 <br><span class="tweeter-handle">@${post.UserName} ${post.CreatedAt}.</span>
                             </span>
                         </div>
                     </div>
                     <div class="post-content">
-                        <p>${post.Content}</p>
+                        <p></p>
                     </div>
                     <span class="see-more">See More</span>
                     <div class="Hashtag">
@@ -83,10 +93,11 @@ function createPost() {
                 </div>
             `;
             // insert PostCard inside the main-feed and exact after first child of main-feed = new-tweet
+            postCard.querySelector('.post-content p').innerText = post.Content
+            postCard.querySelector('.text-title').innerText = post.Title
             const mainFeed = document.querySelector('.main-feed');
             postCard.classList.add('PostAdded');
             mainFeed.insertBefore(postCard, mainFeed.children[1]);
-
             CreatePostModel.style.display = "none";
             form.reset();
             // Recall Function To append new post to their Lestining Buttons
@@ -100,4 +111,4 @@ function createPost() {
         }
     });
 }
-createPost();/// Check user is logged before running this Function TODO
+createPost();
