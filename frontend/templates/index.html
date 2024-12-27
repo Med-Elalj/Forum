@@ -37,7 +37,7 @@
                 <div class="new-tweet">
                     <!-- TODO User image -->
                     <div class="ProfileImage tweet-img no-border"
-                        style="background-image: url('https://ui-avatars.com/api/?name={{.Profile.UserName}}')">
+                        style="background-image: url('https://api.multiavatar.com/{{if .Profile.UserName}}{{.Profile.UserName}}{{else}}AN{{end}}.svg')">
                     </div>
                     <div class="new-post-header">
                         <textarea class="textarea" readonly type="text" placeholder="What's happening?"></textarea>
@@ -49,7 +49,7 @@
                 <div class="post-card">
                     <!-- User image -->
                     <div class="ProfileImage tweet-img"
-                        style="background-image: url('https://ui-avatars.com/api/?name={{$post.UserName}}')">
+                        style="background-image: url('https://api.multiavatar.com/{{$post.UserName}}.svg')">
                     </div>
 
                     <div class="post-details">

@@ -168,6 +168,8 @@ hr {
     background-color: var(--BlueDarker);
     color: var(--White);
     border-radius: 9999px;
+    width: 90%;
+
 }
 
 /* 
@@ -1121,7 +1123,7 @@ main {
     opacity: 1;
     animation: opc 2s;
     transition: all 1s;
-
+    padding: 20px 0px 0px 0px;
 }
 
 .display {

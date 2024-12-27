@@ -1,20 +1,25 @@
 {{define "profile-sidebar"}}
 <div class="sidebar-right " id="categories">
         <h1 class="h1-title sub-main reverse">
+            {{ if .Profile.UserName}}
             <div class="switch-icon rotate">
                 <span class="material-symbols-outlined">
                     autorenew
                 </span>
             </div>
+            {{end}}
+
             <div class="switch-buttons">
+                {{ if .Profile.UserName}}
                 <span class="main">Profile</span>
+                {{end}}
                 <span class="sub">Categories</span>
             </div>
         </h1>
         <div class="ProfileCard display">
             {{ if .Profile.UserName}}
             <div class="profileImage">
-                <img src="https://api.dicebear.com/9.x/personas/svg?seed={{ .Profile.PFP}}" alt="">
+                <img src="https://api.multiavatar.com/{{.Profile.UserName}}.svg" alt="">
             </div>
             <div class="profileName">
                 {{.Profile.UserName}}
@@ -36,7 +41,7 @@
             </div>
             {{ else}}
             <div class="profileImage">
-                <img src="https://ui-avatars.com/api/?name=An" alt="">
+                <img src="https://api.multiavatar.com/NoBody.svg" alt="">
             </div>
             <div class="profileName">
                 Not Loged In

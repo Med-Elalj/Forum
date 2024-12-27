@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"database/sql"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"log"
@@ -77,7 +76,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	SetCookie(w, token, "session", true)
-	http.Redirect(w, r, "/index", http.StatusFound)
+	http.Redirect(w, r, "/", http.StatusFound)
 }
 
 func Register(w http.ResponseWriter, r *http.Request) {
@@ -113,7 +112,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(struct{ Token string }{token})
+	http.Redirect(w, r, "../", http.StatusFound)
 }
 
 func validpassword(password string) bool {
@@ -132,7 +131,7 @@ func validpassword(password string) bool {
 		} else if !d && unicode.IsDigit(char) {
 			d = true
 			continue
-		} else if !s && unicode.IsSymbol(char) {
+		} else if !s && !unicode.IsDigit(char) && !unicode.IsLetter(char) {
 			s = true
 			continue
 		}

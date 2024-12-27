@@ -47,7 +47,7 @@ function createPost() {
             const postCard = document.createElement('div');
             postCard.classList.add('post-card');
             postCard.innerHTML = `
-                <div class="ProfileImage tweet-img" style="background-image: url('https://ui-avatars.com/api/?name=${post.UserName}')"></div>
+                <div class="ProfileImage tweet-img" style="background-image: url('https://api.multiavatar.com/${post.UserName}.svg')"></div>
                 <div class="post-details">
                     <div class="row-tweet">
                         <div class="post-header">

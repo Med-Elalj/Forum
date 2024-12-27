@@ -122,11 +122,11 @@ function CommentInputEventListenner() {
                 commentCard.classList.add('CommentAdded');
                 commentCard.id = "Comment" + data["CommentID"];
                 console.log(commentCard);
-                let url = "/index#Comment" + data["CommentID"];
+                let url = "/#Comment" + data["CommentID"];
 
                 commentCard.innerHTML = `
                     <div class="commentAuthorImage">
-                        <img src="https://ui-avatars.com/api/?name=${data["UserName"]}" alt="">
+                        <img src="https://api.multiavatar.com/${data["UserName"]}.svg" alt="">
                     </div>
                     <div class="commentAuthor">
                         <div class="commentAuthorInfo">

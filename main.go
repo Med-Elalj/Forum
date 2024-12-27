@@ -12,7 +12,7 @@ import (
 
 func main() {
 	if len(os.Args) != 2 {
-		fmt.Println("Usage: go run setup.go <database_file>")
+		fmt.Println("Usage: go run main.go <database_file>")
 		os.Exit(1)
 	}
 	fmt.Printf("Creating database at %v...\n", os.Args[1:])
@@ -24,15 +24,12 @@ func main() {
 	go database.DES_Ticker(ticker, db)
 	defer ticker.Stop()
 	defer db.Close()
-	// err = database.CreateUser(db, "exazerample@website.net", "userqsdfname", "password")
-	// if err != nil {
-	// 	panic(err.Error())
-	// }
+
 	handlers.DB = db
 	fmt.Println("User created successfully!")
 	fmt.Println(database.QuerryPostsbyUser(db, "test", 0, 5))
 
-	http.HandleFunc("/index", handlers.TawilHandelr)
+	http.HandleFunc("/", handlers.TawilHandelr)
 
 	http.HandleFunc("POST /login", handlers.Login)
 	http.HandleFunc("POST /register", handlers.Register)
@@ -52,7 +49,7 @@ func main() {
 
 	// http.HandleFunc("/create", handlers.Create) // TODO Implement create
 
-	http.HandleFunc("POST /index", handlers.InfiniteScroll)
+	http.HandleFunc("POST /posts", handlers.InfiniteScroll)
 
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("./frontend/assets"))))
 

@@ -315,7 +315,7 @@ func TawilPostHandler(w http.ResponseWriter, r *http.Request) {
 
 func Logout(w http.ResponseWriter, r *http.Request) {
 	DeleteAllCookie(w, r)
-	http.Redirect(w, r, "/index", http.StatusFound)
+	http.Redirect(w, r, "/", http.StatusFound)
 }
 
 // handling likes and dislikes in the backend Golang

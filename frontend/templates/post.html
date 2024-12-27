@@ -1,7 +1,7 @@
 <div class="ProfileAndPost">
     <div class="postInfo">
         <div class="authorImage">
-            <img src="https://ui-avatars.com/api/?name={{.Post.UserName}}" alt="">
+            <img src="https://api.multiavatar.com/{{.Post.UserName}}.svg" alt="">
         </div>
         <div class="authorInfo">
             <span class="Title">{{.Post.Title}}</span>
@@ -49,7 +49,7 @@
         {{ range .Comments }}
         <div class="commentCard DisableUserSelect"><!-- Working Part -->
             <div class="commentAuthorImage">
-                <img src="https://ui-avatars.com/api/?name={{.UserName}}" alt="">
+                <img src="https://api.multiavatar.com/{{.UserName}}.svg" alt="">
                 <!-- TODO ADD PROPER link: -->
             </div>
 
