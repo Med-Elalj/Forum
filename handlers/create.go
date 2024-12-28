@@ -42,7 +42,7 @@ func CreatePostXX(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	Pid, err := database.CreatePost(DB, UserId, data.Title, data.Content, data.Categories)
+	err, Pid := database.CreatePost(DB, UserId, data.Title, data.Content, data.Categories)
 	if err != nil {
 		ErrorJs(w, http.StatusInternalServerError, errors.New("error creating post"))
 		return

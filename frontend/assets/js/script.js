@@ -168,3 +168,136 @@ postControlList()
 readPost()
 showLeftSidebarMobile()
 seeMore()
+
+
+/* 
+
+func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
+	c, err := r.Cookie("session")
+	if err != nil && err.Error() != "http: named cookie not present" {
+		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized"+err.Error()))
+		fmt.Println(err)
+		return
+	}
+	if err != nil {
+		c = &http.Cookie{}
+	}
+
+	uid, err := database.GetUidFromToken(DB, c.Value)
+	if err != nil {
+		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
+		return
+	}
+	offset_str := r.URL.Query().Get("offset")
+	offset, err := strconv.Atoi(offset_str)
+	if err != nil {
+		offset = 0
+	}
+	fmt.Println("Offset:", offset)
+	posts, err := database.QuerryLatestPosts(DB, uid, structs.Limit, offset)
+	if err != nil {
+		ErrorJs(w, http.StatusInternalServerError, err)
+		return
+	}
+	// Set the content type header to application/json
+	w.Header().Add("Content-Type", "application/json")
+
+	// Optionally set the status code to 200 OK
+	w.WriteHeader(http.StatusOK)
+
+	err = json.NewEncoder(w).Encode(posts)
+	fmt.Println(err)
+}
+
+
+*/
+// Create Function to fetch new post in the user scrolling at the end of the page
+// using the offset and limit to fetch the new post
+// check function above from backend
+
+async function fetchPosts(offset) {
+    console.log('Fetching posts with offset:', offset);
+    const x = await fetch(`/infinite-scroll?offset=${offset}`)
+        .then(response => response.json())
+        .then(posts => {
+            console.log('Fetched posts:', posts);
+            const postsContainer = document.querySelector('.main-feed');
+            posts.forEach(post => {
+                const postCard = document.createElement('div');
+                postCard.classList.add('post-card');
+                console.log('Creating post card for post:', post);
+                postCard.innerHTML = `
+                    <div class="ProfileImage tweet-img" style="background-image: url('https://api.multiavatar.com/${post.author_username}.svg')">
+                    </div>
+                    <div class="post-details">
+                        <div class="row-tweet">
+                            <div class="post-header">
+                                <span class="tweeter-name post" id="${post.post_id}">
+                                    ${post.post_title}
+                                    <br><span class="tweeter-handle">@${post.author_username} ${post.post_creation_time}.</span>
+                                </span>
+                            </div>
+                            <div class="dropdown">
+                                <i class="material-symbols-outlined">more_horiz</i>
+                                <div class="content">
+                                    <ul>
+                                        <li><span class="material-symbols-outlined">edit</span>Edit</li>
+                                        <li><span class="material-symbols-outlined">delete</span>Delete</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <p>${post.post_content}</p>
+                        </div>
+                        <span class="see-more">See More</span>
+                        <div class="Hashtag">
+                            ${post.post_categories ? post.post_categories.map(category => `<a href=""><span>#${category}</span></a>`).join('') : ''}
+                        </div>
+                        <div class="post-footer">
+                            <div class="react" id="${post.ID}">
+                                <div isPost="true" class='counters like  ${post.view && post.view === '1' ? 'FILL' : ''}' id="${post.post_id}">
+                                    <i class="material-symbols-outlined popup-icon " id="${post.ID}">thumb_up</i>
+                                    <span id="${post.post_id}">${post.like_count}</span>
+                                </div>
+                                <div isPost="true" class='counters dislike ${post.view && post.view === '0' ? 'FILL' : ''}' id="${post.post_id}">
+                                    <i class="material-symbols-outlined popup-icon" id="${post.ID}">thumb_down</i>
+                                    <span id="${post.post_id}">${post.dislike_count}</span>
+                                </div>
+                            </div>
+                            <div class="comment post" id="${post.post_id}">
+                                <i class="material-symbols-outlined showCmnts">comment</i>
+                                <span>${post.comment_count}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                console.log(' posts container:', postsContainer);
+                console.log('posts container:', postCard);
+                postsContainer.append(postCard);
+            });
+        });
+}
+
+function infiniteScroll() {
+    let offset = 10;
+    let limit = 10;
+    let timeout = null;
+    window.addEventListener('scroll', () => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+            console.log('Scroll event detected:', { scrollTop, scrollHeight, clientHeight });
+            if (scrollTop + clientHeight >= scrollHeight - 5) {
+                console.log('Fetching more posts...');
+                fetchPosts(offset)
+                    .then(() => {
+                        offset += limit;
+                        console.log('Finished fetching posts, new offset:', offset);
+                    });
+            }
+        }, 1000);
+    });
+}
+
+infiniteScroll();

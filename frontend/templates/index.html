@@ -111,13 +111,7 @@
                     </div>
                 </div>
                 <!-- End Of Post Content Card -->
-
                 {{ end }}
-                <div class="fetchMore">
-                    <!-- TODO Handling SCrolling Pagination using JS -->
-                    Fetching more data <br>
-                    You have reached the end.
-                </div>
             </div>
         </div>
         
@@ -140,7 +134,9 @@
             createPostListner()
         </script>>
     {{end}}
-    <script src="/assets/js/profile.js"></script>
+    {{if .Profile.UserName}}
+        <script src="/assets/js/profile.js"></script>
+    {{end}}
     <script src="/assets/js/likes.js"></script>
     <script src="/assets/js/script.js"></script>
 </body>

@@ -171,7 +171,6 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
 		return
 	}
-
 	UserId, err := database.GetUidFromToken(DB, token.Value)
 	if err != nil {
 		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized ID"+err.Error()))
@@ -205,7 +204,7 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 		ErrorPage(w, http.StatusBadRequest, errors.New("no categories"))
 		return
 	}
-	id, err := database.CreatePost(DB, UserId, data.Title, data.Content, data.Categories)
+	err, id := database.CreatePost(DB, UserId, data.Title, data.Content, data.Categories)
 	if err != nil {
 		ErrorPage(w, http.StatusInternalServerError, errors.New("error creating post"))
 		return

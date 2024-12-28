@@ -33,7 +33,6 @@ func main() {
 
 	http.HandleFunc("POST /login", handlers.Login)
 	http.HandleFunc("POST /register", handlers.Register)
-	http.HandleFunc("/TokenChecker", handlers.TawilHandelrRegister)
 	http.HandleFunc("/login", handlers.TawilHandelrRegister)
 	http.HandleFunc("/register", handlers.TawilHandelrRegister)
 	http.HandleFunc("/logout", handlers.Logout)
@@ -44,12 +43,11 @@ func main() {
 	http.HandleFunc("/createPost", handlers.CreatePost)
 	http.HandleFunc("/PostReaction", handlers.PostReaction)
 
+	http.HandleFunc("/infinite-scroll", handlers.InfiniteScroll)
 	http.HandleFunc("/profile/{username}", handlers.TawilProfileHandler)
 	// http.HandleFunc("/profile/{username}/likes", handlers.Likes) // TODO Implement profile like handler
 
 	// http.HandleFunc("/create", handlers.Create) // TODO Implement create
-
-	http.HandleFunc("POST /posts", handlers.InfiniteScroll)
 
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("./frontend/assets"))))
 
