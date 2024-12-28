@@ -424,7 +424,7 @@ func PostReaction(w http.ResponseWriter, r *http.Request) {
 		} else {
 			err = database.LikePost(DB, UserId, PostIdInt, requestData.Post)
 			if err != nil {
-				fmt.Println("error liking post")
+				fmt.Println("error liking post3")
 				ErrorPage(w, http.StatusInternalServerError, errors.New("error liking post"))
 				return
 			}

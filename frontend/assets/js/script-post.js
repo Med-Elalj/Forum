@@ -33,7 +33,6 @@ function CommentInputEventListenner() {
                 })
             });
             if (response.status != 200) {
-                console.log("Error : Inside Response Status");
                 popUp()
                 return
             }
@@ -60,23 +59,24 @@ function CommentInputEventListenner() {
                                 </span>
                             </span>
                             <div class="commentReaction DisableUserSelect">
-                                <span class="like" id="${data["CommentID"]}">
-                                    <span class="material-symbols-outlined">
+                                <span isPost="false" class="like" id="${data["CommentID"]}">
+                                    <i class="material-symbols-outlined">
                                         thumb_up
-                                    </span>
+                                    </i>
                                     <span>0</span>
                                 </span>
-                                <span class="dislike" id="${data["CommentID"]}">
-                                    <span class="material-symbols-outlined">thumb_down</span>
+                                <span isPost="false" class="dislike" id="${data["CommentID"]}">
+                                    <i class="material-symbols-outlined">thumb_down</i>
                                     <span>0</span>
                                 </span>
                             </div>
                         </div>
                         <div class="commentInfo">
-                            <p class="commentData collapse">${data["Content"]}</p>
+                            <p class="commentData collapse"></p>
                         </div>
                     </div>
                 `;
+                commentCard.querySelector('.commentData').innerText = data["Content"];
                 commentContainer.prepend(commentCard);
                 window.location.replace(url)
                 handleLikes()

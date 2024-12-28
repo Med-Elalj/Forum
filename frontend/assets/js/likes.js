@@ -7,9 +7,11 @@ function handleLikes() {
 
     likeBtns.forEach(btn => {
         btn.addEventListener('click', async () => {
+            console.clear();
             const postId = btn.id;
             const postOrComment = (btn.getAttribute('isPost') == "true")? true : false;
-            console.log("Post or Comment = ", postOrComment);
+            
+            console.log("Post or Comment = ", postOrComment, btn);
             
             try {
                 const res = await fetch(`/PostReaction`, {
@@ -23,12 +25,15 @@ function handleLikes() {
                         post: postOrComment
                      })
                 });
-                console.log("postOrComment", postOrComment);
                 console.log("Response = ", res);
+                console.log("Response status = ", res.status);
                 
                 if (res.status == 401){
                     popUp()
                     console.log("Error");
+                    return;
+                }else if (res.status != 200){
+                    console.log("Error response status = ", res.status);
                     return;
                 }
                 const data = await res.json();
@@ -52,9 +57,11 @@ function handleLikes() {
 
     dislikeBtns.forEach(btn => {
         btn.addEventListener('click', async () => {
+            console.clear();
+
             const postId = btn.id;
             const postOrComment = (btn.getAttribute('isPost') == "true")? true : false;
-            console.log("Post or Comment = ", postOrComment);
+            console.log("Post or Comment = ", postOrComment, btn);
 
             try{
                 const res = await fetch(`/PostReaction`, {
@@ -69,24 +76,28 @@ function handleLikes() {
 
                      })
                 });
-    
+                console.log(res);
+                console.log(res.status);
+                
                 if (res.status == 401){
                     popUp()
                     console.log("Error");
+                    return;
+                }else if (res.status != 200){
+                    console.log("Error response status = ", res.status);
                     return;
                 }
                 const data = await res.json();
                 console.log(data);
                 const like = btn.previousElementSibling
-                console.log("=====> Added = ", data.added);
                 
                 if (data.added){
                     btn.classList.add("FILL")
-                    like.classList.remove("FILL")
+                    if (like) like.classList.remove("FILL")
                 }else{
                     btn.classList.remove("FILL")
                 }
-                like.querySelector('span').innerText = data.likes;
+                if (like) like.querySelector('span').innerText = data.likes;
                 btn.querySelector('span').innerText = data.dislikes;
             
             }catch(error){
