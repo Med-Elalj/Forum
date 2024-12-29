@@ -1,0 +1,292 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    margin:0px;
+    padding:0px;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.FILL {
+    font-variation-settings: 'FILL' 1;
+    color: var(--BlueDarker) !important;
+}
+
+.profile-and-post{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* height: 90vh; */
+    /* width: 45%; */
+    border-radius: 10px 0px 0px 10px;
+    box-shadow: var(--shadow);
+    z-index: 3;
+    /* scroll-behavior: smooth; */
+    /* overflow: scroll; */
+    background-color: var(--Greey);
+}
+.post-content{
+    /* background-color: var(--Greey); */
+    padding: 10px;
+    gap: 4px;
+    height: 100%;
+    /* border-radius: 0px 0px 0px 10px; */
+    border-right: 5px solid var(--GreeyDarked);
+    /* box-shadow: var(--shadow); */
+    overflow: scroll;
+    color: var(--DarkBlue);
+    line-height: 2em;
+    font-size: 17px;
+    line-height: 1.5rem;
+    width: 100%;
+    /* background-color: red; */
+    overflow: hidden;
+    overflow-y: hidden;
+    /* text-overflow: ellipsis; */
+    /* overflow: hidden; */
+    /* white-space: nowrap; */
+    /* max-width: 100%; */
+    /* display: inline-block; */
+}
+.post-content img{
+    width: 100%;
+    border-radius: 5px;
+}
+.post-content pre{
+    /* white-space: pre-wrap; */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+.post-comments{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--WhiteBlue);
+    /* height: 90vh; */
+    /* width: 45%; */
+    border-radius: 0px 10px 10px 0px;
+    box-shadow: var(--shadow);
+    z-index: 3;
+    /* scroll-behavior: smooth; */
+    /* overflow: scroll; */
+}
+.comments{
+    overflow: scroll;
+    height: 100%;
+}
+.comment-card{
+    display: flex;
+    background-color: var(--White);
+    padding: 5px;
+    border-radius: 10px;
+    margin: 10px;
+
+}
+.comment-author{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+}
+
+.comment-reaction{
+    display: flex;
+    justify-content:right;
+    gap: 10px;
+    margin-right: 10px;
+    margin-left: auto;
+    font-size: 0.8rem; 
+}
+.like, .dislike{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 2px;
+    cursor: pointer;
+    color: var(--GreeyD);
+}
+.comment-buttons{
+    margin-left: auto;
+}
+.like:hover, .dislike:hover{
+    color: var(--BlueDarker);
+}
+.post-info{
+    display: flex;
+    position: sticky;
+    top: 0px;
+    align-items: center;
+    min-height: 80px;
+    padding: 10px;
+    background-color: var(--WhiteBlue);
+    box-shadow: var(--shadowLittle);
+    width: 100%;
+}
+.author-image img, .comment-author-image img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.author-image img{
+    border: 2px solid #088395;
+}
+.comment-author-image{
+    display: flex;
+    flex-direction: column;
+}
+.comment-author-image img{
+    border: 4px solid #088395;
+    margin: 3px;
+}
+.author-info{
+    display: block;
+    margin-left: 10px;
+    gap: 5px;
+    width: calc(100% - 40px);
+}
+.center{
+    justify-content: center;
+}
+.comment-author-info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin: 10px; */
+    justify-content: true;
+    /* gap: 5px; */
+    padding-bottom: 4px;
+    border-bottom: var(--border);
+    width: 100%;
+    /* background-color: red; */
+}
+.testing {
+    display: flex;
+}
+.comment-author-info .title{
+    display: inline-block;
+    font-size: 26px;
+    font-weight: bold;
+    color: var(--BlueDarker);
+    /* word-break: break-all; */
+    /* text-overflow: ellipsis; */
+    /* overflow: hidden; */
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 100%;
+    /* display: inline-block; */
+}
+.author-info .author-name{
+    font-weight: bold;
+}
+.author-info .post-date{
+    font-weight: 300;
+    font-size: 14px;
+    color: var(--Black);
+}
+.comment-author-name{
+    color: var(--DarkBlue);
+}
+.comment-author-name .comment-time {
+    color: var(--GreeyD);
+    font-size: 14px;
+    font-weight: 300;  /* Ensures the date doesn't get bold */
+}
+.add-to-favourite span{
+    color:  var(--GreeyD);
+    font-size: 44px;
+}
+.disable-user-select{
+    -webkit-user-select: none;
+    -ms-user-select:none;
+    user-select:none;
+}
+
+.add-to-favourite span:hover{
+    color:  var(--BlueGreen);
+    font-size: 44px;
+}
+.add-to-favourite{
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.comment-info{
+    display: block;
+    word-wrap: break-word;
+    /* margin-right: 40px; */
+    /* margin: 0px 10px; */
+}
+.collapse{
+    height: 50px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.comment-data{
+    margin-top: 5px;
+    height: auto;
+    overflow: hidden;
+    cursor: pointer;
+    font-weight: 200;
+}
+.hidden{
+    display: none;
+}
+/* .readMore{
+    display: inline-block;
+    background-color: var(--BlueDarker);
+    color: var(--White);
+    font-size: 14px;
+    padding: 4px;
+    border-radius: 4px;
+} */
+
+.comment-container {
+    position: sticky;
+    bottom: 0;
+    padding: 10px;
+    z-index: 10; 
+}
+
+.post-reaction-data{
+    display: flex;
+    position: sticky;
+    bottom: 0;
+    background-color: var(--White);
+    padding: 10px;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    z-index: 10;
+    border-radius: 10px;
+    margin: 10px;
+}
+.like-buttons{
+    display: flex;
+    gap: 10px;
+}
+.comment-input input {
+    width: 100%; 
+    padding: 10px;
+    border: 1px solid var(--GreeyD);
+    border-radius: 10px;
+    resize: none;
+    max-height: 120px;
+    min-height: 56px;
+    overflow-y: auto;
+    font-size: 16px;
+    color: var(--BlueDarker);
+}
+
+.comment-input input:focus {
+    outline: none;
+    border-color: var(--BlueGreen);
+    box-shadow: 0 0 5px rgba(8, 131, 149, 0.3);
+}
+
