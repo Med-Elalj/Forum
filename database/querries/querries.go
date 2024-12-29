@@ -23,7 +23,7 @@ const (
 		GROUP BY p.id
 		ORDER BY p.created_at DESC 
 		LIMIT ?;`
-	GetPostsbyCategoryL = `SELECT p.*, c.name AS category_name, GROUP_CONCAT(c.name, "|") AS categories,
+	GetPostsbyCategoryL = `SELECT p.*, u.username, GROUP_CONCAT(c.name, "|") AS categories,
         COALESCE(pl.is_like, "null") AS is_like
 		FROM posts p
 		JOIN users u ON p.user_id = u.id
@@ -33,7 +33,8 @@ const (
 		WHERE c.name = ?
 		GROUP BY p.id
 		ORDER BY p.created_at DESC 
-		LIMIT ?;`
+		LIMIT ?
+		OFFSET ?;`
 	GetPostsbyUserLikeL = `SELECT p.*, u.username, GROUP_CONCAT(c.name , "|") AS categories ,
 		COALESCE(pl.is_like, "null") AS is_like
 		FROM posts p

@@ -40,8 +40,8 @@ func GetCategoriesWithPostCount(db *sql.DB) (map[string]int, error) {
 
 func QuerryLatestPostsByCategory(db *sql.DB, user_id int, c_name string, offset int) ([]structs.Post, error) {
 	res := make([]structs.Post, 0)
-	// TODO This Query Retern category name as USERNAME 
-	rows, err := db.Query(querries.GetPostsbyCategoryL, user_id, c_name, offset)
+	// TODO This Query Retern category name as USERNAME
+	rows, err := db.Query(querries.GetPostsbyCategoryL, user_id, c_name, structs.Limit, offset)
 	if err != nil {
 		return nil, errors.New("QuerryLatestPostsByCategory " + err.Error())
 	}
