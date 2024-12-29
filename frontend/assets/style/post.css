@@ -291,3 +291,28 @@ html {
     box-shadow: 0 0 5px rgba(8, 131, 149, 0.3);
 }
 
+
+
+.commentInput {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.send-comment {
+    position: absolute;
+    right: 10px;
+    color: var(--BlueGreen);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.send-comment:hover {
+    color: var(--BlueDarker);
+    transform: scale(1.1);
+}
+
+.send-comment:active {
+    transform: scale(0.9);
+    color: var(--primary-glow);
+}
