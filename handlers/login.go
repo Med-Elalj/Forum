@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"regexp"
+	"strings"
 	"unicode"
 
 	"forum/database"
@@ -33,7 +34,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	// TODO fix db and link
 	// uname := r.Form.Get("username")
-	email := r.Form.Get("email")
+	email := strings.ToLower(r.Form.Get("email"))
 	upass := r.Form.Get("password")
 	fmt.Println(email, upass)
 
@@ -86,8 +87,8 @@ func Login(w http.ResponseWriter, r *http.Request) {
 func Register(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	r.ParseForm()
-	uemail := r.Form.Get("email")
-	uname := r.Form.Get("username")
+	uemail := strings.ToLower(r.Form.Get("email"))
+	uname := strings.ToLower(r.Form.Get("username"))
 	upass := r.Form.Get("password")
 	if !email_RGX.MatchString(uemail) || !username_RGX.MatchString(uname) || !validpassword(upass) {
 		fmt.Println(!email_RGX.MatchString(uemail), uemail)

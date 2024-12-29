@@ -11,16 +11,17 @@ import (
 
 func HomePage(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
-		ErrorPage(w,"error.html", http.StatusNotFound, errors.New("page not found"))
+		ErrorPage(w, "error.html", http.StatusNotFound, errors.New("page not found"))
+		return
+	}
+	template := getHtmlTemplate()
+
+	userId , err := CheckAuthentication(w, r)
+	if err != nil {
 		return
 	}
 
-	template := getHtmlTemplate()
-
-	userId := CheckAuthentication(w, r)
-
 	var profile structs.Profile
-	var err error
 	if userId != 0 {
 		profile, err = database.GetUserProfile(DB, userId)
 		if err != nil {

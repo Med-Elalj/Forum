@@ -17,7 +17,11 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	UserId := CheckAuthentication(w, r)
+	UserId, err := CheckAuthentication(w, r)
+	if err != nil {
+		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
+		return
+	}
 	UserProfile, err := database.GetUserProfile(DB, UserId)
 	if err != nil {
 		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized UserProfile"+err.Error()))

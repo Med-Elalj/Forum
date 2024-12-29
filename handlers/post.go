@@ -98,6 +98,7 @@ func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var posts []structs.Post
+	// TODO Switch Case
 	if r.URL.Query().Get("type") == "category" {
 		category := r.URL.Query().Get("category")
 		posts, err = database.QuerryLatestPostsByCategory(DB, uid, category, offset)
