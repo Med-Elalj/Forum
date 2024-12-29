@@ -1074,6 +1074,14 @@ main {
     .nav-mobile a div.clicked {
         border-bottom: 4px solid var(--BlueGreen);
     }
+    .nav-mobile a:hover {
+        background-color: var(--WhiteBlue);
+        width:fit-content;
+        height:100%;
+        transition: 0.3s ease;
+        border-radius: 10px
+    }
+
 
     .nav-mobile a div:focus {
         outline: none;
