@@ -30,6 +30,7 @@ func main() {
 	fmt.Println(database.QuerryPostsbyUser(db, "test", 0, 5))
 
 	http.HandleFunc("/", handlers.HomePage)
+	http.HandleFunc("/infinite-scroll", handlers.InfiniteScroll)
 
 	http.HandleFunc("POST /login", handlers.Login)
 	http.HandleFunc("POST /register", handlers.Register)
@@ -44,7 +45,6 @@ func main() {
 	http.HandleFunc("/createPost", handlers.CreatePost)
 	http.HandleFunc("/PostReaction", handlers.PostReaction)
 
-	http.HandleFunc("/infinite-scroll", handlers.InfiniteScroll)
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("./frontend/assets"))))
 
 	fmt.Println("Server listening on :8080...")

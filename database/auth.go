@@ -34,7 +34,7 @@ func GetUserByUname(db *sql.DB, username string) (string, int, error) {
 	var hpassword string
 	var uid int
 	fmt.Println(username, hpassword)
-	err := db.QueryRow("SELECT id,password FROM users WHERE username=?", username).Scan(&uid, &hpassword)
+	err := db.QueryRow("SELECT id,password FROM users WHERE username=? collate NOCASE", username).Scan(&uid, &hpassword)
 	fmt.Println(username, hpassword)
 
 	if err == sql.ErrNoRows {
@@ -51,7 +51,7 @@ func GetUserByUemail(db *sql.DB, email string) (string, int, error) {
 	var hpassword string
 	var uid int
 	fmt.Println(email, hpassword)
-	err := db.QueryRow("SELECT id,password FROM users WHERE email=?", email).Scan(&uid, &hpassword)
+	err := db.QueryRow("SELECT id,password FROM users WHERE email=? collate NOCASE", email).Scan(&uid, &hpassword)
 	fmt.Println(email, hpassword)
 
 	if err == sql.ErrNoRows {

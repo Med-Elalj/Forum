@@ -30,19 +30,19 @@ func TawilPostMobile(w http.ResponseWriter, r *http.Request) {
 	Postid, err = strconv.Atoi(r.FormValue("id"))
 	if err != nil || Postid < 0 {
 		// TODO iso standard
-		ErrorPage(w, 400, errors.New("invalid TawilPostHandler 0"))
+		ErrorPage(w, "error.html", 400, errors.New("invalid TawilPostHandler 0"))
 	}
 	post, err := database.GetPostByID(DB, Postid, 0)
 	if err != nil {
 		// TODO iso standard
-		ErrorPage(w, 400, errors.New("invalid TawilPostHandler 1"))
+		ErrorPage(w, "error.html", 400, errors.New("invalid TawilPostHandler 1"))
 	}
 
 	comments, err := database.GetCommentsByPost(DB, post.ID)
 	fmt.Println(comments)
 	if err != nil {
 		// TODO iso standard
-		ErrorPage(w, 400, errors.New("invalid TawilPostHandler 2"))
+		ErrorPage(w, "error.html", 400, errors.New("invalid TawilPostHandler 2"))
 	}
 
 	template.ExecuteTemplate(w, "postmobile.html", struct {

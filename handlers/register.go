@@ -5,6 +5,10 @@ import (
 )
 
 func RegisterPage(w http.ResponseWriter, r *http.Request) {
+	redirected := RedirectToHomeIfAuthenticated(w, r)
+	if redirected {
+		return
+	}
 	getHtmlTemplate().ExecuteTemplate(w, "register.html",
 		struct {
 			Register     bool

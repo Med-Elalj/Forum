@@ -1,13 +1,12 @@
 const container = document.getElementById('container');
 const registerBtnToggle = document.getElementById('registerBtnToggle');
 const loginBtn = document.getElementById('loginBtn');
+loginBtn.addEventListener('click', () => {
+    container.classList.remove("active");
+});
 
 registerBtnToggle.addEventListener('click', () => {
     container.classList.add("active");
-});
-
-loginBtn.addEventListener('click', () => {
-    container.classList.remove("active");
 });
 
 let pass = document.getElementById("pass");
@@ -81,4 +80,5 @@ pass.addEventListener("input", () => {
 
 user.addEventListener("input", validateForm);
 email.addEventListener("input", validateForm);
+
 confirmPass.addEventListener("input", validateForm);

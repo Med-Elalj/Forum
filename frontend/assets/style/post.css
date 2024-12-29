@@ -312,7 +312,7 @@ html {
 
 .commentInput input {
     width: 100%;
-    padding: 10px;
+    padding: 10px 50px 10px 10px;
     border: 1px solid var(--GreeyD);
     border-radius: 10px;
     resize: none;
@@ -321,6 +321,7 @@ html {
     overflow-y: auto;
     font-size: 16px;
     color: var(--BlueDarker);
+    left: 0px;
 }
 
 .commentInput input:focus {
@@ -332,15 +333,22 @@ html {
 .commentInput {
     position: relative;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
 }
 
 .send-comment {
     position: absolute;
-    right: 10px;
+    right: 0px;
     color: var(--BlueGreen);
+    height: 100%;
     cursor: pointer;
     transition: all 0.3s ease;
+    /* background-color: red; */
+    width: 50px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-size: 30px;
 }
 
 .send-comment:hover {

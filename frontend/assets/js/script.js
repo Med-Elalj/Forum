@@ -31,32 +31,36 @@ async function fetchPosts(offset, type) {
                 const tweeterName = document.createElement('span');
                 tweeterName.className = 'tweeter-name post';
                 tweeterName.id = post.post_id;
-                tweeterName.innerHTML = `${post.post_title.replace(/</g, "&lt;").replace(/>/g, "&gt;")}<br><span class="tweeter-handle">@${post.author_username} ${post.post_creation_time}.</span>`;
+                tweeterName.innerHTML = `${post.post_title.replace(/</g, "&lt;").replace(/>/g, "&gt;")}<br>
+                    <span class="tweeter-handle">@${post.author_username}</span>
+                    <span class="material-symbols-outlined" id="timer">schedule</span>
+                    <span class="post-time" data-time="${post.post_creation_time}"> ${post.post_creation_time}</span>
+                    `;
 
-                const dropdown = document.createElement('div');
-                dropdown.className = 'dropdown';
+                // const dropdown = document.createElement('div');
+                // dropdown.className = 'dropdown';
 
-                const dropdownIcon = document.createElement('i');
-                dropdownIcon.className = 'material-symbols-outlined';
-                dropdownIcon.textContent = 'more_horiz';
+                // const dropdownIcon = document.createElement('i');
+                // dropdownIcon.className = 'material-symbols-outlined';
+                // dropdownIcon.textContent = 'more_horiz';
 
-                const dropdownContent = document.createElement('div');
-                dropdownContent.className = 'content';
+                // const dropdownContent = document.createElement('div');
+                // dropdownContent.className = 'content';
 
-                const dropdownList = document.createElement('ul');
+                // const dropdownList = document.createElement('ul');
 
-                const editItem = document.createElement('li');
-                editItem.innerHTML = '<span class="material-symbols-outlined">edit</span>Edit';
+                // const editItem = document.createElement('li');
+                // editItem.innerHTML = '<span class="material-symbols-outlined">edit</span>Edit';
 
-                const deleteItem = document.createElement('li');
-                deleteItem.innerHTML = '<span class="material-symbols-outlined">delete</span>Delete';
+                // const deleteItem = document.createElement('li');
+                // deleteItem.innerHTML = '<span class="material-symbols-outlined">delete</span>Delete';
 
-                dropdownList.append(editItem, deleteItem);
-                dropdownContent.appendChild(dropdownList);
-                dropdown.append(dropdownIcon, dropdownContent);
+                // dropdownList.append(editItem, deleteItem);
+                // dropdownContent.appendChild(dropdownList);
+                // dropdown.append(dropdownIcon, dropdownContent);
 
                 postHeader.appendChild(tweeterName);
-                rowTweet.append(postHeader, dropdown);
+                rowTweet.append(postHeader);
 
                 const postContent = document.createElement('div');
                 const postParagraph = document.createElement('p');
@@ -112,14 +116,10 @@ async function fetchPosts(offset, type) {
                 postsContainer.append(postCard);
             });
         });
-
-
-    postControlList()
-    readPost()
-    showLeftSidebarMobile()
-    seeMore()
-    handleLikes()
-
+        readPost()
+        showLeftSidebarMobile()
+        seeMore()
+        handleLikes()
 }
 
 function infiniteScroll() {
@@ -141,6 +141,7 @@ function infiniteScroll() {
             }
         }, 1000);
     });
+
 }
 // get Query values from url to fetch the posts
 
@@ -190,9 +191,8 @@ document.querySelectorAll('.nav-mobile a div').forEach(function (div) {
 function postControlList() {
 
     const dropdown = document.querySelectorAll('.dropdown i, .dropdown .ProfileImage')
-
+    
     dropdown.forEach(drop => {
-
         let contentSibling = drop.nextElementSibling
         drop.addEventListener('click', () => {
             contentSibling.classList.toggle("show")

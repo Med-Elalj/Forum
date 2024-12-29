@@ -106,5 +106,3 @@ function handleLikes() {
          });
     });
 }
-
-handleLikes();

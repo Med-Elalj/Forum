@@ -14,11 +14,17 @@ function ExpandComments() {
 }
 
 function CommentInputEventListenner() {
-    const commentInput = document.querySelector('.commentInput input');
+    const commentInput = document.querySelectorAll('.commentInput input, .send-comment');
 
-    commentInput.addEventListener('keypress', async (e) => {
-        if (e.key === 'Enter') {
+    commentInput.forEach(elem => {
+        elem.addEventListener('keypress', handleCommentEvent);
+        elem.addEventListener('click', handleCommentEvent);
+    });
+
+    async function handleCommentEvent(e) {
+        if (e.type === 'click' || (e.type === 'keypress' && e.key === 'Enter')) {
             e.preventDefault();
+            const commentInput = e.target.closest('.commentInput').querySelector('input');
             const comment = commentInput.value;
             commentInput.value = '';
             const postID = commentInput.id;
@@ -33,8 +39,8 @@ function CommentInputEventListenner() {
                 })
             });
             if (response.status != 200) {
-                popUp()
-                return
+                popUp();
+                return;
             }
 
             const data = await response.json();
@@ -78,12 +84,12 @@ function CommentInputEventListenner() {
                 `;
                 commentCard.querySelector('.commentData').innerText = data["Content"];
                 commentContainer.prepend(commentCard);
-                window.location.replace(url)
-                handleLikes()
-                ExpandComments()
+                window.location.replace(url);
+                handleLikes();
+                ExpandComments();
             }
         }
-    });
+    }
 }
 CommentInputEventListenner()
 ExpandComments()

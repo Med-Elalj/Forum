@@ -31,6 +31,10 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/", http.StatusFound)
 }
 func Login(w http.ResponseWriter, r *http.Request) {
+	redirected := RedirectToHomeIfAuthenticated(w, r)
+	if redirected {
+		return
+	}
 	r.ParseForm()
 	// TODO fix db and link
 	// uname := r.Form.Get("username")
@@ -45,7 +49,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	var hpassword string
 	var uid int
-
 	var err error
 	if email_RGX.MatchString(email) {
 		hpassword, uid, err = database.GetUserByUemail(DB, email)
@@ -85,7 +88,10 @@ func Login(w http.ResponseWriter, r *http.Request) {
 }
 
 func Register(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
+	redirected := RedirectToHomeIfAuthenticated(w, r)
+	if redirected {
+		return
+	}
 	r.ParseForm()
 	uemail := strings.ToLower(r.Form.Get("email"))
 	uname := strings.ToLower(r.Form.Get("username"))
@@ -116,8 +122,8 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		ErrorPage(w, "register.html", http.StatusInternalServerError, err)
 		return
 	}
-	w.WriteHeader(http.StatusCreated)
-	http.Redirect(w, r, "../", http.StatusFound)
+	SetCookie(w, token, "session", true)
+	http.Redirect(w, r, "/", http.StatusFound)
 }
 
 func validpassword(password string) bool {
