@@ -8,7 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/style/register.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/assets/style/google-icons/google-icons.css" rel="stylesheet" />
     <link rel="shortcut icon" href="/assets/images/logo.svg" type="image/svg+xml">
+    <style>
+
+    </style>
 </head>
 
 <body>
@@ -22,7 +26,10 @@
                 <input type="email" id="email" name="email" placeholder="Email" required>
                 <div id="emailMessage" class="message"><i class="material-icons check-uncheck"
                         style="font-size: 10px;">&#xe5c9;</i> Invalid email format.</div>
-                <input type="password" name="password" id="pass" placeholder="Password" required>
+                <div class="password-container">
+                    <input type="password" name="password" id="pass" placeholder="Password" required>
+                    <span class="material-symbols-outlined toggle-password">visibility_off</span>
+                </div>
                 <div class="passChecker">
                     <div class="number"><i class="material-icons check-uncheck" style="font-size: 10px;">&#xe5c9;</i> A
                         number</div>
@@ -35,7 +42,10 @@
                     <div class="upper"><i class="material-icons check-uncheck" style="font-size: 10px;">&#xe5c9;</i> A
                         capital (uppercase) letter</div>
                 </div>
-                <input type="password" id="confirmPass" placeholder="Confirmation password" required><br>
+                <div class="password-container">
+                    <input type="password" name="password" placeholder="Password" required>
+                    <span class="material-symbols-outlined toggle-password">visibility_off</span>
+                </div>
                 <div id="confirmPassMessage" class="message"><i class="material-icons check-uncheck"
                         style="font-size: 10px;">&#xe5c9;</i> Confirmation password does not match.</div>
                 <button type="submit" id="registerBtn" disabled>Register</button>
@@ -49,7 +59,10 @@
             <form method="POST" action="/login">
                 <h1>Sign In</h1>
                 <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="password" placeholder="Password" required>
+                <div class="password-container">
+                    <input type="password" name="password" placeholder="Password" required>
+                    <span class="material-symbols-outlined toggle-password">visibility_off</span>
+                </div>
                 <p>Don't have an account? <a href="#">Sign Up</a></p>
                 <button type="submit">Sign In</button>
                 <div class="mobile-switch">
@@ -74,31 +87,35 @@
         </div>
     </div>
     <script>
-        function switchForm(type) {
-            const loginForm = document.querySelector('.sign-in');
-            const registerForm = document.querySelector('.sign-up');
-            const buttons = document.querySelectorAll('.mobile-switch button');
-
-            // Remove active class from all forms
-            [loginForm, registerForm].forEach(form => {
-                form.classList.remove('active-form');
+        document.querySelectorAll('.toggle-password').forEach(toggle => {
+            toggle.addEventListener('click', function () {
+                const input = this.previousElementSibling;
+                const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+                input.setAttribute('type', type);
+                this.textContent = type === 'password' ? 'visibility_off' : 'visibility';
             });
+        });
 
-            // Add active class to selected form
-            if (type === 'login') {
-                loginForm.classList.add('active-form');
-            } else {
-                registerForm.classList.add('active-form');
-            }
+        // Remove active class from all forms
+        [loginForm, registerForm].forEach(form => {
+            form.classList.remove('active-form');
+        });
 
-            // Update button states
-            buttons.forEach(button => {
-                button.classList.remove('active');
-                if (button.textContent.toLowerCase() === type) {
-                    button.classList.add('active');
-                }
-            });
+        // Add active class to selected form
+        if (type === 'login') {
+            loginForm.classList.add('active-form');
+        } else {
+            registerForm.classList.add('active-form');
         }
+
+        // Update button states
+        buttons.forEach(button => {
+            button.classList.remove('active');
+            if (button.textContent.toLowerCase() === type) {
+                button.classList.add('active');
+            }
+        });
+    
 
         // Initialize mobile view
         window.addEventListener('load', () => {
