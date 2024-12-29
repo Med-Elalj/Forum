@@ -193,3 +193,39 @@ postControlList()
 readPost()
 showLeftSidebarMobile()
 seeMore()
+
+// change the time to be more readable
+function timeAgo(date) {
+    const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+    
+    if (seconds < 60) return 'just now';
+    if (seconds < 3600) return `${Math.floor(seconds/60)}m ago`;
+    if (seconds < 86400) return `${Math.floor(seconds/3600)}h ago`;
+    if (seconds < 604800) return `${Math.floor(seconds/86400)}d ago`;
+    if (seconds < 2592000) return `${Math.floor(seconds/604800)}w ago`;
+    if (seconds < 31536000) return `${Math.floor(seconds/2592000)}mo ago`;
+    return `${Math.floor(seconds/31536000)}y ago`;
+}
+
+function updateAllTimes() {
+    const timeElements = document.querySelectorAll('.post-time, .commentTime, .postDate');
+    timeElements.forEach(el => {
+        if (el.dataset.time) {
+            el.textContent = timeAgo(el.dataset.time);
+        }
+    });
+}
+const observer = new MutationObserver(() => {
+    updateAllTimes();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateAllTimes();
+    
+    // Observe DOM changes
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+    setInterval(updateAllTimes, 60000);
+});

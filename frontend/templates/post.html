@@ -7,7 +7,8 @@
             <span class="Title">{{.Post.Title}}</span>
             <div class="authorContain">
                 <span class="authorName">@{{.Post.UserName}}</span>
-                <span class="postDate">{{.Post.CreatedAt}}</span>
+                    <span class="material-symbols-outlined" id="timer">schedule</span>
+                <span class="postDate" data-time="{{.Post.CreatedAt}}">{{.Post.CreatedAt}}</span>
             </div>
         </div>
     </div>
@@ -55,12 +56,9 @@
 
             <div class="commentAuthor">
                 <div class="commentAuthorInfo">
-                    <span class="commentAuthorName">
-                        @{{.UserName}}
-                        <span class="commentTime">
-                            {{.CreatedAt}}
-                        </span>
-                    </span>
+                    <span class="commentAuthorName">@{{.UserName}}</span>
+                    <span class="material-symbols-outlined" id="timer">schedule</span>
+                    <span class="commentTime" data-time="{{.CreatedAt}}"></span>
                     <div class="commentReaction DisableUserSelect">
                         <span class="like" id="{{.ID}}">
                             <span class="material-symbols-outlined">

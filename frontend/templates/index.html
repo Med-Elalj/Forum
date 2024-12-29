@@ -19,15 +19,19 @@
 <body>
     <!-- TODO Never injected to HTML if User not Logedin -->
     {{if .Profile.UserName}}
-        {{template "google-icons/google-icons/create-post"}}
+    {{template "google-icons/google-icons/create-post"}}
     {{end}}
 
     <div class="postContainer closed"></div>
     <div class="ParentContainer">
         {{template "header" .Profile}}
         <div class="nav-mobile">
-            <a href="#categories"><div>Categories</div></a>
-            <a href="#posts"><div>For you</div></a>
+            <a href="#categories">
+                <div>Categories</div>
+            </a>
+            <a href="#posts">
+                <div>For you</div>
+            </a>
         </div>
         {{template "left-sidebar" .Profile}}
         {{template "profile-sidebar" .}}
@@ -59,9 +63,10 @@
                                 <span class="tweeter-name post" id="{{$post.ID}}">
                                     {{$post.Title}}
                                     <!-- Post Author Name And Date -->
-                                    <br><span class="tweeter-handle">@{{$post.UserName}}
-                                        {{$post.CreatedAt}}.</span>
-                                </span>
+                                    <br>
+                                    <span class="tweeter-handle">@{{$post.UserName}}</span>
+                                    <span class="material-symbols-outlined" id="timer">schedule</span>
+                                    <span class="post-time" data-time="{{$post.CreatedAt}}">{{$post.CreatedAt}}</span>
                             </div>
                             {{if eq $.Profile.UserName $post.UserName}}
                             <!-- Control Posts -->
@@ -92,13 +97,17 @@
                         <div class="post-footer">
                             <div class="react" id="{{$post.ID}}">
                                 <!-- Post Like Counter -->
-                                <div class='counters like getLike {{if eq $post.Liked "1"}}FILL{{end}}' id="{{$post.ID}}">
-                                    <i class="material-symbols-outlined popup-icon getLike" id="{{$post.ID}}">thumb_up</i>
+                                <div class='counters like getLike {{if eq $post.Liked "1"}}FILL{{end}}'
+                                    id="{{$post.ID}}">
+                                    <i class="material-symbols-outlined popup-icon getLike"
+                                        id="{{$post.ID}}">thumb_up</i>
                                     <span class="getLike" id="{{$post.ID}}">{{$post.LikeCount}}</span>
                                 </div>
                                 <!-- Post Dislike Counter -->
-                                <div class='counters dislike getDisLike {{if eq $post.Liked "0"}}FILL{{end}}' id="{{$post.ID}}">
-                                    <i class="material-symbols-outlined popup-icon getDisLike" id="{{$post.ID}}">thumb_down</i>
+                                <div class='counters dislike getDisLike {{if eq $post.Liked "0"}}FILL{{end}}'
+                                    id="{{$post.ID}}">
+                                    <i class="material-symbols-outlined popup-icon getDisLike"
+                                        id="{{$post.ID}}">thumb_down</i>
                                     <span class="getDisLike" id="{{$post.ID}}">{{$post.DislikeCount}}</span>
                                 </div>
                             </div>
@@ -120,25 +129,25 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
     <div id="popupContainer"></div>
     <!-- {{template "footer"}} -->
     {{if .Profile.UserName}}
-        <script>
-            function createPostListner() {
-                const CreatePostArea = document.querySelector(".new-post-header")
-                CreatePostArea.addEventListener('click', () => {
-                    if (!document.getElementById("CreatePostScriptInjected")) {
-                        const script = document.createElement("script")
-                        script.id = "CreatePostScriptInjected"
-                        script.src = "/assets/js/createPost.js"
-                        document.body.appendChild(script)
-                    }
-                })
-            }
-            createPostListner()
-        </script>>
+    <script>
+        function createPostListner() {
+            const CreatePostArea = document.querySelector(".new-post-header")
+            CreatePostArea.addEventListener('click', () => {
+                if (!document.getElementById("CreatePostScriptInjected")) {
+                    const script = document.createElement("script")
+                    script.id = "CreatePostScriptInjected"
+                    script.src = "/assets/js/createPost.js"
+                    document.body.appendChild(script)
+                }
+            })
+        }
+        createPostListner()
+    </script>>
     {{end}}
     <script src="/assets/js/profile.js"></script>
     <script src="/assets/js/likes.js"></script>
