@@ -7,7 +7,8 @@
             <span class="Title">{{.Post.Title}}</span>
             <div class="authorContain">
                 <span class="authorName">@{{.Post.UserName}}</span>
-                <span class="postDate">{{.Post.CreatedAt}}</span>
+                    <span class="material-symbols-outlined" id="timer">schedule</span>
+                <span class="postDate" data-time="{{.Post.CreatedAt}}">{{.Post.CreatedAt}}</span>
             </div>
         </div>
     </div>
@@ -54,12 +55,9 @@
 
             <div class="commentAuthor">
                 <div class="commentAuthorInfo">
-                    <span class="commentAuthorName">
-                        @{{.UserName}}
-                        <span class="commentTime">
-                            {{.CreatedAt}}
-                        </span>
-                    </span>
+                    <span class="commentAuthorName">@{{.UserName}}</span>
+                    <span class="material-symbols-outlined" id="timer">schedule</span>
+                    <span class="commentTime" data-time="{{.CreatedAt}}"></span>
                     <div class="commentReaction DisableUserSelect">
                         <span isPost="false" class='like post  {{/*if eq .Liked "0"}}FILL{{end*/}}'
                             id="{{.ID}}"><!-- TODO Handle Like Struct -->
@@ -82,8 +80,9 @@
         {{ end }}
     </div>
     <div class="commentContainer">
-        <div class="commentInput ">
-            <input type="text" name="commment" id="{{.Post.ID}}" placeholder="Comment....">
+        <div class="commentInput">
+            <input type="text" name="commment" id="{{.Post.ID}}" placeholder="Comment">
+            <span class="material-symbols-outlined send-comment">send</span>
         </div>
     </div>
 </div>

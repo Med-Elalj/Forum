@@ -38,6 +38,7 @@ func main() {
 	http.HandleFunc("/logout", handlers.Logout)
 
 	http.HandleFunc("/post/{id}", handlers.GetPost)
+	http.HandleFunc("/post", handlers.TawilPostMobile)
 
 	http.HandleFunc("/CreateComment", handlers.AddCommentHandler)
 	http.HandleFunc("/createPost", handlers.CreatePost)

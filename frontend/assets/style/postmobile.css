@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-* {
-    margin: 0px;
-    padding: 0px;
+*{
+    margin:0px;
+    padding:0px;
     box-sizing: border-box;
 }
 
@@ -15,21 +15,20 @@ html {
     color: var(--BlueDarker) !important;
 }
 
-.ProfileAndPost {
+.profile-and-post{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 90vh;
-    width: 45%;
+    /* height: 90vh; */
+    /* width: 45%; */
     border-radius: 10px 0px 0px 10px;
     box-shadow: var(--shadow);
     z-index: 3;
-    scroll-behavior: smooth;
-    overflow: scroll;
+    /* scroll-behavior: smooth; */
+    /* overflow: scroll; */
     background-color: var(--Greey);
 }
-
-.postContent {
+.post-content{
     /* background-color: var(--Greey); */
     padding: 10px;
     gap: 4px;
@@ -52,39 +51,33 @@ html {
     /* max-width: 100%; */
     /* display: inline-block; */
 }
-
-.postContent img {
+.post-content img{
     width: 100%;
     border-radius: 5px;
 }
-
-.postContent pre {
+.post-content pre{
     /* white-space: pre-wrap; */
     white-space: pre-wrap;
     word-wrap: break-word;
 }
-
-.postComments {
+.post-comments{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     background-color: var(--WhiteBlue);
-    height: 90vh;
-    width: 45%;
+    /* height: 90vh; */
+    /* width: 45%; */
     border-radius: 0px 10px 10px 0px;
     box-shadow: var(--shadow);
     z-index: 3;
-    scroll-behavior: smooth;
-    overflow: scroll;
-
+    /* scroll-behavior: smooth; */
+    /* overflow: scroll; */
 }
-
-.Comments {
+.comments{
     overflow: scroll;
     height: 100%;
 }
-
-.commentCard {
+.comment-card{
     display: flex;
     background-color: var(--White);
     padding: 5px;
@@ -92,25 +85,22 @@ html {
     margin: 10px;
 
 }
-
-.commentAuthor {
+.comment-author{
     display: flex;
     flex-direction: column;
     width: 100%;
     overflow: hidden;
 }
 
-.commentReaction {
+.comment-reaction{
     display: flex;
-    justify-content: right;
+    justify-content:right;
     gap: 10px;
     margin-right: 10px;
     margin-left: auto;
-    font-size: 0.8rem;
+    font-size: 0.8rem; 
 }
-
-.like,
-.dislike {
+.like, .dislike{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -119,18 +109,13 @@ html {
     cursor: pointer;
     color: var(--GreeyD);
 }
-
-.CommentButtons {
+.comment-buttons{
     margin-left: auto;
-    color: var(--GreeyD);
 }
-
-.like:hover,
-.dislike:hover {
+.like:hover, .dislike:hover{
     color: var(--BlueDarker);
 }
-
-.postInfo {
+.post-info{
     display: flex;
     position: sticky;
     top: 0px;
@@ -141,40 +126,32 @@ html {
     box-shadow: var(--shadowLittle);
     width: 100%;
 }
-
-.authorImage img,
-.commentAuthorImage img {
+.author-image img, .comment-author-image img{
     width: 40px;
     height: 40px;
     border-radius: 50%;
 }
-
-.authorImage img {
+.author-image img{
     border: 2px solid #088395;
 }
-
-.commentAuthorImage {
+.comment-author-image{
     display: flex;
     flex-direction: column;
 }
-
-.commentAuthorImage img {
+.comment-author-image img{
     border: 4px solid #088395;
     margin: 3px;
 }
-
-.authorInfo {
+.author-info{
     display: block;
     margin-left: 10px;
     gap: 5px;
     width: calc(100% - 40px);
 }
-
-.center {
+.center{
     justify-content: center;
 }
-
-.commentAuthorInfo {
+.comment-author-info{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -186,12 +163,10 @@ html {
     width: 100%;
     /* background-color: red; */
 }
-
-.Testing {
+.testing {
     display: flex;
 }
-
-.authorInfo .Title {
+.comment-author-info .title{
     display: inline-block;
     font-size: 26px;
     font-weight: bold;
@@ -206,57 +181,48 @@ html {
     max-width: 100%;
     /* display: inline-block; */
 }
-
-.authorInfo .authorName {
+.author-info .author-name{
     font-weight: bold;
 }
-
-.authorInfo .postDate {
+.author-info .post-date{
     font-weight: 300;
     font-size: 14px;
     color: var(--Black);
 }
-
-.commentAuthorName {
+.comment-author-name{
     color: var(--DarkBlue);
 }
-
-.commentAuthorName .commentTime {
+.comment-author-name .comment-time {
     color: var(--GreeyD);
     font-size: 14px;
-    font-weight: 300;
-    /* Ensures the date doesn't get bold */
+    font-weight: 300;  /* Ensures the date doesn't get bold */
 }
-
-.addToFavourite span {
-    color: var(--GreeyD);
+.add-to-favourite span{
+    color:  var(--GreeyD);
     font-size: 44px;
 }
-
-.DisableUserSelect {
+.disable-user-select{
     -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+    -ms-user-select:none;
+    user-select:none;
 }
 
-.addToFavourite span:hover {
-    color: var(--BlueGreen);
+.add-to-favourite span:hover{
+    color:  var(--BlueGreen);
     font-size: 44px;
 }
-
-.addToFavourite {
+.add-to-favourite{
     cursor: pointer;
     margin-left: auto;
 }
 
-.commentInfo {
+.comment-info{
     display: block;
     word-wrap: break-word;
     /* margin-right: 40px; */
     /* margin: 0px 10px; */
 }
-
-.collapse {
+.collapse{
     height: 50px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -264,19 +230,16 @@ html {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
-.commentData {
+.comment-data{
     margin-top: 5px;
     height: auto;
     overflow: hidden;
     cursor: pointer;
     font-weight: 200;
 }
-
-.hidden {
+.hidden{
     display: none;
 }
-
 /* .readMore{
     display: inline-block;
     background-color: var(--BlueDarker);
@@ -286,32 +249,30 @@ html {
     border-radius: 4px;
 } */
 
-.commentContainer {
+.comment-container {
     position: sticky;
     bottom: 0;
     padding: 10px;
-    z-index: 10;
+    z-index: 10; 
 }
 
-.PostReactionData {
+.post-reaction-data{
     display: flex;
     position: sticky;
     bottom: 0;
     background-color: var(--White);
     padding: 10px;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
     z-index: 10;
     border-radius: 10px;
     margin: 10px;
 }
-
-.LikeButtons {
+.like-buttons{
     display: flex;
     gap: 10px;
 }
-
-.commentInput input {
-    width: 100%;
+.comment-input input {
+    width: 100%; 
     padding: 10px;
     border: 1px solid var(--GreeyD);
     border-radius: 10px;
@@ -323,32 +284,9 @@ html {
     color: var(--BlueDarker);
 }
 
-.commentInput input:focus {
+.comment-input input:focus {
     outline: none;
     border-color: var(--BlueGreen);
     box-shadow: 0 0 5px rgba(8, 131, 149, 0.3);
 }
 
-.commentInput {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.send-comment {
-    position: absolute;
-    right: 10px;
-    color: var(--BlueGreen);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.send-comment:hover {
-    color: var(--BlueDarker);
-    transform: scale(1.1);
-}
-
-.send-comment:active {
-    transform: scale(0.9);
-    color: var(--primary-glow);
-}

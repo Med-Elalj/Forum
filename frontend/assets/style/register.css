@@ -262,6 +262,7 @@ body {
 .small-icon {
     font-size: 10px;
 }
+
 .error-message {
     color: red;
     font-size: 10px;
@@ -272,6 +273,24 @@ body {
 
 .mobile-switch {
     display: none;
+}
+
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-container input {
+    width: 100%;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #757575;
 }
 
 @media screen and (max-width: 768px) {

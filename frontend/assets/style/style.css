@@ -94,7 +94,6 @@ a {
     position: fixed;
     left: 2.5%;
     border-right: solid 1px var(--GreeyD);
-
 }
 
 
@@ -187,7 +186,7 @@ hr {
 } */
 
 /* .ParentContainer{
-    
+
 } */
 ::placeholder {
     color: var(--BlueGreen);
@@ -277,7 +276,7 @@ nav {
 
 .tweet-button {
     background-color: var(--BlueGreenWhite);
-    width: 100%;
+    width: 80%;
     border-radius: 99px;
     margin-top: 15px;
     cursor: pointer;
@@ -351,7 +350,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding-right: 4%;
+    padding-right: 3%;
 }
 
 
@@ -577,10 +576,22 @@ main {
 .tweeter-handle {
     color: rgb(110, 118, 125);
     font-size: 1rem;
-    font-weight: 300;
+    font-weight: 400;
     margin-left: 3px;
 }
 
+.post-time {
+    color: var(--GreeyD);
+    font-size: 0.8rem;
+    font-weight: 300;
+    margin-left: -3px;
+}
+#timer{
+    color: var(--GreeyD);
+    font-size: 1rem;
+    font-weight: 300;
+    margin-left: 3px;
+}
 .post-content {
     position: relative;
     display: flex;
@@ -998,7 +1009,6 @@ main {
         width: 90%;
         height: 100%;
         position: fixed;
-        background-color: var(--GreeyTransparant);
         left: -100%;
         transition: left 0.75s;
         z-index: 12;
@@ -1023,6 +1033,10 @@ main {
 
     .tweet-button {
         width: 100%;
+    }
+
+    .main-feed {
+        padding-right: 0px;
     }
 
     .main-flex {
@@ -1066,7 +1080,8 @@ main {
 
     #posts:target,
     #categories:target {
-        display: block;
+        display: flex;
+        justify-content: center;
     }
 
     .nav-mobile a div {
@@ -1097,6 +1112,37 @@ main {
 
     .nav-mobile a div.clicked {
         border-bottom: 4px solid var(--BlueGreen);
+    }
+
+    .nav-mobile a div {
+        display: inline-block;
+        transition: border-bottom 0.3s ease;
+    }
+
+    .nav-mobile a:hover {
+        background-color: var(--WhiteBlue);
+        width:fit-content;
+        height:100%;
+        transition: 0.3s ease;
+        border-radius: 10px
+    }
+
+
+    .nav-mobile a div:focus {
+        outline: none;
+        border-bottom: 4px solid var(--BlueGreen);
+    }
+
+    .SignOptions .Buttons {
+        display: flex;
+        align-items: center;
+        height: fit-content;
+        background-color: var(--White);
+        color: var(--BlueGreen);
+        border-radius: 10px;
+        transition: all 0.5s;
+        font-size: 11px;
+        width: fit-content;
     }
 
 }
@@ -1364,4 +1410,6 @@ main {
     border-radius: 19px;
     margin-top: 10px;
     box-shadow: var(--shadow);
+    border-bottom: solid 1px grey;
+    z-index: 10;
 }
