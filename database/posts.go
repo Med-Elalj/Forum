@@ -108,7 +108,6 @@ func QuerryPostsbyUser(db *sql.DB, username string, user_id, ammount int) ([]str
 func CreatePost(db *sql.DB, UserID int, title, content string, categories []string) (error, int) {
 	tx, err := db.Begin()
 	if err != nil {
-		fmt.Println("CreatePost 1", err)
 		return err, -1
 	}
 	defer tx.Rollback()

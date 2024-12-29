@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"forum/database"
 	"net/http"
 )
@@ -34,24 +35,29 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 	}{}
 	err = json.NewDecoder(r.Body).Decode(&data)
 	if err != nil {
-		ErrorJs(w, http.StatusBadRequest, errors.New("invalid json"))
+		fmt.Println("invalid json - error 1")
+		ErrorJs(w, http.StatusBadRequest, errors.New("invalid json - error 1"))
 		return
 	}
 	if len(data.Title) > 60 {
-		ErrorJs(w, http.StatusBadRequest, errors.New("title is too long"))
+		fmt.Println("title is too long - error 2")
+		ErrorJs(w, http.StatusBadRequest, errors.New("title is too long - error 2"))
 		return
 	}
 	if len(data.Content) > 1000 {
-		ErrorJs(w, http.StatusBadRequest, errors.New("content is too long"))
+		fmt.Println("content is too long - error 3")
+		ErrorJs(w, http.StatusBadRequest, errors.New("content is too long - error 3"))
 		return
 	}
 	if len(data.Categories) == 0 {
-		ErrorJs(w, http.StatusBadRequest, errors.New("no categories"))
+		fmt.Println("no categories - error 4")
+		ErrorJs(w, http.StatusBadRequest, errors.New("no categories - error 4"))
 		return
 	}
 	err, id := database.CreatePost(DB, UserId, data.Title, data.Content, data.Categories)
 	if err != nil {
-		ErrorJs(w, http.StatusInternalServerError, errors.New("error creating post"))
+		fmt.Println("error creating post - error 5")
+		ErrorJs(w, http.StatusInternalServerError, errors.New("error creating post - error 5"))
 		return
 	}
 	w.WriteHeader(http.StatusOK)

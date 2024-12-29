@@ -2,16 +2,22 @@ package handlers
 
 import (
 	"errors"
-	"fmt"
 	"forum/database"
 	"net/http"
 )
 
+var structError = map[string]interface{}{
+	"StatuCode":    http.StatusBadRequest,
+	"MessageError": errors.New("email or username already taken"),
+	"Register":     false,
+}
+
 func CheckAuthentication(w http.ResponseWriter, r *http.Request) (userID int, err error) {
 	c, err := r.Cookie("session")
 	if err != nil && err.Error() != "http: named cookie not present" {
-		ErrorPage(w, "error.html", http.StatusUnauthorized, errors.New("unauthorized"+err.Error()))
-		fmt.Println(err)
+		structError["StatuCode"] = http.StatusUnauthorized
+		structError["MessageError"] = "unauthorized " + err.Error()
+		ErrorPage(w, "error.html", structError)
 		return
 	}
 	if err != nil {
@@ -20,7 +26,7 @@ func CheckAuthentication(w http.ResponseWriter, r *http.Request) (userID int, er
 
 	userID, err = database.GetUidFromToken(DB, c.Value)
 	if err != nil {
-		ErrorPage(w, "error.html", http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
+		Logout(w, r)
 		return
 	}
 	return
@@ -34,3 +40,16 @@ func RedirectToHomeIfAuthenticated(w http.ResponseWriter, r *http.Request) bool 
 	}
 	return false
 }
+
+func CheckUserExists(uemail, uname string) bool {
+	hashpassrd, userId, err := database.GetUserByUname(DB, uname)
+	if (hashpassrd != "" && userId != 0) || err == nil {
+		return true
+	}
+	hashpassrd, userId, err = database.GetUserByUemail(DB, uemail)
+	if (hashpassrd != "" && userId != 0) || err == nil {
+		return true
+	}
+	return false
+}
+

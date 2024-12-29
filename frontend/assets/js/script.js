@@ -91,11 +91,13 @@ async function fetchPosts(offset, type) {
                 react.id = post.ID;
 
                 const likeCounter = document.createElement('div');
+                likeCounter.setAttribute('isPost', 'true');
                 likeCounter.className = `counters like ${post.view && post.view === '1' ? 'FILL' : ''}`;
                 likeCounter.id = post.post_id;
                 likeCounter.innerHTML = `<i class="material-symbols-outlined popup-icon" id="${post.ID}">thumb_up</i><span id="${post.post_id}">${post.like_count}</span>`;
 
                 const dislikeCounter = document.createElement('div');
+                dislikeCounter.setAttribute('isPost', 'true');
                 dislikeCounter.className = `counters dislike ${post.view && post.view === '0' ? 'FILL' : ''}`;
                 dislikeCounter.id = post.post_id;
                 dislikeCounter.innerHTML = `<i class="material-symbols-outlined popup-icon" id="${post.ID}">thumb_down</i><span id="${post.post_id}">${post.dislike_count}</span>`;
@@ -147,7 +149,7 @@ function infiniteScroll() {
 
 
 infiniteScroll()
-fetchPosts(10, type)
+fetchPosts(0, type)
 
 
 //////////////////// Popup function //////////////////

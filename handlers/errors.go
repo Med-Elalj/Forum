@@ -5,12 +5,9 @@ import (
 	"net/http"
 )
 
-func ErrorPage(w http.ResponseWriter,page string, status int, err error) {
-	w.WriteHeader(status)
-	getHtmlTemplate().ExecuteTemplate(w, page, map[string]interface{}{
-		"StatuCode":    status,
-		"MessageError": err,
-	})
+func ErrorPage(w http.ResponseWriter, page string, data map[string]interface{}) {
+	w.WriteHeader(data["StatuCode"].(int))
+	getHtmlTemplate().ExecuteTemplate(w, page, data)
 }
 
 func ErrorJs(w http.ResponseWriter, status int, err error) {

@@ -40,7 +40,6 @@ function createPost() {
             content,
             categories
         };
-        console.log("data", data);
         
         const response = await fetch('/createPost', {
             method: 'POST',
@@ -49,7 +48,7 @@ function createPost() {
             },
             body: JSON.stringify(data),
         });
-        console.log(response.status );
+        console.log("====>",response.status );
         
         if (response.status === 200) {
             
@@ -102,13 +101,16 @@ function createPost() {
             form.reset();
             // Recall Function To append new post to their Lestining Buttons
             seeMore()
-            postControlList()
             readPost() 
             handleLikes()
-
-        } else {
-            alert("Error Creating Post");
+            createPostListner()
+        }else{
+            ErrorBox.style.display = "flex"
+            document.querySelector(".message").innerText = "post with the same title and content already exist"
+            setTimeout(function(){
+                ErrorBox.style.display = "none"
+            }, 5000)
+            return;
         }
     });
 }
-createPost();

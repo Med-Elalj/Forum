@@ -64,13 +64,7 @@
 
             CreatePostArea.forEach(elem => {
                 elem.addEventListener('click', () => {
-
-                    if (!document.getElementById("CreatePostScriptInjected")) {
-                        const script = document.createElement("script")
-                        script.id = "CreatePostScriptInjected"
-                        script.src = "/assets/js/createPost.js"
-                        document.body.appendChild(script)
-                    }
+                    createPost();
                 })
             })
         }
@@ -87,6 +81,7 @@
     {{end}}
     {{if .Profile.UserName}}
     <script src="/assets/js/profile.js"></script>
+    <script src="/assets/js/createPost.js"></script>
     {{end}}
     <script src="/assets/js/likes.js"></script>
     <script src="/assets/js/script.js"></script>

@@ -63,6 +63,11 @@
                 <div class="mobile-switch">
                     <button onclick="switchForm('login')" class="active">Login</button>
                 </div>
+                {{if .MessageError}}
+                <div class="ErrorMessage">
+                    <i class="material-icons" style="font-size: 14px;">&#xe000;</i> {{.MessageError}}
+                </div>
+                {{end}}
                 
             </form>
         </div>

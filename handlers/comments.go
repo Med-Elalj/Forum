@@ -6,6 +6,7 @@ import (
 	"forum/database"
 	"net/http"
 	"strconv"
+	"strings"
 )
 
 func AddCommentHandler(w http.ResponseWriter, r *http.Request) {
@@ -38,6 +39,10 @@ func AddCommentHandler(w http.ResponseWriter, r *http.Request) {
 		Comment string
 	}{}
 	err = json.NewDecoder(r.Body).Decode(&data)
+	if len(data.Comment) == 0 || strings.TrimSpace(data.Comment) == "" {
+		ErrorJs(w, http.StatusBadRequest, errors.New("invalid comment"))
+		return
+	}
 	if err != nil {
 		ErrorJs(w, http.StatusBadRequest, errors.New("invalid json"))
 		return
@@ -56,8 +61,8 @@ func AddCommentHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]interface{}{
 		"status":    "ok",
-		"UserName":  UserProfile.UserName, // TODO get username
-		"CreatedAt": "now",
+		"UserName":  UserProfile.UserName,
+		"CreatedAt": "just now",
 		"CommentID": id,
 		"Content":   data.Comment,
 	})

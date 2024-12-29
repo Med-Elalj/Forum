@@ -27,7 +27,10 @@ func GetPost(w http.ResponseWriter, r *http.Request) {
 	// TODO check for edge cases
 	c, err := r.Cookie("session")
 	if err != nil && err.Error() != "http: named cookie not present" {
-		ErrorPage(w,"error.html",  http.StatusUnauthorized, errors.New("unauthorized"+err.Error()))
+		ErrorPage(w, "error.html", map[string]interface{}{
+			"StatuCode":    http.StatusUnauthorized,
+			"MessageError": "unauthorized " + err.Error(),
+		})
 		fmt.Println(err)
 		return
 	}
@@ -37,22 +40,36 @@ func GetPost(w http.ResponseWriter, r *http.Request) {
 
 	uid, err := database.GetUidFromToken(DB, c.Value)
 	if err != nil {
-		ErrorPage(w, "error.html", http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
+		ErrorPage(w, "error.html", map[string]interface{}{
+			"StatuCode":    http.StatusUnauthorized,
+			"MessageError": "unauthorized " + err.Error(),
+		})
 		return
 	}
 	Postid, err = strconv.Atoi(r.PathValue("id"))
 	if err != nil || Postid < 0 {
-		ErrorPage(w, "error.html", 400, errors.New("invalid TawilPostHandler 0"))
+		ErrorPage(w, "error.html", map[string]interface{}{
+			"StatuCode":    http.StatusBadRequest,
+			"MessageError": "Badrequest invalid post id " + err.Error(),
+		})
+		return
 	}
 	post, err := database.GetPostByID(DB, Postid, uid)
 	if err != nil {
-		ErrorPage(w, "error.html", 400, errors.New("invalid TawilPostHandler 1"))
+		ErrorPage(w,"error.html", map[string]interface{}{
+			"StatuCode":    http.StatusInternalServerError,
+			"MessageError": "internal server error" + err.Error(),
+		})
+		return
 	}
 
 	comments, err := database.GetCommentsByPost(DB, post.ID)
 	fmt.Println(comments)
 	if err != nil {
-		ErrorPage(w, "error.html", 400, errors.New("invalid TawilPostHandler 2"))
+		ErrorPage(w,"error.html", map[string]interface{}{
+			"StatuCode":    http.StatusInternalServerError,
+			"MessageError": "internal server error trying to get comments " + err.Error(),
+		})
 	}
 
 	template.ExecuteTemplate(w, "post.html", struct {
@@ -64,6 +81,7 @@ func GetPost(w http.ResponseWriter, r *http.Request) {
 func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 	c, err := r.Cookie("session")
 	if err != nil && err.Error() != "http: named cookie not present" {
+		fmt.Println("-==================================-")
 		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized"+err.Error()))
 		fmt.Println(err)
 		return

@@ -103,6 +103,15 @@ BEGIN
 END;`,
 		[]string{},
 	},
+	{"one_session_per_user",
+		`CREATE TRIGGER one_session_per_user
+		BEFORE INSERT ON sessions
+		FOR EACH ROW
+		BEGIN
+		DELETE FROM sessions WHERE user_id = NEW.user_id;
+		END;`,
+		[]string{},
+	},
 	{
 		"comment_count_insert",
 		`CREATE TRIGGER comment_count_insert

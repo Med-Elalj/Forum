@@ -81,8 +81,8 @@
     </div>
     <div class="commentContainer">
         <div class="commentInput">
-            <input type="text" name="commment" id="{{.Post.ID}}" placeholder="Comment">
-            <span class="material-symbols-outlined send-comment">send</span>
+            <input type="text" name="commment" id="{{.Post.ID}}" placeholder="Comment" required maxlength="255">
+            <span class="material-symbols-outlined send-comment DisableUserSelect">send</span>
         </div>
     </div>
 </div>

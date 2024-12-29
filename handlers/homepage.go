@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"errors"
+	"fmt"
 	"forum/structs"
 	"log"
 	"net/http"
@@ -11,12 +11,14 @@ import (
 
 func HomePage(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
-		ErrorPage(w, "error.html", http.StatusNotFound, errors.New("page not found"))
+		structError["StatuCode"] = http.StatusNotFound
+		structError["MessageError"] = "page not found"
+		ErrorPage(w, "error.html", structError)
 		return
 	}
 	template := getHtmlTemplate()
 
-	userId , err := CheckAuthentication(w, r)
+	userId, err := CheckAuthentication(w, r)
 	if err != nil {
 		return
 	}
@@ -30,10 +32,15 @@ func HomePage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	categories, err := database.GetCategoriesWithPostCount(DB)
+
 	if err != nil {
-		ErrorPage(w, "error.html", http.StatusInternalServerError, errors.New("error getting categories from database"))
+		structError["StatuCode"] = http.StatusInternalServerError
+		structError["MessageError"] = "error getting categories from database " + err.Error()
+		ErrorPage(w, "error.html", structError)
+		fmt.Println(err)
+		return
 	}
-	if r.FormValue("type") != "" { //?type=home
+	if r.FormValue("type") != "" {
 		profile.CurrentPage = r.FormValue("type")
 		profile.Category = r.FormValue("category")
 	} else {
@@ -47,7 +54,6 @@ func HomePage(w http.ResponseWriter, r *http.Request) {
 		Categories structs.Categories
 	}{nil, profile, categor})
 	if err != nil {
-		// TODO remove fatal so the server doesn't stop
-		log.Fatal(err)
+		fmt.Println("error executing template", err)
 	}
 }
