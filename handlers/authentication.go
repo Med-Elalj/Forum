@@ -28,7 +28,7 @@ func CheckAuthentication(w http.ResponseWriter, r *http.Request) (userID int, er
 
 func RedirectToHomeIfAuthenticated(w http.ResponseWriter, r *http.Request) bool {
 	userID, err := CheckAuthentication(w, r)
-	if userID != 0 || err == nil {
+	if userID != 0 && err == nil {
 		http.Redirect(w, r, "/", http.StatusFound)
 		return true
 	}
