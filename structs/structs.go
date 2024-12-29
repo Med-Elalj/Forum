@@ -13,7 +13,7 @@ type Comment struct {
 	DislikeCount int
 	Content      string
 	CreatedAt    time.Time
-	Liked		string
+	Liked        string
 }
 
 type Post struct {
@@ -44,6 +44,8 @@ type Profile struct {
 	ArticleCount int
 	CommentCount int
 	CreatedAt    time.Time
+	CurrentPage  string
+	Category	string
 }
 
 type Categories map[string]int

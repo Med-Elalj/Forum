@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="CommentButtons">
-            <div class="like DisableUserSelect">
+            <div class="DisableUserSelect">
                 <span class="material-symbols-outlined" id="{{.Post.ID}}">comment</span>
                 {{.Post.CommentCount}}
             </div>
@@ -61,7 +61,8 @@
                         </span>
                     </span>
                     <div class="commentReaction DisableUserSelect">
-                        <span isPost="false" class='like post  {{/*if eq .Liked "0"}}FILL{{end*/}}' id="{{.ID}}"><!-- TODO Handle Like Struct -->
+                        <span isPost="false" class='like post  {{/*if eq .Liked "0"}}FILL{{end*/}}'
+                            id="{{.ID}}"><!-- TODO Handle Like Struct -->
                             <i class="material-symbols-outlined">
                                 thumb_up
                             </i>

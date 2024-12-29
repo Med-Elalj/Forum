@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-*{
-    margin:0px;
-    padding:0px;
+* {
+    margin: 0px;
+    padding: 0px;
     box-sizing: border-box;
 }
 
@@ -15,7 +15,7 @@ html {
     color: var(--BlueDarker) !important;
 }
 
-.ProfileAndPost{
+.ProfileAndPost {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -28,7 +28,8 @@ html {
     overflow: scroll;
     background-color: var(--Greey);
 }
-.postContent{
+
+.postContent {
     /* background-color: var(--Greey); */
     padding: 10px;
     gap: 4px;
@@ -51,16 +52,19 @@ html {
     /* max-width: 100%; */
     /* display: inline-block; */
 }
-.postContent img{
+
+.postContent img {
     width: 100%;
     border-radius: 5px;
 }
-.postContent pre{
+
+.postContent pre {
     /* white-space: pre-wrap; */
     white-space: pre-wrap;
     word-wrap: break-word;
 }
-.postComments{
+
+.postComments {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -74,11 +78,13 @@ html {
     overflow: scroll;
 
 }
-.Comments{
+
+.Comments {
     overflow: scroll;
     height: 100%;
 }
-.commentCard{
+
+.commentCard {
     display: flex;
     background-color: var(--White);
     padding: 5px;
@@ -86,22 +92,25 @@ html {
     margin: 10px;
 
 }
-.commentAuthor{
+
+.commentAuthor {
     display: flex;
     flex-direction: column;
     width: 100%;
     overflow: hidden;
 }
 
-.commentReaction{
+.commentReaction {
     display: flex;
-    justify-content:right;
+    justify-content: right;
     gap: 10px;
     margin-right: 10px;
     margin-left: auto;
-    font-size: 0.8rem; 
+    font-size: 0.8rem;
 }
-.like, .dislike{
+
+.like,
+.dislike {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -110,13 +119,18 @@ html {
     cursor: pointer;
     color: var(--GreeyD);
 }
-.CommentButtons{
+
+.CommentButtons {
     margin-left: auto;
+    color: var(--GreeyD);
 }
-.like:hover, .dislike:hover{
+
+.like:hover,
+.dislike:hover {
     color: var(--BlueDarker);
 }
-.postInfo{
+
+.postInfo {
     display: flex;
     position: sticky;
     top: 0px;
@@ -127,32 +141,40 @@ html {
     box-shadow: var(--shadowLittle);
     width: 100%;
 }
-.authorImage img, .commentAuthorImage img{
+
+.authorImage img,
+.commentAuthorImage img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
 }
-.authorImage img{
+
+.authorImage img {
     border: 2px solid #088395;
 }
-.commentAuthorImage{
+
+.commentAuthorImage {
     display: flex;
     flex-direction: column;
 }
-.commentAuthorImage img{
+
+.commentAuthorImage img {
     border: 4px solid #088395;
     margin: 3px;
 }
-.authorInfo{
+
+.authorInfo {
     display: block;
     margin-left: 10px;
     gap: 5px;
     width: calc(100% - 40px);
 }
-.center{
+
+.center {
     justify-content: center;
 }
-.commentAuthorInfo{
+
+.commentAuthorInfo {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -164,10 +186,12 @@ html {
     width: 100%;
     /* background-color: red; */
 }
+
 .Testing {
     display: flex;
 }
-.authorInfo .Title{
+
+.authorInfo .Title {
     display: inline-block;
     font-size: 26px;
     font-weight: bold;
@@ -182,48 +206,57 @@ html {
     max-width: 100%;
     /* display: inline-block; */
 }
-.authorInfo .authorName{
+
+.authorInfo .authorName {
     font-weight: bold;
 }
-.authorInfo .postDate{
+
+.authorInfo .postDate {
     font-weight: 300;
     font-size: 14px;
     color: var(--Black);
 }
-.commentAuthorName{
+
+.commentAuthorName {
     color: var(--DarkBlue);
 }
+
 .commentAuthorName .commentTime {
     color: var(--GreeyD);
     font-size: 14px;
-    font-weight: 300;  /* Ensures the date doesn't get bold */
-}
-.addToFavourite span{
-    color:  var(--GreeyD);
-    font-size: 44px;
-}
-.DisableUserSelect{
-    -webkit-user-select: none;
-    -ms-user-select:none;
-    user-select:none;
+    font-weight: 300;
+    /* Ensures the date doesn't get bold */
 }
 
-.addToFavourite span:hover{
-    color:  var(--BlueGreen);
+.addToFavourite span {
+    color: var(--GreeyD);
     font-size: 44px;
 }
-.addToFavourite{
+
+.DisableUserSelect {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.addToFavourite span:hover {
+    color: var(--BlueGreen);
+    font-size: 44px;
+}
+
+.addToFavourite {
     cursor: pointer;
     margin-left: auto;
 }
 
-.commentInfo{
+.commentInfo {
     display: block;
     word-wrap: break-word;
     /* margin-right: 40px; */
     /* margin: 0px 10px; */
 }
-.collapse{
+
+.collapse {
     height: 50px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -231,16 +264,19 @@ html {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.commentData{
+
+.commentData {
     margin-top: 5px;
     height: auto;
     overflow: hidden;
     cursor: pointer;
     font-weight: 200;
 }
-.hidden{
+
+.hidden {
     display: none;
 }
+
 /* .readMore{
     display: inline-block;
     background-color: var(--BlueDarker);
@@ -254,26 +290,28 @@ html {
     position: sticky;
     bottom: 0;
     padding: 10px;
-    z-index: 10; 
+    z-index: 10;
 }
 
-.PostReactionData{
+.PostReactionData {
     display: flex;
     position: sticky;
     bottom: 0;
     background-color: var(--White);
     padding: 10px;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
     z-index: 10;
     border-radius: 10px;
     margin: 10px;
 }
-.LikeButtons{
+
+.LikeButtons {
     display: flex;
     gap: 10px;
 }
+
 .commentInput input {
-    width: 100%; 
+    width: 100%;
     padding: 10px;
     border: 1px solid var(--GreeyD);
     border-radius: 10px;
@@ -290,4 +328,3 @@ html {
     border-color: var(--BlueGreen);
     box-shadow: 0 0 5px rgba(8, 131, 149, 0.3);
 }
-

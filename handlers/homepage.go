@@ -1,28 +1,54 @@
 package handlers
 
 import (
+	"errors"
 	"forum/structs"
-	"html/template"
+	"log"
 	"net/http"
 
 	"forum/database"
 )
 
 func HomePage(w http.ResponseWriter, r *http.Request) {
-	posts, err := database.QuerryLatestPosts(DB, structs.NotaUser, structs.NotaUser, structs.NoOffSet)
-	if err != nil {
-		ErrorPage(w, http.StatusInternalServerError, err)
+	if r.URL.Path != "/" {
+		ErrorPage(w, http.StatusNotFound, errors.New("page not found"))
 		return
 	}
-	tmpl, err := template.ParseFiles("frontend/templates/index.html")
-	if err != nil {
-		panic(err)
+
+	template := getHtmlTemplate()
+
+	userId := CheckAuthentication(w, r)
+
+	var profile structs.Profile
+	var err error
+	if userId != 0 {
+		profile, err = database.GetUserProfile(DB, userId)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
-	// Render the template with post data
-	err = tmpl.Execute(w, map[string]interface{}{
-		"Posts": posts,
-	})
+
+	categories, err := database.GetCategoriesWithPostCount(DB)
 	if err != nil {
-		panic(err)
+		ErrorPage(w, http.StatusInternalServerError, errors.New("error getting categories from database"))
+	}
+	// TODO PROFILE PICTURES
+	profile.PFP = "Vivian"
+	if r.FormValue("type") != "" { //?type=home
+		profile.CurrentPage = r.FormValue("type")
+		profile.Category = r.FormValue("category")
+	} else {
+		profile.CurrentPage = "home"
+	}
+	categor := structs.Categories(categories)
+
+	err = template.ExecuteTemplate(w, "index.html", struct {
+		Posts      []structs.Post
+		Profile    structs.Profile
+		Categories structs.Categories
+	}{nil, profile, categor})
+	if err != nil {
+		// TODO remove fatal so the server doesn't stop
+		log.Fatal(err)
 	}
 }

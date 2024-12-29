@@ -2,30 +2,51 @@
 
 <section class="sidebar-left">
     <div class="nav-links margin-top">
-        <a href="/" class="selected">
+        <a href="/" {{if eq .CurrentPage "home" }} class="selected" {{end}}>
             <i class="material-symbols-outlined">home</i>
             <span>Home</span>
         </a>
-        <a href="/liked">
+        <a href="/?type=liked" {{if eq .CurrentPage "liked" }} class="selected" {{end}}>
             <i class="material-symbols-outlined">favorite</i>
             <span>Liked Posts</span>
         </a>
-        <a href="/profile/{{.UserName}}">
+        {{if .UserName}}
+        <a href="/?type=profile" {{if eq .CurrentPage "profile" }} class="selected" {{end}}>
             <i class="material-symbols-outlined">person</i>
             <span>Profile</span>
         </a>
-        <a href="/trending">
+        {{end}}
+        <a href="/?type=trending" {{if eq .CurrentPage "trending" }} class="selected" {{end}}>
             <i class="material-symbols-outlined">trending_up</i>
             <span>Trending</span>
         </a>
-        <a href="/recent" class="disabled">
-            <i class="material-symbols-outlined">update</i>
+        <a href="/?type=recent" class="disabled">
+            <i class="material-symbols-outlined disabled">update</i>
             <span>Recent Posts</span>
         </a>
-        
-        <button class="tweet-button">New Post</button>
+        <!-- Darck && light mode -->
+        <ul>
+            <li class="theme-toggle">
+                <input id="switch" type="checkbox">
+                <label for="switch">
+                    <div class="toggle">
+                        <span class="material-symbols-outlined dark_mode">
+                            dark_mode
+                        </span>
+                        <span class="material-symbols-outlined light_mode">
+                            light_mode
+                        </span>
+                    </div>
+                    <span class="theme">Theme</span>
+                </label>
+            </li>
+            <hr>
+        </ul>
+
+
+        <button class="tweet-button new-post-header">New Post</button>
     </div>
-   
+
 </section>
 
 {{end}}

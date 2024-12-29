@@ -6,8 +6,11 @@ import (
 )
 
 func ErrorPage(w http.ResponseWriter, status int, err error) {
-	// TODO: add error Page
-	ErrorJs(w, status, err)
+	w.WriteHeader(status)
+	getHtmlTemplate().ExecuteTemplate(w, "error.html", map[string]interface{}{
+		"StatuCode":    status,
+		"MessageError": err,
+	})
 }
 
 func ErrorJs(w http.ResponseWriter, status int, err error) {

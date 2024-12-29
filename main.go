@@ -29,26 +29,21 @@ func main() {
 	fmt.Println("User created successfully!")
 	fmt.Println(database.QuerryPostsbyUser(db, "test", 0, 5))
 
-	http.HandleFunc("/", handlers.TawilHandelr)
+	http.HandleFunc("/", handlers.HomePage)
 
 	http.HandleFunc("POST /login", handlers.Login)
 	http.HandleFunc("POST /register", handlers.Register)
-	http.HandleFunc("/login", handlers.TawilHandelrRegister)
-	http.HandleFunc("/register", handlers.TawilHandelrRegister)
+	http.HandleFunc("/login", handlers.RegisterPage)
+	http.HandleFunc("/register", handlers.RegisterPage)
 	http.HandleFunc("/logout", handlers.Logout)
 
-	http.HandleFunc("/post/{id}", handlers.TawilPostHandler)
+	http.HandleFunc("/post/{id}", handlers.GetPost)
 
 	http.HandleFunc("/CreateComment", handlers.AddCommentHandler)
 	http.HandleFunc("/createPost", handlers.CreatePost)
 	http.HandleFunc("/PostReaction", handlers.PostReaction)
 
 	http.HandleFunc("/infinite-scroll", handlers.InfiniteScroll)
-	http.HandleFunc("/profile/{username}", handlers.TawilProfileHandler)
-	// http.HandleFunc("/profile/{username}/likes", handlers.Likes) // TODO Implement profile like handler
-
-	// http.HandleFunc("/create", handlers.Create) // TODO Implement create
-
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("./frontend/assets"))))
 
 	fmt.Println("Server listening on :8080...")

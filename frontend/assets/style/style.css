@@ -55,7 +55,7 @@ body {
     --White: #0f172a;
     --WhiteB: #1e293b;
     --Greey: #334155;
-    --GreeyD: #64748b;
+    --GreeyD: white;
     --GreeyTransparant: hsla(0, 0%, 21%, 0.531);
     --GreeyDarked: hsla(0, 0%, 81%, 0.294);
     --shadow: 0px 10px 10px hsla(0, 0%, 40%, 0.30);
@@ -818,20 +818,6 @@ main {
     background-color: var(--BlueGreenWhite);
 }
 
-@media (max-width: 768px) {
-    .search {
-        width: 60%;
-    }
-
-    .Logo {
-        font-size: 14px;
-    }
-
-    .Buttons {
-        font-size: 1.3rem;
-    }
-}
-
 .fetchMore {
     margin: 50px;
 }
@@ -963,9 +949,26 @@ main {
     .sidebar-left {
         display: flex;
     }
+
 }
 
 @media only screen and (max-width: 768px) {
+    .search {
+        width: 60%;
+    }
+
+    .Logo {
+        font-size: 14px;
+    }
+
+    .Buttons {
+        font-size: 1.3rem;
+    }
+
+    .darkModeCont {
+        display: block;
+    }
+
     .textarea {
         font-size: 1rem;
         height: 90%;
@@ -1070,7 +1073,8 @@ main {
         position: relative;
         font-size: 20px;
         padding: 0px 10px 10px 10px;
-        color: white;    }
+        color: white;
+    }
 
     .nav-mobile a div::after {
         content: '';
@@ -1090,17 +1094,13 @@ main {
     .nav-mobile a.active div::after {
         width: 100%;
     }
+
     .nav-mobile a div.clicked {
         border-bottom: 4px solid var(--BlueGreen);
     }
 
 }
 
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {}
 
 .new-tweet .new-post-header textarea::placeholder {
     position: relative;
@@ -1245,6 +1245,10 @@ main {
 
 /* Dark mode */
 .theme-toggle {
+    list-style: none;
+}
+
+.theme-toggle {
     position: relative;
     padding: 8px 16px;
     cursor: pointer;
@@ -1324,14 +1328,19 @@ main {
 }
 
 .disabled {
-    color: rgb(64, 64, 64) !important;
+    color: var(--GreeyD);
     cursor: not-allowed;
     pointer-events: none;
+    opacity: .6;
+}
+
+.darkModeCont {
+    display: none;
 }
 
 .disabled:hover {
     background-color: transparent !important;
-    color: rgb(64, 64, 64) !important;
+    color: var(--GreeyD);
 }
 
 .ErrorMessage {

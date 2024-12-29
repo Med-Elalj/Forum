@@ -25,6 +25,10 @@ func init() {
 	username_RGX = regexp.MustCompile(`^\w{3,19}$`)
 }
 
+func Logout(w http.ResponseWriter, r *http.Request) {
+	DeleteAllCookie(w, r)
+	http.Redirect(w, r, "/", http.StatusFound)
+}
 func Login(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	r.ParseForm()

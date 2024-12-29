@@ -1,4 +1,153 @@
 let popup = NaN;
+const urlParams = new URLSearchParams(window.location.search);
+const type = urlParams.get('type');
+
+async function fetchPosts(offset, type) {
+    type = type ? type : "home"
+    let category_name = urlParams.get('category')
+    console.log('Fetching posts with offset:', offset, type);
+    const x = await fetch(`/infinite-scroll?offset=${offset}&type=${type}${category_name ? `&category=${category_name}` : ''}`)
+        .then(response => response.json())
+        .then(posts => {
+            console.log('Fetched posts:', posts);
+            const postsContainer = document.querySelector('.main-feed');
+            posts.forEach(post => {
+                const postCard = document.createElement('div');
+                postCard.classList.add('post-card');
+                console.log('Creating post card for post:', post);
+                const profileImage = document.createElement('div');
+                profileImage.className = 'ProfileImage tweet-img';
+                profileImage.style.backgroundImage = `url('https://api.multiavatar.com/${post.author_username}.svg')`;
+
+                const postDetails = document.createElement('div');
+                postDetails.className = 'post-details';
+
+                const rowTweet = document.createElement('div');
+                rowTweet.className = 'row-tweet';
+
+                const postHeader = document.createElement('div');
+                postHeader.className = 'post-header';
+
+                const tweeterName = document.createElement('span');
+                tweeterName.className = 'tweeter-name post';
+                tweeterName.id = post.post_id;
+                tweeterName.innerHTML = `${post.post_title.replace(/</g, "&lt;").replace(/>/g, "&gt;")}<br><span class="tweeter-handle">@${post.author_username} ${post.post_creation_time}.</span>`;
+
+                const dropdown = document.createElement('div');
+                dropdown.className = 'dropdown';
+
+                const dropdownIcon = document.createElement('i');
+                dropdownIcon.className = 'material-symbols-outlined';
+                dropdownIcon.textContent = 'more_horiz';
+
+                const dropdownContent = document.createElement('div');
+                dropdownContent.className = 'content';
+
+                const dropdownList = document.createElement('ul');
+
+                const editItem = document.createElement('li');
+                editItem.innerHTML = '<span class="material-symbols-outlined">edit</span>Edit';
+
+                const deleteItem = document.createElement('li');
+                deleteItem.innerHTML = '<span class="material-symbols-outlined">delete</span>Delete';
+
+                dropdownList.append(editItem, deleteItem);
+                dropdownContent.appendChild(dropdownList);
+                dropdown.append(dropdownIcon, dropdownContent);
+
+                postHeader.appendChild(tweeterName);
+                rowTweet.append(postHeader, dropdown);
+
+                const postContent = document.createElement('div');
+                const postParagraph = document.createElement('p');
+                postContent.className = 'post-content';
+                postParagraph.innerText = `${post.post_content}`
+                postContent.appendChild(postParagraph);
+
+                const seeMore = document.createElement('span');
+                seeMore.className = 'see-more';
+                seeMore.textContent = 'See More';
+
+                const hashtag = document.createElement('div');
+                hashtag.className = 'Hashtag';
+                if (post.post_categories) {
+                    post.post_categories.forEach(category => {
+                        const categoryLink = document.createElement('a');
+                        categoryLink.href = '/?type=category&&category=' + category;
+                        categoryLink.innerHTML = `<span>#${category}</span>`;
+                        hashtag.appendChild(categoryLink);
+                    });
+                }
+
+                const postFooter = document.createElement('div');
+                postFooter.className = 'post-footer';
+
+                const react = document.createElement('div');
+                react.className = 'react';
+                react.id = post.ID;
+
+                const likeCounter = document.createElement('div');
+                likeCounter.className = `counters like ${post.view && post.view === '1' ? 'FILL' : ''}`;
+                likeCounter.id = post.post_id;
+                likeCounter.innerHTML = `<i class="material-symbols-outlined popup-icon" id="${post.ID}">thumb_up</i><span id="${post.post_id}">${post.like_count}</span>`;
+
+                const dislikeCounter = document.createElement('div');
+                dislikeCounter.className = `counters dislike ${post.view && post.view === '0' ? 'FILL' : ''}`;
+                dislikeCounter.id = post.post_id;
+                dislikeCounter.innerHTML = `<i class="material-symbols-outlined popup-icon" id="${post.ID}">thumb_down</i><span id="${post.post_id}">${post.dislike_count}</span>`;
+
+                react.append(likeCounter, dislikeCounter);
+
+                const comment = document.createElement('div');
+                comment.className = 'comment post';
+                comment.id = post.post_id;
+                comment.innerHTML = `<i class="material-symbols-outlined showCmnts">comment</i><span>${post.comment_count}</span>`;
+
+                postFooter.append(react, comment);
+
+                postDetails.append(rowTweet, postContent, seeMore, hashtag, postFooter);
+                postCard.append(profileImage, postDetails);
+                console.log(' posts container:', postsContainer);
+                console.log('posts container:', postCard);
+                postsContainer.append(postCard);
+            });
+        });
+
+
+    postControlList()
+    readPost()
+    showLeftSidebarMobile()
+    seeMore()
+    handleLikes()
+
+}
+
+function infiniteScroll() {
+    let offset = 10;
+    let limit = 10;
+    let timeout = null;
+    window.addEventListener('scroll', () => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+            console.log('Scroll event detected:', { scrollTop, scrollHeight, clientHeight });
+            if (scrollTop + clientHeight >= scrollHeight - 5) {
+                console.log('Fetching more posts...');
+                fetchPosts(offset, type)
+                    .then(() => {
+                        offset += limit;
+                        console.log('Finished fetching posts, new offset:', offset);
+                    });
+            }
+        }, 1000);
+    });
+}
+// get Query values from url to fetch the posts
+
+
+infiniteScroll()
+fetchPosts(10, type)
+
 
 //////////////////// Popup function //////////////////
 const popUp = () => {
@@ -24,6 +173,19 @@ const popUp = () => {
         }
     })
 }
+
+document.querySelectorAll('.nav-mobile a div').forEach(function (div) {
+    div.addEventListener('click', function () {
+        // Remove 'clicked' class from all divs
+        document.querySelectorAll('.nav-mobile a div').forEach(function (item) {
+            item.classList.remove('clicked');
+        });
+
+        // Add the 'clicked' class to the clicked div to show the underline
+        this.classList.add('clicked');
+    });
+});
+
 //////////////// Start Listning dropDown List For Posts ////////////
 function postControlList() {
 
@@ -85,20 +247,17 @@ function seeMore() {
 ////////////////////   Listening on user request of post  /////
 // ///To Read Post We need to make request to backend, to get Full Page to Display it to the user
 
-function readPost() {
-    async function fetchPost(url) {
-        try {
-            //?id=${idValueFromClikedArea}
-            const response = await fetch(url);
-            const html = await response.text();
-            return html
-        } catch (error) {
-            console.error('Error fetching HTML:', error);
-        }
+async function fetchPost(url) {
+    try {
+        const response = await fetch(url);
+        const html = await response.text();
+        return html
+    } catch (error) {
+        console.error('Error fetching HTML:', error);
     }
-
+}
+function readPost() {
     let postButton = document.querySelectorAll(".post")
-
     postButton.forEach(elem => {
         elem.addEventListener('click', async () => {
             // Get id to send request to get Post : elem.id
@@ -130,7 +289,7 @@ function readPost() {
 
 }
 // Dark Mode && save token in local storage
-const themeToggle = document.getElementById('switch');
+const themeToggle = document.querySelectorAll('#switch');
 const body = document.body;
 
 function toggleDarkMode(isDark) {
@@ -141,10 +300,13 @@ function toggleDarkMode(isDark) {
 }
 const darkModeStored = localStorage.getItem('darkMode') === 'true';
 toggleDarkMode(darkModeStored);
-console.log("test", darkModeStored);
 
-themeToggle.checked = darkModeStored;
-themeToggle.addEventListener('change', (e) => toggleDarkMode(e.target.checked));
+themeToggle.forEach(elem => {
+    elem.checked = darkModeStored;
+    elem.addEventListener('change', () => {
+        toggleDarkMode(elem.checked)
+    });
+})
 
 
 
@@ -163,141 +325,3 @@ window.addEventListener('hashchange', () => {
 });
 
 
-
-postControlList()
-readPost()
-showLeftSidebarMobile()
-seeMore()
-
-
-/* 
-
-func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
-	c, err := r.Cookie("session")
-	if err != nil && err.Error() != "http: named cookie not present" {
-		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized"+err.Error()))
-		fmt.Println(err)
-		return
-	}
-	if err != nil {
-		c = &http.Cookie{}
-	}
-
-	uid, err := database.GetUidFromToken(DB, c.Value)
-	if err != nil {
-		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
-		return
-	}
-	offset_str := r.URL.Query().Get("offset")
-	offset, err := strconv.Atoi(offset_str)
-	if err != nil {
-		offset = 0
-	}
-	fmt.Println("Offset:", offset)
-	posts, err := database.QuerryLatestPosts(DB, uid, structs.Limit, offset)
-	if err != nil {
-		ErrorJs(w, http.StatusInternalServerError, err)
-		return
-	}
-	// Set the content type header to application/json
-	w.Header().Add("Content-Type", "application/json")
-
-	// Optionally set the status code to 200 OK
-	w.WriteHeader(http.StatusOK)
-
-	err = json.NewEncoder(w).Encode(posts)
-	fmt.Println(err)
-}
-
-
-*/
-// Create Function to fetch new post in the user scrolling at the end of the page
-// using the offset and limit to fetch the new post
-// check function above from backend
-
-async function fetchPosts(offset) {
-    console.log('Fetching posts with offset:', offset);
-    const x = await fetch(`/infinite-scroll?offset=${offset}`)
-        .then(response => response.json())
-        .then(posts => {
-            console.log('Fetched posts:', posts);
-            const postsContainer = document.querySelector('.main-feed');
-            posts.forEach(post => {
-                const postCard = document.createElement('div');
-                postCard.classList.add('post-card');
-                console.log('Creating post card for post:', post);
-                postCard.innerHTML = `
-                    <div class="ProfileImage tweet-img" style="background-image: url('https://api.multiavatar.com/${post.author_username}.svg')">
-                    </div>
-                    <div class="post-details">
-                        <div class="row-tweet">
-                            <div class="post-header">
-                                <span class="tweeter-name post" id="${post.post_id}">
-                                    ${post.post_title}
-                                    <br><span class="tweeter-handle">@${post.author_username} ${post.post_creation_time}.</span>
-                                </span>
-                            </div>
-                            <div class="dropdown">
-                                <i class="material-symbols-outlined">more_horiz</i>
-                                <div class="content">
-                                    <ul>
-                                        <li><span class="material-symbols-outlined">edit</span>Edit</li>
-                                        <li><span class="material-symbols-outlined">delete</span>Delete</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="post-content">
-                            <p>${post.post_content}</p>
-                        </div>
-                        <span class="see-more">See More</span>
-                        <div class="Hashtag">
-                            ${post.post_categories ? post.post_categories.map(category => `<a href=""><span>#${category}</span></a>`).join('') : ''}
-                        </div>
-                        <div class="post-footer">
-                            <div class="react" id="${post.ID}">
-                                <div isPost="true" class='counters like  ${post.view && post.view === '1' ? 'FILL' : ''}' id="${post.post_id}">
-                                    <i class="material-symbols-outlined popup-icon " id="${post.ID}">thumb_up</i>
-                                    <span id="${post.post_id}">${post.like_count}</span>
-                                </div>
-                                <div isPost="true" class='counters dislike ${post.view && post.view === '0' ? 'FILL' : ''}' id="${post.post_id}">
-                                    <i class="material-symbols-outlined popup-icon" id="${post.ID}">thumb_down</i>
-                                    <span id="${post.post_id}">${post.dislike_count}</span>
-                                </div>
-                            </div>
-                            <div class="comment post" id="${post.post_id}">
-                                <i class="material-symbols-outlined showCmnts">comment</i>
-                                <span>${post.comment_count}</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                console.log(' posts container:', postsContainer);
-                console.log('posts container:', postCard);
-                postsContainer.append(postCard);
-            });
-        });
-}
-
-function infiniteScroll() {
-    let offset = 10;
-    let limit = 10;
-    let timeout = null;
-    window.addEventListener('scroll', () => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-            const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-            console.log('Scroll event detected:', { scrollTop, scrollHeight, clientHeight });
-            if (scrollTop + clientHeight >= scrollHeight - 5) {
-                console.log('Fetching more posts...');
-                fetchPosts(offset)
-                    .then(() => {
-                        offset += limit;
-                        console.log('Finished fetching posts, new offset:', offset);
-                    });
-            }
-        }, 1000);
-    });
-}
-
-infiniteScroll();

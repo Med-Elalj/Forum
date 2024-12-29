@@ -26,8 +26,12 @@
     <div class="ParentContainer">
         {{template "header" .Profile}}
         <div class="nav-mobile">
-            <a href="#categories"><div>Categories</div></a>
-            <a href="#posts"><div>For you</div></a>
+            <a href="#categories">
+                <div>Categories</div>
+            </a>
+            <a href="#posts">
+                <div>For you</div>
+            </a>
         </div>
         {{template "left-sidebar" .Profile}}
         {{template "profile-sidebar" .}}
