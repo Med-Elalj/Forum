@@ -30,15 +30,15 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/", http.StatusFound)
 }
 func Login(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
 	r.ParseForm()
 	// TODO fix db and link
-	uname := r.Form.Get("username")
+	// uname := r.Form.Get("username")
 	email := r.Form.Get("email")
 	upass := r.Form.Get("password")
-	fmt.Println(uname, email, upass)
-	if email == "" && uname == "" {
-		ErrorPage(w, http.StatusBadRequest, errors.New("username or email is required"))
+	fmt.Println(email, upass)
+
+	if email == "" {
+		ErrorPage(w, "register.html", http.StatusBadRequest, errors.New("username or email is required"))
 		return
 	}
 
@@ -46,37 +46,37 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	var uid int
 
 	var err error
-	if email != "" && email_RGX.MatchString(email) {
+	if email_RGX.MatchString(email) {
 		hpassword, uid, err = database.GetUserByUemail(DB, email)
-	} else if uname != "" && username_RGX.MatchString(uname) {
-		hpassword, uid, err = database.GetUserByUname(DB, uname)
+	} else if username_RGX.MatchString(email) {
+		hpassword, uid, err = database.GetUserByUname(DB, email)
 	} else {
-		ErrorPage(w, http.StatusBadRequest, errors.New("invalid email or username"))
+		ErrorPage(w, "register.html", http.StatusBadRequest, errors.New("invalid email or username"))
 		return
 	}
 	if err != nil || uid == 0 {
 		log.Println(err)
-		ErrorPage(w, http.StatusInternalServerError, err)
+		ErrorPage(w, "register.html", http.StatusInternalServerError, err)
 		return
 	}
 
 	err = bcrypt.CompareHashAndPassword([]byte(hpassword), []byte(upass))
 	if err != nil {
 		log.Println(errors.New("invalid email or password"))
-		ErrorPage(w, http.StatusInternalServerError, errors.New("invalid email or password"))
+		ErrorPage(w, "register.html", http.StatusInternalServerError, errors.New("invalid email or password"))
 		return
 	}
 
-	token, err := tokening.GenerateSessionToken("username:" + uname)
+	token, err := tokening.GenerateSessionToken("email:" + email)
 	if err != nil {
 		log.Println(err)
-		ErrorPage(w, http.StatusInternalServerError, err)
+		ErrorPage(w, "register.html", http.StatusInternalServerError, err)
 		return
 	}
 	err = database.AddSessionToken(DB, uid, token)
 	if err != nil {
 		log.Println(err)
-		ErrorPage(w, http.StatusInternalServerError, err)
+		ErrorPage(w, "register.html", http.StatusInternalServerError, err)
 		return
 	}
 	SetCookie(w, token, "session", true)
@@ -106,13 +106,13 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	token, err := tokening.GenerateSessionToken("username:" + uname)
 	if err != nil {
 		log.Println(err)
-		ErrorPage(w, http.StatusInternalServerError, err)
+		ErrorPage(w, "register.html", http.StatusInternalServerError, err)
 		return
 	}
 	err = database.AddSessionToken(DB, uid, token)
 	if err != nil {
 		log.Println(err)
-		ErrorPage(w, http.StatusInternalServerError, err)
+		ErrorPage(w, "register.html", http.StatusInternalServerError, err)
 		return
 	}
 	w.WriteHeader(http.StatusCreated)

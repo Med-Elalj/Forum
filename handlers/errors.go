@@ -5,9 +5,9 @@ import (
 	"net/http"
 )
 
-func ErrorPage(w http.ResponseWriter, status int, err error) {
+func ErrorPage(w http.ResponseWriter,page string, status int, err error) {
 	w.WriteHeader(status)
-	getHtmlTemplate().ExecuteTemplate(w, "error.html", map[string]interface{}{
+	getHtmlTemplate().ExecuteTemplate(w, page, map[string]interface{}{
 		"StatuCode":    status,
 		"MessageError": err,
 	})

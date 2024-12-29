@@ -23,13 +23,11 @@ func GetPost(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err, "Error Parsing Data from Template hTl")
 	}
 
-	// TODO make it post specific
 	var Postid int
-	// get the post id from /post/{id}
 	// TODO check for edge cases
 	c, err := r.Cookie("session")
 	if err != nil && err.Error() != "http: named cookie not present" {
-		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized"+err.Error()))
+		ErrorPage(w,"error.html",  http.StatusUnauthorized, errors.New("unauthorized"+err.Error()))
 		fmt.Println(err)
 		return
 	}
@@ -39,25 +37,22 @@ func GetPost(w http.ResponseWriter, r *http.Request) {
 
 	uid, err := database.GetUidFromToken(DB, c.Value)
 	if err != nil {
-		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
+		ErrorPage(w, "error.html", http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
 		return
 	}
 	Postid, err = strconv.Atoi(r.PathValue("id"))
 	if err != nil || Postid < 0 {
-		// TODO iso standard
-		ErrorPage(w, 400, errors.New("invalid TawilPostHandler 0"))
+		ErrorPage(w, "error.html", 400, errors.New("invalid TawilPostHandler 0"))
 	}
 	post, err := database.GetPostByID(DB, Postid, uid)
 	if err != nil {
-		// TODO iso standard
-		ErrorPage(w, 400, errors.New("invalid TawilPostHandler 1"))
+		ErrorPage(w, "error.html", 400, errors.New("invalid TawilPostHandler 1"))
 	}
 
 	comments, err := database.GetCommentsByPost(DB, post.ID)
 	fmt.Println(comments)
 	if err != nil {
-		// TODO iso standard
-		ErrorPage(w, 400, errors.New("invalid TawilPostHandler 2"))
+		ErrorPage(w, "error.html", 400, errors.New("invalid TawilPostHandler 2"))
 	}
 
 	template.ExecuteTemplate(w, "post.html", struct {
@@ -66,11 +61,10 @@ func GetPost(w http.ResponseWriter, r *http.Request) {
 	}{Post: post, Comments: comments})
 }
 
-//localhost:8080/infinite-scroll?offset=0
 func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 	c, err := r.Cookie("session")
 	if err != nil && err.Error() != "http: named cookie not present" {
-		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized"+err.Error()))
+		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized"+err.Error()))
 		fmt.Println(err)
 		return
 	}
@@ -84,7 +78,7 @@ func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 	// if it is none of the above then we will return the error
 	uid, err := database.GetUidFromToken(DB, c.Value)
 	if err != nil {
-		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
+		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
 		return
 	}
 
@@ -114,7 +108,7 @@ func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 	} else if r.URL.Query().Get("type") == "profile" {
 		posts, err = database.QuerryPostsbyUser(DB, profile.UserName, uid, structs.Limit)
 		if err != nil {
-			ErrorPage(w, http.StatusInternalServerError, errors.New("error fetching posts "+err.Error()))
+			ErrorJs(w, http.StatusInternalServerError, errors.New("error fetching posts "+err.Error()))
 			return
 		}
 	} else if r.URL.Query().Get("type") == "home" {
@@ -136,7 +130,7 @@ func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	} else {
-		ErrorPage(w, http.StatusBadRequest, errors.New("invalid url"))
+		ErrorJs(w, http.StatusBadRequest, errors.New("invalid url"))
 		return
 	}
 	fmt.Println("Offset:", offset)

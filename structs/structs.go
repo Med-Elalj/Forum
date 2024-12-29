@@ -39,7 +39,6 @@ type View struct {
 type Profile struct {
 	UserID   int
 	UserName string
-	// TODO pfp
 	PFP          string
 	ArticleCount int
 	CommentCount int

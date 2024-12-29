@@ -5,5 +5,9 @@ import (
 )
 
 func RegisterPage(w http.ResponseWriter, r *http.Request) {
-	getHtmlTemplate().ExecuteTemplate(w, "register.html", struct{ Register bool }{Register: r.URL.Path == "/register"})
+	getHtmlTemplate().ExecuteTemplate(w, "register.html",
+		struct {
+			Register     bool
+			MessageError string
+		}{Register: r.URL.Path == "/register", MessageError: ""})
 }

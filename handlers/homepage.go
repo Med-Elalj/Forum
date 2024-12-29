@@ -11,7 +11,7 @@ import (
 
 func HomePage(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
-		ErrorPage(w, http.StatusNotFound, errors.New("page not found"))
+		ErrorPage(w,"error.html", http.StatusNotFound, errors.New("page not found"))
 		return
 	}
 
@@ -30,10 +30,8 @@ func HomePage(w http.ResponseWriter, r *http.Request) {
 
 	categories, err := database.GetCategoriesWithPostCount(DB)
 	if err != nil {
-		ErrorPage(w, http.StatusInternalServerError, errors.New("error getting categories from database"))
+		ErrorPage(w, "error.html", http.StatusInternalServerError, errors.New("error getting categories from database"))
 	}
-	// TODO PROFILE PICTURES
-	profile.PFP = "Vivian"
 	if r.FormValue("type") != "" { //?type=home
 		profile.CurrentPage = r.FormValue("type")
 		profile.Category = r.FormValue("category")

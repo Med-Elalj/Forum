@@ -10,7 +10,7 @@ import (
 func CheckAuthentication(w http.ResponseWriter, r *http.Request) (userID int) {
 	c, err := r.Cookie("session")
 	if err != nil && err.Error() != "http: named cookie not present" {
-		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized"+err.Error()))
+		ErrorPage(w,"error.html", http.StatusUnauthorized, errors.New("unauthorized"+err.Error()))
 		fmt.Println(err)
 		return
 	}
@@ -20,7 +20,7 @@ func CheckAuthentication(w http.ResponseWriter, r *http.Request) (userID int) {
 
 	userID, err = database.GetUidFromToken(DB, c.Value)
 	if err != nil {
-		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
+		ErrorPage(w, "error.html", http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
 		return
 	}
 	return

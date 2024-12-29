@@ -9,18 +9,18 @@ import (
 
 func CreatePost(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
-		ErrorPage(w, http.StatusMethodNotAllowed, errors.New("invalid method"))
+		ErrorJs(w, http.StatusMethodNotAllowed, errors.New("invalid method"))
 		return
 	}
 	if r.Header.Get("Content-Type") != "application/json" {
-		ErrorPage(w, http.StatusBadRequest, errors.New(r.Header.Get("Content-Type")))
+		ErrorJs(w, http.StatusBadRequest, errors.New(r.Header.Get("Content-Type")))
 		return
 	}
 
 	UserId := CheckAuthentication(w, r)
 	UserProfile, err := database.GetUserProfile(DB, UserId)
 	if err != nil {
-		ErrorPage(w, http.StatusUnauthorized, errors.New("unauthorized UserProfile"+err.Error()))
+		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized UserProfile"+err.Error()))
 		return
 	}
 	data := struct {
@@ -30,24 +30,24 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 	}{}
 	err = json.NewDecoder(r.Body).Decode(&data)
 	if err != nil {
-		ErrorPage(w, http.StatusBadRequest, errors.New("invalid json"))
+		ErrorJs(w, http.StatusBadRequest, errors.New("invalid json"))
 		return
 	}
 	if len(data.Title) > 60 {
-		ErrorPage(w, http.StatusBadRequest, errors.New("title is too long"))
+		ErrorJs(w, http.StatusBadRequest, errors.New("title is too long"))
 		return
 	}
 	if len(data.Content) > 1000 {
-		ErrorPage(w, http.StatusBadRequest, errors.New("content is too long"))
+		ErrorJs(w, http.StatusBadRequest, errors.New("content is too long"))
 		return
 	}
 	if len(data.Categories) == 0 {
-		ErrorPage(w, http.StatusBadRequest, errors.New("no categories"))
+		ErrorJs(w, http.StatusBadRequest, errors.New("no categories"))
 		return
 	}
 	err, id := database.CreatePost(DB, UserId, data.Title, data.Content, data.Categories)
 	if err != nil {
-		ErrorPage(w, http.StatusInternalServerError, errors.New("error creating post"))
+		ErrorJs(w, http.StatusInternalServerError, errors.New("error creating post"))
 		return
 	}
 	w.WriteHeader(http.StatusOK)

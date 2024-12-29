@@ -9,6 +9,20 @@
     <link rel="stylesheet" href="./assets/style/register.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="shortcut icon" href="/assets/images/logo.svg" type="image/svg+xml">
+    {{if .MessageError}}
+    <style>
+        .ErrorMessage {
+            background-color: #ff5d5d;
+            margin-top: 10px;
+            padding: 10px 30px;
+            border-radius: 3px;
+            color: white;
+            width: 100%;
+            font-size: 14px;
+            text-align: center;
+        }
+    </style>
+    {{end}}
 </head>
 
 <body>
@@ -48,12 +62,17 @@
         <div class="form-container sign-in" id="login-form">
             <form method="POST" action="/login">
                 <h1>Sign In</h1>
-                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="email" placeholder="Enter email or username..." required>
                 <input type="password" name="password" placeholder="Password" required>
                 <p>Don't have an account? <a href="#">Sign Up</a></p>
                 <button type="submit">Sign In</button>
                 <div class="mobile-switch">
                     <button onclick="switchForm('register')">Register</button>
+                </div>
+                <div class="ErrorMessage">
+                    {{if .MessageError}}
+                      <i class="material-icons" style="font-size: 14px;">&#xe000;</i> {{.MessageError}}
+                    {{end}}
                 </div>
             </form>
         </div>
