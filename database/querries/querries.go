@@ -56,12 +56,12 @@ const (
 		WHERE p.id = ?;`
 	GetCommentsByPostL    = "SELECT c.*, u.username FROM comments c JOIN users u ON c.user_id = u.id WHERE post_id=? ORDER BY c.created_at DESC LIMIT ?"
 	GetCommentsByID       = "SELECT c.*, u.username FROM comments c JOIN users u ON c.user_id = u.id WHERE id=? ORDER BY c.created_at DESC LIMIT ?"
-	GetUserProfileByUname = `SELECT u.id, u.username, u.created_at, COUNT(p.id) AS post_count, COUNT(c.id) AS comment_count
-	FROM users u
-	LEFT JOIN posts p ON u.id = p.user_id
-	LEFT JOIN comments c ON u.id = c.user_id
-	WHERE u.username = ?
-	ORDER BY p.created_at`
+	GetUserProfileByUname = `SELECT u.id, u.username, u.created_at, COUNT(DISTINCT p.id) AS post_count, COUNT(DISTINCT c.id) AS comment_count
+		FROM users u
+		LEFT JOIN posts p ON u.id = p.user_id
+		LEFT JOIN comments c ON u.id = c.user_id
+		WHERE u.username = ?
+		GROUP BY u.id, u.username, u.created_at;`
 	GetUserProfileByID = `SELECT u.id, u.username, u.created_at, COUNT(p.id) AS post_count, COUNT(c.id) AS comment_count
 	FROM users u
 	LEFT JOIN posts p ON u.id = p.user_id
