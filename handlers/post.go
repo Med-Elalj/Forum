@@ -137,7 +137,7 @@ func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	} else if r.URL.Query().Get("type") == "liked" {
-		posts, err = database.QuerryLatestPostsByUserLikes(DB, profile.UserName, uid, structs.Limit)
+		posts, err = database.QuerryLatestPostsByUserLikes(DB, uid, structs.Limit)
 		if err != nil {
 			ErrorJs(w, http.StatusInternalServerError, err)
 			return

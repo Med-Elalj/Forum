@@ -11,9 +11,9 @@ import (
 	"forum/structs"
 )
 
-func QuerryLatestPostsByUserLikes(db *sql.DB, username string, user_id, ammount int) ([]structs.Post, error) {
+func QuerryLatestPostsByUserLikes(db *sql.DB, user_id, ammount int) ([]structs.Post, error) {
 	res := make([]structs.Post, 0, ammount)
-	rows, err := db.Query(querries.GetPostsbyUserLikeL, user_id, username, ammount)
+	rows, err := db.Query(querries.GetPostsbyUserLikeL, user_id, ammount)
 	if err != nil {
 		return nil, errors.New("QuerryLatestPosts " + err.Error())
 	}
