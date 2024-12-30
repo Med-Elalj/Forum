@@ -93,7 +93,8 @@ a {
     height: 100%;
     position: fixed;
     left: 2.5%;
-    border-right: solid 1px var(--GreeyD);
+    border-right: solid 0.3px var(--WhiteBlue);
+    height: 100%;
 }
 
 
@@ -340,8 +341,8 @@ main {
     display: flex;
     width: 50%;
     margin-left: 25%;
-    border-right: solid 1px var(--GreeyD);
-
+    border-right: solid 0.3px var(--WhiteBlue);
+    height: 100%;
 }
 
 .main-feed {
@@ -1091,20 +1092,7 @@ main {
         color: white;
     }
 
-    .nav-mobile a div::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0;
-        height: 3px;
-        background: var(--BlueGreen);
-        transition: width 0.3s ease;
-    }
 
-    .nav-mobile a div:hover::after {
-        width: 100%;
-    }
 
     .nav-mobile a.active div::after {
         width: 100%;
@@ -1118,15 +1106,6 @@ main {
         display: inline-block;
         transition: border-bottom 0.3s ease;
     }
-
-    .nav-mobile a:hover {
-        background-color: var(--WhiteBlue);
-        width:fit-content;
-        height:100%;
-        transition: 0.3s ease;
-        border-radius: 10px
-    }
-
 
     .nav-mobile a div:focus {
         outline: none;
@@ -1144,9 +1123,18 @@ main {
         font-size: 11px;
         width: fit-content;
     }
+    .dark {
+        display: none;
+    }
+    ul .theme-toggle {
+        display: flex;
+    }
 
 }
 
+ul .theme-toggle {
+    display: none;
+}
 
 .new-tweet .new-post-header textarea::placeholder {
     position: relative;

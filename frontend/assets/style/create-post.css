@@ -22,8 +22,8 @@
     background-color: var(--WhiteBlue);
     margin: auto;
     padding: 20px;
-    width: 65vw;
-    height: 60vh;
+    width: 50vw;
+    height: 80vh;
     border-radius: 10px;
     /* display: flex; */
     flex-direction: column;
@@ -56,6 +56,7 @@
     border: none;
     width: 100%;
     resize: none;
+    background-color: var(--Greey);
 }
 .titleInput input::placeholder, .postInput textarea::placeholder{
     color: var(--BlueGreen);
@@ -66,14 +67,15 @@
     height: 100%;
 }
 .postInput textarea{
-    color: var(--BlueGreenWhite);
-    background-color: var(--WhiteB);
+    color: var(--Black);
+    /* background-color: var(--WhiteB); */
     height: 100%;
     padding: 10px;
     border-radius: 5px;
     border: none;
     resize: none;
     width: 100%;
+    background-color: var(--Greey);
 }
 .CategoriesSelector{
     display: flex;
@@ -108,8 +110,8 @@
     border: none;
     cursor: pointer;
     border-radius: 5px;
-    background-color: var(--BlueGreenWhite);
-    color: var(--White);
+    background-color: var(--BlueDarker);
+    /* color: white; */
     width: 100%;
 }
 .submitButton:hover{

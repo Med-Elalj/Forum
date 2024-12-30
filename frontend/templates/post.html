@@ -7,7 +7,7 @@
             <span class="Title">{{.Post.Title}}</span>
             <div class="authorContain">
                 <span class="authorName">@{{.Post.UserName}}</span>
-                    <span class="material-symbols-outlined" id="timer">schedule</span>
+                <span class="material-symbols-outlined" id="timer">schedule</span>
                 <span class="postDate" data-time="{{.Post.CreatedAt}}">{{.Post.CreatedAt}}</span>
             </div>
         </div>
@@ -66,7 +66,8 @@
                             </i>
                             <span>{{.LikeCount}}</span>
                         </span>
-                        <span isPost="false" class="dislike" id="{{.ID}}"> <!-- TODO Handle Like Struct And Added The-->
+                        <span isPost="false" class="dislike" id="{{.ID}}">
+                            <!-- TODO Handle Like Struct And Added The-->
                             <i class="material-symbols-outlined">thumb_down</i>
                             <span>{{.DislikeCount}}</span>
                         </span>
