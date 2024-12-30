@@ -6,7 +6,7 @@
             <i class="material-symbols-outlined">home</i>
             <span>Home</span>
         </a>
-        <a href="/?type=liked" {{if eq .CurrentPage "liked" }} class="selected" {{end}}>
+        <a  {{if not .UserName}} onclick='popUp()'  href="#" {{else}} href="/?type=liked" {{end}} {{if eq .CurrentPage "liked" }} class="selected" {{end}}>
             <i class="material-symbols-outlined">favorite</i>
             <span>Liked Posts</span>
         </a>

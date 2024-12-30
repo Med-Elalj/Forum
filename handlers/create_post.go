@@ -56,8 +56,13 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 	}
 	err, id := database.CreatePost(DB, UserId, data.Title, data.Content, data.Categories)
 	if err != nil {
-		fmt.Println("error creating post - error 5")
-		ErrorJs(w, http.StatusInternalServerError, errors.New("error creating post - error 5"))
+		fmt.Println("=====>\n", err, id)
+		if err.Error() == "A post with the same title and content already exists within the last year." {
+			ErrorJs(w, http.StatusBadRequest, errors.New("a post with the same title and content already exists within the last year"))
+			return
+		} else if err.Error() == "FOREIGN KEY constraint failed" {
+			ErrorJs(w, http.StatusInternalServerError, errors.New("incorrect category id"))
+		}
 		return
 	}
 	w.WriteHeader(http.StatusOK)

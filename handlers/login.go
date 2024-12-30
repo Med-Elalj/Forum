@@ -67,9 +67,9 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 	if err != nil || uid == 0 {
 		structError["StatuCode"] = http.StatusInternalServerError
-		structError["MessageError"] = "something goes wrong, please try again later"
+		structError["MessageError"] = "User not found, Please try again"
 		structError["Register"] = false
-		ErrorPage(w, "error.html", structError)
+		ErrorPage(w, "register.html", structError)
 		return
 	}
 
