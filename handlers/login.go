@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"regexp"
+	"strconv"
 	"strings"
 	"unicode"
 
@@ -27,10 +28,32 @@ func init() {
 	content_RGX = regexp.MustCompile(`.{1,512}`)
 }
 
+func Error(w http.ResponseWriter, r *http.Request) {
+	template := getHtmlTemplate()
+
+	r.ParseForm()
+	code, err := strconv.Atoi(r.Form.Get("code"))
+	message := r.Form.Get("message")
+
+	if err != nil {
+		ErrorPage(w, "error.html",  map[string]interface{}{
+			"StatuCode":    http.StatusBadRequest,
+			"MessageError": errors.New("invalid status code"),
+		})
+		return
+	}
+
+	w.WriteHeader(code)
+	template.ExecuteTemplate(w, "error.html", map[string]interface{}{
+		"StatuCode":    code,
+		"MessageError": message,
+	})
+}
 func Logout(w http.ResponseWriter, r *http.Request) {
 	DeleteAllCookie(w, r)
 	http.Redirect(w, r, "/", http.StatusFound)
 }
+
 func Login(w http.ResponseWriter, r *http.Request) {
 	redirected := RedirectToHomeIfAuthenticated(w, r)
 	if redirected {

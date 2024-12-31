@@ -123,12 +123,7 @@ async function fetchPosts(offset, type) {
                 postsContainer.append(postCard);
             });
         }).catch(error => {
-           const errorDiv = document.createElement("div")
-           const h1 = document.createElement("h3")
-           errorDiv.classList.add("error")
-           h1.textContent = "You have entered none exist type or category.. Please try again."
-           errorDiv.append(h1)
-           postsContainer.append(errorDiv)
+            window.location.href = '/error?code=404&message=Page Not Found';
         }
         );
 
@@ -230,13 +225,13 @@ function showAndHideSideBar(e) {
     const commentSection = document.querySelector('.postComments')
     const postSection = document.querySelector('.ProfileAndPost')
     if (e.matches) {
-        sidebardLeft.style.left = "0%"
+        sidebardLeft.style.left = "2.5%"
         commentSection.style.display = 'flex';
         postSection.style.display = 'flex';
     } else {
         commentSection.style.display = 'none';
         postSection.style.display = 'flex';
-        sidebardLeft.style.left = '2.5%'
+        sidebardLeft.style.left = '0%'
     }
    
 }
@@ -288,6 +283,11 @@ function seeMore() {
 async function fetchPost(url) {
     try {
         const response = await fetch(url);
+        if (response.status != 200)
+        {
+            window.location.href = '/error?code=404&message=Page Not Found';
+            return false
+        }
         const html = await response.text();
         return html
     } catch (error) {
@@ -307,6 +307,7 @@ function readPost() {
         elem.addEventListener('click', async () => {
             // Get id to send request to get Post : elem.id
             const html = await fetchPost(`/post/${elem.id}`)
+            if (!html) return
             const postContent = document.querySelector('.postContainer')
             postContent.classList.remove("closed")
             if (!document.getElementById("ScriptInjected")) {

@@ -88,7 +88,7 @@ func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		c = &http.Cookie{}
 	}
-	
+
 	uid, err := database.GetUidFromToken(DB, c.Value)
 	if err != nil {
 		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
