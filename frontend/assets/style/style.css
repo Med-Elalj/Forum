@@ -80,9 +80,6 @@ body {
 
 a {
     text-decoration: none;
-    /* font-size: 1.5rem; */
-    /* font-weight: 400; */
-    /* line-height: 24px; */
 }
 
 .sidebar-left {
@@ -126,8 +123,6 @@ hr {
     flex-direction: column;
     justify-content: center;
     width: 100%;
-    /* margin: 9px 0px; */
-    /* height: 90px; */
     padding: 11px;
     color: rgb(110, 118, 125);
     font-weight: 600;
@@ -161,7 +156,6 @@ hr {
     margin-left: 8px;
 }
 
-/* .main-account a:hover,  */
 .nav-links a:hover {
     background-color: #41c6d3;
     color: var(--White);
@@ -176,18 +170,6 @@ hr {
     width: 90%;
 }
 
-/* 
-.nav-links a:first-child {
-    padding: 8px 8px;
-} */
-
-/* .nav-links a:first-child i {
-    margin: 0px;
-} */
-
-/* .ParentContainer{
-
-} */
 ::placeholder {
     color: var(--BlueGreen);
     opacity: 0.4;
@@ -199,23 +181,18 @@ nav {
     align-items: center;
     background-color: var(--WhiteBlue);
     padding: 10px 20px;
-    /* Added padding to prevent edge sticking */
     position: sticky;
     top: 0;
     z-index: 5;
-    /* Ensure it stays on top */
     width: 100%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    /* Optional: Add a subtle shadow for visual effect */
 }
 
 .Logo {
     margin-left: 20px;
-    font-size: 18px;
+    font-size: 25px;
     color: var(--Black);
     font-weight: 900;
     line-height: 20px;
-    border: solid 2px var(--BlueGreen);
     border-radius: 20px;
     padding: 8px;
 }
@@ -232,7 +209,6 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 25px;
 }
 
 .SignOptions .Buttons {
@@ -242,7 +218,6 @@ nav {
     height: fit-content;
     background-color: var(--White);
     color: var(--BlueGreen);
-    /* font-weight: 600; */
     gap: 7px;
     padding: 10px;
     border-radius: 10px;
@@ -304,7 +279,6 @@ nav {
     margin-right: 10px;
     text-decoration: none;
     color: #0a5c68;
-    /* background-color: var(--White); */
     border-radius: 90px;
 }
 
@@ -342,11 +316,11 @@ main {
     margin-left: 25%;
     border-right: solid 0.3px var(--WhiteBlue);
     height: 100%;
+    padding-bottom: 100px;
 }
 
 .main-feed {
     width: 97.5%;
-    /* border: 1px solid var(--Black); */
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -370,8 +344,6 @@ main {
 }
 
 .textarea {
-    /* width: 100%; */
-    /* max-height: 150px; */
     background-color: var(--WhiteBlue);
     font-size: 1.5rem;
     border: none;
@@ -387,7 +359,6 @@ main {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    /* height: 120px; */
     margin-top: 50px;
     padding: 4px 4px;
     background-color: var(--White);
@@ -468,7 +439,6 @@ main {
     justify-content: right;
     align-items: self-end;
     width: 100%;
-    /* height: 60px; */
     margin-top: 10px;
 }
 
@@ -479,7 +449,6 @@ main {
 
 
 .new-tweet .new-post-header input {
-    /* width: 100%; */
     height: 150px;
     max-height: 150px;
     background-color: var(--WhiteBlue);
@@ -512,7 +481,6 @@ main {
     width: 100%;
     min-height: 100px;
     padding: 12px 16px 0 16px;
-    /* border-top: 1px solid var(--Black); */
     background-color: var(--WhiteBlue);
     border-radius: 10px;
     box-shadow: 0px 3px 10px hwb(0 0% 80% / 0.32);
@@ -544,8 +512,6 @@ main {
     border: 2px solid var(--BlueDarker);
     transition: all .5s;
     padding: 5px 1px 5px;
-
-    /* Prevent image from shrinking */
 }
 
 .tweet-img:hover {
@@ -772,7 +738,6 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* Vertically center the items */
     width: 100%;
 }
 
@@ -798,7 +763,6 @@ main {
     display: none;
     color: var(--Black);
     z-index: 6;
-    /* font-size: 14px; */
     font-weight: 300;
     width: max-content;
     min-width: 120px;
@@ -898,8 +862,6 @@ main {
     z-index: 16;
     transition: all 1s;
     overflow-y: auto;
-    /* Allow scrolling within popup */
-
 }
 
 .close-post {
@@ -939,6 +901,10 @@ main {
     display: none;
 }
 
+.theme-toggle-mobile{
+    display: none;
+}
+
 @keyframes fromLeft {
     0% {
         left: -100%;
@@ -949,181 +915,6 @@ main {
     }
 }
 
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (min-width: 768px) {
-    .sidebar-left {
-        display: flex;
-    }
-
-}
-
-@media only screen and (max-width: 768px) {
-    .search {
-        width: 60%;
-    }
-
-    .Logo {
-        font-size: 14px;
-    }
-
-    .Buttons {
-        font-size: 1.3rem;
-    }
-
-    .darkModeCont {
-        display: block;
-    }
-
-    .textarea {
-        font-size: 1rem;
-        height: 90%;
-    }
-
-    .sidebar-right {
-        display: flex;
-        position: relative;
-        width: calc(100% - 40px);
-        right: 0;
-        margin: 20px;
-    }
-
-    .sidebar-right .nav-links {
-        width: 100%;
-        background-color: transparent;
-        padding: 0px;
-        gap: 0px;
-    }
-
-    .new-tweet {
-        margin: 0px;
-    }
-
-    .sidebar-left {
-        display: flex;
-        width: 90%;
-        height: 100%;
-        position: fixed;
-        left: -100%;
-        transition: left 0.75s;
-        z-index: 12;
-    }
-
-    .nav-links {
-        display: flex;
-        justify-content: start;
-        gap: 25px;
-        padding: 30px 20px;
-        width: 70%;
-        height: 100%;
-        background-color: var(--White);
-        left: -100%;
-        transition: left 0.75s;
-    }
-
-    .nav-links.margin-top {
-        margin-top: 0px;
-        background-color: var(--WhiteBlue);
-    }
-
-    .tweet-button {
-        width: 100%;
-    }
-
-    .main-feed {
-        padding-right: 0px;
-    }
-
-    .main-flex {
-        width: 100%;
-        margin-left: 0;
-        padding: 20px;
-    }
-
-    .menu {
-        display: block;
-        font-size: 40px;
-        color: var(--BlueGreen);
-        cursor: pointer;
-    }
-
-    .nav-links a i {
-        font-size: 2rem;
-        margin-right: 5px;
-        width: fit-content;
-    }
-}
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {}
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (max-width: 768px) {
-    .nav-mobile {
-        display: flex !important;
-    }
-
-    .main-feed,
-    .sidebar-right {
-        margin-top: 60px;
-    }
-
-    #posts,
-    #categories {
-        display: none;
-    }
-
-    #posts:target,
-    #categories:target {
-        display: flex;
-        justify-content: center;
-    }
-
-    .nav-mobile a div {
-        position: relative;
-        font-size: 20px;
-        padding: 0px 10px 10px 10px;
-        color: white;
-    }
-
-
-
-    .nav-mobile a.active div::after {
-        width: 100%;
-    }
-
-    .nav-mobile a div.clicked {
-        border-bottom: 4px solid var(--BlueGreen);
-    }
-
-    .nav-mobile a div {
-        display: inline-block;
-        transition: border-bottom 0.3s ease;
-    }
-
-    .nav-mobile a div:focus {
-        outline: none;
-        border-bottom: 4px solid var(--BlueGreen);
-    }
-
-    .SignOptions .Buttons {
-        display: flex;
-        align-items: center;
-        height: fit-content;
-        background-color: var(--White);
-        color: var(--BlueGreen);
-        border-radius: 10px;
-        transition: all 0.5s;
-        font-size: 11px;
-        width: fit-content;
-    }
-    .dark {
-        display: none;
-    }
-    ul .theme-toggle {
-        display: flex;
-    }
-
-}
 
 ul .theme-toggle {
     display: none;
@@ -1177,7 +968,6 @@ ul .theme-toggle {
 .switch-icon span {
     font-size: 30px;
     transition: rotate .5s;
-    /* vertical-align: middle; */
 }
 
 .rotate {
@@ -1237,14 +1027,12 @@ ul .theme-toggle {
 .profileStatics {
     display: flex;
     position: relative;
-    /* margin: auto; */
     flex-direction: column;
     justify-content: center;
     gap: 10px;
     background-color: var(--White);
     border-radius: 10px;
     padding: 20px 10px 10px 10px;
-    /* overflow: hidden; */
     margin-bottom: 15px;
 }
 
@@ -1255,10 +1043,8 @@ ul .theme-toggle {
 .analytics {
     position: absolute;
     top: -11px;
-    /* left: 27px; */
     background: var(--BlueDarker);
     color: var(--WhiteBlue);
-    /* padding: 5px; */
     border-radius: 99px;
     font-size: 16px;
     padding: 0px 30px;
@@ -1374,12 +1160,9 @@ ul .theme-toggle {
     display: none;
     justify-content: center;
     color: #ffffff;
-    /* background-color: #ff5c5c; */
-    /* width: fit-content; */
     transition: all 0.5s;
     position: absolute;
     right: 0px;
-    /* bottom: 0px; */
     top: 50px;
     margin: 10px;
 }
@@ -1393,4 +1176,546 @@ ul .theme-toggle {
     box-shadow: var(--shadow);
     border-bottom: solid 1px grey;
     z-index: 10;
+}
+
+
+.error {
+    color: white;
+    background-color: #ff7777;
+    padding: 18px;
+    border-radius: 10px;
+}
+/* 
+
+@media only screen and (min-width: 768px) {
+    .sidebar-left {
+        display: flex;
+    }
+
+}
+
+@media only screen and (max-width: 768px) {
+
+    .theme-toggle{
+        display: none;
+    }
+    .theme-toggle-mobile{
+        display: block;
+    }
+    .search {
+        width: 60%;
+    }
+
+    .Logo {
+        font-size: 25px;
+    }
+
+    .Buttons {
+        font-size: 1.3rem;
+    }
+
+    .darkModeCont {
+        display: block;
+    }
+
+    .textarea {
+        font-size: 1rem;
+        height: 90%;
+    }
+
+    .sidebar-right {
+        display: flex;
+        position: relative;
+        width: calc(100% - 40px);
+        right: 0;
+        margin: 20px;
+    }
+
+    .sidebar-right .nav-links {
+        width: 100%;
+        background-color: transparent;
+        padding: 0px;
+        gap: 0px;
+    }
+
+    .new-tweet {
+        margin: 0px;
+    }
+
+    .sidebar-left {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        left: -100%;
+        transition: left 0.75s;
+        z-index: 12;
+        background-color: var(--GreeyTransparant);
+    }
+
+    .nav-links {
+        display: flex;
+        justify-content: start;
+        gap: 25px;
+        padding: 30px 20px;
+        width: 70%;
+        height: 100%;
+        background-color: var(--White);
+        left: -100%;
+        transition: left 0.75s;
+    }
+
+    .nav-links.margin-top {
+        margin-top: 0px;
+        background-color: var(--WhiteBlue);
+        width: 50%;
+    }
+
+    .tweet-button {
+        width: 100%;
+    }
+
+    .main-feed {
+        padding-right: 0px;
+    }
+
+    .main-flex {
+        width: 100%;
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .menu {
+        display: block;
+        font-size: 40px;
+        color: var(--BlueGreen);
+        cursor: pointer;
+    }
+
+    .nav-links a i {
+        font-size: 2rem;
+        margin-right: 5px;
+        width: fit-content;
+    }
+    .nav-mobile {
+        display: flex !important;
+    }
+
+    .main-feed,
+    .sidebar-right {
+        margin-top: 60px;
+    }
+
+    #posts,
+    #categories {
+        display: none;
+    }
+
+    #posts:target,
+    #categories:target {
+        display: flex;
+        justify-content: center;
+    }
+
+    .nav-mobile a div {
+        position: relative;
+        font-size: 20px;
+        padding: 0px 10px 10px 10px;
+        color: white;
+    }
+
+    .nav-mobile a div::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background: var(--BlueGreen);
+        transition: width 0.3s ease;
+    }
+
+    .nav-mobile a div:hover::after {
+        width: 100%;
+    }
+
+    .nav-mobile a.active div::after {
+        width: 100%;
+    }
+
+    .nav-mobile a div.clicked {
+        border-bottom: 4px solid var(--BlueGreen);
+    }
+
+    .nav-mobile a div {
+        display: inline-block;
+        transition: border-bottom 0.3s ease;
+    }
+
+    .nav-mobile a:hover {
+        background-color: var(--WhiteBlue);
+        width:fit-content;
+        height:100%;
+        transition: 0.3s ease;
+        border-radius: 10px
+    }
+
+
+    .nav-mobile a div:focus {
+        outline: none;
+        border-bottom: 4px solid var(--BlueGreen);
+    }
+
+    .SignOptions .Buttons {
+        display: flex;
+        align-items: center;
+        height: fit-content;
+        background-color: var(--White);
+        color: var(--BlueGreen);
+        border-radius: 10px;
+        transition: all 0.5s;
+        font-size: 11px;
+        width: fit-content;
+    }
+
+}
+
+@media only screen and (min-width: 768px) {
+    .sidebar-left {
+        display: flex;
+    }
+
+}
+
+@media only screen and (max-width: 768px) {
+    .search {
+        width: 60%;
+    }
+
+    .Logo {
+        font-size: 14px;
+    }
+
+    .Buttons {
+        font-size: 1.3rem;
+    }
+
+    .darkModeCont {
+        display: block;
+    }
+
+    .textarea {
+        font-size: 1rem;
+        height: 90%;
+    }
+
+    .sidebar-right {
+        display: flex;
+        position: relative;
+        width: calc(100% - 40px);
+        right: 0;
+        margin: 20px;
+    }
+
+    .sidebar-right .nav-links {
+        width: 100%;
+        background-color: transparent;
+        padding: 0px;
+        gap: 0px;
+    }
+
+    .new-tweet {
+        margin: 0px;
+    }
+
+    .sidebar-left {
+        display: flex;
+        width: 90%;
+        height: 100%;
+        position: fixed;
+        left: -100%;
+        transition: left 0.75s;
+        z-index: 12;
+    }
+
+    .nav-links {
+        display: flex;
+        justify-content: start;
+        gap: 25px;
+        padding: 30px 20px;
+        width: 70%;
+        height: 100%;
+        background-color: var(--White);
+        left: -100%;
+        transition: left 0.75s;
+    }
+
+    .nav-links.margin-top {
+        margin-top: 0px;
+        background-color: var(--WhiteBlue);
+    }
+
+    .tweet-button {
+        width: 100%;
+    }
+
+    .main-feed {
+        padding-right: 0px;
+    }
+
+    .main-flex {
+        width: 100%;
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .menu {
+        display: block;
+        font-size: 40px;
+        color: var(--BlueGreen);
+        cursor: pointer;
+    }
+
+    .nav-links a i {
+        font-size: 2rem;
+        margin-right: 5px;
+        width: fit-content;
+    }
+}
+
+@media only screen and (min-width: 600px) {}
+
+@media only screen and (max-width: 768px) {
+    .nav-mobile {
+        display: flex !important;
+    }
+
+    .main-feed,
+    .sidebar-right {
+        margin-top: 60px;
+    }
+
+    #posts,
+    #categories {
+        display: none;
+    }
+
+    #posts:target,
+    #categories:target {
+        display: flex;
+        justify-content: center;
+    }
+
+    .nav-mobile a div {
+        position: relative;
+        font-size: 20px;
+        padding: 0px 10px 10px 10px;
+        color: white;
+    }
+
+
+
+    .nav-mobile a.active div::after {
+        width: 100%;
+    }
+
+    .nav-mobile a div.clicked {
+        border-bottom: 4px solid var(--BlueGreen);
+    }
+
+    .nav-mobile a div {
+        display: inline-block;
+        transition: border-bottom 0.3s ease;
+    }
+
+    .nav-mobile a div:focus {
+        outline: none;
+        border-bottom: 4px solid var(--BlueGreen);
+    }
+
+    .SignOptions .Buttons {
+        display: flex;
+        align-items: center;
+        height: fit-content;
+        background-color: var(--White);
+        color: var(--BlueGreen);
+        border-radius: 10px;
+        transition: all 0.5s;
+        font-size: 11px;
+        width: fit-content;
+    }
+    .dark {
+        display: none;
+    }
+    ul .theme-toggle {
+        display: flex;
+    }
+
+} */
+
+
+@media only screen and (min-width: 768px) {
+    .sidebar-left {
+        display: flex;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .theme-toggle {
+        display: none;
+    }
+    .theme-toggle-mobile {
+        display: block;
+    }
+    .search {
+        width: 60%;
+    }
+    .Logo {
+        font-size: 14px;
+    }
+    .Buttons {
+        font-size: 1.3rem;
+    }
+    .darkModeCont {
+        display: block;
+    }
+    .textarea {
+        font-size: 1rem;
+        height: 90%;
+    }
+    .sidebar-right {
+        display: flex;
+        position: relative;
+        width: calc(100% - 40px);
+        right: 0;
+        margin: 20px;
+    }
+    .sidebar-right .nav-links {
+        width: 100%;
+        background-color: transparent;
+        padding: 0px;
+        gap: 0px;
+    }
+    .new-tweet {
+        margin: 0px;
+    }
+    .sidebar-left {
+        display: flex;
+        width: 90%;
+        height: 100%;
+        position: fixed;
+        left: -100%;
+        transition: left 0.75s;
+        z-index: 12;
+        background-color: var(--GreeyTransparant);
+    }
+    .nav-links {
+        display: flex;
+        justify-content: start;
+        gap: 25px;
+        padding: 30px 20px;
+        width: 70%;
+        height: 100%;
+        background-color: var(--White);
+        left: -100%;
+        transition: left 0.75s;
+    }
+    .nav-links.margin-top {
+        margin-top: 0px;
+        background-color: var(--WhiteBlue);
+        width: 50%;
+    }
+    .tweet-button {
+        width: 100%;
+    }
+    .main-feed {
+        padding-right: 0px;
+        margin-top: 60px;
+    }
+    .main-flex {
+        width: 100%;
+        margin-left: 0;
+        padding: 20px;
+    }
+    .menu {
+        display: block;
+        font-size: 40px;
+        color: var(--BlueGreen);
+        cursor: pointer;
+    }
+    .nav-links a i {
+        font-size: 2rem;
+        margin-right: 5px;
+        width: fit-content;
+    }
+    .nav-mobile {
+        display: flex !important;
+    }
+    .sidebar-right {
+        margin-top: 60px;
+    }
+    #posts,
+    #categories {
+        display: none;
+    }
+    #posts:target,
+    #categories:target {
+        display: flex;
+        justify-content: center;
+    }
+    .nav-mobile a div {
+        position: relative;
+        font-size: 20px;
+        padding: 0px 10px 10px 10px;
+        color: white;
+        display: inline-block;
+        transition: border-bottom 0.3s ease;
+    }
+    .nav-mobile a div::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background: var(--BlueGreen);
+        transition: width 0.3s ease;
+    }
+    .nav-mobile a div:hover::after {
+        width: 100%;
+    }
+    .nav-mobile a.active div::after {
+        width: 100%;
+    }
+    .nav-mobile a div.clicked {
+        border-bottom: 4px solid var(--BlueGreen);
+    }
+    .nav-mobile a:hover {
+        background-color: var(--WhiteBlue);
+        width: fit-content;
+        height: 100%;
+        transition: 0.3s ease;
+        border-radius: 10px;
+    }
+    .nav-mobile a div:focus {
+        outline: none;
+        border-bottom: 4px solid var(--BlueGreen);
+    }
+    .SignOptions .Buttons {
+        display: flex;
+        align-items: center;
+        height: fit-content;
+        background-color: var(--White);
+        color: var(--BlueGreen);
+        border-radius: 10px;
+        transition: all 0.5s;
+        font-size: 11px;
+        width: fit-content;
+    }
+    .dark {
+        display: none;
+    }
+    ul .theme-toggle {
+        display: flex;
+    }
 }

@@ -29,43 +29,26 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	data := struct {
-		Title      string
-		Content    string
-		Categories []string
+		Title          string
+		Content        string
+		Categories     []string
+		CategoriesList []string
 	}{}
 	err = json.NewDecoder(r.Body).Decode(&data)
+	fmt.Println("data===>", data)
+	if (!title_RGX.MatchString(data.Title)) || (!content_RGX.MatchString(data.Content)) || (len(data.Categories) == 0) || (err != nil) {
+		fmt.Println("some required input not provided")
+		ErrorJs(w, http.StatusBadRequest, errors.New("required input not provided"))
+		return
+	}
+
+	id, err := database.CreatePost(DB, UserId, data.Title, data.Content, data.Categories)
 	if err != nil {
-		fmt.Println("invalid json - error 1")
-		ErrorJs(w, http.StatusBadRequest, errors.New("invalid json - error 1"))
-		return
-	}
-	if len(data.Title) > 60 {
-		fmt.Println("title is too long - error 2")
-		ErrorJs(w, http.StatusBadRequest, errors.New("title is too long - error 2"))
-		return
-	}
-	if len(data.Content) > 1000 {
-		fmt.Println("content is too long - error 3")
-		ErrorJs(w, http.StatusBadRequest, errors.New("content is too long - error 3"))
-		return
-	}
-	if len(data.Categories) == 0 {
-		fmt.Println("no categories - error 4")
-		ErrorJs(w, http.StatusBadRequest, errors.New("no categories - error 4"))
-		return
-	}
-	err, id := database.CreatePost(DB, UserId, data.Title, data.Content, data.Categories)
-	if err != nil {
-		fmt.Println("=====>\n", err, id)
-		if err.Error() == "A post with the same title and content already exists within the last year." {
-			ErrorJs(w, http.StatusBadRequest, errors.New("a post with the same title and content already exists within the last year"))
-			return
-		} else if err.Error() == "FOREIGN KEY constraint failed" {
-			ErrorJs(w, http.StatusInternalServerError, errors.New("incorrect category id"))
-		}
+		ErrorJs(w, http.StatusInternalServerError, errors.New("Somethign went wrong creating post"+err.Error()))
 		return
 	}
 	w.WriteHeader(http.StatusOK)
+	fmt.Println(data.CategoriesList)
 	json.NewEncoder(w).Encode(map[string]interface{}{
 		"status":        "ok",
 		"ID":            id,
@@ -73,7 +56,7 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 		"UserName":      UserProfile.UserName, // TODO get username
 		"CreatedAt":     "now",
 		"Content":       data.Content,
-		"Categories":    data.Categories,
+		"Categories":    data.CategoriesList,
 		"LikeCount":     0,
 		"DislikeCount":  0,
 		"CommentsCount": 0,

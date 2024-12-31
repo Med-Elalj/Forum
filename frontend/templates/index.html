@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="/assets/style/post.css">
     <link rel="stylesheet" href="/assets/style/popstyle.css">
     <link rel="stylesheet" href="/assets/style/create-post.css">
-    <link rel="stylesheet" href="/assets/style/footer.css">
     <!-- TODO WebsiteTitle EX : Sweeter - Register | Sweeter - Login ...etc-->
     <title>{{/*.Settings.Title*/}}</title>
     <link rel="icon" href="/assets/images/logo.svg" type="image/svg+xml">
@@ -57,6 +56,10 @@
     <!-- {{template "footer"}} -->
     {{if .Profile.UserName}}
     <script>
+        function removeCreatePostListner() {
+            const CreatePostArea = document.querySelectorAll(".new-post-header")
+            CreatePostArea.removeListner('click', createPostListner)
+        }
         function createPostListner() {
             const CreatePostArea = document.querySelectorAll(".new-post-header")
             console.log(CreatePostArea);
@@ -73,10 +76,12 @@
     {{end}}
     {{ if not .Profile.UserName}}
     <script>
-        const input_Post = document.querySelector('.new-post-header');
-        input_Post.addEventListener('click', () => {
-            popUp()
-        });
+        const input_Post = document.querySelectorAll('.new-post-header');
+            input_Post.forEach(elem => {
+                elem.addEventListener('click', () => {
+                popUp()
+            });
+        })
     </script>
     {{end}}
     {{if .Profile.UserName}}

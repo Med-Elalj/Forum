@@ -69,3 +69,13 @@ func QuerryLatestPostsByCategory(db *sql.DB, user_id int, c_name string, offset 
 	}
 	return res, nil
 }
+
+func IsCategoryValid(category string) bool {
+	categories := []string{"General", "Entertainment", "Health", "Business", "Sports", "Technology"}
+	for _, c := range categories {
+		if c == category {
+			return true
+		}
+	}
+	return false
+}

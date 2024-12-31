@@ -1,3 +1,4 @@
+
 <div class="ProfileAndPost">
     <div class="postInfo">
         <div class="authorImage">
@@ -11,6 +12,14 @@
                 <span class="postDate" data-time="{{.Post.CreatedAt}}">{{.Post.CreatedAt}}</span>
             </div>
         </div>
+        <!-- <div class="CommentButton">
+            <span class="CommentButtonTitle">
+                Comments
+            </span>
+            <span class="material-symbols-outlined">
+                swap_horiz
+                </span>
+        </div> -->
     </div>
     <div class="postContent">
         <pre>{{.Post.Content}}</pre>
@@ -28,18 +37,28 @@
                 <span> {{.Post.DislikeCount}}</span>
             </div>
         </div>
-        <div class="CommentButtons">
+        <div class="CommentButtons CommentButton">
             <div class="DisableUserSelect">
                 <span class="material-symbols-outlined" id="{{.Post.ID}}">comment</span>
-                {{.Post.CommentCount}}
+                <span class="commentCount">
+                    {{.Post.CommentCount}}
+                </span>
             </div>
         </div>
     </div>
 </div>
 <div class="postComments">
     <div class="postInfo center">
-        <div class="authorInfo">
+        <div class="commentHeader">
             <span class="Title">Comments</span>
+            <div class="PostButton">
+                <span class="PostButtonTitle">
+                    Post
+                </span>
+                <span class="material-symbols-outlined">
+                    swap_horiz
+                    </span>
+            </div>
             <span class="material-symbols-outlined close-post DisableUserSelect">
                 close
             </span>

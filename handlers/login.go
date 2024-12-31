@@ -16,13 +16,15 @@ import (
 )
 
 var (
-	DB                      *sql.DB
-	email_RGX, username_RGX *regexp.Regexp
+	DB                                              *sql.DB
+	email_RGX, username_RGX, title_RGX, content_RGX *regexp.Regexp
 )
 
 func init() {
 	email_RGX = regexp.MustCompile(`^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`)
 	username_RGX = regexp.MustCompile(`^\w{3,19}$`)
+	title_RGX = regexp.MustCompile(`.{1,60}`)
+	content_RGX = regexp.MustCompile(`.{1,512}`)
 }
 
 func Logout(w http.ResponseWriter, r *http.Request) {

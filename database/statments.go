@@ -1,8 +1,8 @@
 package database
 
 var tables = map[string]string{
+	"Pragma": `PRAGMA foreign_keys = ON;`,
 	"users": `
-		PRAGMA foreign_keys = ON;
 		CREATE TABLE IF NOT EXISTS users (
 		id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 		email TEXT UNIQUE NOT NULL,
@@ -184,5 +184,15 @@ dislike_count = dislike_count - (OLD.is_like = 0)
 WHERE id = OLD.1here2_id;
 END;`,
 		[]string{"post", "comment"},
+	},
+	{
+		"CreateCategories", `INSERT OR IGNORE INTO Categories (Name) VALUES
+		('General'),
+		('Entertainment'),
+		('Health'),
+		('Business'),
+		('Sports'),
+		('Technology');`,
+		[]string{},
 	},
 }

@@ -36,6 +36,7 @@ func CreateTables(db *sql.DB) {
 	DeleteExpiredSessions(db)
 }
 
+
 func CreateTriggers(db *sql.DB) {
 	for _, c := range trigers {
 		if len(c.tables) == 0 {

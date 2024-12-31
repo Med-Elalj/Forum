@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"forum/database"
+	"forum/structs"
 	"net/http"
 	"strconv"
 	"strings"
@@ -57,14 +58,20 @@ func AddCommentHandler(w http.ResponseWriter, r *http.Request) {
 		ErrorJs(w, http.StatusInternalServerError, errors.New("error creating comment"))
 		return
 	}
-
+	var post structs.Post
+	post, err = database.GetPostByID(DB, IdInt, UserId)
+	if err != nil {
+		ErrorJs(w, http.StatusInternalServerError, errors.New("error getting post"))
+		return
+	}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]interface{}{
-		"status":    "ok",
-		"UserName":  UserProfile.UserName,
-		"CreatedAt": "just now",
-		"CommentID": id,
-		"Content":   data.Comment,
+		"status":       "ok",
+		"UserName":     UserProfile.UserName,
+		"CreatedAt":    "just now",
+		"CommentID":    id,
+		"Content":      data.Comment,
+		"CommentCount": post.CommentCount,
 	})
 
 }

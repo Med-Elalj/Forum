@@ -25,6 +25,7 @@ function createPost() {
         const title = form.title.value;
         const content = form.content.value;
         const categories = Array.from(form.category).filter((input) => input.checked).map((input) => input.id);
+        const categoriesList = Array.from(form.category).filter((input) => input.checked).map((input) => input.value);
         console.log(categories.length);
         
         if (categories.length === 0) {
@@ -38,7 +39,8 @@ function createPost() {
         const data = {
             title,
             content,
-            categories
+            categories,
+            categoriesList
         };
         
         const response = await fetch('/createPost', {
@@ -48,11 +50,14 @@ function createPost() {
             },
             body: JSON.stringify(data),
         });
+        console.log("====> data From Front ",data );
         console.log("====>",response.status );
         
         if (response.status === 200) {
             
             const post = await response.json();
+            console.log("====> post From Back ",post );
+            
             const postCard = document.createElement('div');
             postCard.classList.add('post-card');
             postCard.innerHTML = `
@@ -100,13 +105,22 @@ function createPost() {
             CreatePostModel.style.display = "none";
             form.reset();
             // Recall Function To append new post to their Lestining Buttons
+            removeSeeMoreListner()
             seeMore()
+            
+            removeReadPostListner()
             readPost() 
+
+            removeHandeLikeListeners()
             handleLikes()
+            
+            removeCreatePostListner()
             createPostListner()
         }else{
             ErrorBox.style.display = "flex"
-            document.querySelector(".message").innerText = "post with the same title and content already exist"
+            console.log(response);
+            
+            document.querySelector(".message").innerText = "Error While creating post"
             setTimeout(function(){
                 ErrorBox.style.display = "none"
             }, 5000)

@@ -10,51 +10,51 @@ import (
 	"forum/database"
 )
 
-/// TODO No need i have already implemented it in Tawil.go file
-/// under The same NAME Remove X anothe duplicate in posts.go files under X
+// /// TODO No need i have already implemented it in Tawil.go file
+// /// under The same NAME Remove X anothe duplicate in posts.go files under X
 
-func CreatePostXX(w http.ResponseWriter, r *http.Request) {
-	// Handling adding posts based on createPostInputEventListeners function
-	if r.Header.Get("Content-Type") != "application/json" {
-		ErrorJs(w, http.StatusBadRequest, errors.New(r.Header.Get("Content-Type")))
-		return
-	}
-	token, err := r.Cookie("session")
-	if err != nil {
-		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
-		return
-	}
-	UserId, err := database.GetUidFromToken(DB, token.Value)
-	if err != nil {
-		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized ID"+err.Error()))
-		return
-	}
+// func CreatePostXX(w http.ResponseWriter, r *http.Request) {
+// 	// Handling adding posts based on createPostInputEventListeners function
+// 	if r.Header.Get("Content-Type") != "application/json" {
+// 		ErrorJs(w, http.StatusBadRequest, errors.New(r.Header.Get("Content-Type")))
+// 		return
+// 	}
+// 	token, err := r.Cookie("session")
+// 	if err != nil {
+// 		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
+// 		return
+// 	}
+// 	UserId, err := database.GetUidFromToken(DB, token.Value)
+// 	if err != nil {
+// 		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized ID"+err.Error()))
+// 		return
+// 	}
 
-	data := struct {
-		Title      string
-		Content    string
-		Categories []string
-	}{}
+// 	data := struct {
+// 		Title      string
+// 		Content    string
+// 		Categories []string
+// 	}{}
 
-	err = json.NewDecoder(r.Body).Decode(&data)
-	if err != nil {
-		ErrorJs(w, http.StatusBadRequest, errors.New("invalid json"))
-		return
-	}
+// 	err = json.NewDecoder(r.Body).Decode(&data)
+// 	if err != nil {
+// 		ErrorJs(w, http.StatusBadRequest, errors.New("invalid json"))
+// 		return
+// 	}
 
-	err, Pid := database.CreatePost(DB, UserId, data.Title, data.Content, data.Categories)
-	if err != nil {
-		ErrorJs(w, http.StatusInternalServerError, errors.New("error creating post"))
-		return
-	}
-	post, err := database.GetPostByID(DB, Pid, UserId)
-	if err != nil {
-		ErrorJs(w, http.StatusInternalServerError, errors.New("error getting post"))
-		return
-	}
-	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(post)
-}
+// 	err, Pid := database.CreatePost(DB, UserId, data.Title, data.Content, data.Categories)
+// 	if err != nil {
+// 		ErrorJs(w, http.StatusInternalServerError, errors.New("error creating post"))
+// 		return
+// 	}
+// 	post, err := database.GetPostByID(DB, Pid, UserId)
+// 	if err != nil {
+// 		ErrorJs(w, http.StatusInternalServerError, errors.New("error getting post"))
+// 		return
+// 	}
+// 	w.WriteHeader(http.StatusOK)
+// 	json.NewEncoder(w).Encode(post)
+// }
 
 func CreateCommentHandler(w http.ResponseWriter, r *http.Request) {
 	// Handling adding comments based on addCommentInputEventListeners function

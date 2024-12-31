@@ -1,6 +1,17 @@
 
 // Handling Likes and Dislikes in both the frontend and backend
 
+function removeHandeLikeListeners() {
+    const likeBtns = document.querySelectorAll('.like');
+    const dislikeBtns = document.querySelectorAll('.dislike');
+    likeBtns.forEach(btn => {
+        btn.removeEventListener('click', handleLikes);
+    });
+    dislikeBtns.forEach(btn => {
+        btn.removeEventListener('click', handleLikes);
+    });
+}
+
 function handleLikes() {
     const likeBtns = document.querySelectorAll('.like');
     const dislikeBtns = document.querySelectorAll('.dislike');

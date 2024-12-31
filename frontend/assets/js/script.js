@@ -1,16 +1,20 @@
 let popup = NaN;
 const urlParams = new URLSearchParams(window.location.search);
+const sidebardLeft = document.querySelector('.sidebar-left')
+const menuIcon = document.querySelector('.menu')
+const windowMedia = window.matchMedia("(min-width: 768px)")
 const type = urlParams.get('type');
 
 async function fetchPosts(offset, type) {
     type = type ? type : "home"
     let category_name = urlParams.get('category')
+    const postsContainer = document.querySelector('.main-feed');
+
     console.log('Fetching posts with offset:', offset, type);
     const x = await fetch(`/infinite-scroll?offset=${offset}&type=${type}${category_name ? `&category=${category_name}` : ''}`)
         .then(response => response.json())
         .then(posts => {
             console.log('Fetched posts:', posts);
-            const postsContainer = document.querySelector('.main-feed');
             posts.forEach(post => {
                 const postCard = document.createElement('div');
                 postCard.classList.add('post-card');
@@ -117,10 +121,26 @@ async function fetchPosts(offset, type) {
                 console.log('posts container:', postCard);
                 postsContainer.append(postCard);
             });
-        });
+        }).catch(error => {
+           const errorDiv = document.createElement("div")
+           const h1 = document.createElement("h3")
+           errorDiv.classList.add("error")
+           h1.textContent = "You have entered none exist type or category.. Please try again."
+           errorDiv.append(h1)
+           postsContainer.append(errorDiv)
+        }
+        );
+
+        removeReadPostListner()
         readPost()
+
+        removeShowLeftSidebarMobileListner()
         showLeftSidebarMobile()
+
+        removeSeeMoreListner()
         seeMore()
+
+        removeHandeLikeListeners()
         handleLikes()
 }
 
@@ -147,9 +167,6 @@ function infiniteScroll() {
 }
 // get Query values from url to fetch the posts
 
-
-infiniteScroll()
-fetchPosts(0, type)
 
 
 //////////////////// Popup function //////////////////
@@ -200,6 +217,10 @@ function postControlList() {
             contentSibling.classList.toggle("show")
         })
         document.addEventListener('click', function (event) {
+            
+            if (event.target == sidebardLeft){
+                sidebardLeft.style.left = "-100%";
+            }
             if (!contentSibling.contains(event.target) && !drop.contains(event.target) && contentSibling.classList.contains("show")) {
                 contentSibling.classList.remove('show');
             }
@@ -208,24 +229,46 @@ function postControlList() {
 }
 //////////////////// Menu Icon On header PAGE Burger Icon for Mobile //////////
 
-function showLeftSidebarMobile() {
-    const sidebardLeft = document.querySelector('.sidebar-left')
-    const menuIcon = document.querySelector('.menu')
-    menuIcon.addEventListener('click', () => {
-        sidebardLeft.style.left = sidebardLeft.style.left === '0px' ? '-100%' : '0px'
-    })
-
-    // Hiding Humberger Menu on Mobile if the user change the view port
-    const x = window.matchMedia("(min-width: 768px)")
-    x.addEventListener('change', (e) => {
-        if (e.matches) {
-            sidebardLeft.style.left = '2.5%'
-        } else {
-            sidebardLeft.style.left = '-100%'
+function showAndHideSideBar(e) {
+    if (e.matches) {
+        sidebardLeft.style.left = '2.5%'
+        commentSection.style.display = 'flex';
+        postSection.style.display = 'flex';
+    } else {
+        commentSection.style.display = 'none';
+        postSection.style.display = 'flex';
+        sidebardLeft.style.left = '-100%'
+    }
+    document.addEventListener('click', (event)=>{
+        if (event.target == sidebardLeft){
+            console.log("Cloick sldkjf dsljf ");
+            
+            sidebardLeft.style.left = "-100%"
         }
     })
 }
+function MenuIcon(){
+    sidebardLeft.style.left = sidebardLeft.style.left === '0%' ? '-100%' : '0%'
+}
+
+function removeShowLeftSidebarMobileListner() {
+    menuIcon.removeEventListener('click', MenuIcon)
+    windowMedia.removeEventListener('change', showAndHideSideBar)
+}
+
+function showLeftSidebarMobile() {
+    // Hiding Humberger Menu on Mobile if the user change the view port
+    windowMedia.addEventListener('change', showAndHideSideBar)
+    menuIcon.addEventListener('click', MenuIcon)
+}
 //////////////////// See more Option  ////////////
+function removeSeeMoreListner() {
+    document.querySelectorAll('.see-more').forEach(tweetText => {
+        const seeMoreLink = tweetText;
+        seeMoreLink.removeEventListener('click', seeMore);
+    })
+}
+
 function seeMore() {
     document.querySelectorAll('.see-more').forEach(tweetText => {
         const seeMoreLink = tweetText;
@@ -258,8 +301,15 @@ async function fetchPost(url) {
         console.error('Error fetching HTML:', error);
     }
 }
+function removeReadPostListner() {
+    let postButton = document.querySelectorAll(".post")
+    postButton.forEach(elem => {
+        elem.removeEventListener('click', readPost);
+    })
+}
 function readPost() {
     let postButton = document.querySelectorAll(".post")
+
     postButton.forEach(elem => {
         elem.addEventListener('click', async () => {
             // Get id to send request to get Post : elem.id
@@ -269,7 +319,7 @@ function readPost() {
             if (!document.getElementById("ScriptInjected")) {
                 const script = document.createElement("script")
                 script.id = "ScriptInjected"
-                script.src = "/assets/js/script-post.js"
+                script.src = "/assets/js/comments.js"
                 document.body.appendChild(script)
             }
             postContent.innerHTML = html
@@ -277,7 +327,9 @@ function readPost() {
             document.body.classList.add("stop-scrolling");
 
             document.addEventListener('click', (event) => {
+                
                 if (event.target == postContent || event.target.classList.contains("close-post")) {
+                    removePostButtonSwitcherListners()
                     postContent.classList.add("closed")
                     //restore the scrolling on the background page :D 
                     document.body.classList.remove("stop-scrolling");
@@ -337,11 +389,6 @@ window.addEventListener('hashchange', () => {
     });
 });
 
-postControlList()
-readPost()
-showLeftSidebarMobile()
-seeMore()
-
 // change the time to be more readable
 function timeAgo(date) {
     const seconds = Math.floor((new Date() - new Date(date)) / 1000);
@@ -369,11 +416,18 @@ const observer = new MutationObserver(() => {
 
 document.addEventListener('DOMContentLoaded', () => {
     updateAllTimes();
-    
-    // Observe DOM changes
     observer.observe(document.body, {
         childList: true,
         subtree: true
     });
     setInterval(updateAllTimes, 60000);
 });
+
+
+infiniteScroll()
+fetchPosts(0, type)
+
+postControlList()
+readPost()
+showLeftSidebarMobile()
+seeMore()

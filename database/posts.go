@@ -105,36 +105,36 @@ func QuerryPostsbyUser(db *sql.DB, username string, user_id, ammount int) ([]str
 	return res, nil
 }
 
-func CreatePost(db *sql.DB, UserID int, title, content string, categories []string) (error, int) {
+func CreatePost(db *sql.DB, UserID int, title, content string, categories []string) (int, error) {
 	tx, err := db.Begin()
 	if err != nil {
-		return err, -1
+		return 0, err
 	}
 	defer tx.Rollback()
 
 	stmt, err := tx.Prepare("INSERT INTO posts(user_id, title, content) VALUES(?,?,?)")
 	if err != nil {
 		fmt.Println("CreatePost 2", err)
-		return err, -1
+		return 0, err
 	}
 	defer stmt.Close()
 
 	res, err := stmt.Exec(UserID, title, content)
 	if err != nil {
 		fmt.Println("CreatePost 3", err)
-		return err, -1
+		return 0, err
 	}
 
 	postID, err := res.LastInsertId()
 	if err != nil {
 		fmt.Println("CreatePost 4", err)
-		return err, -1
+		return 0, err
 	}
 
 	stmt_1, err := tx.Prepare(`INSERT INTO post_categories(category_id, post_id) VALUES(?, ?)`)
 	if err != nil {
 		fmt.Println("CreatePost 5", err)
-		return err, -1
+		return 0, err
 	}
 	defer stmt_1.Close()
 
@@ -142,11 +142,11 @@ func CreatePost(db *sql.DB, UserID int, title, content string, categories []stri
 		CategoryId, err := strconv.Atoi(category)
 		if err != nil {
 			fmt.Println("CreatePost 6", err)
-			return err, -1
+			return 0, err
 		}
 		_, err = stmt_1.Exec(CategoryId, postID)
 		if err != nil {
-			return err, -1
+			return 0, err
 		}
 	}
 
@@ -154,10 +154,10 @@ func CreatePost(db *sql.DB, UserID int, title, content string, categories []stri
 	err = tx.Commit()
 	if err != nil {
 		fmt.Println("CreatePost 7", err)
-		return err, -1
+		return 0, err
 	}
 	PostId := int(postID)
-	return nil, PostId
+	return PostId, nil
 }
 
 func GetPostByID(db *sql.DB, Postid, UserID int) (structs.Post, error) {

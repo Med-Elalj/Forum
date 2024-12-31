@@ -1,3 +1,17 @@
+const commentInput = document.querySelector('.commentInput input');
+const send_comment = document.querySelector('.send-comment');
+const commentButton = document.querySelector('.CommentButton');
+const postButton = document.querySelector('.PostButton');
+const commentSection = document.querySelector('.postComments');
+const postSection = document.querySelector('.ProfileAndPost');
+
+function removeExpandCommentListeners() {
+    let comments = document.querySelectorAll(".commentData")
+    comments.forEach(elem => {
+        elem.removeEventListener('click', ExpandComments);
+    })
+}
+
 function ExpandComments() {
     // Expand Comment and read Content...
     let comments = document.querySelectorAll(".commentData")
@@ -34,12 +48,13 @@ async function handleCommentEvent(e) {
                 comment
             })
         });
-        if (response.status != 200) {
+        if (response.status == 401) {
             popUp();
             return;
         }
-
+        
         const data = await response.json();
+        
         if (data["status"] == "ok") {
             const commentContainer = document.querySelector('.Comments');
             const commentCard = document.createElement('div');
@@ -80,36 +95,74 @@ async function handleCommentEvent(e) {
             `;
             commentCard.querySelector('.commentData').innerText = data["Content"];
             commentContainer.prepend(commentCard);
+            document.querySelector('.commentCount').textContent = data.CommentCount
             window.location.replace(url);
+            
+
+            // remove old Listeners
+            removeHandeLikeListeners();
+            // call new listeners
             handleLikes();
+
+            // remove old Listners :
+            removeExpandCommentListeners()
+            // call new Listners
             ExpandComments();
         }
     }
 }
-function CommentInputEventListenner() {
-    const commentInput = document.querySelector('.commentInput input');
-    const send_comment = document.querySelector('.send-comment');
 
-    let throttleTimeout = false
-    commentInput.addEventListener('keypress', (e) => {
-        if (!throttleTimeout && e.key == "Enter") {
-            handleCommentEvent(e);
-            throttleTimeout = true
-        }
-        setTimeout(() => {
-            throttleTimeout = false
-        }, 10000);
-    });
-
-    send_comment.addEventListener('click', (e) => {
-        if (!throttleTimeout) {
-            handleCommentEvent(e);
-            throttleTimeout = true
-        }
-        setTimeout(() => {
-            throttleTimeout = false
-        }, 10000);
-    });
+function addCommentOnPressKey(e) {
+    if (!throttleTimeout && e.key == "Enter") {
+        handleCommentEvent(e);
+        throttleTimeout = true
+    }
+    setTimeout(() => {
+        throttleTimeout = false
+    }, 1000);
 }
+let throttleTimeout = false
+function addCommentOnClick(e){
+    if (!throttleTimeout) {
+        handleCommentEvent(e);
+        throttleTimeout = true
+    }
+    setTimeout(() => {
+        throttleTimeout = false
+    }, 1000);
+}
+
+function removeCommentListtner()
+{
+    commentInput.removeEventListener('keypress', addCommentOnPressKey);
+    send_comment.removeEventListener('click',  addCommentOnClick);
+}
+function CommentInputEventListenner() {
+    commentInput.addEventListener('keypress', addCommentOnPressKey);
+    send_comment.addEventListener('click',  addCommentOnClick);
+}
+
+function DisplayPost(){
+    commentSection.style.display = 'flex';
+    postSection.style.display = 'none';
+}
+
+function DisplayComments(){
+    commentSection.style.display = 'none';
+    postSection.style.display = 'flex';
+}
+
+function removePostButtonSwitcherListners(){
+    commentButton.removeEventListener('click', DisplayPost);
+    postButton.removeEventListener('click', DisplayComments);
+}
+
+function PostButtonSwitcher(){
+    commentButton.addEventListener('click', DisplayPost);
+    postButton.addEventListener('click', DisplayComments);
+}
+PostButtonSwitcher()
 CommentInputEventListenner()
 ExpandComments()
+
+

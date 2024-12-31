@@ -180,12 +180,31 @@ html {
 }
 
 .authorInfo {
-    display: block;
+    display: flex;
+    flex-direction: column;
     margin-left: 10px;
     gap: 5px;
     width: calc(100% - 40px);
+    justify-content: space-around;
 }
 
+.commentHeader {
+    display: flex;
+    margin-left: 10px;
+    gap: 5px;
+    width: calc(100% - 40px);
+    justify-content: space-around;
+}
+.commentHeader .Title {
+    display: inline-block;
+    font-size: 26px;
+    font-weight: bold;
+    color: var(--BlueDarker);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 100%;
+}
 .center {
     justify-content: center;
 }
@@ -216,7 +235,7 @@ html {
     /* word-break: break-all; */
     /* text-overflow: ellipsis; */
     /* overflow: hidden; */
-    width: 100%;
+    /* width: 100%; */
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -394,4 +413,49 @@ html {
 .send-comment:active {
     transform: scale(0.9);
     color: var(--primary-glow);
+}
+
+.CommentButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 5px;
+    color: var(--BlueDarker);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.CommentButton:hover{
+    color: var(--BlueGreen);
+}
+.PostButton {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: var(--BlueGreen);
+    color: var(--White);
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 115px;
+}
+
+@media only screen and (max-width: 768px) {
+    .CommentButton{
+        display: flex;
+    }
+    .PostButton{
+        display: flex;
+    }
+    .ProfileAndPost{
+        display: flex;
+        width: 90%;
+        border-radius: 10px;
+    }
+    .postComments{
+        display: none;
+        width: 90%;
+        border-radius: 10px;
+    }
 }

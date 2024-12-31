@@ -56,7 +56,7 @@ func GetPost(w http.ResponseWriter, r *http.Request) {
 	}
 	post, err := database.GetPostByID(DB, Postid, uid)
 	if err != nil {
-		ErrorPage(w,"error.html", map[string]interface{}{
+		ErrorPage(w, "error.html", map[string]interface{}{
 			"StatuCode":    http.StatusInternalServerError,
 			"MessageError": "internal server error" + err.Error(),
 		})
@@ -66,7 +66,7 @@ func GetPost(w http.ResponseWriter, r *http.Request) {
 	comments, err := database.GetCommentsByPost(DB, post.ID)
 	fmt.Println(comments)
 	if err != nil {
-		ErrorPage(w,"error.html", map[string]interface{}{
+		ErrorPage(w, "error.html", map[string]interface{}{
 			"StatuCode":    http.StatusInternalServerError,
 			"MessageError": "internal server error trying to get comments " + err.Error(),
 		})
@@ -81,7 +81,6 @@ func GetPost(w http.ResponseWriter, r *http.Request) {
 func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 	c, err := r.Cookie("session")
 	if err != nil && err.Error() != "http: named cookie not present" {
-		fmt.Println("-==================================-")
 		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized"+err.Error()))
 		fmt.Println(err)
 		return
@@ -89,11 +88,7 @@ func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		c = &http.Cookie{}
 	}
-	// adding funtcion to check the url type is it Cetegory type or home type of profile type
-	// if it is category type then we will get the category name from the url and then we will get the posts by category
-	// if it is profile type then we will get the username from the url and then we will get the posts by username
-	// if it is home type then we will get the latest posts
-	// if it is none of the above then we will return the error
+	
 	uid, err := database.GetUidFromToken(DB, c.Value)
 	if err != nil {
 		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
@@ -102,7 +97,7 @@ func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 
 	var profile structs.Profile
 	if uid != 0 {
-		fmt.Println("3mer profile")
+		fmt.Println("Getting Profile Information...")
 		profile, err = database.GetUserProfile(DB, uid)
 		if err != nil {
 			log.Fatal(err)
@@ -119,6 +114,10 @@ func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 	// TODO Switch Case
 	if r.URL.Query().Get("type") == "category" {
 		category := r.URL.Query().Get("category")
+		if !database.IsCategoryValid(category) {
+			ErrorJs(w, http.StatusBadRequest, errors.New("invalid category"))
+			return
+		}
 		posts, err = database.QuerryLatestPostsByCategory(DB, uid, category, offset)
 		if err != nil {
 			ErrorJs(w, http.StatusInternalServerError, err)

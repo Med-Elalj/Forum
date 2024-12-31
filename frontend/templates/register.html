@@ -60,13 +60,13 @@
                 <div id="confirmPassMessage" class="message"><i class="material-icons check-uncheck"
                         style="font-size: 10px;">&#xe5c9;</i> Confirmation password does not match.</div>
                 <button type="submit" id="registerBtn" disabled>Register</button>
-                <div class="mobile-switch">
-                    <button onclick="switchForm('login')" class="active">Login</button>
-                </div>
+                <p>You have an account? <a href="#" onclick="switchForm('login')">Sign in</a></p>
                 {{if .MessageError}}
+                {{if .Register}}
                 <div class="ErrorMessage">
                     <i class="material-icons" style="font-size: 14px;">&#xe000;</i> {{.MessageError}}
                 </div>
+                {{end}}
                 {{end}}
                 
             </form>
@@ -80,16 +80,15 @@
                     <input type="password" name="password" placeholder="Password" required>
                     <span class="material-symbols-outlined toggle-password">visibility_off</span>
                 </div>
-                <p>Don't have an account? <a href="#">Sign Up</a></p>
+                <p>Don't have an account? <a href="#" onclick="switchForm('register')">Sign Up</a></p>
                 <button type="submit">Sign In</button>
-                <div class="mobile-switch">
-                    <button onclick="switchForm('register')">Register</button>
-                </div>
+                {{if .MessageError}}
+                {{if not .Register}}
                 <div class="ErrorMessage">
-                    {{if .MessageError}}
                     <i class="material-icons" style="font-size: 14px;">&#xe000;</i> {{.MessageError}}
-                    {{end}}
                 </div>
+                {{end}}
+                {{end}}
             </form>
         </div>
 
