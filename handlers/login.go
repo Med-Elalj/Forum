@@ -36,7 +36,7 @@ func Error(w http.ResponseWriter, r *http.Request) {
 	message := r.Form.Get("message")
 
 	if err != nil {
-		ErrorPage(w, "error.html",  map[string]interface{}{
+		ErrorPage(w, "error.html", map[string]interface{}{
 			"StatuCode":    http.StatusBadRequest,
 			"MessageError": errors.New("invalid status code"),
 		})
@@ -79,20 +79,10 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	var hpassword string
 	var uid int
 	var err error
-	if email_RGX.MatchString(email) {
-		hpassword, uid, err = database.GetUserByUemail(DB, email)
-	} else if username_RGX.MatchString(email) {
-		hpassword, uid, err = database.GetUserByUname(DB, email)
-	} else {
+	hpassword, uid, err = database.GetUserByUemail(DB, email)
+	if err != nil || hpassword == "" {
 		structError["StatuCode"] = http.StatusBadRequest
 		structError["MessageError"] = "invalid email or username"
-		structError["Register"] = false
-		ErrorPage(w, "error.html", structError)
-		return
-	}
-	if err != nil || uid == 0 {
-		structError["StatuCode"] = http.StatusInternalServerError
-		structError["MessageError"] = "User not found, Please try again"
 		structError["Register"] = false
 		ErrorPage(w, "register.html", structError)
 		return
