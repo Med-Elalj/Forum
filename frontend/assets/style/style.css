@@ -11,7 +11,7 @@
 }
 
 :root {
-    --WhiteBlue: #def0f4;
+    --WhiteBlue: #daf0f5;
     --White: #ffffff;
     --WhiteB: #e0eced;
     --Greey: #efefef;
@@ -22,19 +22,19 @@
     --shadowLittle: 0px 10px 10px hsla(0, 0%, 40%, 0.20);
     --textshadow: 0px 5px 5px hsla(0, 0%, 40%, 0.30);
     --border: 2px solid hsla(0, 0%, 54%, 0.318);
-    --BlueGreenWhite: #37B7C3;
+    --BlueGreenWhite: #ffffff;
     --BlueGreen: #088395;
     --BlueDarker: #0a5c68;
     --DarkBlue: #22252f;
     --Black: #242424;
 
     --Created: #ff1515;
-    --bg-dark: #0f172a;
-    --text-dark: #f1f5f9;
+    --bg-dark: #ffffff;
+    --text-dark: #cbd4dd;
     --surface-dark: #1e293b;
-    --surface-hover-dark: #334155;
+    --surface-hover-dark: #9babc2;
     --primary-glow: #38bdf8;
-    --accent-dark: #22d3ee;
+    --accent-dark: #c3e8ee;
     --text-secondary-dark: #94a3b8;
 
 }
@@ -73,7 +73,7 @@ body {
     --surface-dark: #1e293b;
     --surface-hover-dark: #334155;
     --primary-glow: #38bdf8;
-    --accent-dark: #22d3ee;
+    --accent-dark: #334155;
     --text-secondary-dark: #94a3b8;
 }
 
@@ -138,8 +138,8 @@ hr {
 .nav-links {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 70%;
+    width: 90%;
+    height: 60%;
     justify-content: space-between;
 }
 
@@ -150,15 +150,15 @@ hr {
 .nav-links a {
     display: flex;
     align-items: center;
-    /* font-size: 2rem; */
+    font-size: 1rem;
     padding: 8px 25px 8px 8px;
     color: var(--Black);
 }
 
 .nav-links a i {
-    font-size: 3rem;
-    margin-right: 15px;
-    margin-left: 15px;
+    font-size: 2.3rem;
+    margin-right: 8px;
+    margin-left: 8px;
 }
 
 /* .main-account a:hover,  */
@@ -174,7 +174,6 @@ hr {
     color: var(--White);
     border-radius: 9999px;
     width: 90%;
-
 }
 
 /* 
@@ -276,17 +275,17 @@ nav {
 
 
 .tweet-button {
-    background-color: var(--BlueGreenWhite);
-    width: 80%;
+    background-color: #00c1dd;
+    width: 70%;
     border-radius: 99px;
     margin-top: 15px;
     cursor: pointer;
-    font-size: 1.7rem;
+    font-size: 1.2rem;
     color: white;
-    font-weight: 700;
+    font-weight: 600;
     border: none;
     padding: 10px;
-    height: 55px;
+    height: 45px;
     transition-duration: 0.2s;
 }
 
@@ -592,6 +591,7 @@ main {
     font-size: 1rem;
     font-weight: 300;
     margin-left: 3px;
+    margin-right: -1px;
 }
 .post-content {
     position: relative;
@@ -683,13 +683,6 @@ main {
     background-color: var(--BlueGreenWhite);
 }
 
-.trending-item:hover span {
-    color: var(--BlueDarker);
-}
-
-.trending-item:hover p {
-    color: var(--White);
-}
 
 .item-category p {
     font-size: 1.3rem;
@@ -911,14 +904,14 @@ main {
 
 .close-post {
     position: absolute;
-    top: 8px;
-    right: 6px;
+    top: 5px;
+    right: -2px;
     color: var(--BlueDarker);
-    background-color: white;
+    background-color: var(--BlueGreenWhite);
     border-radius: 50%;
-    height: 40px;
-    width: 40px;
-    font-size: 40px;
+    height: 30px;
+    width: 30px;
+    font-size: 30px;
     font-weight: 300;
     cursor: pointer;
     transition: all 0.5s;

@@ -55,9 +55,13 @@
 
             <div class="commentAuthor">
                 <div class="commentAuthorInfo">
-                    <span class="commentAuthorName">@{{.UserName}}</span>
-                    <span class="material-symbols-outlined" id="timer">schedule</span>
-                    <span class="commentTime" data-time="{{.CreatedAt}}"></span>
+                    <div class="poster-info">
+                        <span class="commentAuthorName">@{{.UserName}}</span>
+                        <div class="area-of-time">
+                            <span class="material-symbols-outlined" id="timer">schedule</span>
+                            <span class="commentTime" data-time="{{.CreatedAt}}"></span>
+                        </div>
+                    </div>
                     <div class="commentReaction DisableUserSelect">
                         <span isPost="false" class='like post  {{/*if eq .Liked "0"}}FILL{{end*/}}'
                             id="{{.ID}}"><!-- TODO Handle Like Struct -->
