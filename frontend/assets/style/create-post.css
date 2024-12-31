@@ -111,7 +111,7 @@
     cursor: pointer;
     border-radius: 5px;
     background-color: var(--BlueDarker);
-    /* color: white; */
+    color: white;
     width: 100%;
 }
 .submitButton:hover{
@@ -123,4 +123,12 @@
 .test{
     width: 100vh;
     height: 100vh;
+}
+
+@media (max-width: 768px){
+    .CreatePostContainer{
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0px;
+    }
 }

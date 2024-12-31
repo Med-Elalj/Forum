@@ -222,6 +222,7 @@ nav {
     padding: 10px;
     border-radius: 10px;
     transition: all 0.5s;
+    width: fit-content;
 }
 
 .Buttons:hover {
@@ -284,7 +285,9 @@ nav {
 
 .theme,
 .content ul a {
-    color: #0a5c68;
+    color: var(--Black);
+    font-size: 1rem;
+    margin-left: 4px;
 }
 
 .account-details {
@@ -653,7 +656,7 @@ main {
 
 
 .item-category p {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     color: var(--BlueGreen);
 }
 
@@ -963,6 +966,7 @@ main {
     }
 
     .sidebar-right {
+        
         display: flex;
         position: relative;
         width: calc(100% - 40px);
@@ -1063,7 +1067,6 @@ main {
         display: flex;
         justify-content: center;
     }
-
     .nav-mobile a div {
         position: relative;
         font-size: 20px;
@@ -1105,6 +1108,9 @@ main {
         font-size: 11px;
         width: fit-content;
     }
+    .Buttons span {
+        display: none;
+    }
 
 }
 
@@ -1133,9 +1139,8 @@ main {
 }
 
 .sub-main.reverse .switch-buttons span:last-child {
-    font-size: 25px;
+    font-size: 1.3rem;
     opacity: 1 !important;
-
 }
 
 .main {
@@ -1326,11 +1331,11 @@ main {
     padding: 8px 15px;
     width: 100%;
     height: 50px;
-    background-color: var(--DarkBlue);
+    background-color: #0f172a;
     position: fixed;
     font-size: 20px;
     font-weight: 600;
-    border-bottom: solid 1px var(--GreeyD); 
+    border-bottom: solid 1px var(--GreeyD);
     z-index: 4;
 }
 
