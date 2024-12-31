@@ -19,38 +19,45 @@ html {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 90vh;
-    width: 45%;
+    height: 80vh;
+    width: 30%;
     border-radius: 10px 0px 0px 10px;
     box-shadow: var(--shadow);
     z-index: 3;
     scroll-behavior: smooth;
-    overflow: scroll;
-    background-color: var(--Greey);
+    overflow: auto;
+    background-color: var(--BlueGreenWhite);
 }
 
 .postContent {
-    /* background-color: var(--Greey); */
-    padding: 10px;
+    background-color: --WhiteBlue;
+    padding: 10px, 10px, 5px, 5px;
     gap: 4px;
-    height: 100%;
+    height: 90%;
     /* border-radius: 0px 0px 0px 10px; */
-    border-right: 5px solid var(--GreeyDarked);
+    /* border-right: 1px solid var(--GreeyDarked); */
     /* box-shadow: var(--shadow); */
-    overflow: scroll;
-    color: var(--DarkBlue);
-    line-height: 2em;
-    font-size: 17px;
+    /* overflow: scroll; */
+    color: var(--Black);
+    /* line-height: 2em; */
+    font-size: 1rem;
     line-height: 1.5rem;
-    width: 100%;
+    width: 90%;
     /* background-color: red; */
-    overflow: hidden;
-    overflow-y: hidden;
+    /* overflow: hidden; */
+    /* overflow-y: hidden; */
     /* text-overflow: ellipsis; */
     /* overflow: hidden; */
     /* white-space: nowrap; */
     /* max-width: 100%; */
     /* display: inline-block; */
+    /* z-index: 23; */
+    /* overflow: hidden; */
+    /* border: solid 1px; */
+    /* margin: 10px; */
+    /* border-radius: 10px; */
+    padding: 7px;
+    margin: 10px, 0px, 10px, 10px;
 }
 
 .postContent img {
@@ -69,28 +76,27 @@ html {
     flex-direction: column;
     justify-content: space-between;
     background-color: var(--WhiteBlue);
-    height: 90vh;
-    width: 45%;
+    height: 80vh;
+    width: 30%;
     border-radius: 0px 10px 10px 0px;
     box-shadow: var(--shadow);
     z-index: 3;
     scroll-behavior: smooth;
-    overflow: scroll;
-
+    overflow: auto;
 }
 
 .Comments {
-    overflow: scroll;
+    overflow-y: auto;
     height: 100%;
+    background-color: var(--BlueGreenWhite);
 }
 
 .commentCard {
     display: flex;
-    background-color: var(--White);
+    background-color: var(--accent-dark);
     padding: 5px;
     border-radius: 10px;
     margin: 10px;
-
 }
 
 .commentAuthor {
@@ -135,10 +141,10 @@ html {
     position: sticky;
     top: 0px;
     align-items: center;
-    min-height: 80px;
-    padding: 10px;
+    min-height: 70px;
+    padding: 1px;
     background-color: var(--WhiteBlue);
-    box-shadow: var(--shadowLittle);
+    /* box-shadow: var(--shadowLittle); */
     width: 100%;
 }
 
@@ -151,6 +157,16 @@ html {
 
 .authorImage img {
     border: 2px solid #088395;
+    width: 50px;
+    height: 50px;
+    margin-top: 13px;
+    margin-left: 4px;
+    padding: 0px;
+}
+
+.poster-info {
+    display: flex;
+    /* flex-direction: column; */
 }
 
 .commentAuthorImage {
@@ -176,8 +192,8 @@ html {
 
 .commentAuthorInfo {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center; */
+    /* align-items: center; */
     /* margin: 10px; */
     justify-content: true;
     /* gap: 5px; */
@@ -185,6 +201,7 @@ html {
     border-bottom: var(--border);
     width: 100%;
     /* background-color: red; */
+    /* flex-direction: column; */
 }
 
 .Testing {
@@ -207,18 +224,25 @@ html {
     /* display: inline-block; */
 }
 
+.authorContain {
+    margin-top: -6px;
+}
+
 .authorInfo .authorName {
-    font-weight: bold;
+    font-weight: 500;
+    color: var(--text-secondary-dark);
 }
 
 .authorInfo .postDate {
     font-weight: 300;
-    font-size: 14px;
-    color: var(--Black);
+    font-size: 0.8rem;
+    color: var(--text-secondary-dark);
 }
 
 .commentAuthorName {
-    color: var(--DarkBlue);
+    color: var(--text-secondary-dark);
+    font-weight: 500;
+    font-size: 1rem;
 }
 
 .commentAuthorName .commentTime {
@@ -226,6 +250,11 @@ html {
     font-size: 14px;
     font-weight: 300;
     /* Ensures the date doesn't get bold */
+}
+
+.commentTime {
+    color: var(--text-secondary-dark);
+    font-size: 0.8rem;
 }
 
 .addToFavourite span {
@@ -270,7 +299,9 @@ html {
     height: auto;
     overflow: hidden;
     cursor: pointer;
-    font-weight: 200;
+    /* font-weight: 400; */
+    color: var(--Black);
+    font-size: 1rem;
 }
 
 .hidden {
@@ -291,18 +322,20 @@ html {
     bottom: 0;
     padding: 10px;
     z-index: 10;
+    background-color: var(--BlueGreenWhite);
 }
 
 .PostReactionData {
     display: flex;
     position: sticky;
     bottom: 0;
-    background-color: var(--White);
+    background-color: var(--accent-dark);
     padding: 10px;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
     z-index: 10;
     border-radius: 10px;
     margin: 10px;
+    height: 50px;
 }
 
 .LikeButtons {
@@ -316,12 +349,14 @@ html {
     border: 1px solid var(--GreeyD);
     border-radius: 10px;
     resize: none;
-    max-height: 120px;
-    min-height: 56px;
+    /* max-height: 120px; */
+    /* max-height: 56px; */
     overflow-y: auto;
     font-size: 16px;
-    color: var(--BlueDarker);
-    left: 0px;
+    color: var(--Black);
+    background-color: var(--Greey);
+    border: none;
+    height: 45px;
 }
 
 .commentInput input:focus {
