@@ -316,6 +316,7 @@ main {
     margin-left: 25%;
     border-right: solid 0.3px var(--WhiteBlue);
     height: 100%;
+    border-right: solid 1px var(--GreeyD);
     padding-bottom: 100px;
 }
 
@@ -1186,6 +1187,7 @@ ul .theme-toggle {
     border-radius: 10px;
 }
 /* 
+
 
 @media only screen and (min-width: 768px) {
     .sidebar-left {
