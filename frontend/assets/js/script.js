@@ -4,6 +4,7 @@ const sidebardLeft = document.querySelector('.sidebar-left')
 const menuIcon = document.querySelector('.menu')
 const windowMedia = window.matchMedia("(min-width: 768px)")
 const type = urlParams.get('type');
+let throttleTimeout = false;
 
 async function fetchPosts(offset, type) {
     type = type ? type : "home"
@@ -217,10 +218,6 @@ function postControlList() {
             contentSibling.classList.toggle("show")
         })
         document.addEventListener('click', function (event) {
-            
-            if (event.target == sidebardLeft){
-                sidebardLeft.style.left = "-100%";
-            }
             if (!contentSibling.contains(event.target) && !drop.contains(event.target) && contentSibling.classList.contains("show")) {
                 contentSibling.classList.remove('show');
             }
@@ -230,22 +227,18 @@ function postControlList() {
 //////////////////// Menu Icon On header PAGE Burger Icon for Mobile //////////
 
 function showAndHideSideBar(e) {
+    const commentSection = document.querySelector('.postComments')
+    const postSection = document.querySelector('.ProfileAndPost')
     if (e.matches) {
-        sidebardLeft.style.left = '2.5%'
+        sidebardLeft.style.left = "0%"
         commentSection.style.display = 'flex';
         postSection.style.display = 'flex';
     } else {
         commentSection.style.display = 'none';
         postSection.style.display = 'flex';
-        sidebardLeft.style.left = '-100%'
+        sidebardLeft.style.left = '2.5%'
     }
-    document.addEventListener('click', (event)=>{
-        if (event.target == sidebardLeft){
-            console.log("Cloick sldkjf dsljf ");
-            
-            sidebardLeft.style.left = "-100%"
-        }
-    })
+   
 }
 function MenuIcon(){
     sidebardLeft.style.left = sidebardLeft.style.left === '0%' ? '-100%' : '0%'

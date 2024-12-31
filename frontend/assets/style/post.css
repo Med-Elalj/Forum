@@ -459,3 +459,23 @@ html {
         border-radius: 10px;
     }
 }
+
+
+@media only screen and (min-width: 780px) {
+    .ProfileAndPost{
+        width:45%;
+    }
+    .postComments{
+        width:45%;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1000px) {
+    .ProfileAndPost{
+        width:45%;
+    }
+    .postComments{
+        width:45%;
+    }
+}

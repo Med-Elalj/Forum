@@ -12,6 +12,9 @@
                 <span class="postDate" data-time="{{.Post.CreatedAt}}">{{.Post.CreatedAt}}</span>
             </div>
         </div>
+        <span class="HideDesktop material-symbols-outlined close-post DisableUserSelect">
+            close
+        </span>
         <!-- <div class="CommentButton">
             <span class="CommentButtonTitle">
                 Comments
@@ -104,6 +107,8 @@
         {{ end }}
     </div>
     <div class="commentContainer">
+        <div class="CommentErrorMessage">
+        </div>
         <div class="commentInput">
             <input type="text" name="commment" id="{{.Post.ID}}" placeholder="Comment" required maxlength="255">
             <span class="material-symbols-outlined send-comment DisableUserSelect">send</span>

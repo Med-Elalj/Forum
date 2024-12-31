@@ -1,9 +1,3 @@
-const commentInput = document.querySelector('.commentInput input');
-const send_comment = document.querySelector('.send-comment');
-const commentButton = document.querySelector('.CommentButton');
-const postButton = document.querySelector('.PostButton');
-const commentSection = document.querySelector('.postComments');
-const postSection = document.querySelector('.ProfileAndPost');
 
 function removeExpandCommentListeners() {
     let comments = document.querySelectorAll(".commentData")
@@ -31,13 +25,12 @@ async function handleCommentEvent(e) {
 
     if (e.type === 'click' || (e.type === 'keypress' && e.key === 'Enter')) {
         e.preventDefault();
-        const commentInput = e.target.closest('.commentInput').querySelector('input');
-        const comment = commentInput.value;
+        const commentValue = e.target.closest('.commentInput').querySelector('input');
+        const comment = commentValue.value;
         if (comment.trim() === '' || comment.length == 0)
             return;
 
-        commentInput.value = '';
-        const postID = commentInput.id;
+        const postID = commentValue.id;
         const response = await fetch('/CreateComment', {
             method: 'POST',
             headers: {
@@ -52,16 +45,23 @@ async function handleCommentEvent(e) {
             popUp();
             return;
         }
-        
+        if (response.status == 500) {
+            const commentError = document.querySelector('.CommentErrorMessage');
+            commentError.style.display = "block"
+            commentError.innerText = "Oops! It looks like you've already posted this comment. Please try something new!";
+            setTimeout(() => {
+                commentError.style.display = "none"
+                commentError.innerText = "";
+            }, 5000);
+            return;
+        }
         const data = await response.json();
-        
+        commentValue.value = '';
         if (data["status"] == "ok") {
             const commentContainer = document.querySelector('.Comments');
             const commentCard = document.createElement('div');
             commentCard.classList.add('commentCard');
             commentCard.classList.add('CommentAdded');
-            commentCard.id = "Comment" + data["CommentID"];
-            let url = "/#Comment" + data["CommentID"];
 
             commentCard.innerHTML = `
                 <div class="commentAuthorImage">
@@ -96,9 +96,6 @@ async function handleCommentEvent(e) {
             commentCard.querySelector('.commentData').innerText = data["Content"];
             commentContainer.prepend(commentCard);
             document.querySelector('.commentCount').textContent = data.CommentCount
-            window.location.replace(url);
-            
-
             // remove old Listeners
             removeHandeLikeListeners();
             // call new listeners
@@ -111,53 +108,67 @@ async function handleCommentEvent(e) {
         }
     }
 }
-
 function addCommentOnPressKey(e) {
+
     if (!throttleTimeout && e.key == "Enter") {
         handleCommentEvent(e);
-        throttleTimeout = true
+        throttleTimeout = true;
     }
     setTimeout(() => {
-        throttleTimeout = false
+        throttleTimeout = false;
     }, 1000);
 }
-let throttleTimeout = false
-function addCommentOnClick(e){
+
+function addCommentOnClick(e) {
+
     if (!throttleTimeout) {
         handleCommentEvent(e);
-        throttleTimeout = true
+        throttleTimeout = true;
     }
     setTimeout(() => {
-        throttleTimeout = false
+        throttleTimeout = false;
     }, 1000);
 }
 
 function removeCommentListtner()
 {
+
+    const send_comment = document.querySelector('.send-comment');
+    const commentInput = document.querySelector('.commentInput input');
     commentInput.removeEventListener('keypress', addCommentOnPressKey);
     send_comment.removeEventListener('click',  addCommentOnClick);
 }
 function CommentInputEventListenner() {
+    const send_comment = document.querySelector('.send-comment');
+    const commentInput = document.querySelector('.commentInput input');
     commentInput.addEventListener('keypress', addCommentOnPressKey);
     send_comment.addEventListener('click',  addCommentOnClick);
 }
 
 function DisplayPost(){
+    const commentSection = document.querySelector('.postComments');
+    const postSection = document.querySelector('.ProfileAndPost');
     commentSection.style.display = 'flex';
     postSection.style.display = 'none';
 }
 
 function DisplayComments(){
+    const commentSection = document.querySelector('.postComments');
+    const postSection = document.querySelector('.ProfileAndPost');
     commentSection.style.display = 'none';
     postSection.style.display = 'flex';
 }
 
 function removePostButtonSwitcherListners(){
+    const commentButton = document.querySelector('.CommentButton');
+    const postButton = document.querySelector('.PostButton');
     commentButton.removeEventListener('click', DisplayPost);
     postButton.removeEventListener('click', DisplayComments);
 }
 
 function PostButtonSwitcher(){
+    const commentButton = document.querySelector('.CommentButton');
+    const postButton = document.querySelector('.PostButton');
     commentButton.addEventListener('click', DisplayPost);
     postButton.addEventListener('click', DisplayComments);
 }
