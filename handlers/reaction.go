@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"forum/database"
 	"net/http"
 	"strconv"
+
+	"forum/database"
 )
 
 func PostReaction(w http.ResponseWriter, r *http.Request) {
@@ -18,16 +19,11 @@ func PostReaction(w http.ResponseWriter, r *http.Request) {
 		ErrorJs(w, http.StatusBadRequest, errors.New(r.Header.Get("Content-Type")))
 		return
 	}
-	session, err := r.Cookie("session")
-	if err != nil {
+	UserId, err := CheckAuthentication(w, r)
+	fmt.Println("==UserId==", UserId == 0)
+	if err != nil || UserId == 0 {
 		fmt.Println("unauthorized")
-		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
-		return
-	}
-	UserId, err := database.GetUidFromToken(DB, session.Value)
-	if err != nil {
-		fmt.Println("unauthorized")
-		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
+		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized "))
 		return
 	}
 
@@ -156,5 +152,4 @@ func PostReaction(w http.ResponseWriter, r *http.Request) {
 		"dislikes": dislikeCount,
 		"added":    addeddStatus,
 	})
-
 }

@@ -81,7 +81,7 @@ func GetPost(w http.ResponseWriter, r *http.Request) {
 func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 	c, err := r.Cookie("session")
 	if err != nil && err.Error() != "http: named cookie not present" {
-		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized"+err.Error()))
+		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized"))
 		fmt.Println(err)
 		return
 	}
@@ -91,7 +91,7 @@ func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 
 	uid, err := database.GetUidFromToken(DB, c.Value)
 	if err != nil {
-		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
+		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized "))
 		return
 	}
 
@@ -111,7 +111,6 @@ func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var posts []structs.Post
-	// TODO Switch Case
 	if r.URL.Query().Get("type") == "category" {
 		category := r.URL.Query().Get("category")
 		if !database.IsCategoryValid(category) {
@@ -124,9 +123,14 @@ func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	} else if r.URL.Query().Get("type") == "profile" {
-		posts, err = database.QuerryPostsbyUser(DB, profile.UserName, uid, structs.Limit, offset)
+		username := r.URL.Query().Get("username")
+		if username == "" {
+			username = profile.UserName
+		}
+
+		posts, err = database.QuerryPostsbyUser(DB, username, uid, structs.Limit, offset)
 		if err != nil {
-			ErrorJs(w, http.StatusInternalServerError, errors.New("error fetching posts "+err.Error()))
+			ErrorJs(w, http.StatusInternalServerError, errors.New("error fetching posts "))
 			return
 		}
 	} else if r.URL.Query().Get("type") == "home" {

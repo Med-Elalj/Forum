@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"forum/database"
 	"net/http"
 	"time"
+
+	"forum/database"
 )
 
 // Create function to limit user spamming post creation
@@ -28,12 +29,12 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 
 	UserId, err := CheckAuthentication(w, r)
 	if err != nil {
-		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
+		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized "))
 		return
 	}
 	UserProfile, err := database.GetUserProfile(DB, UserId)
 	if err != nil {
-		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized UserProfile"+err.Error()))
+		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized UserProfile"))
 		return
 	}
 	data := struct {
@@ -43,22 +44,25 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 		CategoriesList []string
 	}{}
 	err = json.NewDecoder(r.Body).Decode(&data)
-	fmt.Println("data===>", data)
 	if (!title_RGX.MatchString(data.Title)) || (!content_RGX.MatchString(data.Content)) || (len(data.Categories) == 0) || (err != nil) {
 		fmt.Println("some required input not provided")
 		ErrorJs(w, http.StatusBadRequest, errors.New("required input not provided"))
 		return
 	}
 
-	id, err := database.CreatePost(DB, UserId, data.Title, data.Content, data.Categories)
-	if err != nil {
-		ErrorJs(w, http.StatusInternalServerError, errors.New("Somethign went wrong creating post"+err.Error()))
+	if time.Since(userPostCreationTime[UserId]) >= 5*time.Minute {
+		userPostCreationCount[UserId] = 0
+	}
+	// Check if user has created too many posts in the given time frames
+	if hasCreatedTooManyPostsIn5Minutes(UserId) {
+		ErrorJs(w, http.StatusTooManyRequests, errors.New("too many posts created in a short period"))
 		return
 	}
+	fmt.Println("data===>", data)
 
-	// Check if user has created too many posts in the given time frames
-	if hasCreatedTooManyPostsIn5Minutes(UserId) || hasCreatedTooManyPostsIn10Minutes(UserId) {
-		ErrorJs(w, http.StatusTooManyRequests, errors.New("too many posts created in a short period"))
+	id, err := database.CreatePost(DB, UserId, data.Title, data.Content, data.Categories)
+	if err != nil {
+		ErrorJs(w, http.StatusInternalServerError, errors.New("Somethign went wrong creating post"))
 		return
 	}
 
@@ -83,18 +87,8 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 
 // Create a function to check if user has created more than 3 posts in 5 minutes
 func hasCreatedTooManyPostsIn5Minutes(userId int) bool {
-	if count, exists := userPostCreationCount[userId]; exists && count >= 3 {
-		if time.Since(userPostCreationTime[userId]) <= 5*time.Minute {
-			return true
-		}
-	}
-	return false
-}
-
-// Create a function to check if user has created more than 5 posts in 10 minutes
-func hasCreatedTooManyPostsIn10Minutes(userId int) bool {
 	if count, exists := userPostCreationCount[userId]; exists && count >= 5 {
-		if time.Since(userPostCreationTime[userId]) <= 10*time.Minute {
+		if time.Since(userPostCreationTime[userId]) <= 5*time.Minute {
 			return true
 		}
 	}

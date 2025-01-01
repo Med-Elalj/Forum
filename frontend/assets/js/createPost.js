@@ -16,7 +16,8 @@ function createPost() {
     CreatePostInputTitle.focus()
     closeCreatePostModal.addEventListener('click', () => {
         CreatePostModel.style.display = "none"
-        document.getElementById("CreatePostScriptInjected").remove()
+        if(document.getElementById("CreatePostScriptInjected"))
+            document.getElementById("CreatePostScriptInjected").remove()
     })
 
     const form = document.querySelector('.CreatePostContainer form');
@@ -61,7 +62,9 @@ function createPost() {
             const postCard = document.createElement('div');
             postCard.classList.add('post-card');
             postCard.innerHTML = `
-                <div class="ProfileImage tweet-img" style="background-image: url('https://api.multiavatar.com/${post.UserName}.svg')"></div>
+                <a href="/?type?profile&username=${post.UserName}">
+                    <div class="ProfileImage tweet-img" style="background-image: url('https://api.multiavatar.com/${post.UserName}.svg')"></div>
+                </a>
                 <div class="post-details">
                     <div class="row-tweet">
                         <div class="post-header">

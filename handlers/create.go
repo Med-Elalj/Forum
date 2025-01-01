@@ -21,12 +21,12 @@ import (
 // 	}
 // 	token, err := r.Cookie("session")
 // 	if err != nil {
-// 		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
+// 		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized "))
 // 		return
 // 	}
 // 	UserId, err := database.GetUidFromToken(DB, token.Value)
 // 	if err != nil {
-// 		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized ID"+err.Error()))
+// 		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized ID"))
 // 		return
 // 	}
 
@@ -64,12 +64,12 @@ func CreateCommentHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	session, err := r.Cookie("session")
 	if err != nil {
-		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
+		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized "))
 		return
 	}
 	UserId, err := database.GetUidFromToken(DB, session.Value)
 	if err != nil {
-		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized "+err.Error()))
+		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized "))
 		return
 	}
 

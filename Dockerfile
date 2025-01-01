@@ -1,11 +1,15 @@
-FROM golang:1.23.4-alpine3.21
-WORKDIR /app
+FROM golang:1.22.2-alpine AS start
+
+WORKDIR /forum-projct/
+
+RUN apk add gcc musl-dev
 COPY . .
 
-RUN apk add gcc
-RUN apk add musl-dev
+RUN go build -o forum .
 
-RUN go mod download
-RUN go build -o forum-project .
-
-CMD ["./forum-project"]
+FROM alpine
+WORKDIR /myProject
+COPY --from=start /forum-projct/* /myProject/
+LABEL version="1.0"
+LABEL projectname="EduTalks"
+CMD ["./forum-projct"]

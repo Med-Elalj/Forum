@@ -18,6 +18,7 @@ func CheckAuthentication(w http.ResponseWriter, r *http.Request) (userID int, er
 		structError["StatuCode"] = http.StatusUnauthorized
 		structError["MessageError"] = "unauthorized " + err.Error()
 		ErrorPage(w, "error.html", structError)
+		
 		return
 	}
 	if err != nil {

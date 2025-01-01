@@ -1,18 +1,19 @@
 let popup = NaN;
-const urlParams = new URLSearchParams(window.location.search);
+const UrlParams = new URLSearchParams(window.location.search);
 const sidebardLeft = document.querySelector('.sidebar-left')
 const menuIcon = document.querySelector('.menu')
 const windowMedia = window.matchMedia("(min-width: 768px)")
-const type = urlParams.get('type');
+const type = UrlParams.get('type');
+const username = UrlParams.get('username');
 let throttleTimeout = false;
 
 async function fetchPosts(offset, type) {
     type = type ? type : "home"
-    let category_name = urlParams.get('category')
+    let category_name = UrlParams.get('category')
     const postsContainer = document.querySelector('.main-feed');
 
     console.log('Fetching posts with offset:', offset, type);
-    const x = await fetch(`/infinite-scroll?offset=${offset}&type=${type}${category_name ? `&category=${category_name}` : ''}`)
+    const x = await fetch(`/infinite-scroll?offset=${offset}&type=${type}${category_name ? `&category=${category_name}` : ''}${username ? `&username=${username}`:''}`)
         .then(response => response.json())
         .then(posts => {
             console.log('Fetched posts:', posts);
@@ -20,9 +21,12 @@ async function fetchPosts(offset, type) {
                 const postCard = document.createElement('div');
                 postCard.classList.add('post-card');
                 console.log('Creating post card for post:', post);
+                const profileLink =  document.createElement('a')
+                profileLink.href = `/?type=profile&username=${post.author_username}`
                 const profileImage = document.createElement('div');
                 profileImage.className = 'ProfileImage tweet-img';
                 profileImage.style.backgroundImage = `url('https://api.multiavatar.com/${post.author_username}.svg')`;
+                profileLink.appendChild(profileImage)
 
                 const postDetails = document.createElement('div');
                 postDetails.className = 'post-details';
@@ -117,7 +121,7 @@ async function fetchPosts(offset, type) {
                 postFooter.append(react, comment);
 
                 postDetails.append(rowTweet, postContent, seeMore, hashtag, postFooter);
-                postCard.append(profileImage, postDetails);
+                postCard.append(profileLink, postDetails);
                 console.log(' posts container:', postsContainer);
                 console.log('posts container:', postCard);
                 postsContainer.append(postCard);
@@ -226,12 +230,16 @@ function showAndHideSideBar(e) {
     const postSection = document.querySelector('.ProfileAndPost')
     if (e.matches) {
         sidebardLeft.style.left = "2.5%"
-        commentSection.style.display = 'flex';
-        postSection.style.display = 'flex';
+        if (commentSection)
+            commentSection.style.display = 'flex';
+        if (postSection)
+            postSection.style.display = 'flex';
     } else {
-        commentSection.style.display = 'none';
-        postSection.style.display = 'flex';
-        sidebardLeft.style.left = '0%'
+        if (commentSection)
+            commentSection.style.display = 'none';
+        if (postSection)
+            postSection.style.display = 'flex';
+        sidebardLeft.style.left = '-100%'
     }
    
 }

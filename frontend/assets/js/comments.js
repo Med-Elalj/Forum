@@ -21,11 +21,24 @@ function ExpandComments() {
     })
 }
 
+function CommentErrorMsg(msg){
+    const commentError = document.querySelector('.CommentErrorMessage');
+    commentError.style.display = "block"
+    commentError.innerText = msg;
+    setTimeout(() => {
+        commentError.style.display = "none"
+        commentError.innerText = "";
+    }, 5000);
+}
+
 async function handleCommentEvent(e) {
+    const commentError = document.querySelector('.CommentErrorMessage');
+
 
     if (e.type === 'click' || (e.type === 'keypress' && e.key === 'Enter')) {
         e.preventDefault();
         const commentValue = e.target.closest('.commentInput').querySelector('input');
+
         const comment = commentValue.value;
         if (comment.trim() === '' || comment.length == 0)
             return;
@@ -45,8 +58,15 @@ async function handleCommentEvent(e) {
             popUp();
             return;
         }
+        if (response.status == 429) {
+            CommentErrorMsg(`Slow down! Good comments take time—quality over speed! try again after 1minute😊`)
+            return;
+        }
         if (response.status == 500) {
-            const commentError = document.querySelector('.CommentErrorMessage');
+            CommentErrorMsg("Oops! It looks like you've already posted this comment. Please try something new!")
+            return;
+        }
+        if (response.status == 500) {
             commentError.style.display = "block"
             commentError.innerText = "Oops! It looks like you've already posted this comment. Please try something new!";
             setTimeout(() => {

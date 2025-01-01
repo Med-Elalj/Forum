@@ -5,8 +5,12 @@ const switchIcons = document.querySelector(".sub-main")
 const ProfileCard = document.querySelector(".ProfileCard")
 const Categories = document.querySelector(".Categories")
 const rotateIcon = document.querySelector(".switch-icon span")
+const Parametrs = new URLSearchParams(window.location.search);
 
-if (switchIcons.classList.contains("reverse") && location.pathname == "/"){ // change index to HomePage Path 
+const Profile =  Parametrs.get('type') == "profile" 
+console.log("===============",Profile);
+
+if (switchIcons.classList.contains("reverse") && !Profile){ // change index to HomePage Path 
     ProfileCard.classList.remove("display")
     Categories.classList.add("display")
 }else{
