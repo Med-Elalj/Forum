@@ -11,9 +11,41 @@ import (
 	"forum/structs"
 )
 
-func QuerryLatestPostsByUserLikes(db *sql.DB, user_id, ammount int) ([]structs.Post, error) {
+func QuerryLatestPostsByUserLikes(db *sql.DB, user_id, ammount, offset int) ([]structs.Post, error) {
 	res := make([]structs.Post, 0, ammount)
-	rows, err := db.Query(querries.GetPostsbyUserLikeL, user_id, ammount)
+	rows, err := db.Query(querries.GetPostsbyUserLikeL, user_id, ammount, offset)
+	if err != nil {
+		return nil, errors.New("QuerryLatestPosts " + err.Error())
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var post structs.Post
+		var categories sql.NullString
+		err := rows.Scan(&post.ID, &post.UserID, &post.Title, &post.Content,
+			&post.LikeCount, &post.DislikeCount, &post.CommentCount, &post.CreatedAt,
+			&post.UserName, &categories, &post.Liked)
+		if categories.Valid {
+			post.Categories = strings.Split(categories.String, "|")
+		}
+		if err != nil {
+			return res, errors.New("QuerryLatestPosts failed to scan row: " + err.Error())
+		}
+		res = append(res, post)
+		// fmt.Printf("PID: %d, UID: %d, CONTENT: %12s, like:%d:%d , TIME:%15s, UName: %5s, categories %v %v\n", post.ID, post.UserID, post.Content, post.LikeCount, post.LikeCount, post.CreatedAt, post.UserName, post.Categories, post.Liked)
+	}
+
+	err = rows.Err()
+	if err != nil {
+		return res, errors.New("QuerryLatestPosts " + err.Error())
+	}
+	return res, nil
+}
+
+
+func QuerryMostLikedPosts(db *sql.DB, user_id, ammount, offset int) ([]structs.Post, error) {
+	res := make([]structs.Post, 0, ammount)
+	rows, err := db.Query(querries.GetPostsByMostLiked, user_id, ammount, offset)
 	if err != nil {
 		return nil, errors.New("QuerryLatestPosts " + err.Error())
 	}
@@ -73,9 +105,9 @@ func QuerryLatestPosts(db *sql.DB, user_id, ammount, offset int) ([]structs.Post
 	return res, nil
 }
 
-func QuerryPostsbyUser(db *sql.DB, username string, user_id, ammount int) ([]structs.Post, error) {
+func QuerryPostsbyUser(db *sql.DB, username string, user_id, ammount, offset int) ([]structs.Post, error) {
 	res := make([]structs.Post, 0, ammount)
-	rows, err := db.Query(querries.GetPostsbyUserL, user_id, username, ammount)
+	rows, err := db.Query(querries.GetPostsbyUserL, user_id, username, ammount, offset)
 	if err != nil {
 		return nil, errors.New("QuerryPostsbyUser " + err.Error())
 	}

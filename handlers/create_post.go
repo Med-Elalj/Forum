@@ -6,7 +6,15 @@ import (
 	"fmt"
 	"forum/database"
 	"net/http"
+	"time"
 )
+
+// Create function to limit user spamming post creation
+// Create a map to store user post creation time
+var userPostCreationTime = make(map[int]time.Time)
+
+// Create a map to store user post creation count
+var userPostCreationCount = make(map[int]int)
 
 func CreatePost(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
@@ -47,6 +55,16 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 		ErrorJs(w, http.StatusInternalServerError, errors.New("Somethign went wrong creating post"+err.Error()))
 		return
 	}
+
+	// Check if user has created too many posts in the given time frames
+	if hasCreatedTooManyPostsIn5Minutes(UserId) || hasCreatedTooManyPostsIn10Minutes(UserId) {
+		ErrorJs(w, http.StatusTooManyRequests, errors.New("too many posts created in a short period"))
+		return
+	}
+
+	// Update user post creation time and count
+	userPostCreationTime[UserId] = time.Now()
+	userPostCreationCount[UserId]++
 	w.WriteHeader(http.StatusOK)
 	fmt.Println(data.CategoriesList)
 	json.NewEncoder(w).Encode(map[string]interface{}{
@@ -61,4 +79,24 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 		"DislikeCount":  0,
 		"CommentsCount": 0,
 	})
+}
+
+// Create a function to check if user has created more than 3 posts in 5 minutes
+func hasCreatedTooManyPostsIn5Minutes(userId int) bool {
+	if count, exists := userPostCreationCount[userId]; exists && count >= 3 {
+		if time.Since(userPostCreationTime[userId]) <= 5*time.Minute {
+			return true
+		}
+	}
+	return false
+}
+
+// Create a function to check if user has created more than 5 posts in 10 minutes
+func hasCreatedTooManyPostsIn10Minutes(userId int) bool {
+	if count, exists := userPostCreationCount[userId]; exists && count >= 5 {
+		if time.Since(userPostCreationTime[userId]) <= 10*time.Minute {
+			return true
+		}
+	}
+	return false
 }

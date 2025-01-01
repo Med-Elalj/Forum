@@ -124,7 +124,7 @@ func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	} else if r.URL.Query().Get("type") == "profile" {
-		posts, err = database.QuerryPostsbyUser(DB, profile.UserName, uid, structs.Limit)
+		posts, err = database.QuerryPostsbyUser(DB, profile.UserName, uid, structs.Limit, offset)
 		if err != nil {
 			ErrorJs(w, http.StatusInternalServerError, errors.New("error fetching posts "+err.Error()))
 			return
@@ -136,13 +136,14 @@ func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	} else if r.URL.Query().Get("type") == "liked" {
-		posts, err = database.QuerryLatestPostsByUserLikes(DB, uid, structs.Limit)
+		posts, err = database.QuerryLatestPostsByUserLikes(DB, uid, structs.Limit, offset)
 		if err != nil {
 			ErrorJs(w, http.StatusInternalServerError, err)
 			return
 		}
 	} else if r.URL.Query().Get("type") == "trending" {
-		posts, err = database.QuerryLatestPosts(DB, uid, structs.Limit, offset)
+		posts, err = database.QuerryMostLikedPosts(DB, uid, structs.Limit, offset)
+		fmt.Println("---------", posts, err)
 		if err != nil {
 			ErrorJs(w, http.StatusInternalServerError, err)
 			return

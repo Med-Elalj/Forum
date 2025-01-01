@@ -27,7 +27,7 @@ func main() {
 
 	handlers.DB = db
 	fmt.Println("User created successfully!")
-	fmt.Println(database.QuerryPostsbyUser(db, "test", 0, 5))
+	fmt.Println(database.QuerryPostsbyUser(db, "test", 0, 5, 0))
 
 	http.HandleFunc("/", handlers.HomePage)
 	http.HandleFunc("/infinite-scroll", handlers.InfiniteScroll)
