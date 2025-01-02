@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"errors"
-	"fmt"
 	"forum/database"
 	"net/http"
 )
@@ -49,13 +48,9 @@ func CheckUserExists(uemail, uname string) bool {
 	if (hashpassrd != "" && userId != 0) || err == nil {
 		check++
 	}
-	fmt.Println("check======>", check)
-
 	hashpassrd, userId, err = database.GetUserByUemail(DB, uemail)
 	if (hashpassrd != "" && userId != 0) || err == nil {
 		check++
 	}
-	fmt.Println("check======>", check)
-	fmt.Println("check======>", check > 0)
 	return check > 0
 }

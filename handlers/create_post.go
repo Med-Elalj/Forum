@@ -10,12 +10,8 @@ import (
 
 	"forum/database"
 )
-
-// Create function to limit user spamming post creation
-// Create a map to store user post creation time
+//  function to limit user spamming post creation
 var userPostCreationTime = make(map[int]time.Time)
-
-// Create a map to store user post creation count
 var userPostCreationCount = make(map[int]int)
 
 func CreatePost(w http.ResponseWriter, r *http.Request) {
@@ -68,7 +64,7 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 
 	id, err := database.CreatePost(DB, UserId, data.Title, data.Content, data.Categories)
 	if err != nil {
-		ErrorJs(w, http.StatusInternalServerError, errors.New("Somethign went wrong creating post"))
+		ErrorJs(w, http.StatusInternalServerError, errors.New("somethign went wrong creating post"))
 		return
 	}
 
@@ -91,7 +87,6 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// Create a function to check if user has created more than 3 posts in 5 minutes
 func hasCreatedTooManyPostsIn5Minutes(userId int) bool {
 	if count, exists := userPostCreationCount[userId]; exists && count >= 5 {
 		if time.Since(userPostCreationTime[userId]) <= 5*time.Minute {

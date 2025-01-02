@@ -35,7 +35,7 @@ func Error(w http.ResponseWriter, r *http.Request) {
 	code, err := strconv.Atoi(r.Form.Get("code"))
 	message := r.Form.Get("message")
 
-	if err != nil {
+	if err != nil || (code < 100 && code > 599) {
 		ErrorPage(w, "error.html", map[string]interface{}{
 			"StatuCode":    http.StatusBadRequest,
 			"MessageError": errors.New("invalid status code"),
