@@ -58,7 +58,7 @@ async function handleCommentEvent(e) {
             return;
         }
         if (response.status == 429) {
-            CommentErrorMsg(`Slow down! Good comments take time—quality over speed! try again after 1minute😊`)
+            CommentErrorMsg(`Slow down! Good comments take time—quality over speed! try again after 1 minute 😊`)
             return;
         }
         if (response.status == 500) {
