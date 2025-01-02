@@ -13,6 +13,17 @@ async function fetchPosts(offset, type) {
     const x = await fetch(`/infinite-scroll?offset=${offset}&type=${type}${category_name ? `&category=${category_name}` : ''}${username ? `&username=${username}`:''}`)
         .then(response => response.json())
         .then(posts => {
+            if (type === 'profile') {
+                console.log(posts.profile);
+                const pImage = document.querySelector('.profileImage img')
+                const pName = document.querySelector('.profileName')
+                const pCounts = document.querySelector('.posts .postCounts')
+                const cCounts = document.querySelector('.comments .postCounts')
+                pImage.src = `https://api.multiavatar.com/${posts.profile.UserName}.svg`
+                pName.textContent = posts.profile.UserName
+                pCounts.textContent = `${posts.profile.ArticleCount} Articles`
+                cCounts.textContent = `${posts.profile.CommentCount} Comments`
+            }
             posts.posts.forEach(post => {
                 const postCard = document.createElement('div');
                 postCard.classList.add('post-card');
@@ -41,17 +52,7 @@ async function fetchPosts(offset, type) {
                     <span class="post-time" data-time="${post.post_creation_time}"> ${post.post_creation_time}</span>
                     `;
 
-                if (type === 'profile') {
-                    console.log(posts.profile);
-                    const pImage = document.querySelector('.profileImage img')
-                    const pName = document.querySelector('.profileName')
-                    const pCounts = document.querySelector('.posts .postCounts')
-                    const cCounts = document.querySelector('.comments .postCounts')
-                    pImage.src = `https://api.multiavatar.com/${posts.profile.UserName}.svg`
-                    pName.textContent = username
-                    pCounts.textContent = `${posts.profile.ArticleCount} Articles`
-                    cCounts.textContent = `${posts.profile.CommentCount} Comments`
-                }
+               
                 // const dropdown = document.createElement('div');
                 // dropdown.className = 'dropdown';
 
@@ -306,61 +307,72 @@ async function fetchPost(url) {
 function removeReadPostListner() {
     let postButton = document.querySelectorAll(".post")
     postButton.forEach(elem => {
-        elem.removeEventListener('click', readPost);
+        elem.removeEventListener('click',  loadPostContent(elem));
     })
 }
 function readPost() {
     let postButton = document.querySelectorAll(".post")
 
     postButton.forEach(elem => {
-        elem.addEventListener('click', async () => {
-            // Get id to send request to get Post : elem.id
-            const html = await fetchPost(`/post/${elem.id}`)
-            if (!html) return
-            const postContent = document.querySelector('.postContainer')
-            postContent.classList.remove("closed")
-            if (!document.getElementById("ScriptInjected")) {
-                const script = document.createElement("script")
-                script.id = "ScriptInjected"
-                script.src = "/assets/js/comments.js"
-                document.body.appendChild(script)
-            }
-            postContent.innerHTML = html
-            // stop scrolling on background if the pop up opened
-            document.body.classList.add("stop-scrolling");
-
-            document.addEventListener('click', (event) => {
-                
-                if (event.target == postContent || event.target.classList.contains("close-post")) {
-                    removePostButtonSwitcherListners()
-                    postContent.classList.add("closed")
-                    //restore the scrolling on the background page :D 
-                    document.body.classList.remove("stop-scrolling");
-                    if (document.getElementById("ScriptInjected"))
-                        document.getElementById("ScriptInjected").remove()
-                }
-            })
-            // recall Like.js to listen on Elemnts in post page
-            ListenOncommentButtom(false)
-            ListenOncommentButtom(true)
-            handleLikes(false)
-            handleLikes(true)
-        })
+        elem.addEventListener('click', loadPostContent(elem))
     })
 }
 
 
+function loadPostContent(elem) {
+    return async () => {
+        // Get id to send request to get Post : elem.id
+        const html = await fetchPost(`/post/${elem.id}`);
+        if (!html) return;
+        const postContent = document.querySelector('.postContainer');
+
+        postContent.innerHTML = html;
+        // stop scrolling on background if the pop up opened
+        if (!document.getElementById("ScriptInjected")) {
+            const script = document.createElement("script");
+            script.id = "ScriptInjected";
+            script.src = "/assets/js/comments.js";
+            document.body.appendChild(script);
+        }
+        document.body.classList.add("stop-scrolling");
+
+        document.addEventListener('click', (event) => {
+            if (event.target == postContent || event.target.classList.contains("close-post")) {
+                ExpandComments(false);
+                CommentInputEventListenner(false);
+                PostButtonSwitcher(false);
+                postContent.innerHTML = "";
+                postContent.classList.add("closed");
+                //restore the scrolling on the background page :D 
+                document.body.classList.remove("stop-scrolling");
+                if (document.getElementById("ScriptInjected"))
+                    document.getElementById("ScriptInjected").remove();
+            
+                console.log("Close Post");
+            }
+        });
+        postContent.classList.remove("closed");
+
+        // recall Like.js to listen on Elemnts in post page
+        ListenOncommentButtom(false);
+        ListenOncommentButtom(true);
+        handleLikes(false);
+        handleLikes(true);
+    };
+}
+
 function DisplayPost(){
     const commentSection = document.querySelector('.postComments');
     const postSection = document.querySelector('.ProfileAndPost');
-    commentSection.style.display = 'flex';
-    postSection.style.display = 'none';
+    if (!windowMedia.matches){
+        commentSection.style.display = 'flex';
+        postSection.style.display = 'none';
+    }
 }
 
 function ListenOncommentButtom(add){
     const commentButton = document.querySelector('.CommentButton');
     if (add){
-        console.log("sdfjk hasdkjfha skdjfh ");
         commentButton.addEventListener('click', DisplayPost);
     }else{
         commentButton.removeEventListener('click', DisplayPost);
@@ -450,7 +462,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 infiniteScroll()
- fetchPosts(0, type)
+fetchPosts(0, type)
 postControlList()
 readPost()
 showLeftSidebarMobile()

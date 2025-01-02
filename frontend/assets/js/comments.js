@@ -1,22 +1,23 @@
-function removeExpandCommentListeners() {
-    let comments = document.querySelectorAll(".commentData")
-    comments.forEach(elem => {
-        elem.removeEventListener('click', ExpandComments);
-    })
-}
 
-function ExpandComments() {
+function toggleCollapse(elem, comments) {
+    console.log("Clic,ed");
+    
+    elem.classList.toggle("collapse");
+    comments.forEach(second_elem => {
+        if (second_elem != elem)
+            second_elem.classList.add("collapse");
+    });
+}
+function ExpandComments(flag) {
     // Expand Comment and read Content...
     let comments = document.querySelectorAll(".commentData")
-
     comments.forEach(elem => {
-        elem.addEventListener('click', () => {
-            elem.classList.toggle("collapse")
-            comments.forEach(second_elem => {
-                if (second_elem != elem)
-                    second_elem.classList.add("collapse")
-            })
-        })
+        if (flag){
+            elem.addEventListener('click', ()=> toggleCollapse(elem, comments))
+       
+        }else{
+            elem.removeEventListener('click',  ()=> toggleCollapse(elem, comments))
+        }
     })
 }
 
@@ -121,25 +122,25 @@ async function handleCommentEvent(e) {
             handleLikes(true);
 
             // remove old Listners :
-            removeExpandCommentListeners()
+            ExpandComments(false)
             // call new Listners
-            ExpandComments();
+            ExpandComments(true);
         }
     }
 }
 
-function removeCommentListtner()
-{
+
+function CommentInputEventListenner(flag) {
     const send_comment = document.querySelector('.send-comment');
     const commentInput = document.querySelector('.commentInput input');
-    commentInput.removeEventListener('keypress', handleCommentEvent);
-    send_comment.removeEventListener('click',  handleCommentEvent);
-}
-function CommentInputEventListenner() {
-    const send_comment = document.querySelector('.send-comment');
-    const commentInput = document.querySelector('.commentInput input');
-    commentInput.addEventListener('keypress', handleCommentEvent);
-    send_comment.addEventListener('click',  handleCommentEvent);
+    if (flag){
+        
+        commentInput.addEventListener('keypress',  ()=>handleCommentEvent);
+        send_comment.addEventListener('click',  ()=> handleCommentEvent);
+    }else{
+        commentInput.removeEventListener('keypress', ()=> handleCommentEvent);
+        send_comment.removeEventListener('click',  ()=> handleCommentEvent);
+    }
 }
 
 
@@ -150,19 +151,15 @@ function DisplayComments(){
     postSection.style.display = 'flex';
 }
 
-function removePostButtonSwitcherListners(){
+function PostButtonSwitcher(flag){
     const postButton = document.querySelector('.PostButton');
-
-    postButton.removeEventListener('click', DisplayComments);
+   if (flag){
+       postButton.addEventListener('click', ()=> DisplayComments);
+   }else{
+        postButton.removeEventListener('click',  ()=> DisplayComments);
+   }
 }
-
-function PostButtonSwitcher(){
-    const postButton = document.querySelector('.PostButton');
-   
-    postButton.addEventListener('click', DisplayComments);
-}
-PostButtonSwitcher()
-CommentInputEventListenner()
-ExpandComments()
-
+PostButtonSwitcher(true)
+CommentInputEventListenner(true)
+ExpandComments(true)
 

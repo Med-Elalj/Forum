@@ -28,7 +28,7 @@ func CreateComment(db *sql.DB, UserId, PostId int, content string) (error, int) 
 
 func GetCommentsByPost(db *sql.DB, userId, postId int) ([]structs.Comment, error) {
 	res := make([]structs.Comment, 0)
-	rows, err := db.Query(querries.GetCommentsByPostL, userId, postId, structs.Limit)
+	rows, err := db.Query(querries.GetCommentsByPostL, userId, postId, -1)
 	if err != nil {
 		fmt.Println("GetCommentsByPost=====>", err)
 		return nil, err
