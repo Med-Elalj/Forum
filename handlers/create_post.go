@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"strings"
 	"time"
 
 	"forum/database"
@@ -44,6 +45,11 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 		CategoriesList []string
 	}{}
 	err = json.NewDecoder(r.Body).Decode(&data)
+	if (strings.Trim(data.Title, " ") == "") || (strings.Trim(data.Content, " ") == "") {
+		fmt.Println("Please Enter Title and Content")
+		ErrorJs(w, http.StatusBadRequest, errors.New("please enter title and content"))
+		return
+	}
 	if (!title_RGX.MatchString(data.Title)) || (!content_RGX.MatchString(data.Content)) || (len(data.Categories) == 0) || (err != nil) {
 		fmt.Println("some required input not provided")
 		ErrorJs(w, http.StatusBadRequest, errors.New("required input not provided"))
