@@ -28,8 +28,6 @@ type Post struct {
 	CreatedAt           time.Time `json:"post_creation_time"`
 	Categories          []string  `json:"post_categories"`
 	Liked               string    `json:"view"`
-	UserPostsCounts     int       `json:"user_posts_count"`
-	UsersCommentsCounts int       `json:"user_comments_count"`
 }
 
 type View struct {

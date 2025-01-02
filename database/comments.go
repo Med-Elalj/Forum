@@ -26,22 +26,34 @@ func CreateComment(db *sql.DB, UserId, PostId int, content string) (error, int) 
 	return nil, int(id)
 }
 
-func GetCommentsByPost(db *sql.DB, postId int) ([]structs.Comment, error) {
+func GetCommentsByPost(db *sql.DB, userId, postId int) ([]structs.Comment, error) {
 	res := make([]structs.Comment, 0)
-	rows, err := db.Query(querries.GetCommentsByPostL, postId, 10)
+	rows, err := db.Query(querries.GetCommentsByPostL, userId, postId, -1)
 	if err != nil {
+		fmt.Println("GetCommentsByPost=====>", err)
 		return nil, err
 	}
 	defer rows.Close()
 
 	for rows.Next() {
 		var comment structs.Comment
-		err := rows.Scan(&comment.ID, &comment.PostID, &comment.UserID, &comment.Content, &comment.LikeCount, &comment.DislikeCount, &comment.CreatedAt, &comment.UserName)
+		err := rows.Scan(
+			&comment.ID,           // c.id
+			&comment.PostID,       // c.post_id
+			&comment.UserID,       // c.user_id
+			&comment.Content,      // c.content
+			&comment.LikeCount,    // c.like_count
+			&comment.DislikeCount, // c.dislike_count
+			&comment.CreatedAt,    // c.created_at
+			&comment.UserName,     // u.username
+			&comment.Liked,        // COALESCE(cl.is_like, 'null')
+		)
 		if err != nil {
 			return res, err
 		}
 		res = append(res, comment)
 	}
+
 	err = rows.Err()
 	if err != nil {
 		return nil, err

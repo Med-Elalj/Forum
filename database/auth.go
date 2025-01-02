@@ -33,9 +33,7 @@ func CreateUser(db *sql.DB, email, username, password string) (int, error) {
 func GetUserByUname(db *sql.DB, username string) (string, int, error) {
 	var hpassword string
 	var uid int
-	fmt.Println(username, hpassword)
 	err := db.QueryRow("SELECT id,password FROM users WHERE username=? collate NOCASE", username).Scan(&uid, &hpassword)
-	fmt.Println(username, hpassword)
 
 	if err == sql.ErrNoRows {
 		fmt.Println("User not found")
@@ -50,9 +48,7 @@ func GetUserByUname(db *sql.DB, username string) (string, int, error) {
 func GetUserByUemail(db *sql.DB, email string) (string, int, error) {
 	var hpassword string
 	var uid int
-	fmt.Println(email, hpassword)
 	err := db.QueryRow("SELECT id,password FROM users WHERE email=? collate NOCASE", email).Scan(&uid, &hpassword)
-	fmt.Println(email, hpassword)
 
 	if err == sql.ErrNoRows {
 		fmt.Println("User not found")
@@ -68,7 +64,6 @@ func AddSessionToken(db *sql.DB, user_id int, token string) error {
 	if token == "" || user_id == 0 {
 		return fmt.Errorf("invalid token or user_id")
 	}
-	fmt.Println("session", user_id)
 	stmt, err := db.Prepare("INSERT INTO sessions(user_id, session_token, expiration) VALUES(?,?,DATETIME(CURRENT_TIMESTAMP, '+1 hour'))")
 	if err != nil {
 		return err

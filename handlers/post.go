@@ -63,8 +63,10 @@ func GetPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	comments, err := database.GetCommentsByPost(DB, post.ID)
-	fmt.Println(comments)
+	comments, err := database.GetCommentsByPost(DB, post.UserID, post.ID)
+	fmt.Println("------------------------------")
+	fmt.Println(comments, err)
+	fmt.Println("------------------------------")
 	if err != nil {
 		ErrorPage(w, "error.html", map[string]interface{}{
 			"StatuCode":    http.StatusInternalServerError,
@@ -128,16 +130,19 @@ func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 		if username == "" {
 			username = profile.UserName
 		}
+		fmt.Println("--------5----------", username)
 		profile, err = database.GetUserProfile(DB, username)
+		fmt.Println("--------5----------", profile)
+
 		if err != nil {
 			ErrorJs(w, http.StatusInternalServerError, errors.New("error fetching profile"))
 			return
 		}
 		posts, err = database.QuerryPostsbyUser(DB, username, uid, structs.Limit, offset)
-		if len(posts) > 0 {
-			posts[0].UserPostsCounts = profile.ArticleCount
-			posts[0].UsersCommentsCounts = profile.CommentCount
-		}
+		// if len(posts) > 0 {
+		// 	posts[0].UserPostsCounts = profile.ArticleCount
+		// 	posts[0].UsersCommentsCounts = profile.CommentCount
+		// }
 		if err != nil {
 			ErrorJs(w, http.StatusInternalServerError, errors.New("error fetching posts "))
 			return
@@ -172,6 +177,9 @@ func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 	// Optionally set the status code to 200 OK
 	w.WriteHeader(http.StatusOK)
 
-	err = json.NewEncoder(w).Encode(posts)
+	err = json.NewEncoder(w).Encode(struct {
+		Posts   []structs.Post  `json:"posts"`
+		Profile structs.Profile `json:"profile"`
+	}{Posts: posts, Profile: profile})
 	fmt.Println(err)
 }

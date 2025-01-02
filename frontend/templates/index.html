@@ -40,7 +40,7 @@
                 <div class="new-tweet">
                     <!-- TODO User image -->
                     <div class="ProfileImage tweet-img no-border"
-                        style="background-image: url('https://api.multiavatar.com/{{if .Profile.UserName}}{{.Profile.UserName}}.svg{{else}}AN.svg{{end}}')">
+                        style="background-image: url('{{if .Profile.UserName}}https://api.multiavatar.com/{{.Profile.UserName}}.svg{{else}}/assets/images/profile.png{{end}}')">
                     </div>
                     <div class="new-post-header">
                         <div class="textarea">What's happening?</div>
@@ -83,8 +83,8 @@
         })
     </script>
     {{end}}
-    {{if .Profile.UserName}}
     <script src="/assets/js/profile.js"></script>
+    {{if .Profile.UserName}}
     <script src="/assets/js/createPost.js"></script>
     {{end}}
     <script src="/assets/js/likes.js"></script>

@@ -1,28 +1,23 @@
 {{define "profile-sidebar"}}
 <div class="sidebar-right " id="categories">
     <h1 class="h1-title sub-main reverse">
-        {{ if .Profile.UserName}}
         <div class="switch-icon rotate">
             <span class="material-symbols-outlined">
                 autorenew
             </span>
         </div>
-        {{end}}
 
         <div class="switch-buttons">
-            {{ if .Profile.UserName}}
             <span class="main">Profile</span>
-            {{end}}
             <span class="sub">Categories</span>
         </div>
     </h1>
-    {{ if .Profile.UserName}}
+    
     <div class="ProfileCard">
         <div class="profileImage">
             <img src="https://api.multiavatar.com/{{.Profile.UserName}}.svg" alt="">
         </div>
         <div class="profileName">
-            {{.Profile.UserName}}
         </div>
         <div class="profileStatics">
             <span class="analytics">analytics</span>
@@ -30,17 +25,16 @@
                 <span class="material-symbols-outlined">
                     article
                 </span>
-                <span class="postCounts">{{.Profile.ArticleCount}} Articles</span>
+                <span class="postCounts"></span>
             </div>
             <div class="comments">
                 <span class="material-symbols-outlined">
                     comment
                 </span>
-                <span class="postCounts">{{.Profile.CommentCount}} Comments</span>
+                <span class="postCounts"></span>
             </div>
         </div>
     </div>
-    {{end}}
     <!-- <h1 class="h1-title Categories">Categories</h1> -->
     <div class="Categories display">
         <!-- <hr class="categories-line"> -->

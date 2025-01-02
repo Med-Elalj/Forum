@@ -73,6 +73,7 @@
     </div>
     <div class="Comments">
         {{ range .Comments }}
+        
         <div class="commentCard DisableUserSelect"><!-- Working Part -->
             <a href="/?type=profile&username={{.UserName}}">
             <div class="commentAuthorImage">
@@ -90,22 +91,20 @@
                         </div>
                     </div>
                     <div class="commentReaction DisableUserSelect">
-                        <span isPost="false" class='like post  {{/*if eq .Liked "0"}}FILL{{end*/}}'
-                            id="{{.ID}}"><!-- TODO Handle Like Struct -->
+                        <span isPost="false" class='like post  {{/*if eq .Liked "1"}}FILL{{end*/}}' id="{{.ID}}">
                             <i class="material-symbols-outlined">
                                 thumb_up
                             </i>
                             <span>{{.LikeCount}}</span>
                         </span>
-                        <span isPost="false" class="dislike" id="{{.ID}}">
-                            <!-- TODO Handle Like Struct And Added The-->
+                        <span isPost="false" class='dislike  {{/*if eq .Liked "0"}}FILL{{end*/}}' id="{{.ID}}">
                             <i class="material-symbols-outlined">thumb_down</i>
                             <span>{{.DislikeCount}}</span>
                         </span>
                     </div>
                 </div>
                 <div class="commentInfo">
-                    <p class="commentData collapse">{{.Content}}</p>
+                    <p class="commentData collapse">{{.Content}}<br>|{{.Liked}}|{{.}}</p>
                 </div>
             </div>
         </div>

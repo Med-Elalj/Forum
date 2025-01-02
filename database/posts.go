@@ -123,7 +123,6 @@ func QuerryPostsbyUser(db *sql.DB, username string, user_id, ammount, offset int
 			post.Categories = strings.Split(categories.String, "|")
 		}
 		if err != nil {
-			fmt.Println("azer", rows)
 			return res, errors.New("QuerryPostsbyUser " + err.Error())
 		}
 		res = append(res, post)

@@ -10,11 +10,10 @@ async function fetchPosts(offset, type) {
     type = type ? type : "home"
     let category_name = UrlParams.get('category')
     const postsContainer = document.querySelector('.main-feed');
-    let firstItem = 0
     const x = await fetch(`/infinite-scroll?offset=${offset}&type=${type}${category_name ? `&category=${category_name}` : ''}${username ? `&username=${username}`:''}`)
         .then(response => response.json())
         .then(posts => {
-            posts.forEach(post => {
+            posts.posts.forEach(post => {
                 const postCard = document.createElement('div');
                 postCard.classList.add('post-card');
                 const profileLink =  document.createElement('a')
@@ -42,19 +41,17 @@ async function fetchPosts(offset, type) {
                     <span class="post-time" data-time="${post.post_creation_time}"> ${post.post_creation_time}</span>
                     `;
 
-                if (type === 'profile' && firstItem === 0) {
-                    console.log(username);
+                if (type === 'profile') {
+                    console.log(posts.profile);
                     const pImage = document.querySelector('.profileImage img')
                     const pName = document.querySelector('.profileName')
                     const pCounts = document.querySelector('.posts .postCounts')
                     const cCounts = document.querySelector('.comments .postCounts')
-                    pImage.src = `https://api.multiavatar.com/${username}.svg`
+                    pImage.src = `https://api.multiavatar.com/${posts.profile.UserName}.svg`
                     pName.textContent = username
-                    pCounts.textContent = `${posts[0].user_posts_count} Articles`
-                    cCounts.textContent = `${posts[0].user_comments_count} Comments`
+                    pCounts.textContent = `${posts.profile.ArticleCount} Articles`
+                    cCounts.textContent = `${posts.profile.CommentCount} Comments`
                 }
-                
-                firstItem++
                 // const dropdown = document.createElement('div');
                 // dropdown.className = 'dropdown';
 
@@ -134,7 +131,9 @@ async function fetchPosts(offset, type) {
                 postsContainer.append(postCard);
             });
         }).catch(error => {
-             window.location.href = '/error?code=404&message=Page Not Found';
+            console.log(error);
+            
+            //  window.location.href = '/error?code=404&message=Page Not Found';
         }
         );
         handleLikes(false)
