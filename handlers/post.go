@@ -103,7 +103,7 @@ func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 			log.Fatal(err)
 		}
 	}
-
+	typeQuery := r.URL.Query().Get("type")
 	offset_str := r.URL.Query().Get("offset")
 	offset, err := strconv.Atoi(offset_str)
 	if err != nil {
@@ -111,7 +111,8 @@ func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var posts []structs.Post
-	if r.URL.Query().Get("type") == "category" {
+	switch typeQuery {
+	case "category":
 		category := r.URL.Query().Get("category")
 		if !database.IsCategoryValid(category) {
 			ErrorJs(w, http.StatusBadRequest, errors.New("invalid category"))
@@ -122,41 +123,48 @@ func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 			ErrorJs(w, http.StatusInternalServerError, err)
 			return
 		}
-	} else if r.URL.Query().Get("type") == "profile" {
+	case "profile":
 		username := r.URL.Query().Get("username")
 		if username == "" {
 			username = profile.UserName
 		}
-
+		profile, err = database.GetUserProfile(DB, username)
+		if err != nil {
+			ErrorJs(w, http.StatusInternalServerError, errors.New("error fetching profile"))
+			return
+		}
 		posts, err = database.QuerryPostsbyUser(DB, username, uid, structs.Limit, offset)
+		if len(posts) > 0 {
+			posts[0].UserPostsCounts = profile.ArticleCount
+			posts[0].UsersCommentsCounts = profile.CommentCount
+		}
 		if err != nil {
 			ErrorJs(w, http.StatusInternalServerError, errors.New("error fetching posts "))
 			return
 		}
-	} else if r.URL.Query().Get("type") == "home" {
+	case "home":
 		posts, err = database.QuerryLatestPosts(DB, uid, structs.Limit, offset)
 		if err != nil {
 			ErrorJs(w, http.StatusInternalServerError, err)
 			return
 		}
-	} else if r.URL.Query().Get("type") == "liked" {
+	case "liked":
 		posts, err = database.QuerryLatestPostsByUserLikes(DB, uid, structs.Limit, offset)
 		if err != nil {
 			ErrorJs(w, http.StatusInternalServerError, err)
 			return
 		}
-	} else if r.URL.Query().Get("type") == "trending" {
+	case "trending":
 		posts, err = database.QuerryMostLikedPosts(DB, uid, structs.Limit, offset)
 		fmt.Println("---------", posts, err)
 		if err != nil {
 			ErrorJs(w, http.StatusInternalServerError, err)
 			return
 		}
-	} else {
+	default:
 		ErrorJs(w, http.StatusBadRequest, errors.New("invalid url"))
 		return
 	}
-	fmt.Println("Offset:", offset)
 
 	// Set the content type header to application/json
 	w.Header().Add("Content-Type", "application/json")

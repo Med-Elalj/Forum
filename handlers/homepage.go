@@ -19,6 +19,7 @@ func HomePage(w http.ResponseWriter, r *http.Request) {
 	template := getHtmlTemplate()
 
 	userId, err := CheckAuthentication(w, r)
+	
 	if err != nil {
 		return
 	}

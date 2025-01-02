@@ -79,11 +79,11 @@ function createPost() {
                     </div>
                     <div class="post-footer">
                         <div class="react">
-                            <div class="counters like" id="${post.ID}">
+                            <div isPost="true" class="counters like" id="${post.ID}">
                                 <i class="material-symbols-outlined popup-icon">thumb_up</i>
                                 <span>${post.LikeCount}</span>
                             </div>
-                            <div class="counters dislike" id="${post.ID}">
+                            <div isPost="true" class="counters dislike" id="${post.ID}">
                                 <i class="material-symbols-outlined popup-icon">thumb_down</i>
                                 <span>${post.DislikeCount}</span>
                             </div>
@@ -110,15 +110,18 @@ function createPost() {
             removeReadPostListner()
             readPost() 
 
-            removeHandleLikeListeners()
-            handleLikes()
+            handleLikes(false)
+            handleLikes(true)
             
             removeCreatePostListner()
             createPostListner()
         }else{
+            let msg = "Error While creating post"
+            if (response.status == 429){
+                msg = "You have reached the limit of creating posts, wait for 5 miniutes"
+            }
             ErrorBox.style.display = "flex"
-            
-            document.querySelector(".message").innerText = "Error While creating post"
+            document.querySelector(".message").innerText = msg
             setTimeout(function(){
                 ErrorBox.style.display = "none"
             }, 5000)

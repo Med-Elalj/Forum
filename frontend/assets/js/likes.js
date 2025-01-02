@@ -1,19 +1,6 @@
 
 // Handling Likes and Dislikes in both the frontend and backend
 
-function removeHandleLikeListeners() {
-    const likeBtns = document.querySelectorAll('.like');
-    const dislikeBtns = document.querySelectorAll('.dislike');
-    
-    likeBtns.forEach(btn => {
-        btn.removeEventListener('click', () => LikePostAndComments(btn));
-    });
-    
-    dislikeBtns.forEach(btn => {
-        btn.removeEventListener('click', () => DisLikePostAndComments(btn));
-    });
-}
-
 async function LikePostAndComments(btn){
     
         const postId = btn.id;
@@ -96,16 +83,24 @@ async function DisLikePostAndComments(btn){
         errorr = error
     }   
 }
-function handleLikes() {
+function handleLikes(add) {
 
     const likeBtns = document.querySelectorAll('.like');
     const dislikeBtns = document.querySelectorAll('.dislike');
 
     likeBtns.forEach(btn => {
-        btn.addEventListener('click', () => LikePostAndComments(btn));
+        if (add){
+            btn.addEventListener('click', () => LikePostAndComments(btn));
+        }else{
+            btn.removeEventListener('click', () => LikePostAndComments(btn));
+        }
     });
 
     dislikeBtns.forEach(btn => {
-        btn.addEventListener('click', () => DisLikePostAndComments(btn));
+        if (add){
+            btn.addEventListener('click', () => DisLikePostAndComments(btn));
+        }else{
+            btn.removeEventListener('click', () => DisLikePostAndComments(btn));
+        }
     });
 }

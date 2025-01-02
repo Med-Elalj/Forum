@@ -116,9 +116,9 @@ async function handleCommentEvent(e) {
             commentContainer.prepend(commentCard);
             document.querySelector('.commentCount').textContent = data.CommentCount
             // remove old Listeners
-            removeHandleLikeListeners();
+            handleLikes(false);
             // call new listeners
-            handleLikes();
+            handleLikes(true);
 
             // remove old Listners :
             removeExpandCommentListeners()
@@ -142,12 +142,6 @@ function CommentInputEventListenner() {
     send_comment.addEventListener('click',  handleCommentEvent);
 }
 
-function DisplayPost(){
-    const commentSection = document.querySelector('.postComments');
-    const postSection = document.querySelector('.ProfileAndPost');
-    commentSection.style.display = 'flex';
-    postSection.style.display = 'none';
-}
 
 function DisplayComments(){
     const commentSection = document.querySelector('.postComments');

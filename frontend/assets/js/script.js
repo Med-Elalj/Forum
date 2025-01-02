@@ -10,7 +10,7 @@ async function fetchPosts(offset, type) {
     type = type ? type : "home"
     let category_name = UrlParams.get('category')
     const postsContainer = document.querySelector('.main-feed');
-
+    let firstItem = 0
     const x = await fetch(`/infinite-scroll?offset=${offset}&type=${type}${category_name ? `&category=${category_name}` : ''}${username ? `&username=${username}`:''}`)
         .then(response => response.json())
         .then(posts => {
@@ -42,6 +42,19 @@ async function fetchPosts(offset, type) {
                     <span class="post-time" data-time="${post.post_creation_time}"> ${post.post_creation_time}</span>
                     `;
 
+                if (type === 'profile' && firstItem === 0) {
+                    console.log(username);
+                    const pImage = document.querySelector('.profileImage img')
+                    const pName = document.querySelector('.profileName')
+                    const pCounts = document.querySelector('.posts .postCounts')
+                    const cCounts = document.querySelector('.comments .postCounts')
+                    pImage.src = `https://api.multiavatar.com/${username}.svg`
+                    pName.textContent = username
+                    pCounts.textContent = `${posts[0].user_posts_count} Articles`
+                    cCounts.textContent = `${posts[0].user_comments_count} Comments`
+                }
+                
+                firstItem++
                 // const dropdown = document.createElement('div');
                 // dropdown.className = 'dropdown';
 
@@ -121,10 +134,12 @@ async function fetchPosts(offset, type) {
                 postsContainer.append(postCard);
             });
         }).catch(error => {
-            window.location.href = '/error?code=404&message=Page Not Found';
+             window.location.href = '/error?code=404&message=Page Not Found';
         }
         );
-
+        handleLikes(false)
+        handleLikes(true)
+        
         removeReadPostListner()
         readPost()
 
@@ -134,8 +149,7 @@ async function fetchPosts(offset, type) {
         removeSeeMoreListner()
         seeMore()
 
-        removeHandleLikeListeners()
-        handleLikes()
+
 }
 
 function infiniteScroll() {
@@ -144,10 +158,10 @@ function infiniteScroll() {
     let timeout = null;
     window.addEventListener('scroll', () => {
         clearTimeout(timeout);
-        timeout = setTimeout(() => {
+        timeout = setTimeout(async () => {
             const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
             if (scrollTop + clientHeight >= scrollHeight - 5) {
-                fetchPosts(offset, type)
+                await fetchPosts(offset, type)
             }
         }, 1000);
     });
@@ -217,17 +231,12 @@ function showAndHideSideBar(e) {
     const commentSection = document.querySelector('.postComments')
     const postSection = document.querySelector('.ProfileAndPost')
     if (e.matches) {
-        const commentButton = document.querySelector('.CommentButton');
-        commentButton.removeEventListener('click', DisplayPost);
         sidebardLeft.style.left = "2.5%"
         if (commentSection)
             commentSection.style.display = 'flex';
         if (postSection)
             postSection.style.display = 'flex';
     } else {
-       
-        const commentButton = document.querySelector('.CommentButton');
-        commentButton.addEventListener('click', DisplayPost);
         if (commentSection)
             commentSection.style.display = 'none';
         if (postSection)
@@ -328,15 +337,36 @@ function readPost() {
                     postContent.classList.add("closed")
                     //restore the scrolling on the background page :D 
                     document.body.classList.remove("stop-scrolling");
-                    document.getElementById("ScriptInjected").remove()
+                    if (document.getElementById("ScriptInjected"))
+                        document.getElementById("ScriptInjected").remove()
                 }
             })
             // recall Like.js to listen on Elemnts in post page
-            removeHandleLikeListeners()
-            handleLikes()
+            ListenOncommentButtom(false)
+            ListenOncommentButtom(true)
+            handleLikes(false)
+            handleLikes(true)
         })
     })
+}
 
+
+function DisplayPost(){
+    const commentSection = document.querySelector('.postComments');
+    const postSection = document.querySelector('.ProfileAndPost');
+    commentSection.style.display = 'flex';
+    postSection.style.display = 'none';
+}
+
+function ListenOncommentButtom(add){
+    const commentButton = document.querySelector('.CommentButton');
+    if (add){
+        console.log("sdfjk hasdkjfha skdjfh ");
+        commentButton.addEventListener('click', DisplayPost);
+    }else{
+        commentButton.removeEventListener('click', DisplayPost);
+
+    }
 }
 // Dark Mode && save token in local storage
 const themeToggle = document.querySelectorAll('#switch');
@@ -421,8 +451,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 infiniteScroll()
-fetchPosts(0, type)
-
+ fetchPosts(0, type)
 postControlList()
 readPost()
 showLeftSidebarMobile()

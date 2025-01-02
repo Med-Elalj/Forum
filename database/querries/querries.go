@@ -75,12 +75,12 @@ const (
 		LEFT JOIN comments c ON u.id = c.user_id
 		WHERE u.username = ?
 		GROUP BY u.id, u.username, u.created_at;`
-	GetUserProfileByID = `SELECT u.id, u.username, u.created_at, COUNT(p.id) AS post_count, COUNT(c.id) AS comment_count
-	FROM users u
-	LEFT JOIN posts p ON u.id = p.user_id
-	LEFT JOIN comments c ON u.id = c.user_id
-	WHERE u.id = ?
-	ORDER BY p.created_at`
+	GetUserProfileByID = `SELECT u.id, u.username, u.created_at, COUNT(DISTINCT p.id) AS post_count, COUNT(DISTINCT c.id) AS comment_count
+		FROM users u
+		LEFT JOIN posts p ON u.id = p.user_id
+		LEFT JOIN comments c ON u.id = c.user_id
+		WHERE u.id = ?
+		GROUP BY u.id, u.username, u.created_at;`
 	GetCategoriesWithPostCount = `SELECT c.name, COUNT(pc.post_id) as post_count
 			FROM categories c
 			JOIN post_categories pc ON c.id = pc.category_id

@@ -24,8 +24,8 @@ func HasUserLikedPost(db *sql.DB, userId, postId int, post bool) (bool, error) {
 
 // Crate LikePost in database/likes.go
 func LikePost(db *sql.DB, userId, postId int, post bool) error {
-	//query := `INSERT INTO comment_likes (user_id, comment_id, is_like) VALUES (?, ?, 1)`
 	query := ""
+	fmt.Println("////////////=>", userId, postId, post)
 	if post {
 		query = `INSERT INTO post_likes (user_id, post_id, is_like) VALUES (?, ?, 1)`
 	} else {

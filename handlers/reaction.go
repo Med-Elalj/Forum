@@ -70,6 +70,7 @@ func PostReaction(w http.ResponseWriter, r *http.Request) {
 	// /// // / / / / / / /
 	addeddStatus := false
 	if requestData.Type == "like" {
+		fmt.Println("******************", liked, dislike)
 		if dislike {
 			err = database.UndislikePost(DB, UserId, PostIdInt, requestData.Post)
 			if err != nil {
@@ -89,7 +90,7 @@ func PostReaction(w http.ResponseWriter, r *http.Request) {
 		} else {
 			err = database.LikePost(DB, UserId, PostIdInt, requestData.Post)
 			if err != nil {
-				fmt.Println("error liking post3")
+				fmt.Println("error liking post3", requestData.Post)
 				ErrorJs(w, http.StatusInternalServerError, errors.New("error liking post"))
 				return
 			}
