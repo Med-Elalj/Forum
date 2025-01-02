@@ -30,17 +30,16 @@ function CommentErrorMsg(msg){
     }, 5000);
 }
 
+// Remove duplicate 500 status check
 async function handleCommentEvent(e) {
-    const commentError = document.querySelector('.CommentErrorMessage');
-
-
     if (e.type === 'click' || (e.type === 'keypress' && e.key === 'Enter')) {
         e.preventDefault();
         const commentValue = e.target.closest('.commentInput').querySelector('input');
 
         const comment = commentValue.value;
-        if (comment.trim() === '' || comment.length == 0)
+        if (comment.trim() === '' || comment.length === 0) {
             return;
+        }
 
         const postID = commentValue.id;
         const response = await fetch('/CreateComment', {
@@ -53,16 +52,17 @@ async function handleCommentEvent(e) {
                 comment
             })
         });
-        if (response.status == 401) {
+
+        if (response.status === 401) {
             popUp();
             return;
         }
-        if (response.status == 429) {
-            CommentErrorMsg(`Slow down! Good comments take time—quality over speed! try again after 1 minute 😊`)
+        if (response.status === 429) {
+            CommentErrorMsg(`Slow down! Good comments take time—quality over speed! try again after 1 minute 😊`);
             return;
         }
-        if (response.status == 500) {
-            CommentErrorMsg("Oops! It looks like you've already posted this comment. Please try something new!")
+        if (response.status === 500) {
+            CommentErrorMsg("Oops! It looks like you've already posted this comment. Please try something new!");
             return;
         }
         if (response.status == 500) {
