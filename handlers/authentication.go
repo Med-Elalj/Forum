@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"errors"
+	"fmt"
 	"forum/database"
 	"net/http"
 )
@@ -18,7 +19,7 @@ func CheckAuthentication(w http.ResponseWriter, r *http.Request) (userID int, er
 		structError["StatuCode"] = http.StatusUnauthorized
 		structError["MessageError"] = "unauthorized " + err.Error()
 		ErrorPage(w, "error.html", structError)
-		
+
 		return
 	}
 	if err != nil {
@@ -43,14 +44,18 @@ func RedirectToHomeIfAuthenticated(w http.ResponseWriter, r *http.Request) bool 
 }
 
 func CheckUserExists(uemail, uname string) bool {
+	check := 0
 	hashpassrd, userId, err := database.GetUserByUname(DB, uname)
 	if (hashpassrd != "" && userId != 0) || err == nil {
-		return true
+		check++
 	}
+	fmt.Println("check======>", check)
+
 	hashpassrd, userId, err = database.GetUserByUemail(DB, uemail)
 	if (hashpassrd != "" && userId != 0) || err == nil {
-		return true
+		check++
 	}
-	return false
+	fmt.Println("check======>", check)
+	fmt.Println("check======>", check > 0)
+	return check > 0
 }
-

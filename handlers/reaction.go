@@ -32,7 +32,7 @@ func PostReaction(w http.ResponseWriter, r *http.Request) {
 		Type   string `json:"type"`
 		Post   bool   `json:"post"`
 	}
-
+	fmt.Println("====>", requestData)
 	err = json.NewDecoder(r.Body).Decode(&requestData)
 	if err != nil {
 		fmt.Println("invalid jsonXV")

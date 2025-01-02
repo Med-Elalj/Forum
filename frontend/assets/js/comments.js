@@ -1,4 +1,3 @@
-
 function removeExpandCommentListeners() {
     let comments = document.querySelectorAll(".commentData")
     comments.forEach(elem => {
@@ -117,7 +116,7 @@ async function handleCommentEvent(e) {
             commentContainer.prepend(commentCard);
             document.querySelector('.commentCount').textContent = data.CommentCount
             // remove old Listeners
-            removeHandeLikeListeners();
+            removeHandleLikeListeners();
             // call new listeners
             handleLikes();
 
@@ -128,41 +127,19 @@ async function handleCommentEvent(e) {
         }
     }
 }
-function addCommentOnPressKey(e) {
-
-    if (!throttleTimeout && e.key == "Enter") {
-        handleCommentEvent(e);
-        throttleTimeout = true;
-    }
-    setTimeout(() => {
-        throttleTimeout = false;
-    }, 1000);
-}
-
-function addCommentOnClick(e) {
-
-    if (!throttleTimeout) {
-        handleCommentEvent(e);
-        throttleTimeout = true;
-    }
-    setTimeout(() => {
-        throttleTimeout = false;
-    }, 1000);
-}
 
 function removeCommentListtner()
 {
-
     const send_comment = document.querySelector('.send-comment');
     const commentInput = document.querySelector('.commentInput input');
-    commentInput.removeEventListener('keypress', addCommentOnPressKey);
-    send_comment.removeEventListener('click',  addCommentOnClick);
+    commentInput.removeEventListener('keypress', handleCommentEvent);
+    send_comment.removeEventListener('click',  handleCommentEvent);
 }
 function CommentInputEventListenner() {
     const send_comment = document.querySelector('.send-comment');
     const commentInput = document.querySelector('.commentInput input');
-    commentInput.addEventListener('keypress', addCommentOnPressKey);
-    send_comment.addEventListener('click',  addCommentOnClick);
+    commentInput.addEventListener('keypress', handleCommentEvent);
+    send_comment.addEventListener('click',  handleCommentEvent);
 }
 
 function DisplayPost(){
@@ -180,16 +157,14 @@ function DisplayComments(){
 }
 
 function removePostButtonSwitcherListners(){
-    const commentButton = document.querySelector('.CommentButton');
     const postButton = document.querySelector('.PostButton');
-    commentButton.removeEventListener('click', DisplayPost);
+
     postButton.removeEventListener('click', DisplayComments);
 }
 
 function PostButtonSwitcher(){
-    const commentButton = document.querySelector('.CommentButton');
     const postButton = document.querySelector('.PostButton');
-    commentButton.addEventListener('click', DisplayPost);
+   
     postButton.addEventListener('click', DisplayComments);
 }
 PostButtonSwitcher()

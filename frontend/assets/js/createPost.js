@@ -27,7 +27,6 @@ function createPost() {
         const content = form.content.value;
         const categories = Array.from(form.category).filter((input) => input.checked).map((input) => input.id);
         const categoriesList = Array.from(form.category).filter((input) => input.checked).map((input) => input.value);
-        console.log(categories.length);
         
         if (categories.length === 0) {
             ErrorBox.style.display = "flex"
@@ -51,13 +50,10 @@ function createPost() {
             },
             body: JSON.stringify(data),
         });
-        console.log("====> data From Front ",data );
-        console.log("====>",response.status );
         
         if (response.status === 200) {
             
             const post = await response.json();
-            console.log("====> post From Back ",post );
             
             const postCard = document.createElement('div');
             postCard.classList.add('post-card');
@@ -114,14 +110,13 @@ function createPost() {
             removeReadPostListner()
             readPost() 
 
-            removeHandeLikeListeners()
+            removeHandleLikeListeners()
             handleLikes()
             
             removeCreatePostListner()
             createPostListner()
         }else{
             ErrorBox.style.display = "flex"
-            console.log(response);
             
             document.querySelector(".message").innerText = "Error While creating post"
             setTimeout(function(){

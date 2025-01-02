@@ -5,22 +5,18 @@ const menuIcon = document.querySelector('.menu')
 const windowMedia = window.matchMedia("(min-width: 768px)")
 const type = UrlParams.get('type');
 const username = UrlParams.get('username');
-let throttleTimeout = false;
-
+let errorr = ""
 async function fetchPosts(offset, type) {
     type = type ? type : "home"
     let category_name = UrlParams.get('category')
     const postsContainer = document.querySelector('.main-feed');
 
-    console.log('Fetching posts with offset:', offset, type);
     const x = await fetch(`/infinite-scroll?offset=${offset}&type=${type}${category_name ? `&category=${category_name}` : ''}${username ? `&username=${username}`:''}`)
         .then(response => response.json())
         .then(posts => {
-            console.log('Fetched posts:', posts);
             posts.forEach(post => {
                 const postCard = document.createElement('div');
                 postCard.classList.add('post-card');
-                console.log('Creating post card for post:', post);
                 const profileLink =  document.createElement('a')
                 profileLink.href = `/?type=profile&username=${post.author_username}`
                 const profileImage = document.createElement('div');
@@ -122,8 +118,6 @@ async function fetchPosts(offset, type) {
 
                 postDetails.append(rowTweet, postContent, seeMore, hashtag, postFooter);
                 postCard.append(profileLink, postDetails);
-                console.log(' posts container:', postsContainer);
-                console.log('posts container:', postCard);
                 postsContainer.append(postCard);
             });
         }).catch(error => {
@@ -140,7 +134,7 @@ async function fetchPosts(offset, type) {
         removeSeeMoreListner()
         seeMore()
 
-        removeHandeLikeListeners()
+        removeHandleLikeListeners()
         handleLikes()
 }
 
@@ -152,14 +146,8 @@ function infiniteScroll() {
         clearTimeout(timeout);
         timeout = setTimeout(() => {
             const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-            console.log('Scroll event detected:', { scrollTop, scrollHeight, clientHeight });
             if (scrollTop + clientHeight >= scrollHeight - 5) {
-                console.log('Fetching more posts...');
                 fetchPosts(offset, type)
-                    .then(() => {
-                        offset += limit;
-                        console.log('Finished fetching posts, new offset:', offset);
-                    });
             }
         }, 1000);
     });
@@ -229,12 +217,17 @@ function showAndHideSideBar(e) {
     const commentSection = document.querySelector('.postComments')
     const postSection = document.querySelector('.ProfileAndPost')
     if (e.matches) {
+        const commentButton = document.querySelector('.CommentButton');
+        commentButton.removeEventListener('click', DisplayPost);
         sidebardLeft.style.left = "2.5%"
         if (commentSection)
             commentSection.style.display = 'flex';
         if (postSection)
             postSection.style.display = 'flex';
     } else {
+       
+        const commentButton = document.querySelector('.CommentButton');
+        commentButton.addEventListener('click', DisplayPost);
         if (commentSection)
             commentSection.style.display = 'none';
         if (postSection)
@@ -299,7 +292,7 @@ async function fetchPost(url) {
         const html = await response.text();
         return html
     } catch (error) {
-        console.error('Error fetching HTML:', error);
+        errorr = error
     }
 }
 function removeReadPostListner() {
@@ -339,6 +332,7 @@ function readPost() {
                 }
             })
             // recall Like.js to listen on Elemnts in post page
+            removeHandleLikeListeners()
             handleLikes()
         })
     })

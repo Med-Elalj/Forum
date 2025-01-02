@@ -59,14 +59,11 @@
         function removeCreatePostListner() {
             const CreatePostArea = document.querySelectorAll(".new-post-header")
             CreatePostArea.forEach(elem => {
-                elem.removeListner('click',createPostListner)
+                elem.removeEventListener('click',createPostListner)
             })
         }
         function createPostListner() {
             const CreatePostArea = document.querySelectorAll(".new-post-header")
-            console.log(CreatePostArea);
-
-
             CreatePostArea.forEach(elem => {
                 elem.addEventListener('click', () => {
                     createPost();

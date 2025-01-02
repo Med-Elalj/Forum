@@ -1,13 +1,17 @@
 
 <div class="ProfileAndPost">
     <div class="postInfo">
-        <div class="authorImage">
-            <img src="https://api.multiavatar.com/{{.Post.UserName}}.svg" alt="">
-        </div>
+        <a href="/?type=profile&username={{.Post.UserName}}">
+            <div class="authorImage">
+                <img src="https://api.multiavatar.com/{{.Post.UserName}}.svg" alt="">
+            </div>
+        </a>
         <div class="authorInfo">
             <span class="Title">{{.Post.Title}}</span>
             <div class="authorContain">
-                <span class="authorName">@{{.Post.UserName}}</span>
+                <a href="/?type=profile&username={{.Post.UserName}}">
+                    <span class="authorName">@{{.Post.UserName}}</span>
+                </a>
                 <span class="material-symbols-outlined" id="timer">schedule</span>
                 <span class="postDate" data-time="{{.Post.CreatedAt}}">{{.Post.CreatedAt}}</span>
             </div>
@@ -70,11 +74,12 @@
     <div class="Comments">
         {{ range .Comments }}
         <div class="commentCard DisableUserSelect"><!-- Working Part -->
+            <a href="/?type=profile&username={{.UserName}}">
             <div class="commentAuthorImage">
                 <img src="https://api.multiavatar.com/{{.UserName}}.svg" alt="">
                 <!-- TODO ADD PROPER link: -->
             </div>
-
+            </a>
             <div class="commentAuthor">
                 <div class="commentAuthorInfo">
                     <div class="poster-info">

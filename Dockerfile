@@ -1,15 +1,32 @@
-FROM golang:1.22.2-alpine AS start
+# Stage 1: Build
+FROM golang:1.22.3-alpine AS build
 
-WORKDIR /forum-projct/
+# Set the working directory
+WORKDIR /forum-project
 
-RUN apk add gcc musl-dev
+# Install required packages
+RUN apk add --no-cache gcc musl-dev
+
+# Copy the source code into the container
 COPY . .
 
+# Build the Go application
 RUN go build -o forum .
 
-FROM alpine
+# Stage 2: Runtime
+FROM alpine:latest
+
+# Set the working directory
 WORKDIR /myProject
-COPY --from=start /forum-projct/* /myProject/
+
+# Copy the built application from the build stage
+COPY --from=build /forum-project/forum /myProject/
+COPY --from=build /forum-project/frontend /myProject/frontend
+COPY --from=build /forum-project/base.db /myProject/
+
+# Metadata for the image
 LABEL version="1.0"
 LABEL projectname="EduTalks"
-CMD ["./forum-projct"]
+
+# Set the command to run the application
+CMD ["./forum", "database.db"]

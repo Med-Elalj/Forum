@@ -81,11 +81,14 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	var err error
 	hpassword, uid, err = database.GetUserByUemail(DB, email)
 	if err != nil || hpassword == "" {
-		structError["StatuCode"] = http.StatusBadRequest
-		structError["MessageError"] = "invalid email or username"
-		structError["Register"] = false
-		ErrorPage(w, "register.html", structError)
-		return
+		hpassword, uid, err = database.GetUserByUname(DB, email)
+		if err != nil || hpassword == "" {
+			structError["StatuCode"] = http.StatusBadRequest
+			structError["MessageError"] = "invalid email or username"
+			structError["Register"] = false
+			ErrorPage(w, "register.html", structError)
+			return
+		}
 	}
 
 	err = bcrypt.CompareHashAndPassword([]byte(hpassword), []byte(upass))

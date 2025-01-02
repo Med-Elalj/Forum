@@ -288,6 +288,13 @@ select .DisableUserSelect {
     user-select: none;
 }
 
+.DisableUserSelect {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
 .addToFavourite span:hover {
     color: var(--BlueGreen);
     font-size: 44px;
