@@ -33,6 +33,7 @@ function CommentErrorMsg(msg){
 
 // Remove duplicate 500 status check
 async function handleCommentEvent(e) {
+    
     if (e.type === 'click' || (e.type === 'keypress' && e.key === 'Enter')) {
         e.preventDefault();
         const commentValue = e.target.closest('.commentInput').querySelector('input');
@@ -133,13 +134,12 @@ async function handleCommentEvent(e) {
 function CommentInputEventListenner(flag) {
     const send_comment = document.querySelector('.send-comment');
     const commentInput = document.querySelector('.commentInput input');
-    if (flag){
-        
-        commentInput.addEventListener('keypress',  ()=>handleCommentEvent);
-        send_comment.addEventListener('click',  ()=> handleCommentEvent);
+    if (flag){        
+        commentInput.addEventListener('keypress', handleCommentEvent);
+        send_comment.addEventListener('click', handleCommentEvent);
     }else{
-        commentInput.removeEventListener('keypress', ()=> handleCommentEvent);
-        send_comment.removeEventListener('click',  ()=> handleCommentEvent);
+        commentInput.removeEventListener('keypress', handleCommentEvent);
+        send_comment.removeEventListener('click', handleCommentEvent);
     }
 }
 
