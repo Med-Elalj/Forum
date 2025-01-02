@@ -63,7 +63,7 @@ func GetPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	comments, err := database.GetCommentsByPost(DB, post.UserID, post.ID)
+	comments, err := database.GetCommentsByPost(DB, uid, post.ID)
 	fmt.Println("------------------------------")
 	fmt.Println(comments, err)
 	fmt.Println("------------------------------")

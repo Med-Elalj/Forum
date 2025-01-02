@@ -28,7 +28,7 @@ func CreateComment(db *sql.DB, UserId, PostId int, content string) (error, int) 
 
 func GetCommentsByPost(db *sql.DB, userId, postId int) ([]structs.Comment, error) {
 	res := make([]structs.Comment, 0)
-	rows, err := db.Query(querries.GetCommentsByPostL, userId, postId, -1)
+	rows, err := db.Query(querries.GetCommentsByPostL, userId, postId, structs.Limit)
 	if err != nil {
 		fmt.Println("GetCommentsByPost=====>", err)
 		return nil, err
@@ -61,9 +61,9 @@ func GetCommentsByPost(db *sql.DB, userId, postId int) ([]structs.Comment, error
 	return res, nil
 }
 
-func GetCommentById(db *sql.DB, commentId int) (structs.Comment, error) {
+func GetCommentById(db *sql.DB, UserId, commentId int) (structs.Comment, error) {
 	var comment structs.Comment
-	err := db.QueryRow(querries.GetCommentsByID, commentId).Scan(&comment.ID, &comment.PostID, &comment.UserID, &comment.Content,
+	err := db.QueryRow(querries.GetCommentsByID, UserId, commentId, structs.Limit).Scan(&comment.ID, &comment.PostID, &comment.UserID, &comment.Content,
 		&comment.LikeCount, &comment.DislikeCount, &comment.CreatedAt, &comment.UserName)
 	if err == sql.ErrNoRows {
 		return comment, fmt.Errorf("comment with ID %d not found", commentId)

@@ -73,7 +73,12 @@ const (
 		LEFT JOIN comment_likes cl ON c.id = cl.comment_id AND cl.user_id = ?
 		WHERE post_id=?
 		ORDER BY c.created_at DESC LIMIT ?`
-	GetCommentsByID       = "SELECT c.*, u.username FROM comments c JOIN users u ON c.user_id = u.id WHERE id=? ORDER BY c.created_at DESC LIMIT ?"
+	GetCommentsByID = `SELECT c.*, u.username , COALESCE(cl.is_like, "null") AS is_like
+		FROM comments c 
+		JOIN users u ON c.user_id = u.id 
+		LEFT JOIN comment_likes cl ON c.id = cl.comment_id AND cl.user_id = ?
+		WHERE id=?
+		ORDER BY c.created_at DESC LIMIT ?`
 	GetUserProfileByUname = `SELECT u.id, u.username, u.created_at, COUNT(DISTINCT p.id) AS post_count, COUNT(DISTINCT c.id) AS comment_count
 		FROM users u
 		LEFT JOIN posts p ON u.id = p.user_id

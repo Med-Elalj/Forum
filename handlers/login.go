@@ -22,6 +22,7 @@ var (
 )
 
 func init() {
+
 	email_RGX = regexp.MustCompile(`^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`)
 	username_RGX = regexp.MustCompile(`^\w{3,19}$`)
 	title_RGX = regexp.MustCompile(`.{1,60}`)
