@@ -1,7 +1,7 @@
 
 function toggleCollapse(elem, comments) {
     console.log("Clic,ed");
-    
+
     elem.classList.toggle("collapse");
     comments.forEach(second_elem => {
         if (second_elem != elem)
@@ -12,16 +12,16 @@ function ExpandComments(flag) {
     // Expand Comment and read Content...
     let comments = document.querySelectorAll(".commentData")
     comments.forEach(elem => {
-        if (flag){
-            elem.addEventListener('click', ()=> toggleCollapse(elem, comments))
-       
-        }else{
-            elem.removeEventListener('click',  ()=> toggleCollapse(elem, comments))
+        if (flag) {
+            elem.addEventListener('click', () => toggleCollapse(elem, comments))
+
+        } else {
+            elem.removeEventListener('click', () => toggleCollapse(elem, comments))
         }
     })
 }
 
-function CommentErrorMsg(msg){
+function CommentErrorMsg(msg) {
     const commentError = document.querySelector('.CommentErrorMessage');
     commentError.style.display = "block"
     commentError.innerText = msg;
@@ -33,7 +33,7 @@ function CommentErrorMsg(msg){
 
 // Remove duplicate 500 status check
 async function handleCommentEvent(e) {
-    
+
     if (e.type === 'click' || (e.type === 'keypress' && e.key === 'Enter')) {
         e.preventDefault();
         const commentValue = e.target.closest('.commentInput').querySelector('input');
@@ -130,36 +130,37 @@ async function handleCommentEvent(e) {
     }
 }
 
-
 function CommentInputEventListenner(flag) {
     const send_comment = document.querySelector('.send-comment');
     const commentInput = document.querySelector('.commentInput input');
-    if (flag){        
+    if (flag) {
         commentInput.addEventListener('keypress', handleCommentEvent);
         send_comment.addEventListener('click', handleCommentEvent);
-    }else{
+    } else {
         commentInput.removeEventListener('keypress', handleCommentEvent);
         send_comment.removeEventListener('click', handleCommentEvent);
     }
 }
 
+function DisplayComments() {
 
-function DisplayComments(){
     const commentSection = document.querySelector('.postComments');
     const postSection = document.querySelector('.ProfileAndPost');
     commentSection.style.display = 'none';
     postSection.style.display = 'flex';
 }
 
-function PostButtonSwitcher(flag){
+function PostButtonSwitcher(flag) {
+
     const postButton = document.querySelector('.PostButton');
-   if (flag){
-       postButton.addEventListener('click', ()=> DisplayComments);
-   }else{
-        postButton.removeEventListener('click',  ()=> DisplayComments);
-   }
+
+    if (flag) {
+
+        postButton.addEventListener('click', DisplayComments);
+    } else {
+        postButton.removeEventListener('click', DisplayComments);
+    }
 }
 PostButtonSwitcher(true)
 CommentInputEventListenner(true)
 ExpandComments(true)
-

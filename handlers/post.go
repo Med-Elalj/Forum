@@ -136,7 +136,7 @@ func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("--------5----------", profile)
 
 		if err != nil {
-			ErrorJs(w, http.StatusInternalServerError, errors.New("error fetching profile"))
+			ErrorJs(w, http.StatusNotFound, errors.New("page not found"))
 			return
 		}
 		posts, err = database.QuerryPostsbyUser(DB, username, uid, structs.Limit, offset)

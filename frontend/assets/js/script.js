@@ -13,8 +13,7 @@ async function fetchPosts(offset, type) {
     const x = await fetch(`/infinite-scroll?offset=${offset}&type=${type}${category_name ? `&category=${category_name}` : ''}${username ? `&username=${username}`:''}`)
         .then(response => response.json())
         .then(posts => {
-            if (type === 'profile') {
-                console.log(posts.profile);
+            if (posts.profile) {
                 const pImage = document.querySelector('.profileImage img')
                 const pName = document.querySelector('.profileName')
                 const pCounts = document.querySelector('.posts .postCounts')
@@ -132,9 +131,7 @@ async function fetchPosts(offset, type) {
                 postsContainer.append(postCard);
             });
         }).catch(error => {
-            console.log(error);
-            
-            //  window.location.href = '/error?code=404&message=Page Not Found';
+             window.location.href = `/error?code=404&message=Page Not Found`;
         }
         );
         handleLikes(false)
