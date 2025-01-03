@@ -1,5 +1,10 @@
 
 function toggleCollapse(elem, comments) {
+<<<<<<< Updated upstream
+=======
+    console.log("Clic,ed");
+    
+>>>>>>> Stashed changes
     elem.classList.toggle("collapse");
     comments.forEach(second_elem => {
         if (second_elem != elem)
@@ -10,11 +15,19 @@ function ExpandComments(flag) {
     // Expand Comment and read Content...
     let comments = document.querySelectorAll(".commentData")
     comments.forEach(elem => {
+<<<<<<< Updated upstream
         if (flag) {
             elem.addEventListener('click', () => toggleCollapse(elem, comments))
 
         } else {
             elem.removeEventListener('click', () => toggleCollapse(elem, comments))
+=======
+        if (flag){
+            elem.addEventListener('click', ()=> toggleCollapse(elem, comments))
+       
+        }else{
+            elem.removeEventListener('click',  ()=> toggleCollapse(elem, comments))
+>>>>>>> Stashed changes
         }
     })
 }
@@ -31,6 +44,12 @@ function CommentErrorMsg(msg) {
 
 // Remove duplicate 500 status check
 async function handleCommentEvent(e) {
+<<<<<<< Updated upstream
+=======
+    console.log("Clic,ed");
+    
+    const commentError = document.querySelector('.CommentErrorMessage');
+>>>>>>> Stashed changes
 
     if (e.type === 'click' || (e.type === 'keypress' && e.key === 'Enter')) {
         e.preventDefault();
@@ -126,6 +145,7 @@ async function handleCommentEvent(e) {
     }
 }
 
+<<<<<<< Updated upstream
 function CommentInputEventListenner(flag) {
     const send_comment = document.querySelector('.send-comment');
     const commentInput = document.querySelector('.commentInput input');
@@ -135,6 +155,19 @@ function CommentInputEventListenner(flag) {
     } else {
         commentInput.removeEventListener('keypress', handleCommentEvent);
         send_comment.removeEventListener('click', handleCommentEvent);
+=======
+
+function CommentInputEventListenner(flag) {
+    const send_comment = document.querySelector('.send-comment');
+    const commentInput = document.querySelector('.commentInput input');
+    if (flag){
+        
+        commentInput.addEventListener('keypress',  ()=>handleCommentEvent);
+        send_comment.addEventListener('click',  ()=> handleCommentEvent);
+    }else{
+        commentInput.removeEventListener('keypress', ()=> handleCommentEvent);
+        send_comment.removeEventListener('click',  ()=> handleCommentEvent);
+>>>>>>> Stashed changes
     }
 }
 
@@ -146,6 +179,7 @@ function DisplayComments() {
     postSection.style.display = 'flex';
 }
 
+<<<<<<< Updated upstream
 function PostButtonSwitcher(flag) {
 
     const postButton = document.querySelector('.PostButton');
@@ -160,3 +194,17 @@ function PostButtonSwitcher(flag) {
 PostButtonSwitcher(true)
 CommentInputEventListenner(true)
 ExpandComments(true)
+=======
+function PostButtonSwitcher(flag){
+    const postButton = document.querySelector('.PostButton');
+   if (flag){
+       postButton.addEventListener('click', ()=> DisplayComments);
+   }else{
+        postButton.removeEventListener('click',  ()=> DisplayComments);
+   }
+}
+PostButtonSwitcher(true)
+CommentInputEventListenner(true)
+ExpandComments(true)
+
+>>>>>>> Stashed changes

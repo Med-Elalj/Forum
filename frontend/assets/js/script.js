@@ -13,16 +13,26 @@ async function fetchPosts(offset, type) {
     const x = await fetch(`/infinite-scroll?offset=${offset}&type=${type}${category_name ? `&category=${category_name}` : ''}${username ? `&username=${username}`:''}`)
         .then(response => response.json())
         .then(posts => {
+<<<<<<< Updated upstream
             if (posts) {
                 console.log("sdfjhsdj");
                 console.log(posts);
                 
+=======
+            if (type === 'profile') {
+                console.log(posts.profile);
+>>>>>>> Stashed changes
                 const pImage = document.querySelector('.profileImage img')
                 const pName = document.querySelector('.profileName')
                 const pCounts = document.querySelector('.posts .postCounts')
                 const cCounts = document.querySelector('.comments .postCounts')
+<<<<<<< Updated upstream
                 pImage.src = posts.profile.UserName ? `https://api.multiavatar.com/${posts.profile.UserName}.svg` : '/assets/images/profile.png'
                 pName.textContent = posts.profile.UserName ? posts.profile.UserName : 'Please Login First'
+=======
+                pImage.src = `https://api.multiavatar.com/${posts.profile.UserName}.svg`
+                pName.textContent = posts.profile.UserName
+>>>>>>> Stashed changes
                 pCounts.textContent = `${posts.profile.ArticleCount} Articles`
                 cCounts.textContent = `${posts.profile.CommentCount} Comments`
             }
@@ -355,7 +365,12 @@ function loadPostContent(elem) {
         // recall Like.js to listen on Elemnts in post page
         ListenOncommentButtom(false);
         ListenOncommentButtom(true);
+<<<<<<< Updated upstream
         handleLikes();
+=======
+        handleLikes(false);
+        handleLikes(true);
+>>>>>>> Stashed changes
     };
 }
 

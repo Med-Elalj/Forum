@@ -124,6 +124,7 @@ func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 	case "profile":
 		username := r.URL.Query().Get("username")
 		if username == "" {
+			fmt.Println("--------5----------", username)
 			username = profile.UserName
 		}
 		profile, err = database.GetUserProfile(DB, username)
