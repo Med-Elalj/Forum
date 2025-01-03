@@ -13,7 +13,7 @@ async function fetchPosts(offset, type) {
     const x = await fetch(`/infinite-scroll?offset=${offset}&type=${type}${category_name ? `&category=${category_name}` : ''}${username ? `&username=${username}`:''}`)
         .then(response => response.json())
         .then(posts => {
-            if (posts.profile) {
+            if (type == 'profile') {
                 const pImage = document.querySelector('.profileImage img')
                 const pName = document.querySelector('.profileName')
                 const pCounts = document.querySelector('.posts .postCounts')
