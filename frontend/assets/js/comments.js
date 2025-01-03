@@ -1,7 +1,5 @@
 
 function toggleCollapse(elem, comments) {
-    console.log("Clic,ed");
-
     elem.classList.toggle("collapse");
     comments.forEach(second_elem => {
         if (second_elem != elem)
