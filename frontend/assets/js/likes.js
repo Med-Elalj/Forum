@@ -18,33 +18,6 @@ async function handleReaction(btn, type) {
                 post: postOrComment
             })
         });
-<<<<<<< Updated upstream
-=======
-        
-        if (res.status == 401){
-            popUp()
-            return;
-        }else if (res.status != 200){
-            return;
-        }
-        const data = await res.json();
-        const like = btn.previousElementSibling
-        
-        if (data.added){
-            btn.classList.add("FILL")
-            if (like) like.classList.remove("FILL")
-        }else{
-            btn.classList.remove("FILL")
-        }
-        if (like) like.querySelector('span').innerText = data.likes;
-        btn.querySelector('span').innerText = data.dislikes;
-    
-    }catch(error){
-        errorr = error
-    }   
-}
-async function handleLikes(add) {
->>>>>>> Stashed changes
 
         if (res.status === 401) return popUp();
         if (res.status !== 200) return;

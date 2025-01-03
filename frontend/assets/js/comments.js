@@ -1,10 +1,5 @@
 
 function toggleCollapse(elem, comments) {
-<<<<<<< Updated upstream
-=======
-    console.log("Clic,ed");
-    
->>>>>>> Stashed changes
     elem.classList.toggle("collapse");
     comments.forEach(second_elem => {
         if (second_elem != elem)
@@ -15,19 +10,11 @@ function ExpandComments(flag) {
     // Expand Comment and read Content...
     let comments = document.querySelectorAll(".commentData")
     comments.forEach(elem => {
-<<<<<<< Updated upstream
-        if (flag) {
-            elem.addEventListener('click', () => toggleCollapse(elem, comments))
-
-        } else {
-            elem.removeEventListener('click', () => toggleCollapse(elem, comments))
-=======
         if (flag){
             elem.addEventListener('click', ()=> toggleCollapse(elem, comments))
        
         }else{
             elem.removeEventListener('click',  ()=> toggleCollapse(elem, comments))
->>>>>>> Stashed changes
         }
     })
 }
@@ -44,12 +31,7 @@ function CommentErrorMsg(msg) {
 
 // Remove duplicate 500 status check
 async function handleCommentEvent(e) {
-<<<<<<< Updated upstream
-=======
-    console.log("Clic,ed");
-    
     const commentError = document.querySelector('.CommentErrorMessage');
->>>>>>> Stashed changes
 
     if (e.type === 'click' || (e.type === 'keypress' && e.key === 'Enter')) {
         e.preventDefault();
@@ -145,30 +127,24 @@ async function handleCommentEvent(e) {
     }
 }
 
-<<<<<<< Updated upstream
-function CommentInputEventListenner(flag) {
-    const send_comment = document.querySelector('.send-comment');
-    const commentInput = document.querySelector('.commentInput input');
-    if (flag) {
-        commentInput.addEventListener('keypress', handleCommentEvent);
-        send_comment.addEventListener('click', handleCommentEvent);
-    } else {
-        commentInput.removeEventListener('keypress', handleCommentEvent);
-        send_comment.removeEventListener('click', handleCommentEvent);
-=======
 
-function CommentInputEventListenner(flag) {
+
+function CommentInputEventListenner() {
     const send_comment = document.querySelector('.send-comment');
     const commentInput = document.querySelector('.commentInput input');
-    if (flag){
-        
-        commentInput.addEventListener('keypress',  ()=>handleCommentEvent);
-        send_comment.addEventListener('click',  ()=> handleCommentEvent);
-    }else{
-        commentInput.removeEventListener('keypress', ()=> handleCommentEvent);
-        send_comment.removeEventListener('click',  ()=> handleCommentEvent);
->>>>>>> Stashed changes
+    if (eventListenerMap.has(send_comment)) {
+        send_comment.removeEventListener('click', eventListenerMap.get(send_comment));
     }
+    if (eventListenerMap.has(commentInput)) {
+        commentInput.removeEventListener('keypress', eventListenerMap.get(commentInput));
+    }
+    
+    const handleCommentEventWrapper = (e) => handleCommentEvent(e);
+    eventListenerMap.set(commentInput, handleCommentEventWrapper);
+    eventListenerMap.set(send_comment, handleCommentEventWrapper);
+
+    commentInput.addEventListener('keypress', handleCommentEventWrapper);
+    send_comment.addEventListener('click', handleCommentEventWrapper);
 }
 
 function DisplayComments() {
@@ -179,32 +155,17 @@ function DisplayComments() {
     postSection.style.display = 'flex';
 }
 
-<<<<<<< Updated upstream
-function PostButtonSwitcher(flag) {
 
+function PostButtonSwitcher(){
     const postButton = document.querySelector('.PostButton');
-
-    if (flag) {
-
-        postButton.addEventListener('click', DisplayComments);
-    } else {
-        postButton.removeEventListener('click', DisplayComments);
+    if (eventListenerMapx.has(postButton)) {
+        postButton.removeEventListener('click', eventListenerMapx.get(postButton));
     }
+
+    const handleDisplayComments = () => DisplayComments();
+    eventListenerMapx.set(postButton, handleDisplayComments);
+    postButton.addEventListener('click', handleDisplayComments);
 }
-PostButtonSwitcher(true)
-CommentInputEventListenner(true)
-ExpandComments(true)
-=======
-function PostButtonSwitcher(flag){
-    const postButton = document.querySelector('.PostButton');
-   if (flag){
-       postButton.addEventListener('click', ()=> DisplayComments);
-   }else{
-        postButton.removeEventListener('click',  ()=> DisplayComments);
-   }
-}
-PostButtonSwitcher(true)
-CommentInputEventListenner(true)
+CommentInputEventListenner()
 ExpandComments(true)
 
->>>>>>> Stashed changes
