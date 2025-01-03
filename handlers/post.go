@@ -64,9 +64,6 @@ func GetPost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	comments, err := database.GetCommentsByPost(DB, uid, post.ID)
-	fmt.Println("------------------------------")
-	fmt.Println(comments, err)
-	fmt.Println("------------------------------")
 	if err != nil {
 		ErrorPage(w, "error.html", map[string]interface{}{
 			"StatuCode":    http.StatusInternalServerError,
@@ -84,7 +81,6 @@ func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 	c, err := r.Cookie("session")
 	if err != nil && err.Error() != "http: named cookie not present" {
 		ErrorJs(w, http.StatusUnauthorized, errors.New("unauthorized"))
-		fmt.Println(err)
 		return
 	}
 	if err != nil {
@@ -128,12 +124,9 @@ func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 	case "profile":
 		username := r.URL.Query().Get("username")
 		if username == "" {
-			fmt.Println("--------5----------", username)
 			username = profile.UserName
 		}
-		fmt.Println("--------5----------", username)
 		profile, err = database.GetUserProfile(DB, username)
-		fmt.Println("--------5----------", profile)
 
 		if err != nil {
 			ErrorJs(w, http.StatusNotFound, errors.New("page not found"))
@@ -162,7 +155,6 @@ func InfiniteScroll(w http.ResponseWriter, r *http.Request) {
 		}
 	case "trending":
 		posts, err = database.QuerryMostLikedPosts(DB, uid, structs.Limit, offset)
-		fmt.Println("---------", posts, err)
 		if err != nil {
 			ErrorJs(w, http.StatusInternalServerError, err)
 			return

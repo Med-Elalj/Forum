@@ -145,26 +145,22 @@ func CreatePost(db *sql.DB, UserID int, title, content string, categories []stri
 
 	stmt, err := tx.Prepare("INSERT INTO posts(user_id, title, content) VALUES(?,?,?)")
 	if err != nil {
-		fmt.Println("CreatePost 2", err)
 		return 0, err
 	}
 	defer stmt.Close()
 
 	res, err := stmt.Exec(UserID, title, content)
 	if err != nil {
-		fmt.Println("CreatePost 3", err)
 		return 0, err
 	}
 
 	postID, err := res.LastInsertId()
 	if err != nil {
-		fmt.Println("CreatePost 4", err)
 		return 0, err
 	}
 
 	stmt_1, err := tx.Prepare(`INSERT INTO post_categories(category_id, post_id) VALUES(?, ?)`)
 	if err != nil {
-		fmt.Println("CreatePost 5", err)
 		return 0, err
 	}
 	defer stmt_1.Close()
@@ -172,7 +168,6 @@ func CreatePost(db *sql.DB, UserID int, title, content string, categories []stri
 	for _, category := range categories {
 		CategoryId, err := strconv.Atoi(category)
 		if err != nil {
-			fmt.Println("CreatePost 6", err)
 			return 0, err
 		}
 		_, err = stmt_1.Exec(CategoryId, postID)

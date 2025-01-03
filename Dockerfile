@@ -29,4 +29,4 @@ LABEL version="1.0"
 LABEL projectname="EduTalks"
 
 # Set the command to run the application
-CMD ["./forum", "database.db"]
+CMD ["./forum", "base.db"]

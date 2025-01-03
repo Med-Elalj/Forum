@@ -3,7 +3,6 @@ package handlers
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
@@ -67,10 +66,8 @@ func AddCommentHandler(w http.ResponseWriter, r *http.Request) {
 		ErrorJs(w, http.StatusTooManyRequests, errors.New("too many posts created in a short period"))
 		return
 	}
-	fmt.Println("======>", data.Comment, data.PostID)
 	err, id := database.CreateComment(DB, UserId, IdInt, data.Comment)
 	if err != nil {
-		fmt.Println("====ERER:", err)
 		ErrorJs(w, http.StatusInternalServerError, errors.New("error creating comment"))
 		return
 	}

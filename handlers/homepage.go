@@ -38,7 +38,6 @@ func HomePage(w http.ResponseWriter, r *http.Request) {
 		structError["StatuCode"] = http.StatusInternalServerError
 		structError["MessageError"] = "error getting categories from database " + err.Error()
 		ErrorPage(w, "error.html", structError)
-		fmt.Println(err)
 		return
 	}
 	if r.FormValue("type") != "" {

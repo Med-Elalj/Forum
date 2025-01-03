@@ -287,7 +287,7 @@ nav {
 .content ul a {
     color: var(--Black);
     font-size: 1rem;
-    margin-left: 4px;
+    cursor: pointer;
 }
 
 .account-details {

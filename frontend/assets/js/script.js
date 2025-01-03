@@ -13,13 +13,16 @@ async function fetchPosts(offset, type) {
     const x = await fetch(`/infinite-scroll?offset=${offset}&type=${type}${category_name ? `&category=${category_name}` : ''}${username ? `&username=${username}`:''}`)
         .then(response => response.json())
         .then(posts => {
-            if (type == 'profile') {
+            if (posts) {
+                console.log("sdfjhsdj");
+                console.log(posts);
+                
                 const pImage = document.querySelector('.profileImage img')
                 const pName = document.querySelector('.profileName')
                 const pCounts = document.querySelector('.posts .postCounts')
                 const cCounts = document.querySelector('.comments .postCounts')
-                pImage.src = `https://api.multiavatar.com/${posts.profile.UserName}.svg`
-                pName.textContent = posts.profile.UserName
+                pImage.src = posts.profile.UserName ? `https://api.multiavatar.com/${posts.profile.UserName}.svg` : '/assets/images/profile.png'
+                pName.textContent = posts.profile.UserName ? posts.profile.UserName : 'Please Login First'
                 pCounts.textContent = `${posts.profile.ArticleCount} Articles`
                 cCounts.textContent = `${posts.profile.CommentCount} Comments`
             }

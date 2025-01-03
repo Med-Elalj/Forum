@@ -3,14 +3,14 @@ package handlers
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"net/http"
 	"strings"
 	"time"
 
 	"forum/database"
 )
-//  function to limit user spamming post creation
+
+// function to limit user spamming post creation
 var userPostCreationTime = make(map[int]time.Time)
 var userPostCreationCount = make(map[int]int)
 
@@ -42,12 +42,10 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 	}{}
 	err = json.NewDecoder(r.Body).Decode(&data)
 	if (strings.Trim(data.Title, " ") == "") || (strings.Trim(data.Content, " ") == "") {
-		fmt.Println("Please Enter Title and Content")
 		ErrorJs(w, http.StatusBadRequest, errors.New("please enter title and content"))
 		return
 	}
 	if (!title_RGX.MatchString(data.Title)) || (!content_RGX.MatchString(data.Content)) || (len(data.Categories) == 0) || (err != nil) {
-		fmt.Println("some required input not provided")
 		ErrorJs(w, http.StatusBadRequest, errors.New("required input not provided"))
 		return
 	}
@@ -60,7 +58,6 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 		ErrorJs(w, http.StatusTooManyRequests, errors.New("too many posts created in a short period"))
 		return
 	}
-	fmt.Println("data===>", data)
 
 	id, err := database.CreatePost(DB, UserId, data.Title, data.Content, data.Categories)
 	if err != nil {
@@ -72,7 +69,6 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 	userPostCreationTime[UserId] = time.Now()
 	userPostCreationCount[UserId]++
 	w.WriteHeader(http.StatusOK)
-	fmt.Println(data.CategoriesList)
 	json.NewEncoder(w).Encode(map[string]interface{}{
 		"status":        "ok",
 		"ID":            id,
