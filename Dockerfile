@@ -1,4 +1,3 @@
-# Stage 1: Build
 FROM golang:1.22.3-alpine AS build
 
 # Set the working directory

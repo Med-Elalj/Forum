@@ -11,7 +11,7 @@
     height: 100vh;
     overflow: auto;
     background-color: var(--GreeyTransparant); /* Black w/ opacity */
-    z-index: 11;
+    z-index: 16;
 }
 .Hide{
     display: none !important;
