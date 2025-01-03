@@ -2,10 +2,9 @@
 const likeHandlers = new WeakMap();
 const dislikeHandlers = new WeakMap();
 
-async function LikePostAndComments(btn) {
+async function handleReaction(btn, type) {
     const postId = btn.id;
     const postOrComment = btn.getAttribute('isPost') === "true";
-    console.log(postOrComment);
     
     try {
         const res = await fetch('/PostReaction', {
@@ -15,80 +14,40 @@ async function LikePostAndComments(btn) {
             },
             body: JSON.stringify({ 
                 postId,
-                type: "like",
+                type,
                 post: postOrComment
             })
         });
 
-        if (res.status === 401) {
-            popUp();
-            return;
-        }
-        if (res.status !== 200) {
-            return;
-        }
+        if (res.status === 401) return popUp();
+        if (res.status !== 200) return;
 
         const data = await res.json();
-        const dislike = btn.nextElementSibling;
+        const otherBtn = type === "like" ? 
+            btn.nextElementSibling : 
+            btn.previousElementSibling;
         
         if (data.added) {
             btn.classList.add("FILL");
-            dislike.classList.remove("FILL");
+            otherBtn?.classList.remove("FILL");
         } else {
             btn.classList.remove("FILL");
         }
         
-        dislike.querySelector('span').innerText = data.dislikes;
-        btn.querySelector('span').innerText = data.likes;
+        if (otherBtn) {
+            otherBtn.querySelector('span').innerText = type === "like" ? data.dislikes : data.likes;
+        }
+        btn.querySelector('span').innerText = type === "like" ? data.likes : data.dislikes;
     } catch (error) {
-        console.error('Like operation failed:', error);
+        console.error(`${type} operation failed:`, error);
     }
 }
 
-async function DisLikePostAndComments(btn) {
-    const postId = btn.id;
-    const postOrComment = btn.getAttribute('isPost') === "true";
-    console.log(postOrComment);
+// Usage:
+const LikePostAndComments = btn => handleReaction(btn, "like");
+const DisLikePostAndComments = btn => handleReaction(btn, "dislike");
 
-    try {
-        const res = await fetch('/PostReaction', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ 
-                postId,
-                type: "dislike",
-                post: postOrComment
-            })
-        });
-        
-        if (res.status === 401) {
-            popUp();
-            return;
-        }
-        if (res.status !== 200) {
-            return;
-        }
-
-        const data = await res.json();
-        const like = btn.previousElementSibling;
-        
-        if (data.added) {
-            btn.classList.add("FILL");
-            if (like) like.classList.remove("FILL");
-        } else {
-            btn.classList.remove("FILL");
-        }
-        
-        if (like) like.querySelector('span').innerText = data.likes;
-        btn.querySelector('span').innerText = data.dislikes;
-    } catch (error) {
-        console.error('Dislike operation failed:', error);
-    }
-}
-
-function handleLikes(add) {
+function handleLikes() {
     const likeBtns = document.querySelectorAll('.like');
     const dislikeBtns = document.querySelectorAll('.dislike');
 
@@ -98,12 +57,10 @@ function handleLikes(add) {
             btn.removeEventListener('click', likeHandlers.get(btn));
         }
         
-        if (add) {
-            // Create and store new handler
-            const handler = () => LikePostAndComments(btn);
-            likeHandlers.set(btn, handler);
-            btn.addEventListener('click', handler);
-        }
+        // Create and store new handler
+        const handler = () => LikePostAndComments(btn);
+        likeHandlers.set(btn, handler);
+        btn.addEventListener('click', handler);
     });
 
     dislikeBtns.forEach(btn => {
@@ -112,11 +69,9 @@ function handleLikes(add) {
             btn.removeEventListener('click', dislikeHandlers.get(btn));
         }
         
-        if (add) {
-            // Create and store new handler
-            const handler = () => DisLikePostAndComments(btn);
-            dislikeHandlers.set(btn, handler);
-            btn.addEventListener('click', handler);
-        }
+        // Create and store new handler
+        const handler = () => DisLikePostAndComments(btn);
+        dislikeHandlers.set(btn, handler);
+        btn.addEventListener('click', handler);
     });
 }

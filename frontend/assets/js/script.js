@@ -137,8 +137,7 @@ async function fetchPosts(offset, type) {
              window.location.href = `/error?code=404&message=Page Not Found`;
         }
         );
-        handleLikes(false)
-        handleLikes(true)
+        handleLikes()
         
         removeReadPostListner()
         readPost()
@@ -356,8 +355,7 @@ function loadPostContent(elem) {
         // recall Like.js to listen on Elemnts in post page
         ListenOncommentButtom(false);
         ListenOncommentButtom(true);
-        handleLikes(false);
-        handleLikes(true);
+        handleLikes();
     };
 }
 

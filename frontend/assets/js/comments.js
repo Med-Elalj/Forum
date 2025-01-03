@@ -115,10 +115,8 @@ async function handleCommentEvent(e) {
             commentCard.querySelector('.commentData').innerText = data["Content"];
             commentContainer.prepend(commentCard);
             document.querySelector('.commentCount').textContent = data.CommentCount
-            // remove old Listeners
-            handleLikes(false);
             // call new listeners
-            handleLikes(true);
+            handleLikes();
 
             // remove old Listners :
             ExpandComments(false)
